@@ -47,8 +47,8 @@ $META_TITLE = "Welcome to Edith";
                     <?php
                     include("pages/view/sidebar-public-url.php");
                     include("pages/view/sidebar-social-links.php");
-                    include("pages/view/sidebar-suggestions.php");
                     include("pages/view/sidebar-ads.php");
+                    include("pages/view/sidebar-suggestions.php");
                     ?>
                   </div>
 
