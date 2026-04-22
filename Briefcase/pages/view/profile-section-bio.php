@@ -3,7 +3,7 @@
     <div class="card-header border-0">
         <!--begin::Card title-->
         <div class="card-title m-0">
-            <h3 class="fw-bold fs-2 m-0">Profile Infromation</h3>
+            <h3 class="fw-bold fs-2.5 m-0">Personal Information</h3>
         </div>
         <!--end::Card title-->
         <!--begin::Action-->

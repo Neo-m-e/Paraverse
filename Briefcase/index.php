@@ -28,7 +28,7 @@ $META_TITLE = "Welcome to Edith";
           <div class="d-flex flex-column flex-column-fluid">
             <main>
               <div class="app-container container-xxl">
-                <!--paste here middle body to have something there // to see type localhost/sample/-->
+                <!--edit here-->
                 <?php include("pages/view/index-section-hero.php"); ?>
                 <div class="row g-5 g-xxl-8">
                   <div class="col-xl-8">
