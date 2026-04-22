@@ -35,11 +35,8 @@ $META_TITLE = "Welcome to Edith";
                     <?php
                     include("pages/view/profile-section-bio.php");
                     include("pages/view/profile-section-skills.php");
-                    include("pages/view/profile-section-experience.php");
                     include("pages/view/profile-section-education.php");
-                    include("pages/view/profile-section-awards.php");
                     include("pages/view/profile-section-certs.php");
-                    include("pages/view/profile-section-seminars.php");
                     include("pages/view/profile-section-orgs.php");
                     ?>
                   </div>
@@ -51,7 +48,6 @@ $META_TITLE = "Welcome to Edith";
                     include("pages/view/sidebar-suggestions.php");
                     ?>
                   </div>
-
                 </div>
               </div>
             </main>
