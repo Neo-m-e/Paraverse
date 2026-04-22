@@ -19,7 +19,7 @@
           <div class="d-flex justify-content-between align-items-start flex-wrap mb-2">
             <div class="d-flex flex-column">
               <div class="d-flex align-items-center mb-2">
-                <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">Max Smith</a>
+                <a href="#" class="text-gray-900 text-hover-primary fs-2 fw-bold me-1">Denise Alvaran</a>
                 <span class="badge badge-light-primary fw-bold ms-2 px-3 py-2">Student</span>
               </div>
               <div class="fw-semibold fs-6 text-gray-500 mb-4">

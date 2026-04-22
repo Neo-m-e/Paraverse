@@ -2,12 +2,24 @@
     <div class="card-header pt-5">
         <h3 class="card-title fw-bold text-gray-800">Skills</h3>
     </div>
-    <div class="card-body">
-        <div class="d-flex flex-column gap-5">
-            <div>
-                <div class="d-flex flex-stack mb-2"><span class="fw-bold">Data Analysis</span><span class="text-muted">86%</span></div>
-                <div class="progress h-6px w-100 bg-light-primary"><div class="progress-bar bg-primary" style="width: 86%"></div></div>
+    <div class="card-body pt-0">
+        <!--begin::Progress-->
+        <div class="d-flex align-items-center w-100 flex-column mt-3">
+            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+                <span class="fw-semibold fs-6 text-gray-500">Data Analytics</span>
+                <span class="fw-bold fs-6">70%</span>
+            </div>
+            <div class="h-5px mx-3 w-100 bg-light mb-3">
+                <div class="bg-primary rounded h-5px" role="progressbar" style="width: 70%;" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"></div>
+            </div>
+            <div class="d-flex justify-content-between w-100 mt-auto mb-2">
+                <span class="fw-semibold fs-6 text-gray-500">Microsoft Excel</span>
+                <span class="fw-bold fs-6">85%</span>
+            </div>
+            <div class="h-5px mx-3 w-100 bg-light mb-3">
+                <div class="bg-primary rounded h-5px" role="progressbar" style="width: 85%;" aria-valuenow="85" aria-valuemin="0" aria-valuemax="100"></div>
             </div>
         </div>
     </div>
+    <!--end::Progress-->
 </div>
