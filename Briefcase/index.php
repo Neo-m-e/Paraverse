@@ -28,7 +28,31 @@ $META_TITLE = "Welcome to Edith";
           <div class="d-flex flex-column flex-column-fluid">
             <main>
               <div class="app-container container-xxl">
-          <!--paste here middle body to have something there // to see type localhost/sample/-->
+                <!--paste here middle body to have something there // to see type localhost/sample/-->
+                <?php include("pages/view/index-section-hero.php"); ?>
+                <div class="row g-5 g-xxl-8">
+                  <div class="col-xl-8">
+                    <?php
+                    include("pages/view/profile-section-bio.php");
+                    include("pages/view/profile-section-skills.php");
+                    include("pages/view/profile-section-experience.php");
+                    include("pages/view/profile-section-education.php");
+                    include("pages/view/profile-section-awards.php");
+                    include("pages/view/profile-section-certs.php");
+                    include("pages/view/profile-section-seminars.php");
+                    include("pages/view/profile-section-orgs.php");
+                    ?>
+                  </div>
+                  <div class="col-xl-4">
+                    <?php
+                    include("pages/view/sidebar-public-url.php");
+                    include("pages/view/sidebar-social-links.php");
+                    include("pages/view/sidebar-suggestions.php");
+                    include("pages/view/sidebar-ads.php");
+                    ?>
+                  </div>
+
+                </div>
               </div>
             </main>
           </div>
