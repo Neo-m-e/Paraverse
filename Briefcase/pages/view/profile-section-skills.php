@@ -4,7 +4,6 @@
             <i class="bi bi-tools fs-2 me-2"></i>
             Skills
         </h3>
-
         <div class="card-toolbar">
             <button class="btn btn-icon btn-sm btn-active-light-primary">
                 <i class="ki-duotone ki-plus fs-2"></i>
@@ -12,7 +11,6 @@
         </div>
     </div>
     <div class="card-body pt-0">
-        <!--begin::Progress-->
         <div class="d-flex align-items-center w-100 flex-column mt-3">
             <div class="d-flex justify-content-between w-100 mt-auto mb-2">
                 <span class="fw-semibold fs-6 text-gray-500">Data Analytics</span>
@@ -36,5 +34,4 @@
             </div>
         </div>
     </div>
-    <!--end::Progress-->
 </div>
