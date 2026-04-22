@@ -14,9 +14,9 @@
     <div class="app-navbar flex-shrink-0">
       <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/widget-applications-browser.php'); ?>
       <a href="//" onclick="KTApp.showPageLoading()" class="d-flex align-items-center">
-        <h1 class="mb-0">
-          <img src="" class="h-20px">
-          <span class="fw-bolder text-primary d-none"></span>
+        <h1 class="mb-0 fs-4 d-flex align-items-center">
+          <img src="/assets/img/logo/icon-briefcase.svg" class="h-25px me-2">
+          <span class="fw-bolder text-primary">Briefcase</span>
         </h1>
       </a>
     </div>
@@ -32,25 +32,52 @@
         <div
           class=" menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0"
           id="kt_app_header_menu" data-kt-menu="true">
-
           <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
-            <a href="/badges" onclick="KTApp.showPageLoading()" class="menu-link text-hover-primary">
-              <span class="menu-title">Badges</span>
+            <a href="/leaderboard" onclick="KTApp.showPageLoading()" class="menu-link text-hover-primary">
+              <span class="menu-title">Leaderboard</span>
             </a>
           </div>
+          <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+            <a href="/discover" onclick="KTApp.showPageLoading()" class="menu-link text-hover-primary">
+              <span class="menu-title">Discover</span>
+            </a>
+          </div>
+          <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+            <a href="/feed" onclick="KTApp.showPageLoading()" class="menu-link text-hover-primary">
+              <span class="menu-title">Feed</span>
+            </a>
+          </div>
+          <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+            <a href="/insights" onclick="KTApp.showPageLoading()" class="menu-link text-hover-primary">
+              <span class="menu-title">Insights</span>
+            </a>
+          </div>
+          <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
+            <a href="/profile" onclick="KTApp.showPageLoading()" class="menu-link text-hover-primary">
+              <span class="menu-title">Profile</span>
+            </a>
+          </div>
+          <div class="app-navbar flex-shrink-0 d-flex align-items-center">
+            <div class="app-navbar-item ms-1 ms-lg-3">
+              <div class="btn btn-icon btn-custom btn-active-color-primary w-35px h-35px">
+                <i class="bi bi-search fs-2"></i>
+              </div>
+            </div>
 
+            <div class="app-navbar-item ms-1 ms-lg-3">
+              <div class="btn btn-icon btn-custom btn-active-color-primary w-35px h-35px">
+                <i class="bi bi-bell fs-2"></i>
+              </div>
+            </div>
+
+            <div class="app-navbar-item ms-1 ms-lg-3">
+              <div class="cursor-pointer symbol symbol-35px symbol-md-40px">
+                <img src="/assets/img/team/team-blank.jpg" alt="user" class="rounded-3" />
+              </div>
+            </div>
+          </div>
         </div>
       </div>
-
-      <div class="app-navbar flex-shrink-0">
-        <?php
-        include($_SERVER['DOCUMENT_ROOT'] . '/includes/widget-user-menu.php');
-        include($_SERVER['DOCUMENT_ROOT'] . '/includes/widget-app-item-login.php');
-        include($_SERVER['DOCUMENT_ROOT'] . '/includes/widget-app-item-hamburger.php');
-        ?>
-      </div>
-
     </div>
-
   </div>
 </div>

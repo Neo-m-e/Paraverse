@@ -12,7 +12,7 @@
         <div class="row d-flex align-items-start justify-content-between pt-10">
           <div class="col-lg-5 my-5">
             <a href="/discover/" class="d-flex align-items-center mb-5" onclick="KTApp.showPageLoading()">
-              <img src="/assets/img/logo/icon-briefcase.svg" class="h-35px me-3"> <span class="fs-1 fw-bold text-primary">Briefcase</span>
+              <img src="/assets/img/logo/icon-briefcase.svg" class="h-35px me-2"> <span class="fs-1 fw-bold text-primary">Briefcase</span>
             </a>
             <p class='text-gray-700 fs-2 fw-semibold'>Much lighter than a real briefcase, and just as packed with potential!</p>
             <p class='text-gray-600 fs-4 mb-0'>
