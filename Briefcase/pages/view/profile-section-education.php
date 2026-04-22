@@ -1,5 +1,5 @@
-<div class="card card-flush mb-5 mb-xl-8">
-    <div class="card-header pt-5">
+<div class="card card-flush mb-5 mb-xl-8 bg-white shadow-sm">
+        <div class="card-header pt-5">
         <h3 class="card-title fw-bold text-gray-800">
             <i class="bi bi-mortarboard-fill fs-2 me-2"></i>
             Educational Qualification

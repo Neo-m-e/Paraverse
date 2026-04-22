@@ -1,5 +1,5 @@
 
-<div class="card mb-5 mb-xl-10" id="kt_profile_details_view">
+<div class="card card-flush mb-5 mb-xl-8 bg-white shadow-sm" id="kt_profile_details_view">
     <div class="card-header border-0">
         <!--begin::Card title-->
         <div class="card-title m-0">
