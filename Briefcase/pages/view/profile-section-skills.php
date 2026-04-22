@@ -1,6 +1,15 @@
 <div class="card card-flush mb-5 mb-xl-8">
     <div class="card-header pt-5">
-        <h3 class="card-title fw-bold text-gray-800">Skills</h3>
+        <h3 class="card-title fw-bold text-gray-800">
+            <i class="bi bi-tools fs-2 me-2"></i>
+            Skills
+        </h3>
+        
+        <div class="card-toolbar">
+            <button class="btn btn-icon btn-sm btn-active-light-primary">
+                <i class="ki-duotone ki-plus fs-2"></i>
+            </button>
+        </div>
     </div>
     <div class="card-body pt-0">
         <!--begin::Progress-->
