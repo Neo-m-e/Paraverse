@@ -5,7 +5,7 @@ include($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
 
 //IS_LOGGED_IN($_SERVER['REQUEST_URI']);
 
-$META_TITLE = "Welcome to Edith";
+$META_TITLE = "Briefcase";
 ?>
 
 <!DOCTYPE html>

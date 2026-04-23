@@ -1,5 +1,4 @@
 <div class="card mb-5 mb-xxl-8">
-
   <div class="card-header border-0 p-0 overflow-hidden" style="min-height: 200px;">
     <img src="assets/images/office.jpg"
       class="w-100 h-200px"
@@ -10,9 +9,8 @@
     <div class="card-body pt-9 pb-0">
       <div class="d-flex flex-wrap flex-sm-nowrap">
         <div class="me-7 mb-4">
-          <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative mt-n15 ms-10">
-            <img src="assets/images/avatar.jpg" alt="image" />
-            <div class="position-absolute translate-middle bottom-0 start-100 mb-6 bg-success rounded-circle border border-4 border-body h-20px w-20px"></div>
+          <div class="symbol symbol-100px symbol-lg-160px symbol-fixed position-relative mt-n20 ms-10">
+            <img src="assets/images/alvaran.jpg" alt="image"class="rounded-circle" />
           </div>
         </div>
         <div class="flex-grow-1">

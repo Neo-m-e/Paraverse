@@ -1,4 +1,4 @@
-<div class="card card-flush mb-5 mb-xl-8 bg-white shadow-sm">
+<div class="card card-flush mb-5 mb-xl-8 shadow-sm">
     <div class="card-header pt-5">
         <h3 class="card-title fw-bold text-gray-800">
             <i class="bi bi-file-text-fill fs-2 me-2"></i>
@@ -16,12 +16,12 @@
                 <div class="d-flex align-items-center">
                     <div class="symbol symbol-50px me-5">
                         <span class="symbol-label bg-light">
-                            <img src="assets/media/logos/acm.png" class="h-50 align-self-center" alt="" />
+                            <img src="assets/images/pmi.jpg" class="rounded-3 h-100 w-100" style="object-fit: contain;" alt="logo" />
                         </span>
                     </div>
                     <div class="d-flex flex-column">
-                        <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bold">FEU Tech Association for Computing Machinery</a>
-                        <span class="text-muted fw-semibold d-block fs-7">Member · August 24, 2022 - Present</span>
+                        <a href="#" class="text-gray-900 text-hover-primary fs-6 fw-bold">FPMI Project Management Ready</a>
+                        <span class="text-muted fw-semibold d-block fs-7">Issued by Project Management Institute on November 25, 2025</span>
                     </div>
                 </div>
                 <button class="btn btn-icon btn-sm btn-active-color-primary">

@@ -1,4 +1,4 @@
-<div class="card card-flush mb-5 mb-xl-8 bg-white shadow-sm" id="kt_profile_details_view">
+<div class="card card-flush mb-5 mb-xl-8 shadow-sm" id="kt_profile_details_view">
     <div class="card-header border-0">
         <div class="card-header border-0 pt-5">
             <h3 class="card-title align-items-start flex-column">
@@ -18,7 +18,7 @@
         <div class="card-body pt-5">
             <div class="d-flex flex-stack">
                 <div class="symbol symbol-40px me-5">
-                    <img src="assets/images/avatar.jpg" class="h-50 align-self-center" alt="" />
+                    <img src="assets/images/avatar 1.jpg" class="h-50 align-self-center" alt="" />
                 </div>
                 <div class="d-flex align-items-center flex-row-fluid flex-wrap">
                     <div class="flex-grow-1 me-2">
@@ -30,7 +30,7 @@
             <div class="separator separator-dashed my-4"></div>
             <div class="d-flex flex-stack">
                 <div class="symbol symbol-40px me-5">
-                    <img src="assets/images/avatar.jpg" class="h-50 align-self-center" alt="" />
+                    <img src="assets/images/avatar 2.jpg" class="h-50 align-self-center" alt="" />
                 </div>
                 <div class="d-flex align-items-center flex-row-fluid flex-wrap">
                     <div class="flex-grow-1 me-2">
@@ -42,7 +42,7 @@
             <div class="separator separator-dashed my-4"></div>
             <div class="d-flex flex-stack">
                 <div class="symbol symbol-40px me-5">
-                    <img src="assets/images/avatar.jpg" class="h-50 align-self-center" alt="" />
+                    <img src="assets/images/avatar 3.jpg" class="h-50 align-self-center" alt="" />
                 </div>
                 <div class="d-flex align-items-center flex-row-fluid flex-wrap">
                     <div class="flex-grow-1 me-2">
@@ -54,7 +54,7 @@
             <div class="separator separator-dashed my-4"></div>
             <div class="d-flex flex-stack">
                 <div class="symbol symbol-40px me-5">
-                    <img src="assets/images/avatar.jpg" class="h-50 align-self-center" alt="" />
+                    <img src="assets/images/avatar 4.jpg" class="h-50 align-self-center" alt="" />
                 </div>
                 <div class="d-flex align-items-center flex-row-fluid flex-wrap">
                     <div class="flex-grow-1 me-2">
@@ -66,7 +66,7 @@
             <div class="separator separator-dashed my-4"></div>
             <div class="d-flex flex-stack">
                 <div class="symbol symbol-40px me-5">
-                    <img src="assets/images/avatar.jpg" class="h-50 align-self-center" alt="" />
+                    <img src="assets/images/avatar 5.png" class="h-50 align-self-center" alt="" />
                 </div>
                 <div class="d-flex align-items-center flex-row-fluid flex-wrap">
                     <div class="flex-grow-1 me-2">

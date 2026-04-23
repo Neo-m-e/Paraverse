@@ -1,4 +1,4 @@
-<div class="card card-flush mb-5 mb-xl-8 bg-white shadow-sm" id="kt_profile_details_view">
+<div class="card card-flush mb-5 mb-xl-8 shadow-sm" id="kt_profile_details_view">
     <div class="card-header border-0">
         <div class="card-title m-0">
             <h3 class="fw-bold fs-3 m-0">Public Profile URL</h3>

@@ -54458,7 +54458,6 @@ body {
 .bg-gradient-mflix { background-color: var(--mflix)!important; background-image: linear-gradient(335deg, var(--mflix-dark) 0%, var(--mflix) 100%) !important }
 .bg-hover-gradient-mflix:hover { background-color: var(--mflix)!important; background-image: linear-gradient(335deg, var(--mflix-dark) 0%, var(--mflix) 100%) !important }
 .btn-mflix { background-color: var(--mflix)!important; border-color: var(--mflix)!important; color: var(--bs-info-inverse)!important}
-
 .text-eventually,
 .text-hover-eventually:hover { transition: color .2s ease; color: var(--eventually)!important; }
 .bg-eventually { background-color: var(--eventually)!important; }

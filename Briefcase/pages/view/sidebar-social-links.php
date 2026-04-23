@@ -1,4 +1,4 @@
-<div class="card card-flush mb-5 mb-xl-8 bg-white shadow-sm">
+<div class="card card-flush mb-5 mb-xl-8 shadow-sm">
     <div class="card-header border-0 pt-5">
         <h3 class="card-title align-items-start flex-column">
             <span class="card-label fw-bold text-gray-900">Social Links</span>
