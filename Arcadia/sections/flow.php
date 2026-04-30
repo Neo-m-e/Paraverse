@@ -1,164 +1,164 @@
-<?php /* ============================================================
-   SECTION 04 — BADGES WORTH MORE THAN JUST A PICTURE (dark bg)
-   Include: <?php include 'sections/04-badges-worth.php'; ?>
-   ============================================================ */ ?>
-
 <style>
-/* ── BADGES WORTH MORE SECTION ── */
-.arc-worth {
-  background: #1C1917;
-  padding: 84px 0;
-  position: relative;
-  overflow: hidden;
-}
+    /*bg*/
+    .arc-worth {
+        background-color: #0F0D0C; /* Solid base dark */
+        position: relative;
+        overflow: hidden;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+    }
 
-/* Radial glow overlays */
-.arc-worth::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background:
-    radial-gradient(ellipse at 15% 50%, rgba(249,115,22,0.13) 0%, transparent 55%),
-    radial-gradient(ellipse at 85% 20%, rgba(139,92,246,0.08) 0%, transparent 50%);
-  pointer-events: none;
-}
+    /* glow */
+    .arc-worth::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0; bottom: 0;
+        background: 
+            radial-gradient(circle at 20% 30%, rgba(232, 82, 26, 0.15) 0%, transparent 80%),
+            radial-gradient(circle at 80% 70%, rgba(232, 82, 26, 0.1) 0%, transparent 40%);
+        pointer-events: none;
+    }
 
-/* Reuse shared label/title/divider styles if already on page,
-   otherwise these override per-section. */
-.arc-worth .arc-section-label { color: #F97316; }
-.arc-worth .arc-section-title { color: #FFFFFF; }
-.arc-worth .arc-section-sub   { color: #A8A29E; }
-.arc-worth .arc-divider       { background: #F97316; }
+    /* steps container */
+    .arc-step-container {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+/*line*/
+    .arc-step-line {
+        position: absolute;
+        top: 50%;
+        left: 0;
+        right: 0;
+        height: 2px;
+        background: #E8521A;
+        z-index: 0;
+        opacity: 0.6;
+    }
 
-/* Step cards */
-.arc-worth-card {
-  background: #292524;
-  border: 1px solid rgba(255,255,255,0.07);
-  border-radius: 18px;
-  padding: 1.9rem 1.4rem;
-  text-align: center;
-  height: 100%;
-  transition: border-color 0.22s, transform 0.22s, box-shadow 0.22s;
-}
-.arc-worth-card:hover {
-  border-color: #F97316;
-  transform: translateY(-4px);
-  box-shadow: 0 14px 36px rgba(249,115,22,0.12);
-}
+    /* bubble */
+    .arc-icon-circle {
+        width: 100px;
+        height: 100px;
+        background: #1E1B19;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        z-index: 1;
+        transition: all 0.3s ease;
+        border: 1px solid rgba(255, 255, 255, 0.05);
+    }
 
-.arc-worth-icon {
-  width: 60px; height: 60px;
-  border-radius: 50%;
-  background: rgba(249,115,22,0.14);
-  border: 2px solid rgba(249,115,22,0.28);
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.65rem;
-  margin: 0 auto 1rem;
-}
+    .arc-icon-circle:hover {
+        transform: scale(1.1);
+        border-color: #E8521A;
+    }
 
-.arc-worth-card h6 {
-  font-family: 'Poppins', sans-serif;
-  font-weight: 800;
-  font-size: 0.96rem;
-  color: #FFFFFF;
-  margin-bottom: 0.45rem;
-}
-.arc-worth-card p {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.82rem;
-  color: #A8A29E;
-  line-height: 1.7;
-  margin: 0;
-}
+    /* Step Number Badge */
+    .arc-step-num {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #E8521A;
+        color: white;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        font-size: 12px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
 
-/* Bottom CTA banner */
-.arc-worth-banner {
-  background: rgba(249,115,22,0.09);
-  border: 1px solid rgba(249,115,22,0.22);
-  border-radius: 14px;
-  padding: 1rem 1.5rem;
-  margin-top: 2.5rem;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.86rem;
-  color: #D6D3D1;
-  line-height: 1.65;
-}
-.arc-worth-banner strong { color: #F97316; }
-.arc-worth-banner a {
-  color: #F97316;
-  font-weight: 800;
-  text-decoration: underline;
-}
-.arc-worth-banner a:hover { color: #FB923C; }
+    /* Bottom Banner */
+    .arc-worth-banner {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 20px;
+        max-width: 800px;
+    }
 
-@media (max-width: 768px) {
-  .arc-worth { padding: 56px 0; }
-}
+    .text-orange { color: #E8521A !important; }
 </style>
 
-<!-- ═══════════════════════════════════════
-     BADGES WORTH MORE — DARK SECTION
-═══════════════════════════════════════ -->
-<section class="arc-worth">
-  <div class="container text-center position-relative" style="z-index:1;">
-
-    <span class="arc-section-label">Every Badge Counts</span>
-    <h2 class="arc-section-title">
-      Your Badges Are Worth More<br>Than Just a Picture
-    </h2>
-    <p class="arc-section-sub mx-auto">
-      Every badge you earn represents real-world effort, skill, and achievement.
-      Save enough Coins and redeem exclusive TED Tech merch — for free.
-    </p>
-    <div class="arc-divider"></div>
-
-    <div class="row g-4 justify-content-center mt-1">
-
-      <!-- Step 1 -->
-      <div class="col-lg-3 col-md-6">
-        <div class="arc-worth-card">
-          <div class="arc-worth-icon">📋</div>
-          <h6>Complete a Task</h6>
-          <p>
-            Join academic activities, events, challenges, and tasks to earn your
-            exclusive digital badges.
-          </p>
+<section class="arc-worth py-20">
+    <div class="container position-relative" style="z-index: 1;">
+        
+        <!-- Header -->
+        <div class="text-center mb-15">
+            <span class="text-orange fw-bolder mb-3 d-block text-uppercase ls-2 fs-8">Every Badge Counts</span>
+            <h2 class="display-5 fw-bolder text-white mb-5">Your Badges Are Worth More <br> Than Just a Picture</h2>
+            <p class="text-gray-500 fs-6 mx-auto" style="max-width: 650px;">
+                Every badge you earn fills your XP and adds Coins in your wallet. <br>
+                Save enough Coins and redeem exclusive FEU Tech merch — for free.
+            </p>
         </div>
-      </div>
 
-      <!-- Step 2 -->
-      <div class="col-lg-3 col-md-6">
-        <div class="arc-worth-card">
-          <div class="arc-worth-icon">💰</div>
-          <h6>Collect Your Rewards</h6>
-          <p>
-            Each badge gives you Coins and XP. Coins redeem merch; XP levels up
-            your Arcadia rank on the leaderboard.
-          </p>
-        </div>
-      </div>
+        <!-- Steps Section -->
+        <div class="row g-0 justify-content-center mb-15">
+            
+            <!-- Step 1 -->
+            <div class="col-md-3 text-center">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="arc-step-container w-100 mb-8">
+                        <div class="arc-step-line d-none d-md-block" style="left: 50%;"></div>
+                        <div class="arc-icon-circle shadow-lg">
+                            <span class="arc-step-num">1</span>
+                            <span class="fs-1">🥇</span>
+                        </div>
+                    </div>
+                    <h5 class="text-white fw-bolder mb-3">Complete a Task</h5>
+                    <p class="text-gray-600 fs-7 px-4">Join events, attend classes, and hit academic milestones to unlock your badges.</p>
+                </div>
+            </div>
 
-      <!-- Step 3 -->
-      <div class="col-lg-3 col-md-6">
-        <div class="arc-worth-card">
-          <div class="arc-worth-icon">🎽</div>
-          <h6>Claim Free Merch</h6>
-          <p>
-            Head to the Store when you have enough Coins. Exchange them for
-            exclusive official TLU Tech merchandise.
-          </p>
+            <!-- Step 2 -->
+            <div class="col-md-3 text-center">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="arc-step-container w-100 mb-8">
+                        <div class="arc-step-line d-none d-md-block"></div>
+                        <div class="arc-icon-circle shadow-lg">
+                            <span class="arc-step-num">2</span>
+                            <span class="fs-1">💎</span>
+                        </div>
+                    </div>
+                    <h5 class="text-white fw-bolder mb-3">Collect Your Rewards</h5>
+                    <p class="text-gray-600 fs-7 px-4">Every badge auto-credits XP to your level and Coins straight into your wallet.</p>
+                </div>
+            </div>
+
+            <!-- Step 3 -->
+            <div class="col-md-3 text-center">
+                <div class="d-flex flex-column align-items-center">
+                    <div class="arc-step-container w-100 mb-8">
+                        <div class="arc-step-line d-none d-md-block" style="right: 50%;"></div>
+                        <div class="arc-icon-circle shadow-lg">
+                            <span class="arc-step-num">3</span>
+                            <span class="fs-1">🛍️</span>
+                        </div>
+                    </div>
+                    <h5 class="text-white fw-bolder mb-3">Claim Free Merch</h5>
+                    <p class="text-gray-600 fs-7 px-4">Saved enough Coins? Swap them for exclusive limited-edition FEU Tech merch.</p>
+                </div>
+            </div>
+
         </div>
-      </div>
+
+        <!-- Banner -->
+        <div class="arc-worth-banner mx-auto p-8 p-md-10 mt-10">
+            <div class="d-flex align-items-center">
+                <span class="fs-2 me-6">⚡</span>
+                <p class="text-gray-500 mb-0 fs-6">
+                    Your <span class="text-orange fw-bold">XP also levels you up</span> — and the higher your level, the higher you climb on the <a href="#" class="text-orange text-decoration-none fw-bold">Leaderboard</a>. <br class="d-none d-md-block">
+                    More badges = more XP = higher level = top of the board.
+                </p>
+            </div>
+        </div>
 
     </div>
-
-    <!-- CTA Banner -->
-    <div class="arc-worth-banner">
-      <strong>🏆 Your rank matters.</strong>
-      The higher you earn, the higher you climb in the
-      <a href="#">Leaderboard</a>.
-      More Badges &rarr; Higher level &rarr; Top of the Board.
-    </div>
-
-  </div>
 </section>

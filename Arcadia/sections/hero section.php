@@ -162,6 +162,15 @@
     }
   }
 
+  .arc-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+    /* Ito yung nagpapantay sa lahat */
+  }
+
   /*number information*/
   .stat-item .stat-num {
     font-family: 'Poppins', sans-serif;
@@ -172,7 +181,7 @@
   }
 </style>
 <section class="arc-hero">
-  <div class="container">
+  <div class="arc-container text-start">
     <div class="row align-items-center g-5">
       <!-- Left Side -->
       <div class="col-lg-6">
@@ -188,11 +197,11 @@
           Transform your academic journey into an epic adventure at FEU Tech.
           Earn badges, collect XP, climb leaderboards, and redeem real rewards.
         </p>
-        <div class="d-flex gap-3 mb-5">
+        <div class="d-flex justify-content-start gap-3 mb-5">
           <a href="#" class="arc-btn-primary">Start Your Journey →</a>
           <a href="#" class="arc-btn-secondary">See How It Works</a>
         </div>
-        <div class="d-flex gap-5 mt-5 arc-hero-stats">
+        <div class="d-flex justify-content-start gap-5 mt-5 arc-hero-stats">
           <div class="stat-item">
             <span class="stat-num" data-count="12581">0</span>
             <span class="stat-lbl fw-bold text-muted">Active Players</span>

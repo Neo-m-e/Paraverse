@@ -103,11 +103,20 @@
         background: #E8521A !important;
         box-shadow: 0 8px 20px rgba(251, 146, 60, 0.25) !important;
     }
+    .arc-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+        text-align: center;
+        /* Ito yung nagpapantay sa lahat */
+    }
 </style>
 
 <section class="arc-how-section">
-    <div class="container">
-        <div class="text-center mb-5">
+     <div class="arc-container text-start">
+        <div class="text-center mb-20">
             <div class="arc-hero-tag">
                 SIMPLE & FUN
             </div>
