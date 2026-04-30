@@ -29,15 +29,15 @@ $META_TITLE = "Arcadia";
             <main>
               <div class="app-container container-xxl">
                 <!--edit here-->
-                <?php include("sections/hero.php"); ?>
-                <?php include("sections/how.php"); ?>
-                <?php include("sections/badgewo.php"); ?>
-                <?php include("sections/explo.php"); ?>
-                <?php include("sections/cla.php"); ?>
-                <?php include("sections/level-system.php"); ?>
-                <?php include("sections/hall-of-fame.php"); ?>
+                <?php include("sections/hero section.php"); ?>
+                <?php include("sections/how it works.php"); ?>
+                <?php include("sections/flow.php"); ?>
+                <?php include("sections/explore badges.php"); ?>
+                <?php include("sections/claimable.php"); ?>
+                <?php include("sections/level.php"); ?>
+                <?php include("sections/leaderboard.php"); ?>
                 <?php include("sections/faq.php"); ?>
-                <?php include("sections/cta-banner.php"); ?>
+                <?php include("sections/cta.php"); ?>
                 </div>
               </div>
             </main>

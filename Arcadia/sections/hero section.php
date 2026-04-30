@@ -1,278 +1,255 @@
-<?php /* ============================================================
-   SECTION 02 — HERO
-   Include: <?php include 'sections/02-hero.php'; ?>
-   ============================================================ */ ?>
 
 <style>
-/* ── HERO SECTION ── */
-.arc-hero {
-  background: #FFF8F1;
-  padding: 72px 0 56px;
-  position: relative;
-  overflow: hidden;
-}
-
-/* subtle radial glow top-right */
-.arc-hero::before {
-  content: '';
-  position: absolute;
-  top: -100px; right: -150px;
-  width: 520px; height: 520px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(249,115,22,0.11) 0%, transparent 70%);
-  pointer-events: none;
-}
-/* soft circle bottom-left */
-.arc-hero::after {
-  content: '';
-  position: absolute;
-  bottom: -80px; left: -100px;
-  width: 340px; height: 340px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(249,115,22,0.06) 0%, transparent 70%);
-  pointer-events: none;
-}
-
-.arc-hero-tag {
-  display: inline-block;
-  background: #FDE8D0;
-  color: #F97316;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 4px 14px;
-  border-radius: 20px;
-  margin-bottom: 1rem;
-}
-
-.arc-hero h1 {
-  font-family: 'Poppins', sans-serif;
-  font-size: clamp(2rem, 4.5vw, 3.1rem);
-  font-weight: 800;
-  line-height: 1.13;
-  color: #1C1917;
-  margin-bottom: 1.1rem;
-}
-.arc-hero h1 em {
-  font-style: normal;
-  color: #F97316;
-}
-
-.arc-hero .hero-desc {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.97rem;
-  color: #78716C;
-  line-height: 1.75;
-  max-width: 430px;
-  margin-bottom: 1.75rem;
-}
-
-/* CTA Buttons */
-.arc-btn-primary {
-  display: inline-block;
-  background: #F97316;
-  color: #fff;
-  font-family: 'Nunito', sans-serif;
-  font-weight: 800;
-  font-size: 0.9rem;
-  padding: 0.65rem 1.6rem;
-  border-radius: 10px;
-  border: none;
-  text-decoration: none;
-  box-shadow: 0 4px 16px rgba(249,115,22,0.35);
-  transition: background 0.2s, transform 0.2s, box-shadow 0.2s;
-  cursor: pointer;
-}
-.arc-btn-primary:hover {
-  background: #E05A00;
-  color: #fff;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 22px rgba(249,115,22,0.4);
-}
-
-.arc-btn-secondary {
-  display: inline-block;
-  background: transparent;
-  color: #1C1917;
-  font-family: 'Nunito', sans-serif;
-  font-weight: 700;
-  font-size: 0.9rem;
-  padding: 0.65rem 1.5rem;
-  border-radius: 10px;
-  border: 2px solid #E7E5E4;
-  text-decoration: none;
-  transition: all 0.2s;
-  cursor: pointer;
-}
-.arc-btn-secondary:hover {
-  border-color: #F97316;
-  color: #F97316;
-  background: #FDE8D0;
-}
-
-/* Stats */
-.arc-hero-stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2.2rem;
-  margin-top: 2rem;
-}
-.arc-hero-stat .stat-num {
-  font-family: 'Poppins', sans-serif;
-  font-size: 1.55rem;
-  font-weight: 900;
-  color: #F97316;
-  line-height: 1;
-}
-.arc-hero-stat .stat-lbl {
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: #A8A29E;
-  margin-top: 3px;
-}
-
-/* Hero illustration placeholder */
-.arc-hero-img {
-  width: 100%;
-  min-height: 360px;
-  background: linear-gradient(135deg, #FDE8D0 0%, #fcd9a8 100%);
-  border-radius: 22px;
-  border: 2px dashed #F97316;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  gap: 10px;
-  color: #A8A29E;
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.85rem;
-  font-weight: 700;
-  position: relative;
-  overflow: hidden;
-}
-.arc-hero-img .img-icon { font-size: 3.5rem; }
-.arc-hero-img .img-label { font-size: 0.8rem; color: #C4A882; }
-
-/* Floating stat badges */
-.arc-hero-img .float-badge {
-  position: absolute;
-  background: #fff;
-  border-radius: 12px;
-  padding: 8px 14px;
-  box-shadow: 0 4px 16px rgba(0,0,0,0.10);
-  font-family: 'Nunito', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 800;
-  color: #1C1917;
-  display: flex; align-items: center; gap: 6px;
-}
-.arc-hero-img .float-badge.top-right { top: 20px; right: 20px; }
-.arc-hero-img .float-badge.bottom-left { bottom: 20px; left: 20px; }
-.arc-hero-img .float-badge .dot {
-  width: 8px; height: 8px; border-radius: 50%; background: #22C55E;
-}
-
-@media (max-width: 991px) {
-  .arc-hero { padding: 50px 0 40px; }
-  .arc-hero-img { min-height: 260px; }
-  .arc-hero-stats { gap: 1.4rem; }
-}
+  /* space above hero below header */
+  .arc-hero {
+    background: #FFF5EC;
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+  }
+  dotlottie-player {
+    width: 100% !important;
+    height: 100% !important;
+    transform: scale(1.1);
+  }
+  /* Radial Glow  */
+  .arc-hero::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 70%;
+    transform: translate(-50%, -50%);
+    width: 800px;
+    height: 800px;
+    background: radial-gradient(circle, rgba(255, 255, 255, 1) 0%, rgba(255, 245, 236, 0) 70%);
+    z-index: 0;
+  }
+  .arc-hero .container {
+    position: relative;
+    z-index: 1;
+  }
+  /* Tagline Styling */
+  .arc-hero-tag {
+    display: inline-flex;
+    align-items: center;
+    background: #FFFFFF;
+    color: #F97316;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 800;
+    padding: 8px 20px;
+    border-radius: 50px;
+    border: 1px solid #FDE8D0;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+  }
+  .arc-hero-tag .dot {
+    height: 8px;
+    width: 8px;
+    background-color: #F97316;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  /* Typography */
+  .arc-hero h1 {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(2.8rem, 6vw, 4.2rem);
+    /* Mas malaki na siya beh */
+    font-weight: 900;
+    line-height: 1.05;
+    color: #1C1917;
+    margin-bottom: 1.8rem;
+  }
+  .arc-hero h1 em {
+    font-style: normal;
+    color: #F97316;
+  }
+  .arc-hero .hero-desc {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1.15rem;
+    color: #78716C;
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 3rem;
+  }
+  /* Buttons - Mas "Juicy" version */
+  .arc-btn-primary {
+    background: #F97316;
+    color: #fff !important;
+    font-weight: 800;
+    padding: 16px 36px;
+    border-radius: 50px;
+    text-decoration: none;
+    box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    display: inline-block;
+  }
+  .arc-btn-primary:hover {
+    transform: scale(1.05);
+    box-shadow: 0 15px 30px rgba(249, 115, 22, 0.4);
+  }
+  .arc-btn-secondary {
+    background: #fff;
+    color: #F97316 !important;
+    font-weight: 800;
+    padding: 16px 36px;
+    border-radius: 50px;
+    border: 2px solid #F97316;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+  /* Circular Illustration Wrapper */
+  .hero-illustration-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+    aspect-ratio: 1/1;
+    background: radial-gradient(circle, #FDE8D0 0%, rgba(255, 245, 236, 0) 75%);
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Floating Badges with Hover Animation */
+  .float-card {
+    position: absolute;
+    background: #fff;
+    padding: 14px 22px;
+    border-radius: 18px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 800;
+    animation: floating 3s ease-in-out infinite;
+  }
+  @keyframes floating {
+    0% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-15px);
+    }
+    100% {
+      transform: translateY(0px);
+    }
+  }
+  /* Stats Bar Animation */
+  .stat-item .stat-num {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #F97316;
+    display: block;
+  }
+  .stat-item .stat-num span {
+    color: #F97316;
+  }
 </style>
-
-<!-- ═══════════════════════════════════════
-     HERO SECTION
-═══════════════════════════════════════ -->
 <section class="arc-hero">
-  <div class="container position-relative" style="z-index:1;">
+  <div class="container">
     <div class="row align-items-center g-5">
-
-      <!-- Left: Copy -->
+      <!-- Left Side -->
       <div class="col-lg-6">
-        <span class="arc-hero-tag">🎓 TikTok's Gamified Learning Platform</span>
-
+        <div class="arc-hero-tag">
+          <span class="dot"></span> FEU Tech's Gamified Learning Platform
+        </div>
         <h1>
           Learn Like It's<br>
           a <em>Game,</em><br>
-          Not a Chore.
+          Not a <em>Chore.</em>
         </h1>
-
         <p class="hero-desc">
-          Transform your academic journey into an epic adventure at TLU. Track Era badges,
-          collect XP &amp; Coins, climb leaderboard positions, and explore real rewards —
-          all while leveling up your knowledge.
+          Transform your academic journey into an epic adventure at FEU Tech.
+          Earn badges, collect XP, climb leaderboards, and redeem real rewards.
         </p>
-
-        <div class="d-flex flex-wrap gap-3">
+        <div class="d-flex gap-3 mb-5">
           <a href="#" class="arc-btn-primary">Start Your Journey →</a>
-          <a href="#" class="arc-btn-secondary">How It Works</a>
+          <a href="#" class="arc-btn-secondary">See How It Works</a>
         </div>
-
-        <!-- Stats -->
-        <div class="arc-hero-stats">
-          <div class="arc-hero-stat">
-            <div class="stat-num" data-count="12681" data-suffix="+">12,681+</div>
-            <div class="stat-lbl">Active Students</div>
+        <div class="d-flex gap-5 mt-5 arc-hero-stats">
+          <div class="stat-item">
+            <span class="stat-num" data-count="12581">0</span>
+            <span class="stat-lbl fw-bold text-muted">Active Players</span>
           </div>
-          <div class="arc-hero-stat">
-            <div class="stat-num" data-count="500" data-suffix="+">500+</div>
-            <div class="stat-lbl">Unique Badges</div>
+          <div class="stat-item">
+            <span class="stat-num" data-count="500">0</span>
+            <span class="stat-lbl fw-bold text-muted">Unique Badges</span>
           </div>
-          <div class="arc-hero-stat">
-            <div class="stat-num" data-count="20" data-suffix="+">20+</div>
-            <div class="stat-lbl">Rewards to Claim</div>
+          <div class="stat-item">
+            <span class="stat-num" data-count="20">0</span>
+            <span class="stat-lbl fw-bold text-muted">Rewards in Store</span>
           </div>
         </div>
       </div>
-
-      <!-- Right: Illustration placeholder -->
+      <!-- Right Content (Animation Version) -->
       <div class="col-lg-6">
-        <div class="arc-hero-img">
-          <!-- Replace with: <img src="assets/img/hero-illustration.png" alt="Hero" class="img-fluid"> -->
-          <div class="img-icon">🎮</div>
-          <div class="img-label">Hero Illustration — Replace with actual image</div>
-
-          <!-- Floating decorative badges -->
-          <div class="float-badge top-right">
-            <div class="dot"></div>
-            12.6K Students Online
+        <div class="hero-illustration-wrap">
+          <!-- Animation Player Container -->
+          <!-- Lottie Player using your JSON file -->
+          <dotlottie-player
+            src="assets/images/hero.json"
+            background="transparent"
+            speed="1"
+            style="width: 300px; height: 300px;"
+            loop
+            autoplay>
+          </dotlottie-player>
+          <!-- Floating Cards with different delays -->
+          <div class="float-card" style="top: 15%; left: -5%; animation-delay: 0s;">
+            <span style="font-size: 1.5rem;">🎖️</span>
+            <div>Level Up!<br><small class="text-muted fw-normal">Bronze → Silver</small></div>
           </div>
-          <div class="float-badge bottom-left">
-            🏅 Badge Earned!
+          <div class="float-card" style="top: 5%; right: -5%; animation-delay: 1s;">
+            <span style="font-size: 1.5rem;">📈</span>
+            <div>Top Scholar<br><small class="text-muted fw-normal">+500 XP</small></div>
+          </div>
+          <div class="float-card" style="bottom: 15%; right: -8%; animation-delay: 0.5s;">
+            <span style="font-size: 1.5rem;">🌟</span>
+            <div>12,581 Players<br><small class="text-muted fw-normal">Online Now</small></div>
           </div>
         </div>
       </div>
-
-    </div>
-  </div>
 </section>
-
+<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 <script>
-/* ── HERO COUNTER ANIMATION ── */
-(function() {
-  function animateCounter(el) {
-    const target = parseInt(el.dataset.count, 10);
-    const suffix = el.dataset.suffix || '';
-    let current = 0;
-    const step = Math.ceil(target / 80);
-    const timer = setInterval(() => {
-      current = Math.min(current + step, target);
-      el.textContent = current.toLocaleString() + suffix;
-      if (current >= target) clearInterval(timer);
-    }, 18);
-  }
+  /* ── COUNTER ANIMATION FIX ── */
+  document.addEventListener('DOMContentLoaded', () => {
+    const animateCounter = (el) => {
+      const target = parseInt(el.getAttribute('data-count'));
+      let current = 0;
+      const increment = target / 50;
+      const update = () => {
+        if (current < target) {
+          current += increment;
+          el.innerHTML = `<span>${Math.ceil(current).toLocaleString()}</span>+`;
+          setTimeout(update, 20);
+        } else {
+          el.innerHTML = `<span>${target.toLocaleString()}</span>+`;
+        }
+      };
+      update();
+    };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (!entry.isIntersecting) return;
-      entry.target.querySelectorAll('[data-count]').forEach(animateCounter);
-      observer.unobserve(entry.target);
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.querySelectorAll('.stat-num').forEach(animateCounter);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.5
     });
-  }, { threshold: 0.4 });
 
-  const statsEl = document.querySelector('.arc-hero-stats');
-  if (statsEl) observer.observe(statsEl);
-})();
+    const statsSection = document.querySelector('.arc-hero-stats');
+    if (statsSection) observer.observe(statsSection);
+  });
 </script>
