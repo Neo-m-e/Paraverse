@@ -1,5 +1,5 @@
 <style>
-  /* space above hero below header */
+  /*space above hero below header*/
   .arc-hero {
     background: #FFF5EC;
     padding: 80px 0;
@@ -9,13 +9,14 @@
     margin-left: calc(-50vw + 50%);
   }
 
+  /*animation*/
   dotlottie-player {
     width: 100% !important;
     height: 100% !important;
     transform: scale(1.1);
   }
 
-  /* Radial Glow  */
+  /*Radial Glow BG*/
   .arc-hero::before {
     content: '';
     position: absolute;
@@ -28,17 +29,12 @@
     z-index: 0;
   }
 
-  .arc-hero .container {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* Tagline Styling */
+  /*FEUTECH GAMIFIED*/
   .arc-hero-tag {
     display: inline-flex;
     align-items: center;
     background: #FFFFFF;
-    color: #F97316;
+    color: #E8521A;
     font-family: 'Nunito', sans-serif;
     font-size: 0.75rem;
     font-weight: 800;
@@ -49,31 +45,39 @@
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
   }
 
+  /*FEUTECH GAMIFIED DOT*/
   .arc-hero-tag .dot {
     height: 8px;
     width: 8px;
-    background-color: #F97316;
+    background-color: #E8521A;
     border-radius: 50%;
     display: inline-block;
     margin-right: 10px;
   }
 
-  /* Typography */
+  /*Learn like*/
   .arc-hero h1 {
     font-family: 'Poppins', sans-serif;
     font-size: clamp(2.8rem, 6vw, 4.2rem);
-    /* Mas malaki na siya beh */
     font-weight: 900;
     line-height: 1.05;
     color: #1C1917;
     margin-bottom: 1.8rem;
   }
 
+  /*game*/
   .arc-hero h1 em {
     font-style: normal;
-    color: #F97316;
+    color: #E8521A;
   }
 
+  /*chore*/
+  .arc-hero h1 em2 {
+    font-style: normal;
+    color: #F5A623;
+  }
+
+  /*description*/
   .arc-hero .hero-desc {
     font-family: 'Nunito', sans-serif;
     font-size: 1.15rem;
@@ -83,9 +87,9 @@
     margin-bottom: 3rem;
   }
 
-  /* Buttons - Mas "Juicy" version */
+  /*Buttons*/
   .arc-btn-primary {
-    background: #F97316;
+    background: #E8521A;
     color: #fff !important;
     font-weight: 800;
     padding: 16px 36px;
@@ -103,31 +107,17 @@
 
   .arc-btn-secondary {
     background: #fff;
-    color: #F97316 !important;
+    color: #E8521A !important;
     font-weight: 800;
     padding: 16px 36px;
     border-radius: 50px;
-    border: 2px solid #F97316;
+    border: 2px solid #E8521A;
     text-decoration: none;
     transition: all 0.3s ease;
     display: inline-block;
   }
 
-  /* Circular Illustration Wrapper */
-  .hero-illustration-wrap {
-    position: relative;
-    width: 100%;
-    max-width: 550px;
-    aspect-ratio: 1/1;
-    background: radial-gradient(circle, #FDE8D0 0%, rgba(255, 245, 236, 0) 75%);
-    border-radius: 50%;
-    margin: 0 auto;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  /* Floating Badges with Hover Animation */
+  /*floating bubble box*/
   .float-card {
     position: absolute;
     background: #fff;
@@ -143,6 +133,21 @@
     animation: floating 3s ease-in-out infinite;
   }
 
+  /*floating bubbles placeholder*/
+  .hero-illustration-wrap {
+    position: relative;
+    width: 100%;
+    max-width: 550px;
+    aspect-ratio: 1/1;
+    background: radial-gradient(circle, #FDE8D0 0%, rgba(255, 245, 236, 0) 75%);
+    border-radius: 50%;
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /*floaters of bubble*/
   @keyframes floating {
     0% {
       transform: translateY(0px);
@@ -157,17 +162,13 @@
     }
   }
 
-  /* Stats Bar Animation */
+  /*number information*/
   .stat-item .stat-num {
     font-family: 'Poppins', sans-serif;
     font-size: 2.2rem;
     font-weight: 900;
-    color: #F97316;
+    color: #E8521A;
     display: block;
-  }
-
-  .stat-item .stat-num span {
-    color: #F97316;
   }
 </style>
 <section class="arc-hero">
@@ -181,7 +182,7 @@
         <h1>
           Learn Like It's<br>
           a <em>Game,</em><br>
-          Not a <em>Chore.</em>
+          Not a <em2>Chore.</em2>
         </h1>
         <p class="hero-desc">
           Transform your academic journey into an epic adventure at FEU Tech.
@@ -206,11 +207,8 @@
           </div>
         </div>
       </div>
-      <!-- Right Content (Animation Version) -->
       <div class="col-lg-6">
         <div class="hero-illustration-wrap">
-          <!-- Animation Player Container -->
-          <!-- Lottie Player using your JSON file -->
           <dotlottie-player
             src="assets/images/hero.json"
             background="transparent"
@@ -219,7 +217,6 @@
             loop
             autoplay>
           </dotlottie-player>
-          <!-- Floating Cards with different delays -->
           <div class="float-card" style="top: 15%; left: -5%; animation-delay: 0s;">
             <span style="font-size: 1.5rem;">🎖️</span>
             <div>Level Up!<br><small class="text-muted fw-normal">Bronze → Silver</small></div>
@@ -237,7 +234,7 @@
 </section>
 <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 <script>
-  /* ── COUNTER ANIMATION generated to have design ── */
+  /* ── COUNTER ANIMATION generated to have design :> ── */
   document.addEventListener('DOMContentLoaded', () => {
     const animateCounter = (el) => {
       const target = parseInt(el.getAttribute('data-count'));

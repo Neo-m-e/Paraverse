@@ -1,190 +1,143 @@
-<?php /* ============================================================
-   SECTION 03 — HOW IT WORKS
-   Include: <?php include 'sections/03-how-it-works.php'; ?>
-   ============================================================ */ ?>
-
 <style>
-    /* ── HOW IT WORKS SECTION ── */
-    .arc-how {
-        background: #FFFFFF;
-        padding: 80px 0;
+    /*BG*/
+    .arc-how-section {
+        position: relative;
+        padding: 120px 0;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        background: radial-gradient(circle at center, #ffffff 0%, #fffaf5 100%);
+        overflow: hidden;
     }
 
-    /* Section label */
-    .arc-section-label {
-        display: block;
-        font-family: 'Nunito', sans-serif;
-        font-size: 0.7rem;
-        font-weight: 800;
-        letter-spacing: 0.12em;
-        text-transform: uppercase;
-        color: #F97316;
-        margin-bottom: 8px;
+    /*simpleandfun*/
+    .arc-hero-tag {
+        background-color: #FFF2EB;
+        /* Light peach fill */
+        border: 1.2px solid #FFD8C2;
+        /* Soft border */
+        border-radius: 50px;
+        color: #E8521A;
+        font-family: 'inter';
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        padding: 6px 20px;
+        display: inline-block;
+        margin-bottom: 15px;
     }
 
-    /* Section title */
-    .arc-section-title {
-        font-family: 'Poppins', sans-serif;
-        font-size: clamp(1.6rem, 2.5vw, 2.2rem);
-        font-weight: 800;
-        color: #1C1917;
-        margin-bottom: 0.5rem;
-    }
-
-    /* Section subtitle */
-    .arc-section-sub {
-        font-family: 'Nunito', sans-serif;
-        font-size: 0.93rem;
-        color: #78716C;
-        max-width: 480px;
-        margin: 0 auto 0.75rem;
-        line-height: 1.75;
-    }
-
-    /* Orange divider line */
-    .arc-divider {
-        width: 48px;
-        height: 4px;
-        background: #F97316;
-        border-radius: 2px;
-        margin: 0 auto 2.5rem;
-    }
-
-    /* Cards */
-    .arc-how-card {
-        background: #FFF8F1;
-        border: 2px solid #F3EDE6;
-        border-radius: 18px;
-        padding: 2rem 1.5rem;
-        text-align: center;
+    /*BG circles*/
+    .arc-how-section::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
         height: 100%;
-        transition: transform 0.22s, box-shadow 0.22s, border-color 0.22s;
+        background-image: url("data:image/svg+xml,%3Csvg width='1200' height='1200' viewBox='0 0 1200 1200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23f97316' stroke-width='1' stroke-opacity='0.06'%3E%3Ccircle cx='600' cy='600' r='100'/%3E%3Ccircle cx='600' cy='600' r='200'/%3E%3Ccircle cx='600' cy='600' r='300'/%3E%3Ccircle cx='600' cy='600' r='400'/%3E%3Ccircle cx='600' cy='600' r='500'/%3E%3Ccircle cx='1100' cy='100' r='150'/%3E%3Ccircle cx='1100' cy='100' r='250'/%3E%3Ccircle cx='100' cy='1100' r='200'/%3E%3Ccircle cx='100' cy='1100' r='350'/%3E%3C/g%3E%3C/svg%3E");
+        background-size: cover;
+        background-position: center;
+        z-index: 0;
+        pointer-events: none;
     }
 
-    .arc-how-card:hover {
-        transform: translateY(-5px);
-        box-shadow: 0 14px 36px rgba(249, 115, 22, 0.10);
-        border-color: #FDBA74;
-    }
-
-    .arc-how-icon {
-        width: 68px;
-        height: 68px;
-        border-radius: 16px;
-        display: flex;
+    /*steps 123 small box*/
+    .arc-how-step {
+        display: inline-flex;
         align-items: center;
         justify-content: center;
-        font-size: 1.9rem;
-        margin: 0 auto 1.1rem;
-    }
-
-    .arc-how-icon.earn {
-        background: #FEF3C7;
-    }
-
-    .arc-how-icon.collect {
-        background: #DCFCE7;
-    }
-
-    .arc-how-icon.redeem {
-        background: #FEE2E2;
-    }
-
-    .arc-how-card h5 {
-        font-family: 'Poppins', sans-serif;
-        font-size: 1rem;
-        font-weight: 800;
-        color: #1C1917;
-        margin-bottom: 0.6rem;
-    }
-
-    .arc-how-card p {
-        font-family: 'Nunito', sans-serif;
-        font-size: 0.86rem;
-        color: #78716C;
-        line-height: 1.75;
-        margin: 0;
-    }
-
-    /* Step number chip */
-    .arc-how-step {
-        display: inline-block;
-        background: #F97316;
+        background: #E8521A;
+        /* Fixed color from your hero */
         color: #fff;
         font-family: 'Poppins', sans-serif;
-        font-size: 0.7rem;
-        font-weight: 900;
-        width: 24px;
-        height: 24px;
-        border-radius: 50%;
-        line-height: 24px;
-        text-align: center;
-        margin-bottom: 0.6rem;
+        font-weight: 800;
+        width: 48px;
+        height: 48px;
+        border-radius: 14px;
+        margin-bottom: 2rem;
+        box-shadow: 0 8px 20px rgba(232, 82, 26, 0.25);
     }
 
-    @media (max-width: 768px) {
-        .arc-how {
-            padding: 56px 0;
-        }
+    /*card white*/
+    .arc-how-card {
+        background: rgba(255, 255, 255, 0.9);
+        backdrop-filter: blur(10px);
+        border: 1px solid #f3ede6;
+        border-top: 8px solid #E8521A;
+        border-radius: 24px;
+        padding: 3.5rem 2.5rem;
+        text-align: left;
+        height: 100%;
+        transition: transform 0.3s ease;
+    }
+
+    /*animation hove*/
+    .arc-how-card:hover {
+        transform: translateY(-10px);
+    }
+
+    /*card header*/
+    .arc-how-card h5 {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.5rem;
+        font-weight: 900;
+        color: #1C1917;
+        margin-bottom: 1rem;
+    }
+
+    /*color*/
+    .card-02 {
+        border-top-color: #F5A623 !important;
+    }
+
+    .step-02 {
+        background: #F5A623 !important;
+        box-shadow: 0 8px 20px rgba(245, 166, 35, 0.25) !important;
+    }
+
+    .card-03 {
+        border-top-color: #E8521A !important;
+    }
+
+    .step-03 {
+        background: #E8521A !important;
+        box-shadow: 0 8px 20px rgba(251, 146, 60, 0.25) !important;
     }
 </style>
 
-<!-- ═══════════════════════════════════════
-     HOW IT WORKS SECTION
-═══════════════════════════════════════ -->
-<section class="arc-how">
-    <div class="container text-center">
-        <span class="arc-section-label">Simple &amp; Fun</span>
-        <h2 class="arc-section-title">How Arcadia Works</h2>
-        <p class="arc-section-sub">
-            Three easy steps to turn your everyday academic grind into epic adventures.
-        </p>
-        <div class="arc-divider"></div>
-
+<section class="arc-how-section">
+    <div class="container">
+        <div class="text-center mb-5">
+            <div class="arc-hero-tag">
+                SIMPLE & FUN
+            </div>
+            <h2 style="font-family: 'inter'; font-weight: 900; font-size: clamp(2.5rem, 5vw, 3.5rem); color: #1C1917; margin-bottom: 1rem;">How Arcadia Works</h2>
+            <p style="font-family: 'inter'; color: #78716C; max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+                Three easy steps to turn your academic grind into an epic adventure.
+            </p>
+        </div>
         <div class="row g-4">
-
-            <!-- Step 1: Earn Badges -->
             <div class="col-md-4">
                 <div class="arc-how-card">
-                    <div class="arc-how-step">1</div>
-                    <div class="arc-how-icon earn">🏅</div>
-                    <h5>Earn Badges</h5>
-                    <p>
-                        Complete academic tasks, attend events, join competitions, and achieve
-                        milestones to collect digital badges across TLU's ecosystem and prove
-                        your skills to the world.
-                    </p>
+                    <div class="arc-how-step">01</div>
+                    <h5>EARN BADGES</h5>
+                    <p>Complete activities, join events, and hit academic milestones to collect exclusive digital badges. Each one reflects your real achievements.</p>
                 </div>
             </div>
-
-            <!-- Step 2: Collect XP + Coins -->
             <div class="col-md-4">
-                <div class="arc-how-card">
-                    <div class="arc-how-step">2</div>
-                    <div class="arc-how-icon collect">🪙</div>
-                    <h5>Collect XP + Coins</h5>
-                    <p>
-                        XP unlocks higher ranks and exclusive titles, while Coins let you redeem
-                        real merchandise from TLU's official reward store. Every action earns
-                        you points in this place.
-                    </p>
+                <div class="arc-how-card card-02">
+                    <div class="arc-how-step step-02">02</div>
+                    <h5>COLLECT XP + COINS</h5>
+                    <p>Every badge fills up your XP wallet. More XP means higher levels and better rankings, while coins unlock exclusive perks in the store.</p>
                 </div>
             </div>
-
-            <!-- Step 3: Redeem Real Merch -->
             <div class="col-md-4">
-                <div class="arc-how-card">
-                    <div class="arc-how-step">3</div>
-                    <div class="arc-how-icon redeem">🎁</div>
-                    <h5>Redeem Real Merch</h5>
-                    <p>
-                        Exchange your Coins for exclusive TLU Tech merch. Your effort translates
-                        into physical rewards that celebrate your achievements and show off your
-                        TLU pride.
-                    </p>
+                <div class="arc-how-card card-03">
+                    <div class="arc-how-step step-03">03</div>
+                    <h5>REDEEM REAL MERCH</h5>
+                    <p>Stay on track and trade your coins for limited-edition FEU Tech merch. Your effort, turned into something you can wear and show off.</p>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
