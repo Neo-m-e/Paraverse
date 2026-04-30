@@ -12,11 +12,11 @@
         <div class="row d-flex align-items-start justify-content-between pt-10">
           <div class="col-lg-5 my-5">
             <a href="/discover/" class="d-flex align-items-center mb-5" onclick="KTApp.showPageLoading()">
-              <img src="/assets/img/logo/icon-briefcase.svg" class="h-35px me-2"> <span class="fs-1 fw-bold text-primary">Briefcase</span>
+              <img src="assets/images/arcadia.png" class="h-35px me-2"> 
             </a>
-            <p class='text-gray-700 fs-2 fw-semibold'>Much lighter than a real briefcase, and just as packed with potential!</p>
+            <p class='text-gray-700 fs-2 '>Level up, earn rewards, and pretend you didn’t love every second of it</p>
             <p class='text-gray-600 fs-4 mb-0'>
-              Briefcase is a LinkedIn-style social media platform that empowers the FEU community to showcase their accomplishments within both the academic and professional spheres.
+              Arcadia is where progress feels like play, rewards come with flair, and even the smallest wins get their moment. It keeps you coming back... not because you have to, but because you want to.
             </p>
           </div>
           <div class="col-lg-4 my-5">
