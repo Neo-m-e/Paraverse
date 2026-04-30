@@ -1,4 +1,121 @@
 <?php /* includes/level-system.php */ ?>
+<style>
+ /* ── LEVEL UP SYSTEM ── */
+.level-section {
+  background: #1C1917;
+  padding: 80px 0;
+  position: relative;
+  overflow: hidden;
+}
+.level-section::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 60%, rgba(245,158,11,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+.level-section .section-label { color: #F59E0B; }
+.level-section .section-title { color: #fff; }
+.level-section .section-subtitle { color: #A8A29E; }
+
+.level-track {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  padding: 2rem 0 1rem;
+  position: relative;
+}
+.level-track::before {
+  content: '';
+  position: absolute;
+  top: 50%; left: 10%;
+  right: 10%; height: 3px;
+  background: linear-gradient(90deg, #78716C, #F59E0B);
+  transform: translateY(-50%);
+  z-index: 0;
+}
+.level-node {
+  display: flex; flex-direction: column; align-items: center;
+  position: relative; z-index: 1;
+  flex: 1;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.level-node:hover { transform: scale(1.05); }
+.level-node .node-circle {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem;
+  border: 3px solid transparent;
+  background: #292524;
+  transition: all 0.2s;
+  position: relative;
+}
+.level-node.active .node-circle,
+.level-node:hover .node-circle {
+  border-color: #F59E0B;
+  box-shadow: 0 0 20px rgba(245,158,11,0.4);
+}
+.level-node .node-name {
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.8rem;
+  margin-top: 8px;
+}
+.level-node .node-xp {
+  color: #A8A29E;
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.titles-table {
+  background:  #292524;
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 16px;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+.titles-table .table-header {
+  background: rgba(249,115,22,0.1);
+  padding: 1rem 1.5rem;
+  color: #fff;
+  font-weight: 800;
+  font-size: 0.85rem;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.titles-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 0;
+}
+.titles-col {
+  padding: 1rem;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+.titles-col:last-child { border-right: none; }
+.titles-col .col-head {
+  font-size: 0.72rem;
+  font-weight: 800;
+  color: var(--arcadia-gold);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  margin-bottom: 0.5rem;
+}
+.titles-col .title-chip {
+  display: block;
+  background: rgba(255,255,255,0.06);
+  border-radius: 6px;
+  padding: 4px 8px;
+  font-size: 0.7rem;
+  color: #E7E5E4;
+  font-weight: 600;
+  margin-bottom: 4px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+</style>  
 <section class="level-section">
   <div class="container text-center">
     <span class="section-label">Progression</span>

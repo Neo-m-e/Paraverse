@@ -1,4 +1,73 @@
 <?php /* includes/faq.php */ ?>
+<style>
+
+.faq-section { background: #fff; padding: 80px 0; }
+.faq-accordion .accordion-item {
+  border: 1px solid #E7E5E4;
+  border-radius: 12px !important;
+  margin-bottom: 0.75rem;
+  overflow: hidden;
+}
+.faq-accordion .accordion-button {
+  font-weight: 700;
+  font-size: 0.92rem;
+  background: #fff;
+  color: #1C1917;
+  box-shadow: none;
+  padding: 1.1rem 1.25rem;
+}
+.faq-accordion .accordion-button:not(.collapsed) {
+  background: #FDE8D0;
+  color: #F97316;
+}
+.faq-accordion .accordion-button::after {
+  filter: none;
+}
+.faq-accordion .accordion-button:not(.collapsed)::after {
+  filter: hue-rotate(20deg) saturate(2);
+}
+.faq-accordion .accordion-body {
+  font-size: 0.87rem;
+  color: #78716C;
+  line-height: 1.8;
+  background: #fff;
+}
+
+/* ── UTILITIES ── */
+.text-orange { color: #F97316 !important; }
+.bg-orange   { background-color: #F97316 !important; }
+.divider-orange {
+  width: 48px; height: 4px;
+  background: #F97316;
+  border-radius: 2px;
+  margin: 0 auto 1rem;
+}
+
+/* ── SECTION LABELS ── */
+.section-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #F97316;
+  margin-bottom: 8px;
+}
+.section-title {
+  font-size: clamp(1.6rem, 2.5vw, 2.2rem);
+  font-weight: 800;
+  color: #1C1917;
+  margin-bottom: 0.5rem;
+}
+.section-subtitle {
+  font-size: 0.92rem;
+  color: #78716C;
+  max-width: 500px;
+  margin: 0 auto 2.5rem;
+  line-height: 1.7;
+}
+
+
+</style>
 <section class="faq-section">
   <div class="container">
     <div class="row justify-content-center">

@@ -15,25 +15,6 @@ $META_TITLE = "Arcadia";
   <?php HEAD_ESSENTIALS(); ?>
   <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css" />
   <script src="/assets/plugins/custom/datatables/datatables.bundle.js" defer></script>
-
-  <!-- Bootstrap 5 CSS -->
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-        crossorigin="anonymous">
-
-  <!-- Bootstrap Icons -->
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
-
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&family=Poppins:wght@400;500;600;700;800;900&display=swap"
-        rel="stylesheet">
-
-  <!-- Arcadia Custom CSS -->
-  <link rel="stylesheet" href="assets/css/arcadia.css">
 </head>
 
 <body id="kt_app_body" data-kt-app-page-loading-enabled="true" data-kt-app-page-loading="on"
@@ -56,6 +37,7 @@ $META_TITLE = "Arcadia";
                 <?php include("sections/level-system.php"); ?>
                 <?php include("sections/hall-of-fame.php"); ?>
                 <?php include("sections/faq.php"); ?>
+                <?php include("sections/cta-banner.php"); ?>
                 </div>
               </div>
             </main>

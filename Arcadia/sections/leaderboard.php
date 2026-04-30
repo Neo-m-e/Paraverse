@@ -1,4 +1,76 @@
 <?php /* includes/hall-of-fame.php */ ?>
+<style> 
+  /* ── HALL OF FAME ── */
+.hof-section { background: #FFF8F1; padding: 80px 0; }
+
+.podium-wrap {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+}
+.podium-item { text-align: center; }
+.podium-item .podium-avatar {
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.8rem;
+  margin: 0 auto 6px;
+  border: 3px solid transparent;
+}
+.podium-item.first .podium-avatar  { border-color: #F59E0B; background: #FEF3C7; }
+.podium-item.second .podium-avatar { border-color: #94A3B8; background: #F1F5F9; }
+.podium-item.third .podium-avatar  { border-color: #B45309; background: #FEF3C7; }
+.podium-item .podium-name { font-size: 0.78rem; font-weight: 800; color: #1C1917; }
+.podium-item .podium-role { font-size: 0.68rem; color: #78716C; }
+.podium-item .podium-base {
+  border-radius: 12px 12px 0 0;
+  margin-top: 10px;
+  display: flex; align-items: flex-end; justify-content: center;
+  padding-bottom: 0.5rem;
+  font-size: 1.4rem; font-weight: 900;
+}
+.podium-item.first .podium-base  { height: 100px; background: linear-gradient(180deg, #F59E0B, #D97706); color: #fff; min-width: 110px; }
+.podium-item.second .podium-base { height: 70px;  background: linear-gradient(180deg,  #94A3B8, #64748B); color: #fff; min-width: 100px; }
+.podium-item.third .podium-base  { height: 55px;  background: linear-gradient(180deg, #CD7C3A, #B45309); color: #fff; min-width: 100px; }
+
+.leaderboard-row-mini {
+  display: flex; align-items: center; gap: 1rem;
+  background: #fff;
+  border: 1px solid #E7E5E4;
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  margin-bottom: 0.5rem;
+  transition: box-shadow 0.18s;
+}
+.leaderboard-row-mini:hover { box-shadow: 0 4px 14px rgba(0,0,0,0.07); }
+.leaderboard-row-mini .rank { font-size: 0.8rem; font-weight: 900; color: #78716C; min-width: 24px; }
+.leaderboard-row-mini .av {
+  width: 36px; height: 36px; border-radius: 50%;
+  background: #FDE8D0;
+  display: flex; align-items: center; justify-content: center; font-size: 1rem;
+}
+.leaderboard-row-mini .info { flex: 1; }
+.leaderboard-row-mini .info .uname { font-size: 0.82rem; font-weight: 800; }
+.leaderboard-row-mini .info .urole { font-size: 0.7rem; color: #78716C; }
+.leaderboard-row-mini .pts { font-size: 0.82rem; font-weight: 800; color: #F97316; }
+
+.btn-view-leaderboard {
+  background: #F97316;;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: 700;
+  font-size: 0.9rem;
+  padding: 0.65rem 1.8rem;
+  box-shadow: 0 4px 14px rgba(249,115,22,0.3);
+  transition: all 0.2s;
+  cursor: pointer;
+}
+.btn-view-leaderboard:hover { background: #E05A00; transform: translateY(-1px); }
+
+</style>
 <section class="hof-section">
   <div class="container text-center">
     <span class="section-label">Leaderboard</span>
