@@ -12,12 +12,9 @@
     /*simpleandfun*/
     .arc-hero-tag {
         background-color: #FFF2EB;
-        /* Light peach fill */
         border: 1.2px solid #FFD8C2;
-        /* Soft border */
         border-radius: 50px;
         color: #E8521A;
-        font-family: 'inter';
         font-size: 13px;
         font-weight: 700;
         letter-spacing: 1px;
@@ -47,9 +44,7 @@
         align-items: center;
         justify-content: center;
         background: #E8521A;
-        /* Fixed color from your hero */
         color: #fff;
-        font-family: 'Poppins', sans-serif;
         font-weight: 800;
         width: 48px;
         height: 48px;
@@ -68,24 +63,23 @@
         padding: 3.5rem 2.5rem;
         text-align: left;
         height: 100%;
-        transition: transform 0.3s ease;
+        transition: transform 0.3s ease, opacity 0.6s ease;
     }
 
-    /*animation hove*/
+    /*animation hover*/
     .arc-how-card:hover {
         transform: translateY(-10px);
     }
 
     /*card header*/
     .arc-how-card h5 {
-        font-family: 'Poppins', sans-serif;
         font-size: 1.5rem;
         font-weight: 900;
         color: #1C1917;
         margin-bottom: 1rem;
     }
 
-    /*color*/
+    /*color card 02*/
     .card-02 {
         border-top-color: #F5A623 !important;
     }
@@ -95,6 +89,7 @@
         box-shadow: 0 8px 20px rgba(245, 166, 35, 0.25) !important;
     }
 
+    /*color card 03*/
     .card-03 {
         border-top-color: #E8521A !important;
     }
@@ -103,50 +98,88 @@
         background: #E8521A !important;
         box-shadow: 0 8px 20px rgba(251, 146, 60, 0.25) !important;
     }
-    .arc-container {
-        max-width: 1200px;
+
+    /*to be aligned to logo and lock*/
+    .arc-how-container {
+        max-width: 1300px;
         margin: 0 auto;
         padding: 0 20px;
         position: relative;
         z-index: 10;
-        text-align: center;
-        /* Ito yung nagpapantay sa lahat */
     }
 </style>
 
 <section class="arc-how-section">
-     <div class="arc-container text-start">
+    <div class="arc-how-container">
+
+        <!-- Header -->
         <div class="text-center mb-20">
-            <div class="arc-hero-tag">
-                SIMPLE & FUN
-            </div>
-            <h2 style="font-family: 'inter'; font-weight: 900; font-size: clamp(2.5rem, 5vw, 3.5rem); color: #1C1917; margin-bottom: 1rem;">How Arcadia Works</h2>
-            <p style="font-family: 'inter'; color: #78716C; max-width: 600px; margin: 0 auto; font-size: 1.1rem;">
+            <span class="arc-hero-tag fw-bolder fs-7 ls-1">SIMPLE & FUN</span>
+            <h2 class="fw-bolder text-gray-900 mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem);">
+                How Arcadia Works
+            </h2>
+            <p class="text-gray-500 fs-5 mx-auto" style="max-width: 600px;">
                 Three easy steps to turn your academic grind into an epic adventure.
             </p>
         </div>
+
+        <!-- Cards Row -->
         <div class="row g-4">
+
+            <!-- Card 01 -->
             <div class="col-md-4">
-                <div class="arc-how-card">
-                    <div class="arc-how-step">01</div>
-                    <h5>EARN BADGES</h5>
-                    <p>Complete activities, join events, and hit academic milestones to collect exclusive digital badges. Each one reflects your real achievements.</p>
+                <div class="arc-how-card h-100">
+                    <div class="arc-how-step fs-5">01</div>
+                    <h5 class="fw-bolder text-gray-900 mb-3">EARN BADGES</h5>
+                    <p class="text-gray-600 fs-6 fw-semibold">
+                        Complete activities, join events, and hit academic milestones to collect exclusive digital badges. Each one reflects your real achievements.
+                    </p>
                 </div>
             </div>
+
+            <!-- Card 02 -->
             <div class="col-md-4">
-                <div class="arc-how-card card-02">
-                    <div class="arc-how-step step-02">02</div>
-                    <h5>COLLECT XP + COINS</h5>
-                    <p>Every badge fills up your XP wallet. More XP means higher levels and better rankings, while coins unlock exclusive perks in the store.</p>
+                <div class="arc-how-card card-02 h-100">
+                    <div class="arc-how-step step-02 fs-5">02</div>
+                    <h5 class="fw-bolder text-gray-900 mb-3">COLLECT XP + COINS</h5>
+                    <p class="text-gray-600 fs-6 fw-semibold">
+                        Every badge fills up your XP wallet. More XP means higher levels and better rankings, while coins unlock exclusive perks in the store.
+                    </p>
                 </div>
             </div>
+
+            <!-- Card 03 -->
             <div class="col-md-4">
-                <div class="arc-how-card card-03">
-                    <div class="arc-how-step step-03">03</div>
-                    <h5>REDEEM REAL MERCH</h5>
-                    <p>Stay on track and trade your coins for limited-edition FEU Tech merch. Your effort, turned into something you can wear and show off.</p>
+                <div class="arc-how-card card-03 h-100">
+                    <div class="arc-how-step step-03 fs-5">03</div>
+                    <h5 class="fw-bolder text-gray-900 mb-3">REDEEM REAL MERCH</h5>
+                    <p class="text-gray-600 fs-6 fw-semibold">
+                        Stay on track and trade your coins for limited-edition FEU Tech merch. Your effort, turned into something you can wear and show off.
+                    </p>
                 </div>
             </div>
+
         </div>
     </div>
 </section>
+
+<script>
+    /* ── Animation lang :> ── */
+    const howCards = document.querySelectorAll('.arc-how-card');
+    const howObserver = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }, i * 150);
+            }
+        });
+    }, { threshold: 0.2 });
+
+    howCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        howObserver.observe(card);
+    });
+</script>
