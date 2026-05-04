@@ -138,9 +138,10 @@
     display: flex;
     align-items: center;
     background: #FFFFFF;
+    min-height: 50px;
     border-radius: 10px;
     padding: 10px 15px;
-    font-size: 0.75rem;
+    font-size: 0.8rem;
     color: #1a1614;
     font-weight: 800;
     margin-bottom: 8px;
@@ -151,9 +152,18 @@
 .title-chip:hover { transform: translateX(5px); }
 
 .title-icon {
-    width: 25px !important;
-    height: auto !important; /* Gamitin ang auto para hindi ma-distort */
-    margin-right: 10px !important; 
+    width: 45px !important; 
+    height: 45px !important;
+    
+    /* Importante 'to para hindi ma-stretch yung logo */
+    object-fit: contain !important;
+    
+    /* Para laging nasa gitna kahit mahaba o mataas yung image file */
+    display: block;
+    margin-right: 12px;
+    
+    /* Opsyonal: dagdagan mo nito kung gusto mo may kaunting space sa loob */
+    padding: 2px; 
 }
 
 /* Aligned to logo and lock */
