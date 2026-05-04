@@ -1,155 +1,4 @@
-<style>
-    /*bg*/
-    .arc-wrapper-fluid {
-        width: 100vw;
-        background-color: #FFF9F3;
-        margin-left: calc(-50vw + 50%);
-        padding: 80px 0;
-        position: relative;
-        overflow: hidden;
-    }
-
-    .arc-wrapper-fluid::before,
-    .arc-wrapper-fluid::after {
-        content: "";
-        position: absolute;
-        pointer-events: none;
-        z-index: 1;
-    }
-
-    .arc-wrapper-fluid::before {
-        top: -5%;
-        right: -5%;
-        width: 700px;
-        height: 700px;
-        background: radial-gradient(circle, rgba(255, 219, 199, 0.6) 0%, rgba(255, 249, 243, 0) 70%);
-        filter: blur(80px);
-    }
-
-    /*to be aligned to logo and lock*/
-    .arc-container {
-        max-width: 1300px;
-        margin: 0 auto;
-        padding: 0 20px;
-        position: relative;
-        z-index: 10;
-    }
-
-    /*filter*/
-    .arc-filter-btn {
-        background: #FFFFFF;
-        border: 1px solid #2D2D2D;
-        color: #2D2D2D;
-        font-weight: 700;
-        padding: 8px 22px;
-        border-radius: 50px;
-        transition: all 0.2s ease;
-        cursor: pointer;
-        font-size: 0.85rem;
-        display: flex;
-        align-items: center;
-        gap: 8px;
-    }
-
-    .arc-filter-btn.active {
-        background: #F05A28;
-        color: #FFFFFF !important;
-        border-color: #F05A28;
-        box-shadow: 0 4px 15px rgba(240, 90, 40, 0.4);
-    }
-
-    /*description*/
-    .arc-category-desc {
-        color: #4B5563;
-        font-weight: 500;
-        font-size: 0.95rem;
-        margin: 20px 0 50px 0;
-        min-height: 1.5em;
-        transition: opacity 0.3s ease;
-        text-align: left;
-        white-space: nowrap;
-    }
-
-    /*badges container*/
-    .arc-badge-grid {
-        display: grid;
-        grid-template-columns: repeat(5, 1fr);
-        gap: 20px;
-        width: 100%;
-    }
-
-    @media (max-width: 1200px) {
-        .arc-badge-grid {
-            grid-template-columns: repeat(3, 1fr);
-        }
-    }
-
-    @media (max-width: 768px) {
-        .arc-badge-grid {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
-
-    /*cards*/
-    .arc-card {
-        background: #FFFFFF;
-        border: 1px solid #D1D5DB;
-        border-radius: 24px;
-        padding: 40px 20px;
-        text-align: center;
-        transition: transform 0.3s ease, border-color 0.3s ease;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        height: 100%;
-    }
-
-    .arc-card:hover {
-        transform: translateY(-8px);
-        border-color: #F05A28;
-    }
-
-    .arc-badge-img {
-        width: 100px;
-        height: 100px;
-        object-fit: contain;
-        margin-bottom: 25px;
-    }
-
-    .arc-card h6 {
-        font-size: 0.95rem;
-        font-weight: 800;
-        color: #1F2937;
-        margin-bottom: 10px;
-    }
-
-    .arc-xp {
-        color: #F05A28;
-        font-weight: 800;
-        font-size: 0.8rem;
-    }
-
-    .arc-coins {
-        color: #9CA3AF;
-        font-size: 0.75rem;
-    }
-
-    .btn-arc-view {
-        border: 1px solid #2D2D2D;
-        border-radius: 50px;
-        padding: 12px 45px;
-        background: #FFFFFF;
-        font-weight: 700;
-        margin-top: 50px;
-        transition: 0.3s;
-    }
-
-    .btn-arc-view:hover {
-        background: #2D2D2D;
-        color: #FFFFFF;
-    }
-</style>
-
+<link rel="stylesheet" href="assets/css/explore-badges.css" />
 <div class="arc-wrapper-fluid">
     <div class="arc-container">
         <div class="mb-10 text-start">
@@ -163,12 +12,12 @@
         <div class="d-flex flex-wrap justify-content-start gap-2 mb-4">
             <button class="arc-filter-btn active" onclick="filterArcadia('top', this, 'Unlock a world of achievements, from academic excellence to extracurricular success.')">Top Badges</button>
             <button class="arc-filter-btn" onclick="filterArcadia('fun', this, 'Easily earned for engaging in enjoyable activities')">🎮 Fun</button>
-            <button class="arc-filter-btn" onclick="filterArcadia('activity', this, 'Participation in extracurricular engagements')">🏅 Activity</button>
-            <button class="arc-filter-btn" onclick="filterArcadia('learning', this, 'Demonstrating skill mastery or academic progress')">📚 Learning</button>
-            <button class="arc-filter-btn" onclick="filterArcadia('exclusive', this, 'Access-based, reserved for select users')">🔒 Exclusive</button>
+            <button class="arc-filter-btn" onclick="filterArcadia('activity', this, 'Recognizes participation in events, projects, or extracurricular engagements')">🏅 Activity</button>
+            <button class="arc-filter-btn" onclick="filterArcadia('learning', this, 'Awarded for demonstrating knowledge, skill mastery, or academic progress')">📚 Learning</button>
+            <button class="arc-filter-btn" onclick="filterArcadia('exclusive', this, 'Earned by being part of a select group, program, or unique experience')">🔒 Exclusive</button>
             <button class="arc-filter-btn" onclick="filterArcadia('milestone', this, 'Marks significant progress, achievements, or long-term dedication')">🎯 Milestone</button>
-            <button class="arc-filter-btn" onclick="filterArcadia('temporary', this, 'Time-sensitive or event-driven achievements')">⌛ Temporary</button>
-            <button class="arc-filter-btn" onclick="filterArcadia('course', this, 'Completing an educational course')">🎓 Course</button>
+            <button class="arc-filter-btn" onclick="filterArcadia('temporary', this, 'Time-sensitive badges given for special events, seasonal activities, or challenges')">⌛ Temporary</button>
+            <button class="arc-filter-btn" onclick="filterArcadia('course', this, 'Granted for successfully completing a course or structured learning program')">🎓 Course</button>
             <button class="arc-filter-btn" onclick="filterArcadia('rare', this, 'Only a few recipients receive these for exceptional or uncommon achievements')">🏆 Rare</button>
             <button class="arc-filter-btn" onclick="filterArcadia('hero', this, 'Difficult to earn, given for extraordinary efforts, leadership, or impact')">🦸 Hero</button>
         </div>
@@ -197,28 +46,28 @@
                 <div class="arc-coins">30 Coins</div>
             </div>
             <div class="arc-card" data-cat="exclusive">
-                <img src="https://via.placeholder.com/100" class="arc-badge-img">
-                <h6>Paraverse Pathfinder</h6>
-                <div class="arc-xp">+120 XP</div>
-                <div class="arc-coins">75 Coins</div>
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-MYSizEnMC1ZldTbqIWQhwqkXenDahu9Eh708qxrR.png" class="arc-badge-img">
+                <h6>The Innovator Member</h6>
+                <div class="arc-xp">+150 XP</div>
+                <div class="arc-coins">50 Coins</div>
             </div>
             <div class="arc-card" data-cat="exclusive">
-                <img src="https://via.placeholder.com/100" class="arc-badge-img">
-                <h6>Tamaraw Legacy Link</h6>
-                <div class="arc-xp">+350 XP</div>
-                <div class="arc-coins">400 Coins</div>
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-WVwvWILWuMcJGVh4xtZdgjCAfd01jjC7p9l4tCNo.png" class="arc-badge-img">
+                <h6>The Study Sage</h6>
+                <div class="arc-xp">+150 XP</div>
+                <div class="arc-coins">120 Coins</div>
             </div>
             <div class="arc-card" data-cat="rare">
-                <img src="https://via.placeholder.com/100" class="arc-badge-img">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-p7II2RSea5nMyC1QNBOhGrnmSHeaepj6qY1vqfPA.png" class="arc-badge-img">
                 <h6>Tamaraw Legacy Link</h6>
                 <div class="arc-xp">+350 XP</div>
                 <div class="arc-coins">400 Coins</div>
             </div>
             <div class="arc-card" data-cat="temporary">
                 <img src="https://via.placeholder.com/100" class="arc-badge-img">
-                <h6>Tamaraw Legacy Link</h6>
-                <div class="arc-xp">+350 XP</div>
-                <div class="arc-coins">400 Coins</div>
+                <h6>Badge Name Here</h6>
+                <div class="arc-xp">+XX XP</div>
+                <div class="arc-coins">XX Coins</div>
             </div>
             <!-- ========== add below here ========== -->
             <div class="arc-card" data-cat="fun">
@@ -275,57 +124,70 @@
                 <div class="arc-xp">+125 XP</div>
                 <div class="arc-coins">50 Coins</div>
             </div>
+            <div class="arc-card" data-cat="exclusive">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-6gpuavi5AywKBY485zhPH1aBOAy7PyewYcngccAy.png" class="arc-badge-img">
+                <h6>Paraverse Pathfinder</h6>
+                <div class="arc-xp">+120 XP</div>
+                <div class="arc-coins">0 Coins</div>
+            </div>
+            <div class="arc-card" data-cat="milestone">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-yvld3g9ivxHNJvrlkotqrqzz1IZRuzOnYDb7HA9P.png" class="arc-badge-img">
+                <h6>Annual Students' Recognition Honoree</h6>
+                <div class="arc-xp">+175 XP</div>
+                <div class="arc-coins">35 Coins</div>
+            </div>
+            <div class="arc-card" data-cat="milestone">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-ww0peOHLAZCHg5Q5C6gXtUeoB6DXWll3pSdrCofF.png" class="arc-badge-img">
+                <h6>Prestige Graduate: Summa</h6>
+                <div class="arc-xp">+300 XP</div>
+                <div class="arc-coins">150 Coins</div>
+            </div>
+            <div class="arc-card" data-cat="milestone">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-vTwtaca9ZJmbBjPN4K0sBJttp8bhEyU9PpDyi5bC.png" class="arc-badge-img">
+                <h6>S.A.S.E. Completer: Sikhay Honor</h6>
+                <div class="arc-xp">+175 XP</div>
+                <div class="arc-coins">35 Coins</div>
+            </div>
+            <div class="arc-card" data-cat="course">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-YcddNOV8FNifwkapQ70XUsNRqWC3m1K1nabQcKuW.png " class="arc-badge-img">
+                <h6>Visual Story Illustrator</h6>
+                <div class="arc-xp">+250 XP</div>
+                <div class="arc-coins">0 Coins</div>
+            </div>
+            <div class="arc-card" data-cat="course">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-zcMNJS8s8m4XrwwvGzKMvk1826LZPubpiGbfKN1B.png" class="arc-badge-img">
+                <h6>Seasoned Electronics Specialist</h6>
+                <div class="arc-xp">+250 XP</div>
+                <div class="arc-coins">0 Coins</div>
+            </div>
+            <div class="arc-card" data-cat="course">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-BAR4iaJ51dqsmjqIqcyBxUkGNOSSEG3SVeRjVgmr.png" class="arc-badge-img">
+                <h6>Athletic Vanguard</h6>
+                <div class="arc-xp">+175 XP</div>
+                <div class="arc-coins">35 Coins</div>
+            </div>
+            <div class="arc-card" data-cat="hero">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-UHqjBKZPy2rR3D7EVbZziNhOJif5RTGhCbGOVMre.png" class="arc-badge-img">
+                <h6>Research Trailblazer</h6>
+                <div class="arc-xp">+500 XP</div>
+                <div class="arc-coins">300 Coins</div>
+            </div>
+            <div class="arc-card" data-cat="hero">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-dmquUsIk515AhxXnv25G9dMFedRdeR56uZyoeNcz.png" class="arc-badge-img">
+                <h6>Most Outstanding ITE Student MOITES 2025</h6>
+                <div class="arc-xp">+750 XP</div>
+                <div class="arc-coins">350 Coins</div>
+            </div>
+            <div class="arc-card" data-cat="hero">
+                <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-BAR4iaJ51dqsmjqIqcyBxUkGNOSSEG3SVeRjVgmr.png" class="arc-badge-img">
+                <h6>Athletic Vanguard</h6>
+                <div class="arc-xp">+175 XP</div>
+                <div class="arc-coins">35 Coins</div>
+            </div>
             <!-- ========== dont add below here ========== -->
         </div>
         <button class="btn-arc-view">View All Badges &rarr;</button>
     </div>
 </div>
 
-<script>
-    /* ── Filter generated to have filtered badges :> ── */
-    function filterArcadia(category, button, description) {
-        document.querySelectorAll('.arc-filter-btn').forEach(btn => btn.classList.remove('active'));
-        button.classList.add('active');
-
-        const descEl = document.getElementById('arcDesc');
-        descEl.style.opacity = '0';
-        setTimeout(() => {
-            descEl.textContent = description;
-            descEl.style.opacity = '1';
-        }, 200);
-
-        const cards = document.querySelectorAll('.arc-card');
-        let shown = 0;
-        cards.forEach(card => {
-            if (category === 'top') {
-                // Top Badges: shows 5 
-                if (shown < 5) {
-                    card.style.display = 'flex';
-                    shown++;
-                } else {
-                    card.style.display = 'none';
-                }
-            } else {
-                // All other filters: show ALL matching cards, no limit
-                if (card.dataset.cat === category) {
-                    card.style.display = 'flex';
-                } else {
-                    card.style.display = 'none';
-                }
-            }
-        });
-    }
-
-    window.addEventListener('DOMContentLoaded', () => {
-        const cards = document.querySelectorAll('.arc-card');
-        let shown = 0;
-        cards.forEach(card => {
-            if (shown < 5) {
-                card.style.display = 'flex';
-                shown++;
-            } else {
-                card.style.display = 'none';
-            }
-        });
-    });
-</script>
+<script src="assets/js/explore-badges.js"></script>

@@ -1,119 +1,9 @@
-<style>
-    /*BG*/
-    .arc-how-section {
-        position: relative;
-        padding: 120px 0;
-        width: 100vw;
-        margin-left: calc(-50vw + 50%);
-        background: radial-gradient(circle at center, #ffffff 0%, #fffaf5 100%);
-        overflow: hidden;
-    }
-
-    /*simpleandfun*/
-    .arc-hero-tag {
-        background-color: #FFF2EB;
-        border: 1.2px solid #FFD8C2;
-        border-radius: 50px;
-        color: #E8521A;
-        font-size: 13px;
-        font-weight: 700;
-        letter-spacing: 1px;
-        padding: 6px 20px;
-        display: inline-block;
-        margin-bottom: 15px;
-    }
-
-    /*BG circles*/
-    .arc-how-section::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background-image: url("data:image/svg+xml,%3Csvg width='1200' height='1200' viewBox='0 0 1200 1200' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' stroke='%23f97316' stroke-width='1' stroke-opacity='0.06'%3E%3Ccircle cx='600' cy='600' r='100'/%3E%3Ccircle cx='600' cy='600' r='200'/%3E%3Ccircle cx='600' cy='600' r='300'/%3E%3Ccircle cx='600' cy='600' r='400'/%3E%3Ccircle cx='600' cy='600' r='500'/%3E%3Ccircle cx='1100' cy='100' r='150'/%3E%3Ccircle cx='1100' cy='100' r='250'/%3E%3Ccircle cx='100' cy='1100' r='200'/%3E%3Ccircle cx='100' cy='1100' r='350'/%3E%3C/g%3E%3C/svg%3E");
-        background-size: cover;
-        background-position: center;
-        z-index: 0;
-        pointer-events: none;
-    }
-
-    /*steps 123 small box*/
-    .arc-how-step {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        background: #E8521A;
-        color: #fff;
-        font-weight: 800;
-        width: 48px;
-        height: 48px;
-        border-radius: 14px;
-        margin-bottom: 2rem;
-        box-shadow: 0 8px 20px rgba(232, 82, 26, 0.25);
-    }
-
-    /*card white*/
-    .arc-how-card {
-        background: rgba(255, 255, 255, 0.9);
-        backdrop-filter: blur(10px);
-        border: 1px solid #f3ede6;
-        border-top: 8px solid #E8521A;
-        border-radius: 24px;
-        padding: 3.5rem 2.5rem;
-        text-align: left;
-        height: 100%;
-        transition: transform 0.3s ease, opacity 0.6s ease;
-    }
-
-    /*animation hover*/
-    .arc-how-card:hover {
-        transform: translateY(-10px);
-    }
-
-    /*card header*/
-    .arc-how-card h5 {
-        font-size: 1.5rem;
-        font-weight: 900;
-        color: #1C1917;
-        margin-bottom: 1rem;
-    }
-
-    /*color card 02*/
-    .card-02 {
-        border-top-color: #F5A623 !important;
-    }
-
-    .step-02 {
-        background: #F5A623 !important;
-        box-shadow: 0 8px 20px rgba(245, 166, 35, 0.25) !important;
-    }
-
-    /*color card 03*/
-    .card-03 {
-        border-top-color: #E8521A !important;
-    }
-
-    .step-03 {
-        background: #E8521A !important;
-        box-shadow: 0 8px 20px rgba(251, 146, 60, 0.25) !important;
-    }
-
-    /*to be aligned to logo and lock*/
-    .arc-how-container {
-        max-width: 1300px;
-        margin: 0 auto;
-        padding: 0 20px;
-        position: relative;
-        z-index: 10;
-    }
-</style>
-
+<link rel="stylesheet" href="assets/css/how-it-works.css" />
 <section class="arc-how-section">
     <div class="arc-how-container">
 
         <!-- Header -->
-        <div class="text-center mb-20">
+        <div class="text-center mb-5" style="margin-bottom: 80px !important;">
             <span class="arc-hero-tag fw-bolder fs-7 ls-1">SIMPLE & FUN</span>
             <h2 class="fw-bolder text-gray-900 mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem);">
                 How Arcadia Works
@@ -125,10 +15,9 @@
 
         <!-- Cards Row -->
         <div class="row g-4">
-
             <!-- Card 01 -->
             <div class="col-md-4">
-                <div class="arc-how-card h-100">
+                <div class="arc-how-card">
                     <div class="arc-how-step fs-5">01</div>
                     <h5 class="fw-bolder text-gray-900 mb-3">EARN BADGES</h5>
                     <p class="text-gray-600 fs-6 fw-semibold">
@@ -139,7 +28,7 @@
 
             <!-- Card 02 -->
             <div class="col-md-4">
-                <div class="arc-how-card card-02 h-100">
+                <div class="arc-how-card card-02">
                     <div class="arc-how-step step-02 fs-5">02</div>
                     <h5 class="fw-bolder text-gray-900 mb-3">COLLECT XP + COINS</h5>
                     <p class="text-gray-600 fs-6 fw-semibold">
@@ -150,7 +39,7 @@
 
             <!-- Card 03 -->
             <div class="col-md-4">
-                <div class="arc-how-card card-03 h-100">
+                <div class="arc-how-card card-03">
                     <div class="arc-how-step step-03 fs-5">03</div>
                     <h5 class="fw-bolder text-gray-900 mb-3">REDEEM REAL MERCH</h5>
                     <p class="text-gray-600 fs-6 fw-semibold">
@@ -158,28 +47,7 @@
                     </p>
                 </div>
             </div>
-
         </div>
     </div>
 </section>
-
-<script>
-    /* ── Animation lang :> ── */
-    const howCards = document.querySelectorAll('.arc-how-card');
-    const howObserver = new IntersectionObserver((entries) => {
-        entries.forEach((entry, i) => {
-            if (entry.isIntersecting) {
-                setTimeout(() => {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }, i * 150);
-            }
-        });
-    }, { threshold: 0.2 });
-
-    howCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        howObserver.observe(card);
-    });
-</script>
+<script src="assets/js/how-it-works.js"></script>

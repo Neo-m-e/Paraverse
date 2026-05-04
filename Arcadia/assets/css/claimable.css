@@ -1,0 +1,114 @@
+
+    .arc-rewards-section {
+        background-color: #ffffff;
+        position: relative;
+        padding: 120px 0;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+        overflow: hidden;
+        background-image: url('data:image/svg+xml;utf8,<svg viewBox="0 0 1440 800" xmlns="http://www.w3.org/2000/svg"><defs><radialGradient id="w3a" cx="0%" cy="50%" r="55%"><stop offset="0%" stop-color="%23E8521A" stop-opacity="0.09"/><stop offset="100%" stop-color="%23E8521A" stop-opacity="0"/></radialGradient><radialGradient id="w3b" cx="100%" cy="50%" r="55%"><stop offset="0%" stop-color="%23F5A623" stop-opacity="0.09"/><stop offset="100%" stop-color="%23F5A623" stop-opacity="0"/></radialGradient></defs><rect width="1440" height="800" fill="url(%23w3a)"/><rect width="1440" height="800" fill="url(%23w3b)"/><path d="M-100 200 Q360 100 720 200 Q1080 300 1540 200" fill="none" stroke="rgba(232,82,26,0.08)" stroke-width="2.5"/><path d="M-100 280 Q360 180 720 280 Q1080 380 1540 280" fill="none" stroke="rgba(232,82,26,0.06)" stroke-width="2"/><path d="M-100 360 Q360 260 720 360 Q1080 460 1540 360" fill="none" stroke="rgba(232,82,26,0.04)" stroke-width="1.5"/><path d="M-100 500 Q360 580 720 500 Q1080 420 1540 500" fill="none" stroke="rgba(245,166,35,0.07)" stroke-width="2.5"/><path d="M-100 580 Q360 660 720 580 Q1080 500 1540 580" fill="none" stroke="rgba(245,166,35,0.05)" stroke-width="2"/><path d="M-100 660 Q360 740 720 660 Q1080 580 1540 660" fill="none" stroke="rgba(245,166,35,0.03)" stroke-width="1.5"/><g transform="translate(100,100) rotate(45)"><rect x="-10" y="-10" width="20" height="20" fill="none" stroke="rgba(232,82,26,0.18)" stroke-width="2.5"/></g><g transform="translate(1340,700) rotate(45)"><rect x="-8" y="-8" width="16" height="16" fill="none" stroke="rgba(245,166,35,0.18)" stroke-width="2"/></g><g transform="translate(720,100) rotate(45)"><rect x="-6" y="-6" width="12" height="12" fill="none" stroke="rgba(232,82,26,0.14)" stroke-width="2"/></g></svg>');
+        background-size: cover;
+        background-position: center;
+    }
+
+    .arc-store-pill {
+        background: #fff5f0;
+        color: #e8521a;
+        border: 1px solid #ffede5;
+        padding: 5px 24px;
+        border-radius: 50px;
+        display: inline-block;
+        letter-spacing: 1px;
+    }
+
+    .arc-reward-card {
+        background: #fff;
+        border: 1.5px solid #ececec;
+        border-radius: 20px;
+        overflow: hidden;
+        transition: all 0.3s ease;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        cursor: pointer;
+    }
+
+    .arc-reward-card:hover, .arc-highlight {
+        border-color: #e8521a !important;
+        transform: translateY(-8px);
+        box-shadow: 0 15px 30px rgba(232, 82, 26, 0.1);
+    }
+
+    .arc-img-container {
+        background: #1a1817;
+        height: 220px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        overflow: hidden;
+    }
+
+    /* White glow behind image */
+    .arc-img-container::before {
+        content: '';
+        position: absolute;
+        width: 200px;
+        height: 200px;
+        background: radial-gradient(ellipse at center, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.08) 40%, transparent 70%);
+        border-radius: 50%;
+        z-index: 1;
+    }
+
+    .arc-img-container img {
+        height: 170px;
+        width: auto;
+        object-fit: contain;
+        position: relative;
+        z-index: 2;
+        filter: drop-shadow(0 0 18px rgba(255,255,255,0.35)) drop-shadow(0 0 6px rgba(255,255,255,0.2));
+    }
+
+    .arc-badge-hot {
+        position: absolute;
+        top: 15px;
+        left: 15px;
+        background: #e8521a;
+        color: #fff;
+        padding: 4px 14px;
+        border-radius: 50px;
+        z-index: 3;
+    }
+
+    .arc-card-content {
+        padding: 24px;
+        flex-grow: 1;
+        text-align: left;
+    }
+
+    .arc-card-footer {
+        padding: 15px 24px 24px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .arc-coin-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        color: #e8521a;
+    }
+
+    .arc-coin-token {
+    width: 24px;
+    height: 24px;
+}
+
+    .arc-container {
+        max-width: 1300px;
+        margin: 0 auto;
+        padding: 0 20px;
+        position: relative;
+        z-index: 10;
+    }
