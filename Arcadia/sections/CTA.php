@@ -1,102 +1,138 @@
 <?php /* includes/cta-banner.php */ ?>
 <style>
-  /* ── CTA BANNER ── */
-.cta-section {
-  background: linear-gradient(135deg, #f59e0b 0%, #FB923C 50%, #E05A00 100%);
-  padding: 80px 0;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-.cta-section::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='20'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
-  pointer-events: none;
-}
-.cta-section .section-label { color: rgba(255,255,255,0.75); }
-.cta-section h2 {
-  color: #fff;
-  font-size: clamp(2rem, 4vw, 3.2rem);
-  font-weight: 900;
-  line-height: 1.15;
-  margin-bottom: 1rem;
-}
-.cta-section p { color: rgba(255,255,255,0.85); font-size: 0.95rem; max-width: 460px; margin: 0 auto 2rem; }
-.btn-cta-white {
-  background: #fff;
-  color: #f59e0b;
-  border: none;
-  border-radius: 10px;
-  font-weight: 800;
-  font-size: 0.95rem;
-  padding: 0.75rem 2rem;
-  box-shadow: 0 4px 14px rgba(0,0,0,0.15);
-  transition: all 0.2s;
-  cursor: pointer;
-}
-.btn-cta-white:hover { background: #FFF8F1; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.18); color: #f59e0b; }
+    :root {
+        --arc-cta-grad: linear-gradient(135deg, #f59e0b 0%, #FB923C 50%, #E05A00 100%);
+        --arc-white-alpha: rgba(255, 255, 255, 0.85);
+        --arc-branding-orange: #E8521A;
+    }
 
-/* ── FOOTER ── */
-.arcadia-footer {
-  background: #FFF8F1;
-  border-top: 1px solid #E7E5E4;
-  padding: 2.5rem 0;
-}
-.arcadia-footer .footer-logo { height: 34px; }
-.arcadia-footer .footer-desc { font-size: 0.82rem; color: #78716C; line-height: 1.7; max-width: 280px; }
-.arcadia-footer .footer-links a {
-  display: block;
-  font-size: 0.82rem;
-  color: #78716C;
-  text-decoration: none;
-  font-weight: 600;
-  margin-bottom: 6px;
-  transition: color 0.18s;
-}
-.arcadia-footer .footer-links a:hover { color: #f59e0b; }
-.arcadia-footer .footer-links h6 {
-  font-size: 0.78rem;
-  font-weight: 900;
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  color: #1C1917;
-  margin-bottom: 0.75rem;
-}
-.arcadia-footer .social-btn {
-  width: 36px; height: 36px;
-  border-radius: 8px;
-  display: inline-flex; align-items: center; justify-content: center;
-  background: #FDE8D0;
-  color: #f59e0b;
-  font-size: 1rem;
-  text-decoration: none;
-  transition: background 0.18s;
-  margin-right: 6px;
-}
-.arcadia-footer .social-btn:hover { background: var(--arcadia-orange); color: #fff; }
-.arcadia-footer .footer-bottom {
-  border-top: 1px solid #E7E5E4;
-  margin-top: 2rem;
-  padding-top: 1.25rem;
-  font-size: 0.78rem;
-  color: #78716C;
-}
+    .cta-section {
+        background: var(--arc-cta-grad);
+        position: relative;
+        overflow: hidden;
+        width: 100vw;
+        margin-left: calc(-50vw + 50%);
+    }
+
+    /* ── FLOATING SHAPES (NO MOUSE TRACKING) ── */
+    .cta-overlay-shapes {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        z-index: 1;
+    }
+
+    .cta-overlay-shapes svg {
+        position: absolute;
+        opacity: 0.12;
+        fill: none;
+        stroke: #ffffff;
+    }
+
+    /* Diverse Animations para hindi sabay-sabay gumalaw */
+    @keyframes floatSlow {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        50% { transform: translate(-20px, 15px) rotate(5deg); }
+    }
+    @keyframes floatFast {
+        0%, 100% { transform: translate(0, 0) rotate(0deg); }
+        50% { transform: translate(25px, -20px) rotate(-10deg); }
+    }
+    @keyframes pulse {
+        0%, 100% { transform: scale(1); opacity: 0.12; }
+        50% { transform: scale(1.1); opacity: 0.2; }
+    }
+
+    /* Positioning and Animation Assignments */
+    .v1 { top: -5%; left: -2%; width: 320px; animation: floatSlow 12s infinite ease-in-out; }
+    .v2 { bottom: -10%; right: -2%; width: 380px; animation: floatSlow 15s infinite ease-in-out reverse; }
+    .v3 { top: 15%; left: 10%; width: 100px; animation: floatFast 8s infinite ease-in-out; }
+    .v4 { bottom: 15%; left: 18%; width: 70px; fill: #fff !important; opacity: 0.08 !important; animation: pulse 6s infinite; }
+    .v5 { top: 20%; right: 15%; width: 55px; animation: floatFast 7s infinite ease-in-out 1s; }
+    .v6 { bottom: 25%; right: 28%; width: 90px; stroke-width: 2; animation: floatSlow 10s infinite; }
+    .v7 { top: 45%; left: 8%; width: 35px; fill: #fff !important; animation: pulse 5s infinite 2s; }
+    .v8 { top: 12%; right: 42%; width: 25px; opacity: 0.2 !important; animation: floatFast 9s infinite; }
+    .v9 { bottom: 8%; left: 40%; width: 65px; animation: floatSlow 11s infinite 0.5s; }
+    /* Extra shapes na hiningi mo beh */
+    .v10 { top: 60%; right: 10%; width: 110px; animation: floatSlow 14s infinite; }
+    .v11 { bottom: 30%; left: 5%; width: 45px; stroke-width: 3; animation: floatFast 6s infinite; }
+    .v12 { top: 5%; left: 45%; width: 40px; fill: #fff !important; opacity: 0.05 !important; }
+
+    /* Typography & Layout */
+    .cta-title {
+        font-size: clamp(2.25rem, 5vw, 3.5rem);
+        letter-spacing: -0.02em;
+        line-height: 1.1;
+    }
+
+    .cta-desc {
+        color: var(--arc-white-alpha);
+        font-size: 1.1rem;
+        max-width: 580px;
+        margin: 0 auto;
+    }
+
+    /* Buttons */
+    .btn-arc-white {
+        background-color: #ffffff;
+        color: var(--arc-branding-orange) !important;
+        font-weight: 800;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    .btn-arc-white:hover {
+        background-color: #f8f9fa;
+        transform: translateY(-3px);
+        box-shadow: 0 10px 20px -5px rgba(0,0,0,0.15);
+    }
+    .btn-arc-outline {
+        background: transparent;
+        color: #ffffff !important;
+        border: 2px solid #ffffff;
+        font-weight: 800;
+        border-radius: 50px;
+        transition: all 0.3s ease;
+    }
+    .btn-arc-outline:hover {
+        background: #ffffff;
+        color: var(--arc-branding-orange) !important;
+        transform: translateY(-3px);
+    }
 </style>
-<section class="cta-section">
-  <div class="container position-relative" style="z-index:1;">
-    <span class="section-label">JOIN ARCADIA</span>
-    <h2>
-      Claim. Level Up.<br>
-      Redeem. Dominate.
-    </h2>
-    <p>
-      Join over 12,000 students transforming how they learn.
-      Start earning badges, collecting XP, and claiming real rewards today.
-    </p>
-    <div class="d-flex flex-wrap gap-3 justify-content-center">
-      <a href="#" class="btn btn-cta-white">Join Arcadia Now →</a>
-      <a href="#" class="btn btn-hero-secondary" style="color:#fff;border-color:rgba(255,255,255,0.5);">Explore Badges</a>
+
+<section class="cta-section py-20">
+    <div class="cta-overlay-shapes">
+        <!-- 12 Shapes na beh, puno na 'yan! -->
+        <svg class="v1" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" stroke-width="1.5"/></svg>
+        <svg class="v2" viewBox="0 0 100 100"><circle cx="50" cy="50" r="48" stroke-width="1.5"/></svg>
+        <svg class="v3" viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" rx="15" stroke-width="3"/></svg>
+        <svg class="v4" viewBox="0 0 100 100"><path d="M50 15 L85 80 L15 80 Z"/></svg>
+        <svg class="v5" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" stroke-width="4"/></svg>
+        <svg class="v6" viewBox="0 0 100 100"><rect x="20" y="20" width="60" height="60" rx="8" stroke-width="3" transform="rotate(45 50 50)"/></svg>
+        <svg class="v7" viewBox="0 0 100 100"><circle cx="50" cy="50" r="30" stroke-width="6"/></svg>
+        <svg class="v8" viewBox="0 0 100 100"><rect x="30" y="30" width="40" height="40" rx="4" stroke-width="8"/></svg>
+        <svg class="v9" viewBox="0 0 100 100"><path d="M50 20 L80 75 L20 75 Z" stroke-width="2.5"/></svg>
+        <svg class="v10" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" stroke-dasharray="5,5" stroke-width="2"/></svg>
+        <svg class="v11" viewBox="0 0 100 100"><rect x="10" y="10" width="80" height="80" rx="10" stroke-width="3"/></svg>
+        <svg class="v12" viewBox="0 0 100 100"><path d="M50 10 L90 90 L10 90 Z"/></svg>
     </div>
-  </div>
+
+    <div class="container position-relative" style="z-index: 2;">
+        <div class="text-center">
+            <span class="text-white opacity-75 text-uppercase fw-bold ls-2 fs-8 mb-4 d-block">Ready To Level Up?</span>
+            <h2 class="cta-title text-white fw-bolder mb-6">
+                Claim. Level Up.<br class="d-none d-md-block">
+                Redeem. Dominate.
+            </h2>
+            <p class="cta-desc mb-10 fw-medium">
+                Join hundreds of FEU Tech students already transforming their academic journey into an adventure.
+            </p>
+            <div class="d-flex justify-content-center gap-4 flex-wrap">
+                <a href="register.php" class="btn btn-arc-white px-10 py-4">Join Arcadia Now 🎮</a>
+                <a href="badges.php" class="btn btn-arc-outline px-10 py-4">Explore Badges <i class="fas fa-arrow-right ms-2"></i></a>
+            </div>
+        </div>
+    </div>
 </section>
+
+<!-- Tinanggal na natin yung MouseMove Script para Pure Floating na lang! -->

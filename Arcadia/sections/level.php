@@ -1,8 +1,6 @@
 <link rel="stylesheet" href="assets/css/level.css" />
 <section class="level-section pt-20 pb-20" id="arcLevelSection">
   <div class="arc-container text-center">
-
-    <!-- Badge Pill -->
     <div class="arc-badge-pill">Progress</div>
 
     <!-- Title -->
@@ -104,18 +102,4 @@
   </div>
 </section>
 
-<script>
-  document.addEventListener('DOMContentLoaded', function() {
-    const section = document.getElementById('arcLevelSection');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          section.classList.add('animate-in');
-        }
-      });
-    }, {
-      threshold: 0.2
-    });
-    observer.observe(section);
-  });
-</script>
+<script src="assets/js/level.js"></script>
