@@ -135,4 +135,3 @@
     </div>
 </section>
 
-<!-- Tinanggal na natin yung MouseMove Script para Pure Floating na lang! -->

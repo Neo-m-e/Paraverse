@@ -1,4 +1,4 @@
-/* ── LEVEL UP SYSTEM ── */
+/* BG */
 .level-section {
     background-color: #0F0D0C;
     position: relative;
@@ -16,8 +16,7 @@
         radial-gradient(circle at 80% 70%, rgba(232, 82, 26, 0.1) 0%, transparent 40%);
     pointer-events: none;
 }
-
-/* Progress Pill */
+/* Progress */
 .arc-badge-pill {
     display: inline-block;
     padding: 6px 20px;
@@ -31,7 +30,7 @@
     background: rgba(245, 158, 11, 0.05);
     margin-bottom: 25px;
 }
-
+/* gradient line */
 .level-track {
     display: flex;
     align-items: flex-end;
@@ -40,8 +39,6 @@
     padding: 3.5rem 0 2.5rem;
     position: relative;
 }
-
-/* Clean Multi-color Gradient Line */
 .level-track::before {
     content: '';
     position: absolute;
@@ -63,7 +60,7 @@
     transform: translateY(-50%) scaleX(1);
 }
 
-/* Level Item */
+/* 3 2 1  */
 .level-item {
     display: flex; flex-direction: column; align-items: center;
     position: relative; z-index: 1;
@@ -102,7 +99,7 @@
     border-color: #fff;
 }
 
-/* Per-tier colors */
+/* Perlevel colors */
 .level-item--bronze .level-circle  { border-color: #8b5e34; }
 .level-item--bronze .level-label   { color: #8b5e34; }
 
@@ -136,6 +133,7 @@
     padding: 35px;
 }
 
+/* title card */
 .title-chip {
     display: flex;
     align-items: center;
@@ -153,7 +151,9 @@
 .title-chip:hover { transform: translateX(5px); }
 
 .title-icon {
-    width: 20px; height: 20px; margin-right: 10px;
+    width: 25px !important;
+    height: auto !important; /* Gamitin ang auto para hindi ma-distort */
+    margin-right: 10px !important; 
 }
 
 /* Aligned to logo and lock */
