@@ -1,0 +1,166 @@
+/* ── LEVEL UP SYSTEM ── */
+.level-section {
+    background-color: #0F0D0C;
+    position: relative;
+    overflow: hidden;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+}
+
+.level-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        radial-gradient(circle at 20% 30%, rgba(232, 82, 26, 0.15) 0%, transparent 80%),
+        radial-gradient(circle at 80% 70%, rgba(232, 82, 26, 0.1) 0%, transparent 40%);
+    pointer-events: none;
+}
+
+/* Progress Pill */
+.arc-badge-pill {
+    display: inline-block;
+    padding: 6px 20px;
+    border: 1px solid #F59E0B;
+    border-radius: 50px;
+    color: #F59E0B;
+    font-size: 0.7rem;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: rgba(245, 158, 11, 0.05);
+    margin-bottom: 25px;
+}
+
+.level-track {
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    gap: 0;
+    padding: 3.5rem 0 2.5rem;
+    position: relative;
+}
+
+/* Clean Multi-color Gradient Line */
+.level-track::before {
+    content: '';
+    position: absolute;
+    top: 41%; left: 10%; right: 10%;
+    height: 4px;
+    background: linear-gradient(90deg,
+        #8b5e34 0%,
+        #94a3b8 25%,
+        #f59e0b 50%,
+        #0ea5e9 75%,
+        #6366f1 100%);
+    transform: translateY(-50%) scaleX(0);
+    transform-origin: left;
+    z-index: 0;
+    transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.level-section.animate-in .level-track::before {
+    transform: translateY(-50%) scaleX(1);
+}
+
+/* Level Item */
+.level-item {
+    display: flex; flex-direction: column; align-items: center;
+    position: relative; z-index: 1;
+    flex: 1;
+    cursor: pointer;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: all 0.5s ease-out;
+}
+
+.level-section.animate-in .level-item { opacity: 1; transform: translateY(0); }
+.level-section.animate-in .level-item:nth-child(1) { transition-delay: 0s; }
+.level-section.animate-in .level-item:nth-child(2) { transition-delay: 0.15s; }
+.level-section.animate-in .level-item:nth-child(3) { transition-delay: 0.30s; }
+.level-section.animate-in .level-item:nth-child(4) { transition-delay: 0.45s; }
+.level-section.animate-in .level-item:nth-child(5) { transition-delay: 0.60s; }
+
+/* Level Circle */
+.level-circle {
+    width: 90px; height: 90px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    border: 4px solid transparent;
+    background: #292524;
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    position: relative;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.5);
+}
+
+.level-circle span {
+    font-size: 3.5rem;
+}
+
+.level-item:hover .level-circle {
+    transform: scale(1.15);
+    border-color: #fff;
+}
+
+/* Per-tier colors */
+.level-item--bronze .level-circle  { border-color: #8b5e34; }
+.level-item--bronze .level-label   { color: #8b5e34; }
+
+.level-item--silver .level-circle  { border-color: #94a3b8; }
+.level-item--silver .level-label   { color: #94a3b8; }
+
+.level-item--gold .level-circle    { border-color: #f59e0b; }
+.level-item--gold .level-label     { color: #f59e0b; }
+
+.level-item--platinum .level-circle { border-color: #0ea5e9; }
+.level-item--platinum .level-label  { color: #0ea5e9; }
+
+.level-item--diamond .level-circle { border-color: #6366f1; }
+.level-item--diamond .level-label  { color: #6366f1; }
+
+/* Tier label colors in titles table */
+.tier-label { letter-spacing: 1px; }
+.tier-label--bronze   { color: #8b5e34; }
+.tier-label--silver   { color: #94a3b8; }
+.tier-label--gold     { color: #f59e0b; }
+.tier-label--platinum { color: #0ea5e9; }
+.tier-label--diamond  { color: #6366f1; }
+
+/* Titles Table */
+.titles-table {
+    background: #1C1917;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 24px;
+    overflow: hidden;
+    margin-top: 4rem;
+    padding: 35px;
+}
+
+.title-chip {
+    display: flex;
+    align-items: center;
+    background: #FFFFFF;
+    border-radius: 10px;
+    padding: 10px 15px;
+    font-size: 0.75rem;
+    color: #1a1614;
+    font-weight: 800;
+    margin-bottom: 8px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.2s;
+}
+
+.title-chip:hover { transform: translateX(5px); }
+
+.title-icon {
+    width: 20px; height: 20px; margin-right: 10px;
+}
+
+/* Aligned to logo and lock */
+.arc-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+}

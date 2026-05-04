@@ -1,205 +1,121 @@
-<?php /* includes/level-system.php */ ?>
-<style>
- /* ── LEVEL UP SYSTEM ── */
-.level-section {
-  background: #1C1917;
-  padding: 80px 0;
-  position: relative;
-  overflow: hidden;
-}
-.level-section::before {
-  content: '';
-  position: absolute; inset: 0;
-  background: radial-gradient(ellipse at 70% 60%, rgba(245,158,11,0.08) 0%, transparent 60%);
-  pointer-events: none;
-}
-.level-section .section-label { color: #F59E0B; }
-.level-section .section-title { color: #fff; }
-.level-section .section-subtitle { color: #A8A29E; }
+<link rel="stylesheet" href="assets/css/level.css" />
+<section class="level-section pt-20 pb-20" id="arcLevelSection">
+  <div class="arc-container text-center">
 
-.level-track {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  gap: 0;
-  padding: 2rem 0 1rem;
-  position: relative;
-}
-.level-track::before {
-  content: '';
-  position: absolute;
-  top: 50%; left: 10%;
-  right: 10%; height: 3px;
-  background: linear-gradient(90deg, #78716C, #F59E0B);
-  transform: translateY(-50%);
-  z-index: 0;
-}
-.level-node {
-  display: flex; flex-direction: column; align-items: center;
-  position: relative; z-index: 1;
-  flex: 1;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-.level-node:hover { transform: scale(1.05); }
-.level-node .node-circle {
-  width: 56px; height: 56px;
-  border-radius: 50%;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.4rem;
-  border: 3px solid transparent;
-  background: #292524;
-  transition: all 0.2s;
-  position: relative;
-}
-.level-node.active .node-circle,
-.level-node:hover .node-circle {
-  border-color: #F59E0B;
-  box-shadow: 0 0 20px rgba(245,158,11,0.4);
-}
-.level-node .node-name {
-  color: #fff;
-  font-weight: 800;
-  font-size: 0.8rem;
-  margin-top: 8px;
-}
-.level-node .node-xp {
-  color: #A8A29E;
-  font-size: 0.68rem;
-  font-weight: 600;
-}
+    <!-- Badge Pill -->
+    <div class="arc-badge-pill">Progress</div>
 
-.titles-table {
-  background:  #292524;
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  overflow: hidden;
-  margin-top: 2rem;
-}
-.titles-table .table-header {
-  background: rgba(249,115,22,0.1);
-  padding: 1rem 1.5rem;
-  color: #fff;
-  font-weight: 800;
-  font-size: 0.85rem;
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-}
-.titles-row {
-  display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 0;
-}
-.titles-col {
-  padding: 1rem;
-  border-right: 1px solid rgba(255,255,255,0.06);
-}
-.titles-col:last-child { border-right: none; }
-.titles-col .col-head {
-  font-size: 0.72rem;
-  font-weight: 800;
-  color: var(--arcadia-gold);
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
-  margin-bottom: 0.5rem;
-}
-.titles-col .title-chip {
-  display: block;
-  background: rgba(255,255,255,0.06);
-  border-radius: 6px;
-  padding: 4px 8px;
-  font-size: 0.7rem;
-  color: #E7E5E4;
-  font-weight: 600;
-  margin-bottom: 4px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-</style>  
-<section class="level-section">
-  <div class="container text-center">
-    <span class="section-label">Progression</span>
-    <h2 class="section-title" style="color:#fff;">Level Up System</h2>
-    <p class="section-subtitle">
-      Start at Bronze and climb to Diamond. Each level unlocks exclusive Titles and
-      exclusive perks.
+    <!-- Title -->
+    <h2 class="fw-bolder text-white mb-4" style="font-size: 3.5rem; line-height: 1.2;">Level Up System</h2>
+    <p class="text-gray-500 fw-semibold fs-5 mx-auto mb-15" style="max-width: 600px;">
+      Start at Bronze and climb to Diamond. Each level unlocks new titles and exclusive perks.
     </p>
-    <div class="divider-orange"></div>
 
     <!-- Level Track -->
-    <div class="level-track mt-4">
-      <div class="level-node active" title="Bronze">
-        <div class="node-circle" style="background:linear-gradient(135deg,#B45309,#D97706);">🥉</div>
-        <div class="node-name">Bronze</div>
-        <div class="node-xp">0 - 499 XP</div>
+    <div class="level-track">
+
+      <div class="level-item level-item--bronze">
+        <div class="level-circle">
+          <span>🥉</span>
+        </div>
+        <div class="level-label mt-3 fw-bolder fs-4">Bronze</div>
+        <div class="level-xp fw-bold text-gray-500 fs-7">0 - 4,799 XP</div>
       </div>
-      <div class="level-node" title="Silver">
-        <div class="node-circle" style="background:linear-gradient(135deg,#64748B,#94A3B8);">🥈</div>
-        <div class="node-name">Silver</div>
-        <div class="node-xp">500 - 1499 XP</div>
+
+      <div class="level-item level-item--silver">
+        <div class="level-circle">
+          <span>🥈</span>
+        </div>
+        <div class="level-label mt-3 fw-bolder fs-4">Silver</div>
+        <div class="level-xp fw-bold text-gray-500 fs-7">4,800 - 9,599 XP</div>
       </div>
-      <div class="level-node" title="Gold">
-        <div class="node-circle" style="background:linear-gradient(135deg,#D97706,#F59E0B);">🥇</div>
-        <div class="node-name">Gold</div>
-        <div class="node-xp">1500 - 2999 XP</div>
+
+      <div class="level-item level-item--gold">
+        <div class="level-circle">
+          <span>🥇</span>
+        </div>
+        <div class="level-label mt-3 fw-bolder fs-4">Gold</div>
+        <div class="level-xp fw-bold text-gray-500 fs-7">9,600 - 14,399 XP</div>
       </div>
-      <div class="level-node" title="Platinum">
-        <div class="node-circle" style="background:linear-gradient(135deg,#0EA5E9,#38BDF8);">🏆</div>
-        <div class="node-name">Platinum</div>
-        <div class="node-xp">3000 - 4999 XP</div>
+
+      <div class="level-item level-item--platinum">
+        <div class="level-circle">
+          <span>🛡️</span>
+        </div>
+        <div class="level-label mt-3 fw-bolder fs-4">Platinum</div>
+        <div class="level-xp fw-bold text-gray-500 fs-7">14,400 - 19,199 XP</div>
       </div>
-      <div class="level-node" title="Diamond">
-        <div class="node-circle" style="background:linear-gradient(135deg,#6366F1,#818CF8);">💎</div>
-        <div class="node-name">Diamond</div>
-        <div class="node-xp">5000+ XP</div>
+
+      <div class="level-item level-item--diamond">
+        <div class="level-circle">
+          <span>💎</span>
+        </div>
+        <div class="level-label mt-3 fw-bolder fs-4">Diamond</div>
+        <div class="level-xp fw-bold text-gray-500 fs-7">19,200+ XP</div>
       </div>
+
     </div>
 
     <!-- Titles Table -->
-    <div class="titles-table text-start mt-4">
-      <div class="table-header">Titles per Level</div>
-      <div class="titles-row p-3">
-        <!-- Bronze -->
-        <div class="titles-col">
-          <div class="col-head" style="color:#D97706;">🥉 Bronze</div>
-          <span class="title-chip">Rookie Scholar</span>
-          <span class="title-chip">Fresh Coder</span>
-          <span class="title-chip">Newcomer</span>
-          <span class="title-chip">Curious Mind</span>
+    <div class="titles-table text-start">
+      <h3 class="text-white fw-bolder mb-1">Titles per Level</h3>
+      <p class="text-muted fs-7 mb-8">Each level has 3 unlockable titles as you gain more XP.</p>
+
+      <div class="row g-5">
+
+        <div class="col-lg">
+          <div class="tier-label tier-label--bronze fw-bolder fs-8 text-uppercase mb-4">BRONZE</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-bronze-1.png" class="title-icon">Initiate Of The Scroll</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-bronze-2.png" class="title-icon">Acolyte Of Inquiry</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-bronze-3.png" class="title-icon">Scholar-Errant</div>
         </div>
-        <!-- Silver -->
-        <div class="titles-col">
-          <div class="col-head" style="color:#94A3B8;">🥈 Silver</div>
-          <span class="title-chip">Rising Star</span>
-          <span class="title-chip">Problem Solver</span>
-          <span class="title-chip">Dedicated Learner</span>
-          <span class="title-chip">Badge Collector</span>
+
+        <div class="col-lg">
+          <div class="tier-label tier-label--silver fw-bolder fs-8 text-uppercase mb-4">SILVER</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-silver-1.png" class="title-icon">Lex Arcanum Examiner</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-silver-2.png" class="title-icon">Seer Of Equations</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-silver-3.png" class="title-icon">Magister Cognitum</div>
         </div>
-        <!-- Gold -->
-        <div class="titles-col">
-          <div class="col-head" style="color:#F59E0B;">🥇 Gold</div>
-          <span class="title-chip">Campus Legend</span>
-          <span class="title-chip">Code Warrior</span>
-          <span class="title-chip">Academic Titan</span>
-          <span class="title-chip">XP Hunter</span>
+
+        <div class="col-lg">
+          <div class="tier-label tier-label--gold fw-bolder fs-8 text-uppercase mb-4">GOLD</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-gold-1.png" class="title-icon">Warden Of The Codex</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-gold-2.png" class="title-icon">Technosophus Primus</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-gold-3.png" class="title-icon">Lumen Scholaris</div>
         </div>
-        <!-- Platinum -->
-        <div class="titles-col">
-          <div class="col-head" style="color:#38BDF8;">🏆 Platinum</div>
-          <span class="title-chip">Tech Maestro</span>
-          <span class="title-chip">Elite Achiever</span>
-          <span class="title-chip">Honor Graduate</span>
-          <span class="title-chip">Innovator</span>
+
+        <div class="col-lg">
+          <div class="tier-label tier-label--platinum fw-bolder fs-8 text-uppercase mb-4">PLATINUM</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-platinum-1.png" class="title-icon">Chronicler Of The Unseen</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-platinum-2.png" class="title-icon">Aetherial Theorist</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-platinum-3.png" class="title-icon">Primarch Of Logic</div>
         </div>
-        <!-- Diamond -->
-        <div class="titles-col">
-          <div class="col-head" style="color:#818CF8;">💎 Diamond</div>
-          <span class="title-chip">Arcadia Champion</span>
-          <span class="title-chip">Legendary Coder</span>
-          <span class="title-chip">Grand Scholar</span>
-          <span class="title-chip">Paraverse God</span>
+
+        <div class="col-lg">
+          <div class="tier-label tier-label--diamond fw-bolder fs-8 text-uppercase mb-4">DIAMOND</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-diamond-1.png" class="title-icon">The Unbound Scholar</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-diamond-2.png" class="title-icon">Domain Architect</div>
+          <div class="title-chip"><img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/levels/MD-diamond-3.png" class="title-icon">Capstone Alchemist</div>
         </div>
+
       </div>
     </div>
+
   </div>
 </section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const section = document.getElementById('arcLevelSection');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          section.classList.add('animate-in');
+        }
+      });
+    }, {
+      threshold: 0.2
+    });
+    observer.observe(section);
+  });
+</script>
