@@ -36,11 +36,11 @@
 
 /*filter*/
 .arc-filter-btn {
-    background: #FFFFFF;
+    background: transparent;
     border: 1px solid #2D2D2D;
     color: #2D2D2D;
     font-weight: 700;
-    padding: 8px 22px;
+    padding: 8px 18px;
     border-radius: 50px;
     transition: all 0.2s ease;
     cursor: pointer;
@@ -62,11 +62,12 @@
     color: #4B5563;
     font-weight: 500;
     font-size: 0.95rem;
-    margin: 20px 0 50px 0;
+    margin: 10px 0 40px 0;
     min-height: 1.5em;
+    margin-bottom: 2rem;
     transition: opacity 0.3s ease;
-    text-align: left;
-    white-space: nowrap;
+    text-align: center; /* Gawing center align */
+    white-space: normal;
 }
 
 /*badges container*/
@@ -111,28 +112,35 @@
 }
 
 .arc-badge-img {
-    width: 100px;
-    height: 100px;
+    width: 120px;
+    height: 120px;
     object-fit: contain;
     margin-bottom: 25px;
 }
 
+
 .arc-card h6 {
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     font-weight: 800;
     color: #1F2937;
-    margin-bottom: 10px;
+    margin-top: 10px;
+    margin-bottom: 5px; /* Dagdag space bago ang XP */
+    min-height: 40px; /* Para pantay-pantay ang simula ng XP line */
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .arc-xp {
     color: #F05A28;
-    font-weight: 800;
-    font-size: 0.8rem;
+    font-weight: 700;
+    font-size: 1rem;
+    margin-bottom: 1px;
 }
 
 .arc-coins {
     color: #9CA3AF;
-    font-size: 0.75rem;
+    font-size: 1rem;
 }
 
 .btn-arc-view {
@@ -162,6 +170,24 @@
     font-weight: 800;
     text-transform: uppercase;
     background: #FFF2EB;
-    margin-bottom: 2rem;
+    margin-bottom: 1.5rem;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.mb-10 {
+    margin-bottom: 2.5rem !important; /* Bawasan ang sobrang gap sa taas */
+}
+
+.d-flex.flex-wrap.gap-2 {
+    gap: 7px !important; /* Mas malapad na gap sa pagitan ng buttons */
+    margin-bottom: 2rem !important;
+}
+
+.arc-container .text-start {
+    text-align: center !important; /* Para maging centered ang alignment gaya ng basis */
+    margin-bottom: 2rem !important; /* Ito ang gap sa pagitan ng description at filters */
+}
+
+.arc-container p {
+    margin: 0 auto 2rem auto !important;
 }

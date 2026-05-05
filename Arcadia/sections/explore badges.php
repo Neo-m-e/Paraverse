@@ -9,7 +9,7 @@
             </p>
         </div>
 
-        <div class="d-flex flex-wrap justify-content-start gap-2 mb-4">
+        <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
             <button class="arc-filter-btn active" onclick="filterArcadia('top', this, 'Unlock a world of achievements, from academic excellence to extracurricular success.')">Top Badges</button>
             <button class="arc-filter-btn" onclick="filterArcadia('fun', this, 'Easily earned for engaging in enjoyable activities')">🎮 Fun</button>
             <button class="arc-filter-btn" onclick="filterArcadia('activity', this, 'Recognizes participation in events, projects, or extracurricular engagements')">🏅 Activity</button>
