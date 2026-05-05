@@ -103,6 +103,7 @@
     align-items: center;
     height: 100%;
     transition: opacity 0.25s ease, transform 0.25s ease;
+    
 
 }
 
@@ -124,8 +125,8 @@
     font-weight: 800;
     color: #1F2937;
     margin-top: 10px;
-    margin-bottom: 5px; /* Dagdag space bago ang XP */
-    min-height: 40px; /* Para pantay-pantay ang simula ng XP line */
+    margin-bottom: 5px; 
+    min-height: 40px; 
     display: flex;
     align-items: center;
     justify-content: center;
@@ -175,19 +176,43 @@
 }
 
 .mb-10 {
-    margin-bottom: 2.5rem !important; /* Bawasan ang sobrang gap sa taas */
-}
+    margin-bottom: 2.5rem !important; 
 
 .d-flex.flex-wrap.gap-2 {
-    gap: 7px !important; /* Mas malapad na gap sa pagitan ng buttons */
+    gap: 7px !important; 
     margin-bottom: 2rem !important;
+    justify-content: flex-center !important; 
 }
 
 .arc-container .text-start {
-    text-align: center !important; /* Para maging centered ang alignment gaya ng basis */
-    margin-bottom: 2rem !important; /* Ito ang gap sa pagitan ng description at filters */
+    text-align: center !important;
+    margin-bottom: 2rem !important; 
 }
 
 .arc-container p {
     margin: 0 auto 2rem auto !important;
+}
+
+.btn-view-badge {
+    margin-top: 15px;
+    padding: 8px 20px;
+    background-color: #F05A28; 
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-size: 0.8rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+
+.arc-card:hover .btn-view-badge {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.btn-view-badge:hover {
+    background-color: #d4481d; 
+    box-shadow: 0 4px 12px rgba(240, 90, 40, 0.3);
 }
