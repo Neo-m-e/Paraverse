@@ -10,7 +10,7 @@
             <h2 class="display-5 fw-bolder text-white mb-5">
                 Your Badges Are Worth More <br> Than Just a Picture
             </h2>
-            <p class="text-gray-500 fs-6 mx-auto" style="max-width: 650px;">
+            <p class="text-gray-300 fs-6 mx-auto" style="max-width: 650px;">
                 Every badge you earn fills your XP and adds Coins in your wallet. <br>
                 Save enough Coins and redeem exclusive FEU Tech merch — for free.
             </p>
@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <h5 class="text-white fw-bolder mb-3 fs-5">Complete a Task</h5>
-                    <p class="text-gray-600 fs-7 px-4 fw-semibold">
+                    <p class="text-gray-300 fs-7 px-4 fw-semibold">
                         Join events, attend classes, and hit academic milestones to unlock your badges.
                     </p>
                 </div>
@@ -47,7 +47,7 @@
                         </div>
                     </div>
                     <h5 class="text-white fw-bolder mb-3 fs-5">Collect Your Rewards</h5>
-                    <p class="text-gray-600 fs-7 px-4 fw-semibold">
+                    <p class="text-gray-300 fs-7 px-4 fw-semibold">
                         Every badge auto-credits XP to your level and Coins straight into your wallet.
                     </p>
                 </div>
@@ -64,7 +64,7 @@
                         </div>
                     </div>
                     <h5 class="text-white fw-bolder mb-3 fs-5">Claim Free Merch</h5>
-                    <p class="text-gray-600 fs-7 px-4 fw-semibold">
+                    <p class="text-gray-300 fs-7 px-4 fw-semibold">
                         Saved enough Coins? Swap them for exclusive limited-edition FEU Tech merch.
                     </p>
                 </div>
@@ -76,7 +76,7 @@
         <div class="arc-worth-banner mx-auto p-8 p-md-10 mt-10">
             <div class="d-flex align-items-center gap-6">
                 <span class="fs-2">⚡</span>
-                <p class="text-gray-500 mb-0 fs-6 fw-semibold">
+                <p class="text-gray-300 mb-0 fs-6 fw-semibold">
                     Your <span class="text-orange fw-bolder">XP also levels you up</span> — and the higher your level, the higher you climb on the
                     <a href="#" class="text-orange text-decoration-none fw-bolder">Leaderboard</a>. <br class="d-none d-md-block">
                     More badges = more XP = higher level = top of the board.

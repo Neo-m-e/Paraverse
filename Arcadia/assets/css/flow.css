@@ -7,19 +7,20 @@
         margin-left: calc(-50vw + 50%);
     }
 
-    /* glow */
-    .arc-worth::before {
-        content: '';
-        position: absolute;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background:
-            radial-gradient(circle at 20% 30%, rgba(232, 82, 26, 0.15) 0%, transparent 80%),
-            radial-gradient(circle at 80% 70%, rgba(232, 82, 26, 0.1) 0%, transparent 40%);
-        pointer-events: none;
-    }
+   /* glow */
+.arc-worth::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: 
+        radial-gradient(circle at 50% 50%, rgba(232, 82, 26, 0.18) 0%, transparent 70%),
+        radial-gradient(circle at 50% 10%, rgba(232, 82, 26, 0.08) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 1; 
+}
 
     /* steps container */
     .arc-step-container {
@@ -35,9 +36,9 @@
         top: 50%;
         left: 0;
         right: 0;
-        height: 2px;
+        height: 2.5px;
         background: #E8521A;
-        z-index: 0;
+        z-index: 1;
         opacity: 0.6;
     }
 
@@ -80,26 +81,31 @@
 
     /* Bottom Banner */
     .arc-worth-banner {
-        background: rgba(255, 255, 255, 0.03);
-        border: 1px solid rgba(255, 255, 255, 0.08);
+        background-color: rgba(255, 255, 255, 0.1) !important;
+        border: 1px solid rgba(255, 255, 255, 0.2) !important;
         border-radius: 20px;
         max-width: 800px;
     }
 
+    .text-orange {
+        color: #F59E0B !important;
+    }
+
     .text-center .arc-flow-pill {
-    display: inline-block !important;
-    padding: 8px 20px !important;
-    border: 2px solid #F59E0B !important;
-    background: rgba(245, 158, 11, 0.05) !important;
-    color: #F59E0B !important;
-    border-radius: 50px !important;
-    font-size: 0.75rem;
-    font-weight: 800;
-    text-transform: uppercase;
-    background: rgba(245, 158, 11, 0.05);
-    margin-bottom: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
-}
+        display: inline-block !important;
+        padding: 8px 20px !important;
+        border: 2px solid #F59E0B !important;
+        background: rgba(245, 158, 11, 0.05) !important;
+        color: #F59E0B !important;
+        border-radius: 50px !important;
+        font-size: 0.75rem;
+        font-weight: 800;
+        text-transform: uppercase;
+        background: rgba(245, 158, 11, 0.05);
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    }
+
     /* scroll animation */
     .arc-worth-step {
         opacity: 0;
@@ -111,3 +117,14 @@
         opacity: 1;
         transform: translateY(0);
     }
+
+    .arc-worth-banner span.fs-2 {
+        color: #F5A623;
+        /* Arcadia Gold/Orange */
+        text-shadow: 0 0 15px rgba(245, 166, 35, 0.4);
+        filter: drop-shadow(0 0 5px rgba(245, 166, 35, 0.2));
+    }
+    .fs-1 {
+    font-size: 2.5rem !important; 
+    line-height: 1.2 !important;
+}
