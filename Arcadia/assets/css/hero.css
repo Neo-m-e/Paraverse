@@ -1,4 +1,3 @@
-/*space above hero below header*/
 .arc-hero {
     background: #FFF5EC;
     padding: 100px 0 120px 0;
@@ -182,5 +181,5 @@ dotlottie-player {
 
 
 .d-flex.gap-3.mb-5 {
-    margin-bottom: 4rem !important; /* Itutulak nito pababa yung stats items */
+    margin-bottom: 4rem !important; 
 }

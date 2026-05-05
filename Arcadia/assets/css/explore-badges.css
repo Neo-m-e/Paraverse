@@ -66,7 +66,7 @@
     min-height: 1.5em;
     margin-bottom: 2rem;
     transition: opacity 0.3s ease;
-    text-align: center; /* Gawing center align */
+    text-align: center; 
     white-space: normal;
 }
 
@@ -126,7 +126,7 @@
     color: #1F2937;
     margin-top: 10px;
     margin-bottom: 5px; 
-    min-height: 40px; 
+    min-height: 40px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -177,6 +177,7 @@
 
 .mb-10 {
     margin-bottom: 2.5rem !important; 
+}
 
 .d-flex.flex-wrap.gap-2 {
     gap: 7px !important; 

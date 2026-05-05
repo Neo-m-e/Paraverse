@@ -94,10 +94,10 @@
         z-index: 10;
     }
 .arc-how-section h2 {
-    font-weight: 900 !important;   /* Extra Bold/Black gaya ng nasa kanan */
-    color: #1C1917;                /* Siguraduhing text-gray-900 equivalent */
-    letter-spacing: -0.02em;       /* Siksikin ang letters */
-    margin-bottom: 1.5rem !important; /* Space sa pagitan ng heading at description */
+    font-weight: 900 !important;  
+    color: #1C1917;               
+    letter-spacing: -0.02em;      
+    margin-bottom: 1.5rem !important;
 }
 .arc-how-section p {
     max-width: 600px;

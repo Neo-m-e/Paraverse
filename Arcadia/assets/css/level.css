@@ -270,5 +270,5 @@
 .level-section h3, 
 .level-section p.text-muted {
     text-align: left !important;
-    padding-left: 10px; /* Dagdag padding para hindi dikit sa edge ng screen sa mobile */
+    padding-left: 10px; 
 }
