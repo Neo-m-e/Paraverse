@@ -19,9 +19,10 @@
         </h1>
 
         <!-- Description -->
-        <p class="hero-desc text-gray-500 fs-5 fw-semibold mb-10">
+        <p class="hero-desc text-gray-700 fs-5 fw-semibold mb-10">
           Transform your academic journey into an epic adventure at FEU Tech.
-          Earn badges, collect XP, climb leaderboards, and redeem real rewards.
+          Earn badges, collect XP, climb leaderboards, and redeem real rewards
+          — all while leveling up your knowledge.
         </p>
 
         <!-- Buttons -->
@@ -34,15 +35,15 @@
         <div class="d-flex justify-content-start gap-5 mt-5 arc-hero-stats">
           <div class="stat-item">
             <span class="stat-num fw-bolder" data-count="12581">0</span>
-            <span class="stat-lbl fw-bold text-gray-500 fs-6">Active Players</span>
+            <span class="stat-lbl fw-bold text-gray-700 fs-6">Active Players</span>
           </div>
           <div class="stat-item">
             <span class="stat-num fw-bolder" data-count="500">0</span>
-            <span class="stat-lbl fw-bold text-gray-500 fs-6">Unique Badges</span>
+            <span class="stat-lbl fw-bold text-gray-700 fs-6">Unique Badges</span>
           </div>
           <div class="stat-item">
             <span class="stat-num fw-bolder" data-count="20">0</span>
-            <span class="stat-lbl fw-bold text-gray-500 fs-6">Rewards in Store</span>
+            <span class="stat-lbl fw-bold text-gray-700 fs-6">Rewards in Store</span>
           </div>
         </div>
 
