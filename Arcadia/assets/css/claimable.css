@@ -11,15 +11,19 @@
         background-position: center;
     }
 
-    .arc-store-pill {
-        background: #fff5f0;
-        color: #e8521a;
-        border: 1px solid #ffede5;
-        padding: 5px 24px;
-        border-radius: 50px;
-        display: inline-block;
-        letter-spacing: 1px;
-    }
+    .text-center .arc-store-tag {
+    display: inline-block !important;
+    background-color: #FFF2EB !important;
+    border: 2px solid #faccb3 !important;
+    border-radius: 50px !important;
+    color: #E8521A !important;
+    font-size: 0.75rem !important;
+    font-weight: 800 !important;
+    padding: 8px 20px !important;
+    margin-bottom: 2rem !important;
+    background-color: #FFF2EB;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
 
     .arc-reward-card {
         background: #fff;

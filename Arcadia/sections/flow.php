@@ -5,7 +5,8 @@
 
         <!-- Header -->
         <div class="text-center mb-15">
-            <span class="text-orange fw-bolder mb-3 d-block text-uppercase ls-2 fs-8">Every Badge Counts</span>
+            <span class="arc-flow-pill fw-bolder ls-1">EVERY BADGE COUNTS</span>
+
             <h2 class="display-5 fw-bolder text-white mb-5">
                 Your Badges Are Worth More <br> Than Just a Picture
             </h2>

@@ -4,7 +4,7 @@
 
         <!-- Header -->
         <div class="text-center mb-5" style="margin-bottom: 80px !important;">
-            <span class="arc-how-tag fw-bolder fs-7 ls-1">SIMPLE & FUN</span>
+            <span class="arc-how-tag fw-bolder ls-1">SIMPLE & FUN</span>
             <h2 class="fw-bolder text-gray-900 mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem);">
                 How Arcadia Works
             </h2>

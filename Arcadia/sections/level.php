@@ -1,7 +1,7 @@
 <link rel="stylesheet" href="assets/css/level.css" />
 <section class="level-section pt-20 pb-20" id="arcLevelSection">
   <div class="arc-container text-center">
-    <div class="arc-badge-pill">Progress</div>
+    <span class="arc-badge-pill fw-bolder ls-1">PROGRESS</span>
 
     <!-- Title -->
     <h2 class="fw-bolder text-white mb-4" style="font-size: 3.5rem; line-height: 1.2;">Level Up System</h2>

@@ -19,16 +19,16 @@
 /* Progress */
 .arc-badge-pill {
     display: inline-block;
-    padding: 6px 20px;
-    border: 1px solid #F59E0B;
+    padding: 8px 20px;
+    border: 2px solid #F59E0B;
     border-radius: 50px;
     color: #F59E0B;
-    font-size: 0.7rem;
+    font-size: 0.75rem;
     font-weight: 800;
     text-transform: uppercase;
-    letter-spacing: 2px;
     background: rgba(245, 158, 11, 0.05);
-    margin-bottom: 25px;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
 }
 /* gradient line */
 .level-track {

@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="assets/css/faq.css">
-<section class="hof-section">
-    <div class="hof-container">
+<section class="faq-section">
+    <div class="faq-container">
         <div class="row justify-content-center">
             <div class="col-lg-8 text-center">
-                <span class="hof-tag">Got Questions?</span>
+            <span class="faq-tag fw-bolder ls-1">GOT QUESTIONS?</span>
                 <h2 class="section-title">Frequently Asked Questions</h2>
                 <p class="section-subtitle">Everything you need to know about Arcadia.</p>
                 <div class="divider-orange"></div>

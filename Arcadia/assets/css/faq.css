@@ -1,5 +1,5 @@
 
-    .hof-section {
+    .faq-section {
         position: relative;
         padding: 120px 0;
         width: 100vw;
@@ -8,7 +8,7 @@
         overflow: hidden;
     }
 
-    .hof-section::before {
+    .faq-section::before {
         content: '';
         position: absolute;
         top: 0;
@@ -22,7 +22,7 @@
         pointer-events: none;
     }
 
-    .hof-container {
+    .faq-container {
         max-width: 1300px;
         margin: 0 auto;
         padding: 0 20px;
@@ -30,17 +30,18 @@
         z-index: 10;
     }
 
-    .hof-tag {
+    .faq-tag {
         background-color: #FFF2EB;
-        border: 1.2px solid #FFD8C2;
+        border: 2px solid #faccb3;
         border-radius: 50px;
         color: #E8521A;
-        font-size: 13px;
-        font-weight: 700;
+        font-size: 0.75rem;
+        font-weight: 800;
         letter-spacing: 1px;
-        padding: 6px 20px;
+        padding: 8px 20px;
         display: inline-block;
-        margin-bottom: 15px;
+        margin-bottom: 2rem;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
     }
 
     .faq-accordion .accordion-item {

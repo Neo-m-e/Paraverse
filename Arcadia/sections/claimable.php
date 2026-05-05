@@ -1,9 +1,9 @@
 <link rel="stylesheet" href="assets/css/claimable.css" />
 <section class="arc-rewards-section">
-   <div class="arc-container">
+    <div class="arc-container">
         <!-- Header -->
-        <div class="text-center mb-5 pb-3">
-            <div class="arc-store-pill fs-8 fw-bolder text-uppercase mb-6">Store</div>
+        <div class="text-center mb-5" style="margin-bottom: 80px !important;">
+            <span class="arc-store-tag fw-bolder ls-1">STORE</span>
             <h2 class="fw-bolder text-gray-900 mb-4" style="font-size: 3.5rem; letter-spacing: -1px;">Claimable Rewards</h2>
             <p class="text-gray-500 fs-5 mx-auto" style="max-width: 650px;">Redeem your hard-earned coins for exclusive limited-edition FEU Tech merch.</p>
         </div>

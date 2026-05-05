@@ -2,7 +2,7 @@
 <div class="arc-wrapper-fluid">
     <div class="arc-container">
         <div class="mb-10 text-start">
-            <span class="badge rounded-pill px-3 py-2 mb-4" style="background:#FFDBC7; color:#E8521A; font-weight: 800; font-size: 0.65rem; letter-spacing: 1px;">COLLECTIBLES</span>
+            <span class="arc-collect-pill fw-bolder ls-1">COLLECTIBLES</span>
             <h2 class="display-5 fw-bolder text-dark mb-3">Explore Badges</h2>
             <p style="max-width: 550px;">
                 Hundreds of badges across 8 categories. Each badge unlocks XP and bragging rights.

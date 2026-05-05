@@ -1,8 +1,7 @@
 <link rel="stylesheet" href="assets/css/leaderboard.css">
 <section class="hof-wrapper-fluid">
     <div class="arc-container text-center">
-        <span class="badge rounded-pill px-3 py-2 mb-4" style="background:#FFDBC7; color:#E8521A; font-weight: 800; font-size: 0.8rem; letter-spacing: 1px;">COLLECTIBLES</span>
-        <h2 class="fw-bolder mt-3" style="font-size: 4rem; color: #1a1614; font-family: 'Inter', sans-serif;">Hall of Fame</h2>
+            <span class="arc-leaderboard-tag fw-bolder ls-1">LEADERBOARD</span>
         <p class="text-muted fw-semibold mb-5">12,581 players competing. Where do you rank?</p>
 
         <div class="podium-wrap">
