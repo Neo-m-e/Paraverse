@@ -25,7 +25,7 @@
             <p class="cta-desc mb-10 fw-medium">
                 Join hundreds of FEU Tech students already transforming their academic journey into an adventure.
             </p>
-            <div class="d-flex justify-content-center gap-4 flex-wrap">
+            <div class="d-flex justify-content-center  flex-wrap">
                 <a href="register.php" class="btn btn-arc-white px-10 py-4">Join Arcadia Now 🎮</a>
                 <a href="badges.php" class="btn btn-arc-outline px-10 py-4">Explore Badges <i class="fas fa-arrow-right ms-2"></i></a>
             </div>

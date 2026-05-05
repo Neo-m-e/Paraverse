@@ -83,6 +83,9 @@ dotlottie-player {
     max-width: 440px !important;
     margin-bottom: 3rem;
     font-weight: 400 !important;
+    text-align: left !important;
+    margin-left: 0 !important; 
+    margin-right: auto !important;
 }
 
 /*Buttons*/

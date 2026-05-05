@@ -55,7 +55,7 @@
     </div>
 
     <!-- Titles Table -->
-    <div class="titles-table text-start">
+    <div class="titles-table text-align-left mt-10 p-5">
       <h3 class="text-white fw-bolder mb-1">Titles per Level</h3>
       <p class="text-muted fs-7 mb-8">Each level has 3 unlockable titles as you gain more XP.</p>
 

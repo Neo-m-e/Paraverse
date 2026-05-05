@@ -19,8 +19,8 @@
         </h1>
 
         <!-- Description -->
-        <p class="hero-desc text-gray-700 fs-5 fw-semibold mb-10">
-          Transform your academic journey into an epic adventure at FEU Tech.
+<p class="hero-desc text-gray-700 fs-5">
+            Transform your academic journey into an epic adventure at FEU Tech.
           Earn badges, collect XP, climb leaderboards, and redeem real rewards
           — all while leveling up your knowledge.
         </p>

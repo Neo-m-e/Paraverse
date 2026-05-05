@@ -124,7 +124,7 @@
 }
 
 .level-circle span {
-    font-size: 3.5rem;
+    font-size: 2rem;
 }
 
 .level-item:hover .level-circle {
@@ -175,38 +175,47 @@
 
 /* Tier label colors in titles table */
 .tier-label {
-    letter-spacing: 1px;
+    font-size: 0.85rem !important;
+    font-weight: 800 !important;
+    text-transform: uppercase;
+    margin-bottom: 20px !important; 
+    display: block;
 }
 
 .tier-label--bronze {
     color: #8b5e34;
+    text-align: left !important;
 }
 
 .tier-label--silver {
     color: #94a3b8;
+    text-align: left !important;
 }
 
 .tier-label--gold {
     color: #f59e0b;
+    text-align: left !important;
 }
 
 .tier-label--platinum {
     color: #0ea5e9;
+    text-align: left !important;
 }
 
 .tier-label--diamond {
     color: #6366f1;
+    text-align: left !important;
 }
 
 /* Titles Table */
 .titles-table {
     background-color: rgba(255, 255, 255, 0.1) !important;
     border: 1px solid rgba(255, 255, 255, 0.2) !important;
-
     border-radius: 24px;
     overflow: hidden;
     margin-top: 4rem;
     padding: 35px;
+    text-align: left !important;
 }
 
 /* title card */
@@ -214,34 +223,25 @@
     display: flex;
     align-items: center;
     background: #FFFFFF;
-    min-height: 50px;
-    border-radius: 10px;
-    padding: 10px 15px;
-    font-size: 0.8rem;
+    min-height: 40px; 
+    border-radius: 10px; 
+    padding: 5px 15px; 
+    font-size: 0.8rem; 
     color: #1a1614;
-    font-weight: 800;
-    margin-bottom: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-weight: 700; 
+    margin-bottom: 12px; 
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     transition: transform 0.2s;
 }
-
 .title-chip:hover {
     transform: translateX(5px);
 }
 
 .title-icon {
-    width: 45px !important;
-    height: 45px !important;
-
-    /* Importante 'to para hindi ma-stretch yung logo */
+    width: 32px !important; 
+    height: 32px !important;
     object-fit: contain !important;
-
-    /* Para laging nasa gitna kahit mahaba o mataas yung image file */
-    display: block;
-    margin-right: 12px;
-
-    /* Opsyonal: dagdagan mo nito kung gusto mo may kaunting space sa loob */
-    padding: 2px;
+    margin-right: 10px;
 }
 
 /* Aligned to logo and lock */
@@ -251,4 +251,19 @@
     padding: 0 20px;
     position: relative;
     z-index: 10;
+}
+
+/*divider*/
+.titles-table .col-lg {
+    border-right: 1px solid rgba(255, 255, 255, 0.3); 
+    padding: 0 20px; 
+}
+.titles-table .col-lg:last-child {
+    border-right: none;
+}
+.titles-table h3 {
+    font-size: 2.2rem !important;
+    font-weight: 800 !important;
+    letter-spacing: -0.5px;
+    margin-bottom: 0.1rem !important;
 }
