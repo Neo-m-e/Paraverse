@@ -1,0 +1,97 @@
+.faq-section {
+    position: relative;
+    padding: 120px 0;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background: #ffffff;
+    overflow: hidden;
+}
+
+.faq-section::before {
+    content: '';
+    position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 800' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3CradialGradient id='fa' cx='0%25' cy='50%25' r='55%25'%3E%3Cstop offset='0%25' stop-color='%23E8521A' stop-opacity='0.09'/%3E%3Cstop offset='100%25' stop-color='%23E8521A' stop-opacity='0'/%3E%3C/radialGradient%3E%3CradialGradient id='fb' cx='100%25' cy='50%25' r='55%25'%3E%3Cstop offset='0%25' stop-color='%23F5A623' stop-opacity='0.09'/%3E%3Cstop offset='100%25' stop-color='%23F5A623' stop-opacity='0'/%3E%3C/radialGradient%3E%3Cpattern id='fqdots' x='0' y='0' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='20' cy='20' r='1.4' fill='%23E8521A' opacity='0.06'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='1440' height='800' fill='url(%23fa)'/%3E%3Crect width='1440' height='800' fill='url(%23fb)'/%3E%3Crect width='1440' height='800' fill='url(%23fqdots)'/%3E%3Cpath d='M50 100 L50 50 L100 50' fill='none' stroke='%23E8521A' stroke-width='2.5' stroke-opacity='0.1' stroke-linecap='round'/%3E%3Cpath d='M1390 100 L1390 50 L1340 50' fill='none' stroke='%23E8521A' stroke-width='2.5' stroke-opacity='0.1' stroke-linecap='round'/%3E%3Cpath d='M50 700 L50 750 L100 750' fill='none' stroke='%23F5A623' stroke-width='2.5' stroke-opacity='0.1' stroke-linecap='round'/%3E%3Cpath d='M1390 700 L1390 750 L1340 750' fill='none' stroke='%23F5A623' stroke-width='2.5' stroke-opacity='0.1' stroke-linecap='round'/%3E%3Cpath d='M120 400 L134 386 L148 400 L134 414 Z' fill='%23E8521A' opacity='0.06'/%3E%3Cpath d='M1300 200 L1314 186 L1328 200 L1314 214 Z' fill='%23F5A623' opacity='0.07'/%3E%3C/svg%3E");
+    background-size: cover; background-position: center;
+    z-index: 0; pointer-events: none;
+}
+
+.faq-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+}
+
+/* ── ACCORDION ── */
+.faq-accordion .accordion-item {
+    border: 2px solid #E7E5E4;
+    border-radius: 16px !important;
+    margin-bottom: 0.75rem;
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 4px 0 #e0ddd9;
+    transition: all 0.2s ease;
+    position: relative;
+    top: 0;
+}
+
+.faq-accordion .accordion-item:hover {
+    border-color: #faccb3;
+    top: 2px;
+    box-shadow: 0 2px 0 #e0ddd9;
+}
+
+/* Number badge on each item */
+.faq-accordion .accordion-item::before {
+    content: attr(data-q);
+    position: absolute;
+    left: -12px; top: 50%; transform: translateY(-50%);
+    width: 24px; height: 24px;
+    background: #E8521A; color: #fff;
+    border-radius: 50%;
+    font-size: 0.65rem; font-weight: 900;
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.faq-accordion .accordion-button {
+    font-weight: 700; font-size: 0.92rem;
+    background: #fff; color: #1C1917;
+    box-shadow: none; padding: 1.1rem 1.25rem;
+    transition: background 0.2s ease;
+}
+
+.faq-accordion .accordion-button:not(.collapsed) {
+    background: #FDE8D0;
+    color: #F97316;
+}
+
+.faq-accordion .accordion-button::after { filter: none; }
+.faq-accordion .accordion-button:not(.collapsed)::after { filter: hue-rotate(20deg) saturate(2); }
+
+.faq-accordion .accordion-body {
+    font-size: 0.87rem; color: #78716C;
+    line-height: 1.8; background: #fff;
+    animation: faq-slide-in 0.25s ease-out;
+}
+
+@keyframes faq-slide-in {
+    from { transform: translateY(-8px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+}
+
+.divider-orange {
+    width: 48px; height: 4px;
+    background: #F97316;
+    border-radius: 2px;
+    margin: 0 auto 1rem;
+    animation: divider-grow 0.6s ease-out;
+}
+
+@keyframes divider-grow {
+    from { width: 0; }
+    to   { width: 48px; }
+}
+

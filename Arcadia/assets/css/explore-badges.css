@@ -1,0 +1,225 @@
+/* ── EXPLORE BADGES SECTION ── */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@700;800;900&display=swap');
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+.gw {
+    background: #FFF9F3;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 900' xmlns='http://www.w3.org/2000/svg'%3E%3Cdefs%3E%3Cpattern id='pgrid' x='0' y='0' width='48' height='48' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='24' cy='24' r='1.8' fill='%23E8521A' opacity='0.07'/%3E%3C/pattern%3E%3C/defs%3E%3Crect width='1440' height='900' fill='url(%23pgrid)'/%3E%3Cpath d='M60 120 L60 60 L120 60' fill='none' stroke='%23E8521A' stroke-width='3' stroke-opacity='0.1' stroke-linecap='round'/%3E%3Cpath d='M1380 120 L1380 60 L1320 60' fill='none' stroke='%23E8521A' stroke-width='3' stroke-opacity='0.1' stroke-linecap='round'/%3E%3Cpath d='M60 780 L60 840 L120 840' fill='none' stroke='%23E8521A' stroke-width='3' stroke-opacity='0.1' stroke-linecap='round'/%3E%3Cpath d='M1380 780 L1380 840 L1320 840' fill='none' stroke='%23E8521A' stroke-width='3' stroke-opacity='0.1' stroke-linecap='round'/%3E%3Cpath d='M130 450 L146 434 L162 450 L146 466 Z' fill='%23E8521A' opacity='0.06'/%3E%3Cpath d='M1290 220 L1306 204 L1322 220 L1306 236 Z' fill='%23F5A623' opacity='0.07'/%3E%3Cpath d='M1290 650 L1306 634 L1322 650 L1306 666 Z' fill='%23E8521A' opacity='0.06'/%3E%3Ccircle cx='220' cy='180' r='5' fill='%23E8521A' opacity='0.07'/%3E%3Ccircle cx='1220' cy='700' r='5' fill='%23F5A623' opacity='0.07'/%3E%3Ccircle cx='240' cy='700' r='4' fill='%23E8521A' opacity='0.06'/%3E%3Ccircle cx='1200' cy='180' r='4' fill='%23F5A623' opacity='0.06'/%3E%3C/svg%3E");
+background-size: cover;
+background-position: center;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 80px 0;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Nunito', sans-serif;
+}
+
+.gi {
+    max-width: 1300px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 5;
+}
+
+/* CHANGED: Uniform header style */
+.gh { text-align: center; margin-bottom: 50px; }
+
+/* CHANGED: Uniform pill tag - matches all sections */
+.g-pill {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: #fff; border: 2px solid #faccb3;
+    color: #E8521A; font-size: 11px; font-weight: 900;
+    letter-spacing: 2px; text-transform: uppercase;
+    padding: 8px 20px; border-radius: 50px; margin-bottom: 15px;
+    box-shadow: 0 3px 0 #faccb3;
+}
+
+/* CHANGED: Uniform Fredoka One title */
+.g-title {
+    font-family: 'Fredoka One', sans-serif; font-size: 3.2rem;
+    color: #1F2937; line-height: 1.1; margin-bottom: 12px;
+}
+
+.g-title span { color: #F05A28; }
+
+/* Track Containers */
+.g-track-wrap {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    margin-bottom: 35px;
+    padding: 20px 40px;
+}
+
+/* Row 1: Left Animation */
+.g-track { 
+    display: flex; 
+    gap: 25px; 
+    width: max-content; 
+    animation: scroll-l 20s linear infinite; 
+}
+
+/* Row 2: Right Animation */
+.g-track2 { 
+    display: flex; 
+    gap: 25px; 
+    width: max-content; 
+    animation: scroll-r 20s linear infinite; 
+}
+.g-track,
+.g-track2 {
+    width: max-content;
+}
+.g-track-wrap::before,
+.g-track-wrap::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    width: 120px;
+    height: 100%;
+    z-index: 10;
+    pointer-events: none;
+}
+
+.g-track-wrap::before {
+    left: 0;
+    background: linear-gradient(to right, #FFF9F3 0%, rgba(255,249,243,0) 100%);
+}
+
+.g-track-wrap::after {
+    right: 0;
+    background: linear-gradient(to left, #FFF9F3 0%, rgba(255,249,243,0) 100%);
+}
+
+@keyframes scroll-l { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+@keyframes scroll-r { 0% { transform: translateX(-50%); } 100% { transform: translateX(0); } }
+
+.g-track:hover, .g-track2:hover { animation-play-state: paused; }
+
+/* ── BADGE CARD ── */
+.bc {
+    background: #fff;
+    border: 2px solid #F0D5C8;
+    border-radius: 24px;
+    padding: 25px 15px;
+    text-align: center;
+    display: flex; flex-direction: column; align-items: center;
+    width: 220px; height: 280px;
+    flex-shrink: 0; position: relative;
+    box-shadow: 
+        0 8px 0 #F0D5C8, 
+        0 15px 30px rgba(240, 90, 40, 0.1);
+    transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
+}
+
+/* CHANGED: Category label (replaces rarity label) */
+.g-cat {
+    position: absolute; top: -12px;
+    font-size: 10px; font-weight: 900;
+    padding: 5px 14px; border-radius: 12px;
+    box-shadow: 0 4px 0 rgba(0,0,0,0.1);
+    text-transform: uppercase;
+    color: #fff;
+    white-space: nowrap;
+}
+
+/* CHANGED: Category color palette */
+/* Fun 🥳 — Vibrant pink/magenta */
+.cat-fun                      { border-color: #F472B6; box-shadow: 0 8px 0 #F472B6, 0 15px 30px rgba(244,114,182,0.12); }
+.cat-fun .g-cat               { background: #EC4899; box-shadow: 0 4px 0 #BE185D; }
+.cat-fun .g-badge-wrap        { border-color: #FBCFE8; background: linear-gradient(145deg,#FFF0F8,#FBCFE8); }
+.cat-fun:hover                { border-color: #EC4899; box-shadow: 0 12px 0 #EC4899, 0 20px 40px rgba(236,72,153,0.2); }
+
+/* Activity 🏅 — Teal/cyan */
+.cat-activity                 { border-color: #22D3EE; box-shadow: 0 8px 0 #22D3EE, 0 15px 30px rgba(34,211,238,0.12); }
+.cat-activity .g-cat          { background: #0891B2; box-shadow: 0 4px 0 #0E7490; }
+.cat-activity .g-badge-wrap   { border-color: #A5F3FC; background: linear-gradient(145deg,#ECFEFF,#CFFAFE); }
+.cat-activity:hover           { border-color: #0891B2; box-shadow: 0 12px 0 #0891B2, 0 20px 40px rgba(8,145,178,0.2); }
+
+/* Learning 📚 — Purple */
+.cat-learning                 { border-color: #A78BFA; box-shadow: 0 8px 0 #A78BFA, 0 15px 30px rgba(167,139,250,0.12); }
+.cat-learning .g-cat          { background: #7C3AED; box-shadow: 0 4px 0 #5B21B6; }
+.cat-learning .g-badge-wrap   { border-color: #DDD6FE; background: linear-gradient(145deg,#F5F3FF,#EDE9FE); }
+.cat-learning:hover           { border-color: #7C3AED; box-shadow: 0 12px 0 #7C3AED, 0 20px 40px rgba(124,58,237,0.2); }
+
+/* Exclusive 🔒 — Dark gold */
+.cat-exclusive                { border-color: #F59E0B; box-shadow: 0 8px 0 #F59E0B, 0 15px 30px rgba(245,158,11,0.12); }
+.cat-exclusive .g-cat         { background: #D97706; box-shadow: 0 4px 0 #B45309; }
+.cat-exclusive .g-badge-wrap  { border-color: #FDE68A; background: linear-gradient(145deg,#FFFBEB,#FEF3C7); }
+.cat-exclusive:hover          { border-color: #D97706; box-shadow: 0 12px 0 #D97706, 0 20px 40px rgba(217,119,6,0.2); }
+
+/* Milestone 🎯 — Orange (brand color) */
+.cat-milestone                { border-color: #F05A28; box-shadow: 0 8px 0 #F05A28, 0 15px 30px rgba(240,90,40,0.12); }
+.cat-milestone .g-cat         { background: #E8521A; box-shadow: 0 4px 0 #a83810; }
+.cat-milestone .g-badge-wrap  { border-color: #FDBA74; background: linear-gradient(145deg,#FFF7F3,#FFE4D4); }
+.cat-milestone:hover          { border-color: #E8521A; box-shadow: 0 12px 0 #E8521A, 0 20px 40px rgba(232,82,26,0.2); }
+
+/* Temporary ⏳ — Slate/grey-blue */
+.cat-temporary                { border-color: #94A3B8; box-shadow: 0 8px 0 #94A3B8, 0 15px 30px rgba(148,163,184,0.12); }
+.cat-temporary .g-cat         { background: #64748B; box-shadow: 0 4px 0 #475569; }
+.cat-temporary .g-badge-wrap  { border-color: #CBD5E1; background: linear-gradient(145deg,#F8FAFC,#F1F5F9); }
+.cat-temporary:hover          { border-color: #64748B; box-shadow: 0 12px 0 #64748B, 0 20px 40px rgba(100,116,139,0.2); }
+
+/* Course 🎓 — Blue */
+.cat-course                   { border-color: #3B82F6; box-shadow: 0 8px 0 #3B82F6, 0 15px 30px rgba(59,130,246,0.12); }
+.cat-course .g-cat            { background: #2563EB; box-shadow: 0 4px 0 #1D4ED8; }
+.cat-course .g-badge-wrap     { border-color: #BFDBFE; background: linear-gradient(145deg,#EFF6FF,#DBEAFE); }
+.cat-course:hover             { border-color: #2563EB; box-shadow: 0 12px 0 #2563EB, 0 20px 40px rgba(37,99,235,0.2); }
+
+/* Rare 🏆 — Deep emerald green */
+.cat-rare                     { border-color: #10B981; box-shadow: 0 8px 0 #10B981, 0 15px 30px rgba(16,185,129,0.12); }
+.cat-rare .g-cat              { background: #059669; box-shadow: 0 4px 0 #047857; }
+.cat-rare .g-badge-wrap       { border-color: #A7F3D0; background: linear-gradient(145deg,#ECFDF5,#D1FAE5); }
+.cat-rare:hover               { border-color: #059669; box-shadow: 0 12px 0 #059669, 0 20px 40px rgba(5,150,105,0.2); }
+
+/* Hero 🦸‍♂️ — Crimson red */
+.cat-hero                     { border-color: #EF4444; box-shadow: 0 8px 0 #EF4444, 0 15px 30px rgba(239,68,68,0.12); }
+.cat-hero .g-cat              { background: #DC2626; box-shadow: 0 4px 0 #B91C1C; }
+.cat-hero .g-badge-wrap       { border-color: #FECACA; background: linear-gradient(145deg,#FFF5F5,#FEE2E2); }
+.cat-hero:hover               { border-color: #DC2626; box-shadow: 0 12px 0 #DC2626, 0 20px 40px rgba(220,38,38,0.2); }
+
+/* Badge inner circle */
+.g-badge-wrap {
+    width: 95px; height: 95px;
+    background: linear-gradient(145deg, #FFF9F5, #FFE8D8);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    margin: 15px 0;
+    border: 3px solid #FFD4B8;
+    box-shadow: inset 0 2px 5px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease;
+}
+
+.bc:hover .g-badge-wrap { transform: scale(1.1) rotate(-3deg); }
+
+.arc-badge-img {
+    width: 70%; height: 70%;
+    object-fit: contain;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+.bc-name {
+    font-family: 'Fredoka One', sans-serif; font-size: 0.85rem;
+    color: #1F2937; margin-bottom: 12px; height: 40px;
+    display: flex; align-items: center; justify-content: center;
+}
+
+.bc-rw { display: flex; gap: 6px; margin-top: auto; }
+.bc-xp { background: #FFF2EB; color: #F05A28; border: 1px solid #FFD4B8; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; }
+.bc-coin { background: #FFFBEB; color: #B45309; border: 1px solid #FDE68A; padding: 3px 10px; border-radius: 8px; font-size: 11px; font-weight: 800; }
+
+/* View all button */
+.btn-arc-view {
+    margin-top: 40px;
+    padding: 18px 50px; border-radius: 20px;
+    background: #F05A28; color: #fff;
+    font-family: 'Fredoka One', sans-serif; font-size: 1rem;
+    border: none; cursor: pointer;
+    box-shadow: 0 6px 0 #b33d16;
+    transition: 0.1s;
+}
+
+.btn-arc-view:hover { transform: translateY(-2px); box-shadow: 0 8px 0 #b33d16; }
