@@ -1,14 +1,13 @@
+<link rel="stylesheet" href="assets/css/arc-headers.css" />
 <link rel="stylesheet" href="assets/css/how-it-works.css" />
 <section class="arc-how-section">
     <div class="arc-how-container">
 
-        <!-- Header -->
-        <div class="text-center mb-5" style="margin-bottom: 50px !important;">
-            <span class="arc-how-tag fw-bolder ls-1">SIMPLE & FUN</span>
-            <h2 class="fw-bolder text-gray-900 mb-4" style="font-size: clamp(2.5rem, 5vw, 3.5rem);">
-                How Arcadia Works
-            </h2>
-            <p class="text-gray-500 fs-5 mx-auto" style="max-width: 600px;">
+        <!-- Uniform header — arc-headers system -->
+        <div class="arc-section-header text-center mb-5" style="margin-bottom: 50px !important;">
+            <span class="arc-section-tag">⚔️ Simple &amp; Fun</span>
+            <h2 class="arc-section-title">How Arcadia Works</h2>
+            <p class="arc-section-sub">
                 Three easy steps to turn your academic grind into an epic adventure.
             </p>
         </div>

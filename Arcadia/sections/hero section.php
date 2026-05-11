@@ -6,7 +6,7 @@
       <!-- Left Side -->
       <div class="col-lg-6">
 
-        <!-- Tag -->
+        <!-- Uniform pill tag matching arc-headers pattern -->
         <div class="arc-hero-tag fw-bolder fs-8 ls-1 mb-8">
           <span class="dot"></span> FEU Tech's Gamified Learning Platform
         </div>
@@ -49,17 +49,24 @@
 
       </div>
 
-      <!-- Right Side -->
+      <!-- Right Side: Image placeholder circle — drop your own 3D icon in here -->
       <div class="col-lg-6">
         <div class="hero-illustration-wrap">
-          <dotlottie-player
-            src="assets/images/hero.json"
-            background="transparent"
-            speed="1"
-            style="width: 300px; height: 300px;"
-            loop
-            autoplay>
-          </dotlottie-player>
+
+          <!-- Image placeholder — replace src with your 3D icon -->
+          <div class="hero-img-placeholder">
+            <img
+              src="assets/images/3d.png"
+              alt="Arcadia 3D Icon"
+              class="hero-3d-img"
+              onerror="this.style.display='none';this.nextElementSibling.style.display='flex';"
+            />
+            <!-- Fallback shown if image is missing -->
+            <div class="hero-img-fallback" style="display:none;">
+              <span class="hero-img-fallback-icon">🎮</span>
+              <span class="hero-img-fallback-label">Drop your 3D icon here</span>
+            </div>
+          </div>
 
           <!-- Float Card 1 -->
           <div class="float-card" style="top: 15%; left: -5%; animation-delay: 0s;">
@@ -94,5 +101,4 @@
     </div>
   </div>
 </section>
-<script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
 <script src="assets/js/hero.js"></script>

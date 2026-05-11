@@ -1,3 +1,4 @@
+/* ── HERO SECTION ── */
 .arc-hero {
     background: #FFF5EC;
     padding: 100px 0 120px 0;
@@ -7,14 +8,23 @@
     margin-left: calc(-50vw + 50%);
 }
 
-/*animation*/
-dotlottie-player {
-    width: 100% !important;
-    height: 100% !important;
-    transform: scale(1.1);
+/* Scanline overlay for retro game feel */
+.arc-hero::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0,0,0,0.015) 2px,
+        rgba(0,0,0,0.015) 4px
+    );
+    pointer-events: none;
+    z-index: 0;
 }
 
-/*Radial Glow BG*/
+/* Radial Glow BG */
 .arc-hero::before {
     content: '';
     position: absolute;
@@ -27,7 +37,24 @@ dotlottie-player {
     z-index: 0;
 }
 
-/*FEUTECH GAMIFIED*/
+/* Floating pixel particles */
+.hero-particle {
+    position: absolute;
+    border-radius: 2px;
+    pointer-events: none;
+    animation: hero-particle-float linear infinite;
+    opacity: 0;
+    z-index: 0;
+}
+
+@keyframes hero-particle-float {
+    0%   { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10%  { opacity: 1; }
+    90%  { opacity: 0.6; }
+    100% { transform: translateY(-120px) rotate(360deg); opacity: 0; }
+}
+
+/* FEUTECH GAMIFIED -- CHANGED: uniform pill tag style */
 .arc-hero-tag {
     display: inline-flex;
     align-items: center;
@@ -38,10 +65,19 @@ dotlottie-player {
     border-radius: 50px;
     border: 2px solid #faccb3;
     margin-bottom: 2rem;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+    box-shadow: 0 3px 0 #faccb3;
+    animation: tag-glow 2.5s ease-in-out infinite;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    background: #fff;
 }
 
-/*FEUTECH GAMIFIED DOT*/
+@keyframes tag-glow {
+    0%, 100% { box-shadow: 0 3px 0 #faccb3, 0 4px 15px rgba(232,82,26,0.1); }
+    50%       { box-shadow: 0 3px 0 #faccb3, 0 4px 25px rgba(232,82,26,0.35), 0 0 0 4px rgba(232,82,26,0.07); }
+}
+
+/* FEUTECH GAMIFIED DOT */
 .arc-hero-tag .dot {
     height: 8px;
     width: 8px;
@@ -49,32 +85,47 @@ dotlottie-player {
     border-radius: 50%;
     display: inline-block;
     margin-right: 10px;
+    animation: dot-ping 1.5s ease-in-out infinite;
 }
 
-/*Learn like*/
+@keyframes dot-ping {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50%       { transform: scale(1.6); opacity: 0.5; }
+}
+
+/* Learn like */
 .arc-hero h1 {
     font-size: clamp(2.8rem, 6vw, 4.2rem);
     font-weight: 1000 !important;
     line-height: 1.2 !important;
     color: #1C1917;
     margin-bottom: 1.5rem;
+    font-family: 'Fredoka One', sans-serif;
 }
 
-/*game*/
+/* game */
 .arc-hero h1 em {
     font-style: normal;
     color: #E8521A;
     font-weight: 1000;
+    position: relative;
+    display: inline-block;
+    animation: text-flicker 4s ease-in-out infinite;
 }
 
-/*chore*/
+@keyframes text-flicker {
+    0%, 100% { text-shadow: 0 0 0 transparent; }
+    50%       { text-shadow: 0 0 20px rgba(232,82,26,0.4), 0 0 40px rgba(232,82,26,0.2); }
+}
+
+/* chore */
 .arc-hero h1 em2 {
     font-style: normal;
     color: #F5A623;
     font-weight: 1000;
 }
 
-/*description*/
+/* description */
 .arc-hero .hero-desc {
     font-size: 1.15rem !important;
     color: #78716C;
@@ -83,11 +134,11 @@ dotlottie-player {
     margin-bottom: 3rem;
     font-weight: 400 !important;
     text-align: left !important;
-    margin-left: 0 !important; 
+    margin-left: 0 !important;
     margin-right: auto !important;
 }
 
-/*Buttons*/
+/* Buttons */
 .arc-btn-primary {
     background: #E8521A;
     color: #fff !important;
@@ -95,14 +146,22 @@ dotlottie-player {
     padding: 16px 36px;
     border-radius: 50px;
     text-decoration: none;
-    box-shadow: 0 10px 25px rgba(249, 115, 22, 0.3);
-    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 8px 0 #a83810, 0 10px 25px rgba(249, 115, 22, 0.3);
+    transition: all 0.12s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: inline-block;
+    position: relative;
+    top: 0;
 }
 
 .arc-btn-primary:hover {
-    transform: scale(1.05);
-    box-shadow: 0 15px 30px rgba(249, 115, 22, 0.4);
+    top: 4px;
+    box-shadow: 0 4px 0 #a83810, 0 6px 15px rgba(249, 115, 22, 0.4);
+    transform: scale(1.02);
+}
+
+.arc-btn-primary:active {
+    top: 8px;
+    box-shadow: 0 0 0 #a83810;
 }
 
 .arc-btn-secondary {
@@ -117,22 +176,37 @@ dotlottie-player {
     display: inline-block;
 }
 
-/*floating bubble box*/
+.arc-btn-secondary:hover {
+    background: #FFF5EC;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(232,82,26,0.15);
+}
+
+/* floating bubble box */
 .float-card {
     position: absolute;
     background: #fff;
     padding: 14px 22px;
     border-radius: 18px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.12), 0 0 0 2px rgba(232,82,26,0.08);
     display: flex;
     align-items: center;
     gap: 12px;
     font-size: 0.85rem;
     font-weight: 800;
     animation: floating 3s ease-in-out infinite;
+    cursor: default;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    z-index: 10;
 }
 
-/*floating bubbles placeholder*/
+.float-card:hover {
+    transform: scale(1.08) translateY(-5px) !important;
+    box-shadow: 0 12px 30px rgba(232,82,26,0.22), 0 0 0 3px rgba(232,82,26,0.2) !important;
+    animation-play-state: paused;
+}
+
+/* CHANGED: 3D SVG scene container */
 .hero-illustration-wrap {
     position: relative;
     width: 100%;
@@ -146,22 +220,40 @@ dotlottie-player {
     justify-content: center;
 }
 
-/*floaters of bubble*/
-@keyframes floating {
-    0% {
-        transform: translateY(0px);
-    }
-
-    50% {
-        transform: translateY(-15px);
-    }
-
-    100% {
-        transform: translateY(0px);
-    }
+/* Orbit ring */
+.hero-illustration-wrap::before {
+    content: '';
+    position: absolute;
+    width: 85%;
+    height: 85%;
+    border: 2px dashed rgba(232,82,26,0.2);
+    border-radius: 50%;
+    animation: orbit-spin 20s linear infinite;
+    pointer-events: none;
 }
 
-/*to be aligned to logo and lock*/
+@keyframes orbit-spin {
+    from { transform: rotate(0deg); }
+    to   { transform: rotate(360deg); }
+}
+
+@keyframes floating {
+    0%   { transform: translateY(0px); }
+    50%  { transform: translateY(-15px); }
+    100% { transform: translateY(0px); }
+}
+
+/* CHANGED: 3D SVG scene fills the wrap */
+.hero-3d-scene {
+    width: 90%;
+    height: 90%;
+    position: relative;
+    z-index: 5;
+    overflow: visible;
+}
+
+
+/* to be aligned to logo and lock */
 .arc-container {
     max-width: 1300px;
     margin: 0 auto;
@@ -170,16 +262,118 @@ dotlottie-player {
     z-index: 10;
 }
 
-/*number information*/
+/* number information */
 .stat-item .stat-num {
     font-size: 2.2rem;
     font-weight: 1000 !important;
     color: #E8521A;
     display: block;
     margin-bottom: 0.2rem;
+    transition: transform 0.2s ease;
+}
+
+.stat-item:hover .stat-num {
+    transform: scale(1.1);
+    text-shadow: 0 0 15px rgba(232,82,26,0.4);
+}
+
+.d-flex.gap-3.mb-5 {
+    margin-bottom: 4rem !important;
+}
+
+/* XP pop notification */
+.xp-pop {
+    position: fixed;
+    font-size: 1.1rem;
+    font-weight: 900;
+    color: #E8521A;
+    pointer-events: none;
+    z-index: 9999;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.15);
+    animation: xp-rise 1.2s ease-out forwards;
+    white-space: nowrap;
+}
+
+@keyframes xp-rise {
+    0%   { opacity: 1; transform: translateY(0) scale(1); }
+    50%  { opacity: 1; transform: translateY(-40px) scale(1.2); }
+    100% { opacity: 0; transform: translateY(-80px) scale(0.8); }
 }
 
 
-.d-flex.gap-3.mb-5 {
-    margin-bottom: 4rem !important; 
+/* ── Hero image placeholder circle ── */
+.hero-img-placeholder {
+    position: relative;
+    z-index: 5;
+    width: 72%;
+    aspect-ratio: 1/1;
+    border-radius: 50%;
+    background: radial-gradient(circle at 40% 35%, #FFE8D4 0%, #FFCBA0 55%, #F97316 100%);
+    box-shadow:
+        0 0 0 12px rgba(232,82,26,0.08),
+        0 0 0 28px rgba(232,82,26,0.04),
+        0 30px 60px rgba(232,82,26,0.25);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    animation: hero-img-float 4s ease-in-out infinite;
+    transition: box-shadow 0.3s ease;
+}
+
+.hero-img-placeholder:hover {
+    box-shadow:
+        0 0 0 16px rgba(232,82,26,0.1),
+        0 0 0 36px rgba(232,82,26,0.05),
+        0 40px 80px rgba(232,82,26,0.3);
+}
+
+@keyframes hero-img-float {
+    0%, 100% { transform: translateY(0px) rotate(-1deg); }
+    50%       { transform: translateY(-18px) rotate(1deg); }
+}
+
+.hero-3d-img {
+    width: 85%;
+    height: 85%;
+    object-fit: contain;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
+    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+}
+
+.hero-img-placeholder:hover .hero-3d-img {
+    transform: scale(1.06) translateY(-6px);
+}
+
+.hero-img-fallback {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    width: 100%;
+    height: 100%;
+}
+
+.hero-img-fallback-icon {
+    font-size: 5rem;
+    line-height: 1;
+    animation: fallback-bounce 2s ease-in-out infinite;
+}
+
+@keyframes fallback-bounce {
+    0%, 100% { transform: translateY(0) scale(1); }
+    50%       { transform: translateY(-10px) scale(1.08); }
+}
+
+.hero-img-fallback-label {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    text-align: center;
+    padding: 0 20px;
 }

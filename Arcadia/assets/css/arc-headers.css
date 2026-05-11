@@ -1,0 +1,92 @@
+/* ═══════════════════════════════════════════════
+   ARC-HEADERS.CSS — Uniform section header system
+   All sections use .arc-section-tag, .arc-section-title, .arc-section-sub
+   Dark sections override color via .arc-header-dark
+   ═══════════════════════════════════════════════ */
+@import url('https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:wght@400;600;700;800;900&display=swap');
+
+/* ── Pill tag — same shape/size everywhere ── */
+.arc-section-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #FFF2EB;
+    border: 2px solid #faccb3;
+    color: #E8521A;
+    font-family: 'Nunito', sans-serif;
+    font-size: 11px;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 0 #faccb3;
+    animation: arc-tag-bounce 2.5s ease-in-out infinite;
+}
+
+@keyframes arc-tag-bounce {
+    0%, 100% { transform: translateY(0); box-shadow: 0 3px 0 #faccb3; }
+    50%       { transform: translateY(-3px); box-shadow: 0 6px 0 #faccb3, 0 6px 20px rgba(232,82,26,0.15); }
+}
+
+/* Dark section variant — amber pill */
+.arc-header-dark .arc-section-tag {
+    background: rgba(245,158,11,0.08);
+    border-color: #F59E0B;
+    color: #F59E0B;
+    box-shadow: 0 3px 0 rgba(245,158,11,0.4);
+    animation: arc-tag-bounce-amber 2.5s ease-in-out infinite;
+}
+
+@keyframes arc-tag-bounce-amber {
+    0%, 100% { transform: translateY(0); box-shadow: 0 0 0 0 rgba(245,158,11,0.4); }
+    50%       { transform: translateY(-3px); box-shadow: 0 0 0 8px rgba(245,158,11,0); }
+}
+
+/* ── Section title — Fredoka One, same size everywhere ── */
+.arc-section-title {
+    font-family: 'Fredoka One', sans-serif !important;
+    font-size: clamp(2.4rem, 4vw, 3.2rem) !important;
+    font-weight: 400 !important; /* Fredoka One is display weight already */
+    color: #1F2937;
+    line-height: 1.15 !important;
+    margin-bottom: 14px !important;
+    letter-spacing: -0.5px;
+}
+
+.arc-section-title span { color: #E8521A; }
+
+/* Dark variant — white title */
+.arc-header-dark .arc-section-title {
+    color: #FFFFFF;
+}
+.arc-header-dark .arc-section-title span { color: #F59E0B; }
+
+/* ── Subtitle paragraph ── */
+.arc-section-sub {
+    font-family: 'Nunito', sans-serif;
+    font-size: 1rem !important;
+    font-weight: 700 !important;
+    color: #6B7280;
+    line-height: 1.7;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Dark variant */
+.arc-header-dark .arc-section-sub {
+    color: #9CA3AF;
+}
+
+/* ── Orange divider line (optional accent) ── */
+.arc-section-divider {
+    width: 48px; height: 4px;
+    background: #E8521A;
+    border-radius: 2px;
+    margin: 14px auto 0;
+}
+
+.arc-header-dark .arc-section-divider {
+    background: #F59E0B;
+}
