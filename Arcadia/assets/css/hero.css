@@ -305,44 +305,32 @@
 .hero-img-placeholder {
     position: relative;
     z-index: 5;
-    width: 72%;
+    width: 100%;
     aspect-ratio: 1/1;
-    border-radius: 50%;
-    background: radial-gradient(circle at 40% 35%, #FFE8D4 0%, #FFCBA0 55%, #F97316 100%);
-    box-shadow:
-        0 0 0 12px rgba(232,82,26,0.08),
-        0 0 0 28px rgba(232,82,26,0.04),
-        0 30px 60px rgba(232,82,26,0.25);
+    background: transparent;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
+    overflow: visible;
     animation: hero-img-float 4s ease-in-out infinite;
-    transition: box-shadow 0.3s ease;
 }
 
-.hero-img-placeholder:hover {
-    box-shadow:
-        0 0 0 16px rgba(232,82,26,0.1),
-        0 0 0 36px rgba(232,82,26,0.05),
-        0 40px 80px rgba(232,82,26,0.3);
-}
+
 
 @keyframes hero-img-float {
     0%, 100% { transform: translateY(0px) rotate(-1deg); }
     50%       { transform: translateY(-18px) rotate(1deg); }
 }
 
+
 .hero-3d-img {
-    width: 85%;
-    height: 85%;
+    width: 110%;
+    height: 110%;
     object-fit: contain;
     position: relative;
-    z-index: 2;
-    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.2));
-    transition: transform 0.4s cubic-bezier(0.34,1.56,0.64,1);
+    z-index: 6;
+    filter: drop-shadow(0 20px 40px rgba(0,0,0,0.15));
 }
-
 .hero-img-placeholder:hover .hero-3d-img {
     transform: scale(1.06) translateY(-6px);
 }
