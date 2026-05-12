@@ -1,52 +1,46 @@
 <link rel="stylesheet" href="assets/css/arc-headers.css" />
 <link rel="stylesheet" href="assets/css/how-it-works.css" />
+
 <section class="arc-how-section">
     <div class="arc-how-container">
 
-        <!-- Uniform header — arc-headers system -->
         <div class="arc-section-header text-center mb-5" style="margin-bottom: 50px !important;">
-            <span class="arc-section-tag">⚔️ Simple &amp; Fun</span>
-            <h2 class="arc-section-title">How Arcadia Works</h2>
-            <p class="arc-section-sub">
-                Three easy steps to turn your academic grind into an epic adventure.
-            </p>
+            <span class="arc-section-tag">✨ Simple & Fun</span>
+            <h2 class="arc-section-title">How <span>Arcadia</span> Works</h2>
+            <p class="arc-section-sub">Three easy steps to turn your academic grind into an epic adventure.</p>
         </div>
 
-        <!-- Cards Row -->
-        <div class="row g-4">
-            <!-- Card 01 -->
-            <div class="col-md-4">
-                <div class="arc-how-card">
-                    <div class="arc-how-step fs-5">01</div>
-                    <h5 class="fw-bolder text-gray-900 mb-3">EARN BADGES</h5>
-                    <p class="text-gray-600 fs-6 fw-semibold">
-                        Complete activities, join events, and hit academic milestones to collect exclusive digital badges. Each one reflects your real achievements.
-                    </p>
+        <div class="arc-how-row">
+
+            <div class="arc-how-card">
+                <span class="arc-how-stepnum">01</span>
+                <div class="arc-how-icon-wrap ic-01">
+                    <img src="assets/images/target.png" alt="Earn Badges" style="width:78px; height:78px;" />
                 </div>
+                <h5 class="arc-how-title">Earn Badges</h5>
+                <p class="arc-how-desc">Participate in events, complete courses, attend Paraverse sessions, or stand out in the community to mint badges across 9 categories.</p>
             </div>
 
-            <!-- Card 02 -->
-            <div class="col-md-4">
-                <div class="arc-how-card card-02">
-                    <div class="arc-how-step step-02 fs-5">02</div>
-                    <h5 class="fw-bolder text-gray-900 mb-3">COLLECT XP + COINS</h5>
-                    <p class="text-gray-600 fs-6 fw-semibold">
-                        Every badge fills up your XP wallet. More XP means higher levels and better rankings, while coins unlock exclusive perks in the store.
-                    </p>
+            <div class="arc-how-card">
+                <span class="arc-how-stepnum">02</span>
+                <div class="arc-how-icon-wrap ic-01">
+                    <img src="assets/images/tamcoin.png" alt="Earn Badges" />
                 </div>
+                <h5 class="arc-how-title">Collect TamCoins & XP</h5>
+                <p class="arc-how-desc">Each badge grants a reward — rarer badges and harder difficulties mean more TamCoins (TC) and XP, bringing you closer to your next level.</p>
             </div>
 
-            <!-- Card 03 -->
-            <div class="col-md-4">
-                <div class="arc-how-card card-03">
-                    <div class="arc-how-step step-03 fs-5">03</div>
-                    <h5 class="fw-bolder text-gray-900 mb-3">REDEEM REAL MERCH</h5>
-                    <p class="text-gray-600 fs-6 fw-semibold">
-                        Stay on track and trade your coins for limited-edition FEU Tech merch. Your effort, turned into something you can wear and show off.
-                    </p>
+            <div class="arc-how-card">
+                <span class="arc-how-stepnum">03</span>
+                <div class="arc-how-icon-wrap ic-01">
+                    <img src="assets/images/gift.png" alt="Earn Badges" />
                 </div>
+                <h5 class="arc-how-title">Level Up & Redeem</h5>
+                <p class="arc-how-desc">Climb 15 levels from Bronze to Diamond, unlock store items, special titles, and limited-edition Paraverse merch.</p>
             </div>
+
         </div>
     </div>
 </section>
+
 <script src="assets/js/how-it-works.js"></script>

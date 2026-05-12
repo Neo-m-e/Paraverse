@@ -3,8 +3,8 @@
 <section class="level-section pt-20 pb-20" id="arcLevelSection">
   <div class="arc-container text-center">
 
-    <!-- CHANGED: Uniform header — dark variant (white title, amber tag) -->
-    <div class="arc-section-header arc-header-dark mb-4">
+    <!-- Uniform header — light variant -->
+    <div class="arc-section-header mb-4">
         <span class="arc-section-tag">⚡ Progress</span>
         <h2 class="arc-section-title">Level Up <span>System</span></h2>
         <p class="arc-section-sub">Start at Bronze and climb to Diamond. Each level unlocks new titles and exclusive perks.</p>
@@ -41,7 +41,7 @@
 
     <!-- Titles Table -->
     <div class="titles-table text-align-left mt-10 p-5">
-      <h3 class="text-white fw-bolder mb-1">Titles per Level</h3>
+      <h3 class="fw-bolder mb-1">Titles per Level</h3>
       <p class="text-muted fs-7 mb-8">Each level has 3 unlockable titles as you gain more XP.</p>
       <div class="row g-5">
         <div class="col-lg">

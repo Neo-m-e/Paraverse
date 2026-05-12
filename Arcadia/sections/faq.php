@@ -4,9 +4,9 @@
     <div class="faq-container">
         <div class="row justify-content-center">
 
-            <!-- Uniform header — arc-headers system -->
+            <!-- Uniform header — dark variant -->
             <div class="col-lg-8 text-center">
-                <div class="arc-section-header">
+                <div class="arc-section-header arc-header-dark">
                     <span class="arc-section-tag">❓ Got Questions?</span>
                     <h2 class="arc-section-title">Frequently Asked <span>Questions</span></h2>
                     <p class="arc-section-sub">Everything you need to know about Arcadia.</p>

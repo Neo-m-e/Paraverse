@@ -52,6 +52,9 @@
       <!-- Right Side: Image placeholder circle — drop your own 3D icon in here -->
       <div class="col-lg-6">
         <div class="hero-illustration-wrap">
+          <svg class="hero-orbit-ring" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="50" cy="50" r="48" fill="none" stroke="rgba(232,82,26,0.2)" stroke-width="0.8" stroke-dasharray="4 4"/>
+</svg>
 
           <!-- Image placeholder — replace src with your 3D icon -->
           <div class="hero-img-placeholder">

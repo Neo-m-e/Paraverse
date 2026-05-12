@@ -2,102 +2,105 @@
 <link rel="stylesheet" href="assets/css/claimable.css" />
 <section class="arc-rewards-section">
     <div class="arc-container">
+        <div class="arc-rewards-layout">
 
-        <!-- Uniform header — arc-headers system -->
-        <div class="arc-section-header text-center mb-5" style="margin-bottom: 80px !important;">
-            <span class="arc-section-tag">🛍️ Store</span>
-            <h2 class="arc-section-title">Claimable <span>Rewards</span></h2>
-            <p class="arc-section-sub">Redeem your hard-earned coins for exclusive limited-edition FEU Tech merch.</p>
-        </div>
+            <!-- LEFT: Text + button -->
+            <div class="arc-rewards-left">
+                <span class="arc-section-tag">🛍️ Store</span>
+                <h2 class="arc-rewards-title">Claimable <span>Rewards</span></h2>
+                <p class="arc-rewards-sub">Redeem your hard-earned coins for exclusive limited-edition FEU Tech merch.</p>
 
-        <div class="row g-4">
-            <!-- Hoodie -->
-            <div class="col-lg-3 col-md-6">
-                <div class="arc-reward-card arc-highlight" data-coins="5500" data-item="Paraverse Hoodie">
-                    <div class="arc-img-container">
-                        <span class="arc-badge-hot fs-8 fw-bolder text-uppercase">HOT ITEM</span>
-                        <img src="assets/images/Hoodie_v1 BACK.png" alt="Paraverse Hoodie" />
-                    </div>
-                    <div class="arc-card-content">
-                        <h5 class="fw-bolder text-gray-900 mb-2">Paraverse Hoodie</h5>
-                        <p class="text-gray-700 fs-7 mb-0">The Modern Identity Hoodie from the official 'The Paraverse'</p>
-                    </div>
-                    <div class="arc-card-footer">
-                        <div class="arc-coin-group fw-bolder fs-5"><img src="assets/images/SM-colored-coin.png" alt="coin" class="arc-coin-token" /> 5,500</div>
-                        <div class="text-gray-700 fs-8 text-end lh-sm">12 left</div>
-                    </div>
+                <div class="arc-rewards-tags">
+                    <span class="arc-rtag">🔖 Bookmarks</span>
+                    <span class="arc-rtag">🔌 Data Cable Sets</span>
+                    <span class="arc-rtag">🧥 Jackets</span>
+                    <span class="arc-rtag">🪪 Lanyards</span>
+                    <span class="arc-rtag">☕ Mugs</span>
+                    <span class="arc-rtag">📓 Notebooks</span>
+                    <span class="arc-rtag">👕 Shirts</span>
                 </div>
+
+                <a href="#" class="arc-btn-primary arc-store-btn">🛒 Visit the Store</a>
             </div>
 
-            <!-- Shirt -->
-            <div class="col-lg-3 col-md-6">
-                <div class="arc-reward-card" data-coins="2000" data-item="Paraverse Shirt">
-                    <div class="arc-img-container">
+            <!-- RIGHT: 2x2 card grid -->
+            <div class="arc-rewards-grid">
+
+                <!-- Hoodie — orange -->
+                <div class="arc-pcard" data-coins="5500" data-item="Paraverse Hoodie" style="background: linear-gradient(135deg, #F5A623 0%, #E8521A 100%);">
+                    <div class="arc-pcard-top">
+                        <span class="arc-pcard-name">HOODIE</span>
+                        <span class="arc-badge-hot">HOT</span>
+                    </div>
+                    <div class="arc-pcard-img">
+                        <img src="assets/images/Hoodie_v1 BACK.png" style="height:170px;" alt="Paraverse Hoodie" />
+                    </div>
+                    <div class="arc-pcard-foot">
+                        <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/coins/OR-colored-coin.png" class="arc-pdot-coin" /> 5,500 TC
+                    </div>
+                </div>
+
+                <!-- Shirt — dark -->
+                <div class="arc-pcard arc-pcard-dark" data-coins="2000" data-item="Paraverse Shirt">
+                    <div class="arc-pcard-top">
+                        <span class="arc-pcard-name">SHIRT</span>
+                    </div>
+                    <div class="arc-pcard-img">
                         <img src="assets/images/T-Shirt Back.png" alt="Paraverse Shirt" />
                     </div>
-                    <div class="arc-card-content">
-                        <h5 class="fw-bolder text-gray-900 mb-2">Paraverse Shirt</h5>
-                        <p class="text-gray-700 fs-7 mb-0">The Atom Tornado T-Shirt from the official 'The Paraverse'</p>
-                    </div>
-                    <div class="arc-card-footer">
-                        <div class="arc-coin-group fw-bolder fs-5"><img src="assets/images/SM-colored-coin.png" alt="coin" class="arc-coin-token" /> 2,000</div>
-                        <div class="text-gray-700 fs-8 text-end lh-sm">30 left</div>
+                    <div class="arc-pcard-foot">
+                        <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/coins/OR-colored-coin.png" class="arc-pdot-coin" /> 2,000 TC
                     </div>
                 </div>
-            </div>
 
-            <!-- Tote Bag -->
-            <div class="col-lg-3 col-md-6">
-                <div class="arc-reward-card" data-coins="2500" data-item="Paraverse Tote Bag">
-                    <div class="arc-img-container">
-                        <img src="assets/images/Tote Bag_v1.png" alt="Paraverse Tote Bag" />
+                <!-- Tote Bag — dark -->
+                <div class="arc-pcard arc-pcard-dark" data-coins="2500" data-item="Paraverse Tote Bag">
+                    <div class="arc-pcard-top">
+                        <span class="arc-pcard-name">TOTE BAG</span>
                     </div>
-                    <div class="arc-card-content">
-                        <h5 class="fw-bolder text-gray-900 mb-2">Paraverse Tote Bag</h5>
-                        <p class="text-gray-700 fs-7 mb-0">The Modern Tote Bag from the official 'The Paraverse'</p>
+                    <div class="arc-pcard-img">
+                        <img src="assets/images/Tote Bag_v1.png" style="height:200px;" alt="Paraverse Tote Bag" />
                     </div>
-                    <div class="arc-card-footer">
-                        <div class="arc-coin-group fw-bolder fs-5"><img src="assets/images/SM-colored-coin.png" alt="coin" class="arc-coin-token" /> 2,500</div>
-                        <div class="text-gray-700 fs-8 text-end lh-sm">50 left</div>
+                    <div class="arc-pcard-foot">
+                        <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/coins/OR-colored-coin.png" class="arc-pdot-coin" /> 2,500 TC
                     </div>
                 </div>
-            </div>
 
-            <!-- Powerbank -->
-            <div class="col-lg-3 col-md-6">
-                <div class="arc-reward-card" data-coins="5500" data-item="Paraverse Powerbank">
-                    <div class="arc-img-container">
-                        <img src="assets/images/Powerbank.png" alt="Paraverse Powerbank" />
+                <!-- Powerbank — orange accent -->
+                <div class="arc-pcard" data-coins="5500" data-item="Paraverse Powerbank" style="background: linear-gradient(135deg, #E8521A 0%, #c73d0e 100%);">
+                    <div class="arc-pcard-top">
+                        <span class="arc-pcard-name">POWERBANK</span>
                     </div>
-                    <div class="arc-card-content">
-                        <h5 class="fw-bolder text-gray-900 mb-2">Paraverse Powerbank</h5>
-                        <p class="text-gray-700 fs-7 mb-0">The paraverse powerbank finished with the Paraverse insignia.</p>
+                    <div class="arc-pcard-img">
+                        <img src="assets/images/Powerbank.png" style="height:200px;" alt="Paraverse Powerbank" />
                     </div>
-                    <div class="arc-card-footer">
-                        <div class="arc-coin-group fw-bolder fs-5"><img src="assets/images/SM-colored-coin.png" alt="coin" class="arc-coin-token" /> 5,500</div>
-                        <div class="text-gray-700 fs-8 text-end lh-sm">25 left</div>
+                    <div class="arc-pcard-foot">
+                        <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/coins/OR-colored-coin.png" class="arc-pdot-coin" /> Free
                     </div>
                 </div>
+
             </div>
         </div>
     </div>
 </section>
 
 <script>
-(function() {
-    function spawnPop(x, y, text, color) {
-        const el = document.createElement('div');
-        el.style.cssText = `position:fixed;left:${x}px;top:${y}px;font-size:1rem;font-weight:900;color:${color||'#E8521A'};pointer-events:none;z-index:9999;text-shadow:0 2px 8px rgba(0,0,0,.15);white-space:nowrap;animation:xp-rise 1.2s ease-out forwards;`;
-        el.textContent = text;
-        if (!document.getElementById('xp-rise-style')) {
-            const s = document.createElement('style');
-            s.id = 'xp-rise-style';
-            s.textContent = `@keyframes xp-rise{0%{opacity:1;transform:translateY(0) scale(1)}50%{opacity:1;transform:translateY(-40px) scale(1.2)}100%{opacity:0;transform:translateY(-80px) scale(.8)}}`;
-            document.head.appendChild(s);
+    (function() {
+        function spawnPop(x, y, text) {
+            const el = document.createElement('div');
+            el.style.cssText = `position:fixed;left:${x}px;top:${y}px;font-size:1rem;font-weight:900;color:#E8521A;pointer-events:none;z-index:9999;text-shadow:0 2px 8px rgba(0,0,0,.15);white-space:nowrap;animation:xp-rise 1.2s ease-out forwards;`;
+            el.textContent = text;
+            if (!document.getElementById('xp-rise-style')) {
+                const s = document.createElement('style');
+                s.id = 'xp-rise-style';
+                s.textContent = `@keyframes xp-rise{0%{opacity:1;transform:translateY(0) scale(1)}50%{opacity:1;transform:translateY(-40px) scale(1.2)}100%{opacity:0;transform:translateY(-80px) scale(.8)}}`;
+                document.head.appendChild(s);
+            }
+            document.body.appendChild(el);
+            setTimeout(() => el.remove(), 1300);
         }
-        document.body.appendChild(el);
-        setTimeout(() => el.remove(), 1300);
-    }
-
-})();
+        document.querySelectorAll('.arc-pcard').forEach(card => {
+            card.addEventListener('click', e => spawnPop(e.clientX - 30, e.clientY - 20, `🪙 ${parseInt(card.dataset.coins).toLocaleString()} TC`));
+        });
+    })();
 </script>

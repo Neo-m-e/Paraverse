@@ -1,24 +1,13 @@
-/* ── HOW IT WORKS ── */
 .arc-how-section {
     position: relative;
     padding: 120px 0;
     width: 100vw;
     margin-left: calc(-50vw + 50%);
-    background: #ffffff;
+    background-color: #ffffff;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='40' height='40'%3E%3Ccircle cx='20' cy='20' r='1.4' fill='%23E8521A' opacity='0.05'/%3E%3C/svg%3E");
+    background-size: 40px 40px;
     overflow: hidden;
     font-family: 'Nunito', sans-serif;
-}
-
-/* CHANGED: SVG gamified background decoration for white section */
-.arc-how-section::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 1440 800' xmlns='http://www.w3.org/2000/svg'%3E%3C!-- Pixel grid dots --%3E%3Cpattern id='pdots' x='0' y='0' width='40' height='40' patternUnits='userSpaceOnUse'%3E%3Ccircle cx='20' cy='20' r='1.5' fill='%23E8521A' opacity='0.07'/%3E%3C/pattern%3E%3Crect width='1440' height='800' fill='url(%23pdots)'/%3E%3C!-- Corner pixel brackets TL --%3E%3Cpath d='M40 80 L40 40 L80 40' fill='none' stroke='%23E8521A' stroke-width='3' stroke-opacity='0.12' stroke-linecap='round'/%3E%3C!-- Corner pixel brackets TR --%3E%3Cpath d='M1400 80 L1400 40 L1360 40' fill='none' stroke='%23E8521A' stroke-width='3' stroke-opacity='0.12' stroke-linecap='round'/%3E%3C!-- Corner pixel brackets BL --%3E%3Cpath d='M40 720 L40 760 L80 760' fill='none' stroke='%23E8521A' stroke-width='3' stroke-opacity='0.12' stroke-linecap='round'/%3E%3C!-- Corner pixel brackets BR --%3E%3Cpath d='M1400 720 L1400 760 L1360 760' fill='none' stroke='%23E8521A' stroke-width='3' stroke-opacity='0.12' stroke-linecap='round'/%3E%3C!-- Diamond decorations --%3E%3Cpath d='M100 400 L115 385 L130 400 L115 415 Z' fill='%23E8521A' opacity='0.06'/%3E%3Cpath d='M1310 200 L1325 185 L1340 200 L1325 215 Z' fill='%23F5A623' opacity='0.08'/%3E%3Cpath d='M1310 560 L1325 545 L1340 560 L1325 575 Z' fill='%23E8521A' opacity='0.06'/%3E%3C!-- XP sparks --%3E%3Ccircle cx='180' cy='150' r='4' fill='%23E8521A' opacity='0.08'/%3E%3Ccircle cx='1260' cy='650' r='4' fill='%23F5A623' opacity='0.08'/%3E%3Ccircle cx='200' cy='650' r='3' fill='%23E8521A' opacity='0.07'/%3E%3Ccircle cx='1240' cy='150' r='3' fill='%23F5A623' opacity='0.07'/%3E%3C/svg%3E");
-    background-size: cover;
-    background-position: center;
-    z-index: 0;
-    pointer-events: none;
 }
 
 .arc-how-container {
@@ -29,169 +18,84 @@
     z-index: 10;
 }
 
-/* CHANGED: Uniform pill tag */
-.arc-how-tag {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    background: #fff;
-    border: 2px solid #faccb3;
-    color: #E8521A;
-    font-size: 11px;
-    font-weight: 900;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    padding: 8px 20px;
-    border-radius: 50px;
-    margin-bottom: 18px;
-    box-shadow: 0 3px 0 #faccb3;
-    animation: tag-bounce 2s ease-in-out infinite;
+.arc-how-row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
-@keyframes tag-bounce {
-    0%, 100% { transform: translateY(0); }
-    50%       { transform: translateY(-3px); }
-}
-
-/* CHANGED: Uniform Fredoka One title */
-.arc-how-section h2 {
-    font-family: 'Fredoka One', sans-serif;
-    font-size: 3.2rem;
-    color: #1F2937;
-    line-height: 1.1;
-    margin-bottom: 15px !important;
-}
-
-.arc-how-section p {
-    color: #6B7280;
-    font-weight: 700;
-    line-height: 1.7;
-    max-width: 650px;
-    margin: 0 auto;
-}
-
-/* Cards */
 .arc-how-card {
     background: #fff;
     border: 2px solid #F0D5C8;
-    border-top: none;
-    border-radius: 28px;
-    padding: 45px 30px;
+    border-radius: 24px;
+    padding: 28px 28px 32px;
+    text-align: left;
+    box-shadow: 0 6px 0 #F0D5C8;
+    transition: all 0.28s cubic-bezier(0.34,1.56,0.64,1);
     position: relative;
-    overflow: hidden;
-    transition: all 0.3s cubic-bezier(.34,1.56,.64,1);
-    box-shadow: 0 10px 0 #F0D5C8, 0 18px 35px rgba(240, 90, 40, 0.08);
-    height: 100%;
-    cursor: pointer;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
-/* 3D press on hover */
 .arc-how-card:hover {
-    transform: translateY(-10px) scale(1.02);
-    box-shadow: 0 14px 0 #F05A28, 0 25px 45px rgba(240, 90, 40, 0.18);
-    border-color: #F05A28;
+    border-color: #E8521A;
+    top: -6px;
+    box-shadow: 0 12px 0 #E8521A, 0 20px 40px rgba(232,82,26,0.1);
 }
 
-.arc-how-card:active {
-    transform: translateY(-2px) scale(0.99);
-    box-shadow: 0 4px 0 #F05A28, 0 8px 20px rgba(240,90,40,0.15);
-}
-
-/* Shine */
-.arc-how-card::before {
-    content: "";
+.arc-how-stepnum {
     position: absolute;
-    top: 0; left: -120%;
-    width: 70%; height: 100%;
-    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.6), transparent);
-    transition: 0.8s;
+    top: 22px;
+    right: 24px;
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1rem;
+    color: #E8521A;
+    opacity: 0.4;
+    line-height: 1;
 }
 
-.arc-how-card:hover::before { left: 130%; }
-
-/* Step counter badge */
-.arc-how-step {
-    width: 70px;
-    height: 70px;
-    border-radius: 22px;
+.arc-how-icon-wrap {
+    width: 64px;
+    height: 64px;
+    border-radius: 18px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(145deg, #F05A28, #ff7a47);
-    color: white;
-    font-weight: 900;
-    font-size: 1.2rem;
-    margin-bottom: 25px;
-    box-shadow: 0 8px 0 #c64318, 0 15px 30px rgba(240,90,40,0.18);
-    transition: all 0.3s ease;
-    position: relative;
-    animation: step-idle 3s ease-in-out infinite;
+    margin-bottom: 20px;
 }
 
-@keyframes step-idle {
-    0%, 85%, 100% { transform: rotate(0deg); }
-    88%            { transform: rotate(-4deg); }
-    92%            { transform: rotate(4deg); }
-}
+.ic-01 { background: linear-gradient(135deg, #FF7B2C, #E8521A); color: #fff; }
+.ic-02 { background: linear-gradient(135deg, #F5A623, #d48a0a); color: #fff; }
+.ic-03 { background: linear-gradient(135deg, #38BDF8, #0284C7); color: #fff; }
 
-.arc-how-card:hover .arc-how-step {
-    transform: translateY(-8px) rotate(-6deg) scale(1.1);
-    animation: none;
+.arc-how-icon-wrap i {
+    font-size: 1.7rem;
+    line-height: 1;
+    color: #fff;
 }
-
-/* Ripple on step click */
-.arc-how-step.ripple::after {
-    content: '';
-    position: absolute;
-    inset: -8px;
-    border-radius: 28px;
-    border: 3px solid #F05A28;
-    animation: step-ripple 0.5s ease-out forwards;
+.arc-how-icon-wrap img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
 }
-
-@keyframes step-ripple {
-    0%   { transform: scale(1);   opacity: 1; }
-    100% { transform: scale(1.6); opacity: 0; }
-}
-
-/* Combo counter */
-.arc-how-card .combo-badge {
-    position: absolute;
-    top: 15px; right: 15px;
-    background: #E8521A; color: #fff;
-    border-radius: 50px;
-    padding: 2px 10px;
-    font-size: 0.7rem;
-    font-weight: 900;
-    opacity: 0;
-    transform: scale(0);
-    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
-}
-
-.arc-how-card .combo-badge.show {
-    opacity: 1;
-    transform: scale(1);
-}
-
-.step-02 {
-    background: linear-gradient(145deg, #F5A623, #ffc14d) !important;
-    box-shadow: 0 8px 0 #c98511, 0 15px 30px rgba(245,166,35,0.18) !important;
-}
-
-/* CHANGED: step-03 gets a teal variant for variety */
-.step-03 {
-    background: linear-gradient(145deg, #10B981, #34D399) !important;
-    box-shadow: 0 8px 0 #047857, 0 15px 30px rgba(16,185,129,0.18) !important;
-}
-
-.arc-how-card h5 {
+.arc-how-title {
     font-family: 'Fredoka One', sans-serif;
-    font-size: 1.3rem;
+    font-size: 1.25rem;
     color: #1F2937;
-    margin-bottom: 15px;
+    margin-bottom: 10px;
     line-height: 1.2;
 }
 
-.arc-how-card p { color: #6B7280; font-weight: 700; line-height: 1.7; }
+.arc-how-desc {
+    color: #6B7280;
+    font-weight: 700;
+    font-size: 0.9rem;
+    line-height: 1.75;
+    margin: 0;
+}
 
-.card-02, .card-03 { border-top: none !important; }
+@media (max-width: 768px) {
+    .arc-how-row { grid-template-columns: 1fr; }
+}

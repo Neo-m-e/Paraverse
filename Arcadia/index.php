@@ -34,6 +34,7 @@ $META_TITLE = "Arcadia";
                 <?php include("sections/flow.php"); ?>
                 <?php include("sections/explore badges.php"); ?>
                 <?php include("sections/claimable.php"); ?>
+                <?php include("sections/wallet.php"); ?>
                 <?php include("sections/level.php"); ?>
                 <?php include("sections/leaderboard.php"); ?>
                 <?php include("sections/faq.php"); ?>

@@ -1,0 +1,335 @@
+/* ── WALLET SECTION ── */
+.arc-wallet-section {
+    position: relative;
+    padding: 120px 0;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    background-color: #0F0D0C;
+    overflow: hidden;
+    font-family: 'Nunito', sans-serif;
+}
+
+/* Orange glow — matches flow */
+.arc-wallet-section::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background:
+        radial-gradient(circle at 30% 60%, rgba(232,82,26,0.18) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(232,82,26,0.10) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: 0;
+}
+
+/* No ::after needed */
+.arc-wallet-section::after { content: none; }
+
+.arc-wallet-container {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px;
+    position: relative;
+    z-index: 10;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 60px;
+    align-items: center;
+}
+
+@media (max-width: 991px) {
+    .arc-wallet-container { grid-template-columns: 1fr; gap: 40px; }
+}
+
+/* ── LEFT SIDE ── */
+.arc-wlt-tag {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.68rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: #F59E0B;
+    background: rgba(245,158,11,0.08);
+    border: 1.5px solid #F59E0B;
+    padding: 8px 20px;
+    border-radius: 50px;
+    margin-bottom: 20px;
+    box-shadow: 0 3px 0 rgba(245,158,11,0.4);
+    animation: arc-tag-bounce-amber 2.5s ease-in-out infinite;
+}
+
+.arc-wlt-headline {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: clamp(2rem, 3.5vw, 3rem);
+    color: #F9FAFB;
+    line-height: 1.2;
+    margin-bottom: 14px;
+}
+.arc-wlt-headline span { color: #E8521A; }
+
+.arc-wlt-sub {
+    font-size: 0.92rem;
+    font-weight: 700;
+    color: #6B7280;
+    line-height: 1.7;
+    max-width: 440px;
+    margin-bottom: 32px;
+}
+
+/* ── CARD VISUAL ── */
+.arc-wlt-card {
+    background: linear-gradient(135deg, #1C1410 0%, #2A1D14 55%, #3D2B1A 100%);
+    border-radius: 22px;
+    padding: 26px 28px;
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(232,82,26,0.15);
+    box-shadow: 0 24px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
+    max-width: 380px;
+}
+
+.arc-wlt-card-shine {
+    position: absolute;
+    top: -50%; left: -60%;
+    width: 40%; height: 200%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
+    animation: wlt-card-shine 6s ease-in-out infinite;
+    pointer-events: none;
+}
+@keyframes wlt-card-shine {
+    0%, 100% { left: -60%; }
+    50%       { left: 130%; }
+}
+
+.arc-wlt-card-chip {
+    font-size: 1.5rem;
+    color: #F5A623;
+    margin-bottom: 16px;
+    opacity: 0.9;
+    line-height: 1;
+}
+
+.arc-wlt-card-brand {
+    position: absolute;
+    top: 26px; right: 28px;
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1rem;
+    color: rgba(255,255,255,0.8);
+    letter-spacing: 1px;
+}
+.arc-wlt-card-brand sup { font-size: 0.55rem; }
+
+.arc-wlt-card-balance-row {
+    display: flex;
+    align-items: baseline;
+    gap: 6px;
+    margin-bottom: 4px;
+}
+
+.arc-wlt-card-amount {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 2.6rem;
+    color: #fff;
+    line-height: 1;
+}
+
+.arc-wlt-card-unit {
+    font-size: 1rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.45);
+}
+
+.arc-wlt-card-delta {
+    font-size: 0.72rem;
+    font-weight: 900;
+    color: #10B981;
+    background: rgba(16,185,129,0.15);
+    padding: 2px 8px;
+    border-radius: 50px;
+    margin-left: 4px;
+}
+
+.arc-wlt-card-available {
+    font-size: 0.68rem;
+    font-weight: 800;
+    color: rgba(255,255,255,0.35);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 20px;
+}
+
+.arc-wlt-card-number {
+    font-family: 'Courier New', monospace;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+}
+
+.arc-wlt-card-holder {
+    font-size: 0.72rem;
+    font-weight: 900;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.arc-wlt-status-dot {
+    width: 7px; height: 7px;
+    background: #10B981;
+    border-radius: 50%;
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
+    animation: wlt-dot-pulse 2s ease-in-out infinite;
+    flex-shrink: 0;
+}
+@keyframes wlt-dot-pulse {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(16,185,129,0.2); }
+    50%       { box-shadow: 0 0 0 7px rgba(16,185,129,0); }
+}
+
+/* ── RIGHT SIDE: TRANSACTIONS ── */
+.arc-wlt-right {
+    background: rgba(255,255,255,0.03);
+    border: 1px solid rgba(255,255,255,0.07);
+    border-radius: 24px;
+    padding: 32px;
+}
+
+.arc-wlt-txn-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+    padding-bottom: 14px;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.arc-wlt-txn-title {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1.1rem;
+    color: #F9FAFB;
+}
+
+.arc-wlt-txn-viewall {
+    font-size: 0.78rem;
+    font-weight: 900;
+    color: #E8521A;
+    text-decoration: none;
+    letter-spacing: 0.5px;
+}
+.arc-wlt-txn-viewall:hover { text-decoration: underline; color: #E8521A; }
+
+.arc-wlt-txn-list { display: flex; flex-direction: column; gap: 4px; }
+
+.arc-wlt-txn-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    transition: background 0.2s ease;
+    border-radius: 10px;
+}
+.arc-wlt-txn-item:last-child { border-bottom: none; }
+
+.arc-wlt-txn-icon {
+    width: 40px; height: 40px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+    flex-shrink: 0;
+    background: #1C1917 !important;        /* uniform subtle black, overrides inline styles */
+    border: 1px solid rgba(255,255,255,0.07);
+}
+.arc-wlt-txn-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 10px;
+    padding: 4px;
+}
+.arc-wlt-txn-info {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.arc-wlt-txn-name {
+    font-size: 0.85rem;
+    font-weight: 800;
+    color: #E5E7EB;
+}
+
+.arc-wlt-txn-date {
+    font-size: 0.7rem;
+    font-weight: 700;
+    color: #4B5563;
+}
+
+.arc-wlt-txn-amt {
+    font-size: 0.85rem;
+    font-weight: 900;
+    white-space: nowrap;
+}
+.arc-wlt-txn-amt.gain  { color: #10B981; }
+.arc-wlt-txn-amt.spend { color: #EF4444; }
+
+/* Top row */
+.arc-wlt-card-toprow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+/* Brand — now left-aligned */
+.arc-wlt-card-brand {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1.1rem;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 1px;
+    position: static; /* remove the old absolute positioning */
+    top: unset; right: unset;
+}
+.arc-wlt-card-brand-img {
+    height: 22px;
+    width: auto;
+    object-fit: contain;
+    opacity: 0.9;
+}
+
+/* Chip image — right side */
+.arc-wlt-card-chip-img {
+    width: 44px;
+    height: auto;
+    opacity: 0.9;
+}
+
+/* Bottom row */
+.arc-wlt-card-bottomrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 12px;
+}
+
+/* 3 small icons bottom-right */
+.arc-wlt-card-icons {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.arc-wlt-card-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    opacity: 0.85;
+}
