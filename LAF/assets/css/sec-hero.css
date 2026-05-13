@@ -1,0 +1,234 @@
+/* ============================================================
+   SEC-HERO — Welcome Back Banner + User Profile Card
+   ============================================================ */
+
+:root {
+  --laf-purple:       #6c63ff;
+  --laf-purple-dark:  #554fe0;
+  --laf-purple-light: #ebe9ff;
+  --laf-green:        #17c653;
+  --laf-red:          #f64e60;
+  --laf-gray-bg:      #f5f5f8;
+  --laf-border:       #e9e9ef;
+  --laf-text:         #1e1e2d;
+  --laf-muted:        #a1a5b7;
+}
+
+/* Grid layout */
+.laf-grid-hero {
+  display: grid;
+  grid-template-columns: 1fr 240px;
+  gap: 20px;
+  align-items: stretch;
+}
+
+.laf-hero {
+  background: #4a56a5;        /* plain flat purple, no gradient */
+  border-radius: 16px;
+  color: #fff;
+  padding: 36px 36px;
+  position: relative;
+  overflow: hidden;
+  min-height: 210px;
+}
+
+/* Remove the decorative circles */
+.laf-hero::before,
+.laf-hero::after {
+  display: none;
+}
+.laf-hero h1 {
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+.laf-hero p {
+  opacity: .85;
+  font-size: 1rem;
+  margin-bottom: 0;
+}
+.laf-hero-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 24px;
+  flex-wrap: wrap;
+}
+
+/* FEU TECH badge — tight pill */
+.laf-hero-badge {
+  display: inline-block;
+  width: fit-content;
+  background: rgba(255,255,255,.25);
+  color: #fff;
+  font-size: .7rem;
+  font-weight: 700;
+  padding: 5px 14px;
+  border-radius: 999px;
+  margin-bottom: 16px;
+  letter-spacing: .3px;
+}
+
+/* Lost Button */
+.btn-laf-lost {
+  background: var(--laf-red);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-weight: 700;
+  font-size: .88rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  transition: background .2s, transform .15s, box-shadow .2s;
+}
+.btn-laf-lost:hover {
+  background: #d43c50;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(246,78,96,.4);
+}
+
+/* Found Button */
+.btn-laf-found {
+  background: var(--laf-green);
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 10px 22px;
+  font-weight: 700;
+  font-size: .88rem;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  transition: background .2s, transform .15s, box-shadow .2s;
+}
+.btn-laf-found:hover {
+  background: #13a847;
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(23,198,83,.4);
+}
+
+/* ── Profile Card — two-tone: light top, flat purple bottom ── */
+.laf-profile-card {
+  background-color: #4a56a5;
+  border-radius: 20px;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.1);
+}
+
+/* Light top section */
+.laf-profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 105px;
+  background-color: #eef0fb;
+  z-index: 0;
+}
+
+/* Avatar — straddles the dividing line */
+.laf-profile-card .avatar-ring {
+  width: 88px;
+  height: 88px;
+  border-radius: 50%;
+  border: 4px solid #fff;
+  object-fit: cover;
+  position: relative;
+  z-index: 1;
+  margin-top: 58px;
+}
+
+/* Name & Role */
+.laf-profile-card .user-info {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 16px;
+  padding: 0 12px;
+}
+.laf-profile-card .user-info .name {
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  margin-bottom: 2px;
+}
+.laf-profile-card .user-info .role {
+  color: rgba(255,255,255,.8);
+  font-size: .82rem;
+}
+
+/* Stats Row */
+.laf-profile-card .laf-stat-row {
+  display: flex;
+  gap: 10px;
+  width: 84%;
+  position: relative;
+  z-index: 1;
+  margin-bottom: 14px;
+}
+
+/* Stat Boxes — white on purple */
+.laf-profile-card .laf-stat-box {
+  background-color: #f8f9ff;
+  border-radius: 14px;
+  padding: 12px 6px;
+  flex: 1;
+  text-align: center;
+  border: none;
+}
+.laf-profile-card .stat-num {
+  color: #5c5fbf;
+  font-weight: 800;
+  font-size: 1.6rem;
+  line-height: 1;
+}
+.laf-profile-card .stat-lbl {
+  color: #5c5fbf;
+  font-size: 0.62rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: .4px;
+  margin-top: 4px;
+  line-height: 1.3;
+}
+
+/* View Full Profile Button */
+.laf-profile-card .btn-view-full-profile {
+  width: 84%;
+  background-color: #f8f9ff;
+  color: #5c5fbf;
+  border-radius: 12px;
+  padding: 11px;
+  font-weight: 800;
+  font-size: .85rem;
+  text-decoration: none;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  display: block;
+  margin-bottom: 22px;
+  transition: background .2s, color .2s;
+}
+.laf-profile-card .btn-view-full-profile:hover {
+  background-color: #fff;
+  color: #4244a0;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .laf-grid-hero {
+    grid-template-columns: 1fr;
+  }
+}

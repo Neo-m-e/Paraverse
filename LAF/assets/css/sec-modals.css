@@ -1,0 +1,64 @@
+/* ============================================================
+   SEC-MODALS — How to Claim / Surrender / Confirm Details
+   ============================================================ */
+
+:root {
+  --laf-purple:       #6c63ff;
+  --laf-purple-dark:  #554fe0;
+  --laf-purple-light: #ebe9ff;
+  --laf-green:        #17c653;
+  --laf-green-light:  #d4f5e2;
+  --laf-red:          #f64e60;
+  --laf-orange:       #ffa800;
+  --laf-orange-light: #fff4de;
+  --laf-gray-bg:      #f5f5f8;
+  --laf-border:       #e9e9ef;
+  --laf-text:         #1e1e2d;
+  --laf-muted:        #a1a5b7;
+}
+
+.modal-laf .modal-content  { border-radius: 18px; border: none; box-shadow: 0 16px 48px rgba(0,0,0,.15); }
+.modal-laf .modal-header   { border-bottom: none; padding-bottom: 0; }
+.modal-laf .modal-footer   { border-top: none; padding-top: 0; }
+.modal-laf .btn-close      { background-color: #f0f0f0; border-radius: 50%; opacity: 1; }
+
+/* Step List */
+.laf-step-list { list-style: none; padding: 0; margin: 0; }
+.laf-step-list li { display: flex; gap: 14px; margin-bottom: 20px; position: relative; }
+.laf-step-list li:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 14px; top: 34px;
+  width: 2px; height: calc(100% - 10px);
+  background: var(--laf-border);
+}
+.laf-step-num { flex-shrink: 0; width: 30px; height: 30px; border-radius: 50%; background: var(--laf-purple); color: #fff; font-weight: 800; font-size: .82rem; display: flex; align-items: center; justify-content: center; }
+.laf-step-num.last { background: var(--laf-green); }
+.laf-step-title { font-weight: 700; font-size: .92rem; color: var(--laf-text); margin-bottom: 3px; }
+.laf-step-body  { font-size: .82rem; color: #666; line-height: 1.55; }
+
+.laf-location-badge { background: var(--laf-green-light); color: #1a7a3e; border-radius: 10px; padding: 10px 14px; font-size: .83rem; font-weight: 600; }
+
+/* Confirm Details Table */
+.laf-review-table td:first-child { color: var(--laf-muted); font-size: .83rem; width: 38%; }
+.laf-review-table td:last-child  { font-weight: 700; font-size: .88rem; color: var(--laf-text); text-align: right; }
+.laf-review-table tr + tr td     { border-top: 1px solid var(--laf-border); padding-top: 10px; }
+.laf-review-table td             { padding: 8px 0; }
+
+.btn-laf-submit-modal {
+  background: var(--laf-purple); color: #fff;
+  border: none; border-radius: 10px;
+  padding: 12px 28px; font-weight: 700; font-size: .92rem;
+  width: 100%; cursor: pointer;
+  transition: background .2s, transform .15s;
+}
+.btn-laf-submit-modal:hover { background: var(--laf-purple-dark); transform: translateY(-1px); }
+
+.btn-modal-close-dark {
+  background: #1e1e2d; color: #fff;
+  border: none; border-radius: 10px;
+  padding: 12px 28px; font-weight: 700; font-size: .92rem;
+  width: 100%; cursor: pointer;
+  transition: background .2s;
+}
+.btn-modal-close-dark:hover { background: #333; }

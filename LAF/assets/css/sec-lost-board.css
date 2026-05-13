@@ -1,0 +1,183 @@
+/* ============================================================
+   SEC-LOST-BOARD — How to Report + Lost Items Board
+   ============================================================ */
+
+:root {
+    --laf-purple: #6c63ff;
+    --laf-purple-dark: #554fe0;
+    --laf-purple-light: #ebe9ff;
+    --laf-green: #24cc88;
+    /* Updated to match image_6493bc.png */
+    --laf-green-light: #d4f5e2;
+    --laf-red: #f64e60;
+    --laf-orange: #ffa800;
+    --laf-orange-light: #fff4de;
+    --laf-gray-bg: #f5f5f8;
+    --laf-border: #f1f1f5;
+    /* Lightened for cleaner look */
+    --laf-text: #181c32;
+    /* Deepened for better contrast */
+    --laf-muted: #7e8299;
+    /* Adjusted for meta info */
+}
+
+/* Section header */
+.laf-section-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--laf-text);
+    margin-bottom: 2px;
+}
+
+.laf-section-sub {
+    font-size: .8rem;
+    color: var(--laf-muted);
+    margin-bottom: 0;
+}
+
+/* View All Link Style - Updated to match the button-like look */
+.laf-view-all-btn {
+    border: 1px solid #e9e9ef !important;
+    padding: 6px 16px !important;
+    border-radius: 10px !important;
+    font-size: 0.75rem !important;
+    font-weight: 700 !important;
+    color: var(--laf-purple) !important;
+    text-decoration: none !important;
+    transition: all 0.2s !important;
+}
+
+.laf-view-all-btn:hover {
+    background: #f0f2ff !important;
+}
+
+/* How It Works block - NO CHANGES AS REQUESTED */
+.laf-hiw-container {
+    background: #fefafa !important;
+    border: 1px solid #ffeef0 !important;
+    border-radius: 18px !important;
+    padding: 25px !important;
+    margin: 20px 20px 0 20px !important;
+    /* ← add this */
+}
+
+.laf-hiw-label {
+    font-size: .75rem !important;
+    font-weight: 800 !important;
+    color: #f64e60 !important;
+    margin-bottom: 20px !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 8px !important;
+}
+
+.laf-hiw-steps {
+    display: grid !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+    gap: 20px !important;
+}
+
+.laf-hiw-step {
+    display: flex !important;
+    gap: 12px !important;
+}
+
+.hiw-num {
+    width: 32px !important;
+    height: 32px !important;
+    min-width: 32px !important;
+    border-radius: 50% !important;
+    background: #f64e60 !important;
+    color: #fff !important;
+    font-weight: 800 !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    font-size: 0.85rem !important;
+}
+
+.hiw-content {
+    text-align: left !important;
+}
+
+.hiw-content h6 {
+    font-weight: 800 !important;
+    font-size: 0.9rem !important;
+    margin: 0 0 4px 0 !important;
+}
+
+.hiw-content p {
+    font-size: 0.78rem !important;
+    color: #888ea8 !important;
+    line-height: 1.4 !important;
+    margin: 0 !important;
+}
+
+.badge-laf-cat {
+    padding: 3px 8px !important;
+    border-radius: 15px !important;
+    font-size: 0.65rem !important;
+    font-weight: 800 !important;
+    display: inline-block !important;
+    width: fit-content !important;
+}
+.badge-bags        { background: #fff0f0 !important; color: #ff5e5e !important; }
+.badge-academic    { background: #fff4f0 !important; color: #ff7d45 !important; }
+.badge-essentials  { background: #fff0f5 !important; color: #ff4d94 !important; }
+.badge-electronics { background: #f0f4ff !important; color: #4d7cff !important; }
+.badge-accessories { background: #fff0fb !important; color: #d63aaf !important; }
+.badge-clothing    { background: #fffbe6 !important; color: #b07d00 !important; }
+.badge-wallets     { background: #f5eeff !important; color: #7c3aed !important; }
+.badge-documents   { background: #e8f4ff !important; color: #0070b0 !important; }
+.badge-others      { background: #f0f0f0 !important; color: #666666 !important; }
+
+.lost-title {
+    font-weight: 800 !important;
+    font-size: 1.05rem !important;
+    margin: 10px 0 8px 0 !important;
+    color: var(--laf-text) !important;
+}
+
+.lost-meta {
+    font-size: 0.75rem !important;
+    color: var(--laf-muted) !important;
+    font-weight: 600 !important;
+    display: flex !important;
+    align-items: center !important;
+    gap: 6px !important;
+    margin-bottom: 5px !important;
+}
+
+#loc-area,
+#loc-room {
+    animation: lafSlideDown .18s ease;
+}
+
+@keyframes lafSlideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-4px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .laf-hiw-steps {
+        grid-template-columns: 1fr !important;
+        gap: 16px !important;
+    }
+
+    .laf-hiw-step {
+        flex-direction: row !important;
+        align-items: flex-start !important;
+        text-align: left !important;
+    }
+
+    .hiw-content {
+        text-align: left !important;
+    }
+}

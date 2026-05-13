@@ -1,0 +1,88 @@
+/* ============================================================
+   SEC-USERS-CLAIMED — Featured Users + Recently Claimed Items
+   ============================================================ */
+
+:root {
+  --laf-purple:       #6c63ff;
+  --laf-purple-dark:  #554fe0;
+  --laf-purple-light: #ebe9ff;
+  --laf-green:        #17c653;
+  --laf-green-light:  #d4f5e2;
+  --laf-red:          #f64e60;
+  --laf-orange:       #ffa800;
+  --laf-orange-light: #fff4de;
+  --laf-gray-bg:      #f5f5f8;
+  --laf-border:       #e9e9ef;
+  --laf-text:         #1e1e2d;
+  --laf-muted:        #a1a5b7;
+}
+
+/* Section header */
+.laf-section-title { font-size: 1.05rem; font-weight: 800; color: var(--laf-text); margin-bottom: 2px; }
+.laf-section-sub   { font-size: .8rem; color: var(--laf-muted); margin-bottom: 0; }
+.laf-view-all      { font-size: .82rem; font-weight: 700; color: var(--laf-purple); text-decoration: none; }
+.laf-view-all:hover { color: var(--laf-purple-dark); }
+
+/* Featured Users */
+.laf-user-card {
+  border: 1px solid var(--laf-border);
+  border-radius: 14px;
+  background: #fff;
+  padding: 20px 16px;
+  text-align: center;
+  transition: box-shadow .2s, transform .15s;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.laf-user-card:hover { box-shadow: 0 6px 24px rgba(108,99,255,.12); transform: translateY(-2px); }
+.laf-user-card .user-name { font-weight: 700; font-size: .95rem; color: var(--laf-text); margin-bottom: 2px; }
+.laf-user-card .user-meta { font-size: .78rem; color: var(--laf-muted); margin-bottom: 6px; }
+.laf-user-card .user-surr { font-size: .78rem; color: #555; margin-bottom: 12px; flex: 1; }
+
+.btn-view-profile {
+  background: var(--laf-purple-light);
+  color: var(--laf-purple);
+  border: none;
+  border-radius: 8px;
+  padding: 8px 20px;
+  font-weight: 700;
+  font-size: .82rem;
+  width: 100%;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+  margin-top: auto;
+  transition: background .2s, color .2s, transform .15s;
+}
+.btn-view-profile:hover { background: var(--laf-purple); color: #fff; transform: translateY(-1px); }
+
+/* Recently Claimed Cards */
+.laf-claimed-card {
+  border: 1px solid var(--laf-border);
+  border-radius: 14px;
+  background: #fff;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: box-shadow .2s, transform .15s;
+}
+.laf-claimed-card:hover { box-shadow: 0 4px 16px rgba(23,198,83,.12); transform: translateY(-1px); }
+
+.laf-claimed-card .claimed-icon-wrap {
+  width: 52px; height: 52px;
+  border-radius: 12px;
+  background: var(--laf-green-light);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.6rem;
+  flex-shrink: 0;
+}
+.laf-claimed-card .claimed-name { font-weight: 700; font-size: .92rem; color: var(--laf-text); margin-bottom: 2px; }
+.laf-claimed-card .claimed-meta { font-size: .77rem; color: var(--laf-muted); }
+
+.badge-laf-claimed { background: var(--laf-green-light); color: #147a3c; font-size: .7rem; font-weight: 700; padding: 3px 9px; border-radius: 20px; display: inline-block; }

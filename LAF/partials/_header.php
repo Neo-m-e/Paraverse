@@ -1,0 +1,52 @@
+<div id="kt_app_header" class="app-header bg-white" data-kt-sticky="true"
+  data-kt-sticky-activate="{default: true, lg: true}" data-kt-sticky-name="app-header-minimize"
+  data-kt-sticky-offset="{default: '200px', lg: '0'}" data-kt-sticky-animation="false">
+
+  <div class="app-container container-xxl d-none justify-content-start align-items-center position-absolute h-100 bg-white"
+    style="z-index: 999;">
+    <div id="search-box"></div>
+  </div>
+
+  <div class="app-container container-xxl d-flex align-items-stretch justify-content-between" id="kt_app_header_container">
+
+    <div class="app-navbar flex-shrink-0">
+      <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/widget-applications-browser.php'); ?>
+      <a href="/" onclick="KTApp.showPageLoading()" class="d-flex align-items-center ms-4">
+        <img src="/LAF/assets/images/LAF-logo.svg" class="h-25px me-2">
+      </a>
+    </div>
+
+    <div class="d-flex align-items-stretch justify-content-end" id="kt_app_header_wrapper">
+      <div class="app-navbar flex-shrink-0 align-items-center">
+
+        <!-- 1. Notification Bell (Bootstrap Icon) -->
+        <div class="app-navbar-item ms-1 ms-md-3">
+          <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px">
+            <i class="bi bi-bell-fill fs-5"></i>
+          </div>
+        </div>
+
+        <!-- 2. Profile Pic Placeholder (Bilog) -->
+        <div class="app-navbar-item ms-1 ms-md-3">
+          <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
+            data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
+            data-kt-menu-attach="parent"
+            data-kt-menu-placement="bottom-end">
+            <img src="/LAF/assets/images/catalina.webp" class="rounded-circle" alt="user" />
+          </div>
+
+          <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/widget-user-menu.php'); ?>
+        </div>
+
+        <!-- Optional/Hidden Widgets -->
+        <div class="d-none">
+          <?php
+          include($_SERVER['DOCUMENT_ROOT'] . '/includes/widget-app-item-login.php');
+          include($_SERVER['DOCUMENT_ROOT'] . '/includes/widget-app-item-hamburger.php');
+          ?>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</div>
