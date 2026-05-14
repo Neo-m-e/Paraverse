@@ -41,3 +41,24 @@ document.addEventListener('DOMContentLoaded', function () {
   if (searchBtn)      searchBtn.addEventListener('click', runSearch);
 
 });
+
+document.querySelectorAll('.laf-item-card[data-item-id]').forEach(function (card) {
+  var itemId = card.getAttribute('data-item-id');
+
+  var fieldMap = [
+    { cls: 'dash-floor', field: 'floor' },
+    { cls: 'dash-time',  field: 'time'  },
+    { cls: 'dash-by',    field: 'surrendered_by' },
+      { cls: 'dash-date',  field: 'date'  },
+  ];
+
+  fieldMap.forEach(function (f) {
+    var cell = card.querySelector('.' + f.cls);
+    if (!cell) return;
+    var real  = cell.getAttribute('data-real') || '';
+    var state = lafGetPrivacy(itemId, f.field);
+    if (state === 'shown') {
+      cell.textContent = real;
+    }
+  });
+});

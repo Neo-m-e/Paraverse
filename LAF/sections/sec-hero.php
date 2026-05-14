@@ -1,10 +1,4 @@
 <?php
-
-/**
- * Section: Hero Banner + User Profile Card
- * Dashboard — Lost and Found System
- */
-
 $user_name          = 'Catalina';
 $user_fullname      = 'Catalina Smith';
 $user_role          = 'Student · BSITBA';

@@ -78,8 +78,7 @@ document.addEventListener('DOMContentLoaded', function () {
       var real  = cell.getAttribute('data-real') || '';
       var state = lafGetPrivacy(itemId, f.field);
       if (state === 'shown') {
-        var emoji = cell.textContent.trim().charAt(0); /* 📍 🕐 👤 */
-        cell.textContent = emoji + ' ' + real;
+        cell.textContent = real;
       }
       /* if hidden, leave the ●● dots that are already in the HTML */
     });

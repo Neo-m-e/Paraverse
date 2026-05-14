@@ -1,10 +1,5 @@
 <?php
 
-/**
- * Section: Search Bar + Recently Surrendered Items
- * Dashboard — Lost and Found System
- */
-
 $surrendered_items = [
   ['id' => 1, 'name' => 'Goojodoq (Handfan)', 'category' => 'Accessories', 'category_class' => 'badge-accessories', 'cat_key' => 'cat-accessories', 'icon' => '💨', 'floor' => '2nd Floor, Lobby', 'time' => '10:00 AM', 'surrendered_by' => 'Jenny B. Calot', 'status' => 'Unclaimed'],
   ['id' => 2, 'name' => 'Umbrella', 'category' => 'Personal Essentials', 'category_class' => 'badge-essentials', 'cat_key' => 'cat-essentials', 'icon' => '☂️', 'floor' => '4th Floor, Study Area', 'time' => '2:00 PM', 'surrendered_by' => 'Marco R. Santos', 'status' => 'Unclaimed'],
@@ -49,9 +44,9 @@ $categories = ['All Categories', 'Academic', 'Electronics', 'Bags', 'Accessories
           </div>
           <div class="item-icon-wrap"><?= $item['icon'] ?></div>
           <div class="item-name"><?= htmlspecialchars($item['name']) ?></div>
-          <div class="item-meta dash-floor" data-real="<?= htmlspecialchars($item['floor']) ?>">📍 ●●● ●●●●●</div>
-          <div class="item-meta dash-time" data-real="<?= htmlspecialchars($item['time']) ?>">🕐 ●●:●●</div>
-          <div class="item-meta dash-by" data-real="<?= htmlspecialchars($item['surrendered_by']) ?>" style="margin-bottom:12px;">👤 ●●● ●●●●●●</div>
+          <div class="item-meta dash-floor" data-real="📍<?= htmlspecialchars($item['floor']) ?>">📍 ●●● ●●●●●</div>
+          <div class="item-meta dash-time" data-real="🕐 <?= htmlspecialchars($item['time']) ?>">🕐 ●●:●●</div>
+          <div class="item-meta dash-by" data-real="👤 <?= htmlspecialchars($item['surrendered_by']) ?>" style="margin-bottom:12px;">👤 ●●● ●●●●●●</div>
           <button class="btn-how-to-claim" data-item-id="<?= (int)$item['id'] ?>" onclick="event.stopPropagation();">🏢 How to Claim</button>
         </div>
       <?php endforeach; ?>

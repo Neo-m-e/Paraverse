@@ -1,8 +1,4 @@
 <?php
-/**
- * Section: Featured Users + Recently Claimed Items
- * Dashboard — Lost and Found System
- */
 
 $featured_users = [
   ['id'=>1,'name'=>'Jenny B. Calot','initials'=>'JC','course'=>'BSCS · 3rd Year','surrendered'=>4,'color'=>'#6c63ff','profile_url'=>'/profile/?id=1'],

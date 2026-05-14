@@ -6,12 +6,19 @@ include('../../functions-new.php');
 $META_TITLE = "Item Details · Lost and Found";
 $item_id = isset($_GET['id']) ? (int)$_GET['id'] : 0;
 
-/* Simulated item lookup by ID — in production replace with DB query */
+/* sample id for search */
 $all_items = [
-  1 => ['id'=>1,'name'=>'Goojodoq (Handfan)','category'=>'Accessories','icon'=>'💨','image_url'=>'','date_found'=>'May 3, 2026','time_found'=>'10:00 AM','floor'=>'2nd Floor, Lobby','currently_at'=>'Discipline Unit · 15th Floor, Room 1501','surrendered_by'=>'Jenny B. Calot','claimed_by'=>'—','released_by'=>'—','received_by'=>'—','status'=>'Unclaimed'],
-  2 => ['id'=>2,'name'=>'Umbrella','category'=>'Personal Essentials','icon'=>'☂️','image_url'=>'','date_found'=>'May 2, 2026','time_found'=>'2:00 PM','floor'=>'4th Floor, Study Area','currently_at'=>'Discipline Unit · 15th Floor, Room 1501','surrendered_by'=>'Marco R. Santos','claimed_by'=>'—','released_by'=>'—','received_by'=>'—','status'=>'Unclaimed'],
-  3 => ['id'=>3,'name'=>'Calculator','category'=>'Academic','icon'=>'🧮','image_url'=>'','date_found'=>'May 4, 2026','time_found'=>'8:30 AM','floor'=>'6th Floor, Room 605','currently_at'=>'Discipline Unit · 15th Floor, Room 1501','surrendered_by'=>'Kristin V. Dy','claimed_by'=>'—','released_by'=>'—','received_by'=>'—','status'=>'Unclaimed'],
-  4 => ['id'=>4,'name'=>'Blue Backpack','category'=>'Bags','icon'=>'🎒','image_url'=>'','date_found'=>'May 1, 2026','time_found'=>'12:30 PM','floor'=>'14th Floor, Library','currently_at'=>'Discipline Unit · 15th Floor, Room 1501','surrendered_by'=>'Marco R. Santos','claimed_by'=>'Jenny B. Calot','released_by'=>'Yvette G. Supnet','received_by'=>'Yvette G. Supnet','status'=>'Unclaimed'],
+  1 => ['id' => 1, 'name' => 'Goojodoq (Handfan)', 'category' => 'Accessories', 'icon' => '💨', 'image_url' => '', 'date_found' => 'May 3, 2026', 'time_found' => '10:00 AM', 'floor' => '2nd Floor, Lobby', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Jenny B. Calot', 'claimed_by' => '—', 'released_by' => '—', 'received_by' => '—', 'status' => 'Unclaimed'],
+  2 => ['id' => 2, 'name' => 'Umbrella', 'category' => 'Personal Essentials', 'icon' => '☂️', 'image_url' => '', 'date_found' => 'May 2, 2026', 'time_found' => '2:00 PM', 'floor' => '4th Floor, Study Area', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Marco R. Santos', 'claimed_by' => '—', 'released_by' => '—', 'received_by' => '—', 'status' => 'Unclaimed'],
+  3 => ['id' => 3, 'name' => 'Calculator', 'category' => 'Academic', 'icon' => '🧮', 'image_url' => '', 'date_found' => 'May 4, 2026', 'time_found' => '8:30 AM', 'floor' => '6th Floor, Room 605', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Kristin V. Dy', 'claimed_by' => '—', 'released_by' => '—', 'received_by' => '—', 'status' => 'Unclaimed'],
+  4 => ['id' => 4, 'name' => 'Blue Backpack', 'category' => 'Bags', 'icon' => '🎒', 'image_url' => '', 'date_found' => 'May 1, 2026', 'time_found' => '12:30 PM', 'floor' => '14th Floor, Library', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Marco R. Santos', 'claimed_by' => 'Jenny B. Calot', 'released_by' => 'Yvette G. Supnet', 'received_by' => 'Yvette G. Supnet', 'status' => 'Unclaimed'],
+  5 => ['id' => 5, 'name' => 'Keys', 'category' => 'Personal Essentials', 'icon' => '🔑', 'image_url' => '', 'date_found' => 'Apr 30, 2026', 'time_found' => '9:00 AM', 'floor' => '1st Floor, Parking', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Juan D. Cruz', 'claimed_by' => '—', 'released_by' => '—', 'received_by' => '—', 'status' => 'Unclaimed'],
+  6 => ['id' => 6, 'name' => 'Eyeglasses', 'category' => 'Accessories', 'icon' => '🕶️', 'image_url' => '', 'date_found' => 'Apr 28, 2026', 'time_found' => '3:00 PM', 'floor' => '3rd Floor, Library', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Ana R. Reyes', 'claimed_by' => '—', 'released_by' => '—', 'received_by' => '—', 'status' => 'Unclaimed'],
+  7 => ['id' => 7, 'name' => 'Smartphone', 'category' => 'Electronics', 'icon' => '📱', 'image_url' => '', 'date_found' => 'Apr 27, 2026', 'time_found' => '11:00 AM', 'floor' => '5th Floor, Study Area', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Luis M. Bautista', 'claimed_by' => '—', 'released_by' => '—', 'received_by' => '—', 'status' => 'Unclaimed'],
+  8 => ['id' => 8, 'name' => 'Water Bottle', 'category' => 'Personal Essentials', 'icon' => '🍶', 'image_url' => '', 'date_found' => 'Apr 26, 2026', 'time_found' => '12:00 PM', 'floor' => '7th Floor, Canteen', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Maria S. Lim', 'claimed_by' => '—', 'released_by' => '—', 'received_by' => '—', 'status' => 'Unclaimed'],
+  9 => ['id' => 9, 'name' => 'Papers', 'category' => 'Documents', 'icon' => '📑', 'image_url' => '', 'date_found' => 'Apr 26, 2026', 'time_found' => '12:00 PM', 'floor' => '7th Floor, Canteen', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Carlo T. Ong', 'claimed_by' => '—', 'released_by' => '—', 'received_by' => '—', 'status' => 'Unclaimed'],
+  10 => ['id' => 10, 'name' => 'Wallet', 'category' => 'Wallets', 'icon' => '👛', 'image_url' => '', 'date_found' => 'Apr 26, 2026', 'time_found' => '12:00 PM', 'floor' => '7th Floor, Canteen', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Pia G. Fernandez', 'claimed_by' => '—', 'released_by' => '—', 'received_by' => '—', 'status' => 'Unclaimed'],
+  11 => ['id' => 11, 'name' => 'Water Bottle', 'category' => 'Personal Essentials', 'icon' => '🍶', 'image_url' => '', 'date_found' => 'Apr 26, 2026', 'time_found' => '12:00 PM', 'floor' => '7th Floor, Canteen', 'currently_at' => 'Discipline Unit · 15th Floor, Room 1501', 'surrendered_by' => 'Rico A. Villanueva', 'claimed_by' => '—', 'released_by' => '—', 'received_by' => '—', 'status' => 'Unclaimed'],
 ];
 
 $item = isset($all_items[$item_id]) ? $all_items[$item_id] : $all_items[1];
@@ -19,6 +26,7 @@ $is_unclaimed = ($item['status'] === 'Unclaimed');
 ?>
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <?php HEAD_ESSENTIALS(); ?>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -26,6 +34,7 @@ $is_unclaimed = ($item['status'] === 'Unclaimed');
   <link href="../../assets/css/lost-and-found.css" rel="stylesheet">
   <link href="../../assets/css/sec-modals.css" rel="stylesheet">
 </head>
+
 <body id="kt_app_body" data-kt-app-page-loading-enabled="true" data-kt-app-page-loading="on"
   data-kt-app-layout="light-header" class="app-default">
   <?php include('../../partials/_page-loader.php'); ?>
@@ -170,4 +179,5 @@ $is_unclaimed = ($item['status'] === 'Unclaimed');
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script src="../../assets/js/lost-and-found.js"></script>
 </body>
+
 </html>

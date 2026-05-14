@@ -19,23 +19,23 @@
     <div class="d-flex align-items-stretch justify-content-end" id="kt_app_header_wrapper">
       <div class="app-navbar flex-shrink-0 align-items-center">
 
-        <!-- 1. Notification Bell (Bootstrap Icon) -->
+        <!-- 1. Notification Bell  -->
         <div class="app-navbar-item ms-1 ms-md-3">
           <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px">
             <i class="bi bi-bell-fill fs-5"></i>
           </div>
         </div>
 
-        <!-- 2. Profile Pic Placeholder (Bilog) -->
-        <div class="app-navbar-item ms-1 ms-md-3">
-          <div class="cursor-pointer symbol symbol-30px symbol-md-40px"
-            data-kt-menu-trigger="{default: 'click', lg: 'hover'}"
-            data-kt-menu-attach="parent"
-            data-kt-menu-placement="bottom-end">
-            <img src="/LAF/assets/images/catalina.webp" class="rounded-circle" alt="user" />
-          </div>
-
-          <?php include($_SERVER['DOCUMENT_ROOT'] . '/includes/widget-user-menu.php'); ?>
+        <!-- 2. Profile Pic — Clickable Dropdown -->
+        <div class="app-navbar-item ms-1 ms-md-3" style="position:relative;">
+          <?php
+          $dropdown_partial = __DIR__ . '/_profile-dropdown.php';
+          if (file_exists($dropdown_partial)) {
+            include($dropdown_partial);
+          } else {
+            echo '<img src="/LAF/assets/images/catalina.webp" class="rounded-circle" style="width:40px;height:40px;" alt="user">';
+          }
+          ?>
         </div>
 
         <!-- Optional/Hidden Widgets -->
