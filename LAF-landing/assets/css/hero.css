@@ -1,0 +1,164 @@
+/* ── Global: sans-serif only, everywhere ── */
+body, h1, h2, h3, h4, h5, h6, p, span, a, li, button, input, label {
+  font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif !important;
+}
+
+/* ── CSS Variables ── */
+:root {
+  --laf-primary:       #4B5EAA;
+  --laf-primary-light: #6272c4;
+  --laf-navy:          #1e2a4a;
+  --laf-accent:        #f5a623;
+  --laf-gray-bg:       #f5f6fa;
+  --laf-card-shadow:   0 4px 24px rgba(75,94,170,0.10);
+  --laf-font:          'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+}
+
+/* ── Shared section label ── */
+.laf-label {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--laf-primary);
+}
+
+/* ── Shared section heading ── */
+.laf-heading {
+  font-size: clamp(1.6rem, 3.5vw, 2.3rem);
+  font-weight: 900;
+  color: #1a1f36;
+}
+
+/* ── Shared buttons ── */
+.laf-btn-primary {
+  background: var(--laf-primary);
+  border: none;
+  color: #fff;
+  font-weight: 700;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-size: 0.97rem;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.laf-btn-primary:hover {
+  background: var(--laf-primary-light);
+  color: #fff;
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(75,94,170,0.30);
+}
+.laf-btn-outline {
+  background: #fff;
+  border: 2px solid #dde2f0;
+  color: #3a4060;
+  font-weight: 700;
+  padding: 12px 30px;
+  border-radius: 10px;
+  font-size: 0.97rem;
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.18s ease;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.laf-btn-outline:hover {
+  border-color: var(--laf-primary);
+  color: var(--laf-primary);
+  transform: translateY(-3px);
+  box-shadow: 0 6px 18px rgba(75,94,170,0.12);
+}
+
+/* ── Hero ── */
+.laf-hero {
+  background: var(--laf-gray-bg);
+  background-size: 40px 40px;
+  padding: 100px 0 120px 0;
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+.laf-hero .laf-hero-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+.laf-hero::before {
+  content: '';
+  position: absolute;
+  top: -120px; right: -120px;
+  width: 480px; height: 480px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(75,94,170,0.10) 0%, transparent 70%);
+  pointer-events: none;
+}
+.laf-hero::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,166,35,0.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.laf-hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.15;
+  color: #1a1f36;
+}
+.laf-hero h1 .accent {
+  color: var(--laf-primary);
+  font-style: italic;
+}
+.laf-hero .hero-desc {
+  font-size: 1.05rem;
+  color: #5a607a;
+  line-height: 1.75;
+  max-width: 480px;
+}
+
+/* ── 3D Placeholder ── */
+.hero-3d-placeholder {
+  width: 100%;
+  max-width: 460px;
+  min-height: 340px;
+  border-radius: 24px;
+  background: linear-gradient(135deg, #e8ecf8 0%, #d8dff5 100%);
+  border: 2.5px dashed #b0bde8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  color: #8896c8;
+  font-size: 0.9rem;
+  font-weight: 600;
+  animation: laf-float 4s ease-in-out infinite;
+  position: relative;
+  overflow: hidden;
+}
+.hero-3d-placeholder::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    45deg,
+    transparent, transparent 18px,
+    rgba(75,94,170,0.03) 18px, rgba(75,94,170,0.03) 36px
+  );
+}
+@keyframes laf-float {
+  0%, 100% { transform: translateY(0); }
+  50%       { transform: translateY(-12px); }
+}
+
+@media (max-width: 767px) {
+  .laf-hero { padding: 50px 0 40px; }
+  .hero-3d-placeholder { min-height: 220px; }
+}

@@ -1,0 +1,108 @@
+.laf-cta {
+  background: var(--laf-navy, #1e2a4a);
+  background-size: 40px 40px;
+  padding: 100px 0 120px 0;
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+.laf-cta .laf-section-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+.laf-cta::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(75,94,170,0.35) 0%, transparent 55%),
+    radial-gradient(ellipse at 80% 50%, rgba(245,166,35,0.08) 0%, transparent 55%);
+  pointer-events: none;
+}
+.laf-cta-deco {
+  position: absolute;
+  font-size: 14rem;
+  opacity: 0.03;
+  color: #fff;
+  pointer-events: none;
+  user-select: none;
+  line-height: 1;
+}
+.laf-cta h2 {
+  font-size: clamp(1.8rem, 4vw, 2.6rem);
+  font-weight: 900;
+  color: #fff;
+}
+.laf-cta p {
+  color: rgba(255,255,255,0.62);
+}
+
+/* CTA buttons */
+.laf-cta-btn-white {
+  background: #fff;
+  color: var(--laf-navy, #1e2a4a);
+  border: none;
+  font-weight: 700;
+  padding: 14px 30px;
+  border-radius: 10px;
+  font-size: 0.97rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+.laf-cta-btn-white:hover {
+  color: var(--laf-navy, #1e2a4a);
+  transform: translateY(-3px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.22);
+}
+.laf-cta-btn-ghost {
+  background: transparent;
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.32);
+  font-weight: 700;
+  padding: 12px 30px;
+  border-radius: 10px;
+  font-size: 0.97rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: border-color 0.18s ease, background 0.18s ease, transform 0.18s ease;
+}
+.laf-cta-btn-ghost:hover {
+  border-color: #fff;
+  background: rgba(255,255,255,0.08);
+  color: #fff;
+  transform: translateY(-3px);
+}
+
+/* Stats */
+.laf-stat-num {
+  font-size: 1.55rem;
+  font-weight: 900;
+  color: #fff;
+  display: block;
+}
+.laf-stat-lbl {
+  font-size: 0.70rem;
+  color: rgba(255,255,255,0.42);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+}
+.laf-stat-divider {
+  width: 1px;
+  height: 40px;
+  background: rgba(255,255,255,0.14);
+}
+
+@media (max-width: 767px) {
+  .laf-cta { padding: 50px 0; }
+  .laf-stat-divider { display: none !important; }
+}

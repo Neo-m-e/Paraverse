@@ -1,0 +1,37 @@
+.laf-getting-started {
+  background: #fff;
+  background-size: 40px 40px;
+  padding: 100px 0 120px 0;
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+.laf-getting-started .laf-section-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+.laf-step-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: 50%;
+  background: #eef0fa;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+  transition: transform 0.20s ease, background 0.20s ease;
+}
+.laf-step-icon:hover {
+  background: var(--laf-primary, #4B5EAA);
+  transform: scale(1.10);
+}
+.laf-step-icon:hover i {
+  color: #fff !important;
+}
+@media (max-width: 767px) {
+  .laf-getting-started { padding: 50px 0; }
+}

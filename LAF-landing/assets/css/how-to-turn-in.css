@@ -1,0 +1,43 @@
+.laf-how-to-turn-in {
+  background: #fff;
+  background-size: 40px 40px;
+  padding: 100px 0 120px 0;
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+.laf-how-to-turn-in .laf-section-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+.laf-surrender-illustration {
+  background: linear-gradient(135deg, #eef0fa 0%, #dfe4f5 100%);
+  border-radius: 20px;
+  min-height: 340px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #c5cce8;
+}
+.laf-step-num {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: var(--laf-primary, #4B5EAA);
+  color: #fff;
+  font-weight: 800;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  box-shadow: 0 4px 14px rgba(75,94,170,0.30);
+}
+@media (max-width: 767px) {
+  .laf-how-to-turn-in { padding: 50px 0; }
+  .laf-surrender-illustration { min-height: 200px; }
+}

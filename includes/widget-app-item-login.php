@@ -4,7 +4,7 @@
 			<a href="..."
 				onclick="KTApp.showPageLoading()"
 				class="btn btn-icon btn-sm fw-bold btn-active-opacity-75"
-				style="background-color: #E8521A !important; transition: all 0.2s ease;">
+				style="background-color: #4a56a5 !important; transition: all 0.2s ease;">
 				<i class="fa fa-lock text-white"></i>
 			</a>
 		</div>

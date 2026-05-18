@@ -1,0 +1,74 @@
+.laf-built {
+  background: var(--laf-navy, #1e2a4a);
+  background-size: 40px 40px;
+  padding: 100px 0 120px 0;
+  position: relative;
+  overflow: hidden;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+}
+.laf-built .laf-section-inner {
+  max-width: 1300px;
+  margin: 0 auto;
+  padding: 0 20px;
+  position: relative;
+  z-index: 10;
+}
+.laf-built::before {
+  content: '';
+  position: absolute;
+  top: -100px; right: -100px;
+  width: 500px; height: 500px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.04) 0%, transparent 70%);
+  pointer-events: none;
+}
+.laf-built::after {
+  content: '';
+  position: absolute;
+  bottom: -80px; left: -80px;
+  width: 360px; height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(245,166,35,0.05) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+.laf-feature-card {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+  padding: 28px 24px;
+  height: 100%;
+  transition: transform 0.22s ease, background 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+.laf-feature-card:hover {
+  transform: translateY(-6px);
+  background: rgba(255,255,255,0.12);
+  border-color: rgba(75,94,170,0.55);
+  box-shadow: 0 14px 36px rgba(0,0,0,0.28);
+}
+.laf-feature-icon {
+  width: 52px;
+  height: 52px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.10);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+}
+.laf-feature-card h5 {
+  color: #fff;
+  font-weight: 700;
+  margin-bottom: 8px;
+}
+.laf-feature-card p {
+  color: rgba(255,255,255,0.60);
+  font-size: 0.88rem;
+  margin-bottom: 0;
+  line-height: 1.65;
+}
+
+@media (max-width: 767px) {
+  .laf-built { padding: 50px 0; }
+}
