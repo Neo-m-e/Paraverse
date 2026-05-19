@@ -1,19 +1,12 @@
-<?php /* ============================================================
-   SECTION: RECENTLY SURRENDERED
-   FILE: sections/recently-surrendered.php
-   ✅ SAFE TO EDIT — only this file
-   ============================================================ */ ?>
 
-<link rel="stylesheet" href="assets/css/recently-surrendered.css">
+<link rel="stylesheet" href="/LAF-landing/assets/css/recently-surrendered.css">
 
 <section class="laf-recently-surrendered" id="laf-recently-surrendered">
   <div class="laf-section-inner">
 
     <div class="text-center mb-12" data-aos="fade-up">
       <span class="laf-label">Just Dropped Off</span>
-      <h2 class="mt-2" style="font-size:clamp(1.8rem,4vw,2.6rem); font-weight:900; font-style:italic; color:#1a1f36;">
-        Recently Surrendered
-      </h2>
+      <h2 class="mt-2" style="font-size:clamp(1.8rem,4vw,2.6rem); font-weight:900; font-style:italic; color:#1a1f36;">Recently Surrendered</h2>
       <p class="text-muted fs-6 mt-2">These items are currently waiting to be claimed. Log in to see your lost and found items.</p>
     </div>
 
@@ -88,9 +81,7 @@
     </div>
 
     <div class="text-center" data-aos="fade-up" data-aos-delay="80">
-      <a href="#" class="laf-view-all">
-        View All Items <i class="bi bi-arrow-right"></i>
-      </a>
+      <a href="#" class="laf-view-all">View All Items <i class="bi bi-arrow-right"></i></a>
     </div>
 
   </div>

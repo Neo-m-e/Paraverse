@@ -1,28 +1,12 @@
+
+
 .laf-cta {
-  background: var(--laf-navy, #1e2a4a);
-  background-size: 40px 40px;
-  padding: 100px 0 120px 0;
   position: relative;
+  padding: 80px 0;
   overflow: hidden;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
+  background: #1e2a4a; 
 }
-.laf-cta .laf-section-inner {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 20px;
-  position: relative;
-  z-index: 10;
-}
-.laf-cta::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse at 20% 50%, rgba(75,94,170,0.35) 0%, transparent 55%),
-    radial-gradient(ellipse at 80% 50%, rgba(245,166,35,0.08) 0%, transparent 55%);
-  pointer-events: none;
-}
+
 .laf-cta-deco {
   position: absolute;
   font-size: 14rem;
@@ -41,7 +25,6 @@
   color: rgba(255,255,255,0.62);
 }
 
-/* CTA buttons */
 .laf-cta-btn-white {
   background: #fff;
   color: var(--laf-navy, #1e2a4a);
@@ -61,6 +44,7 @@
   transform: translateY(-3px);
   box-shadow: 0 8px 28px rgba(0,0,0,0.22);
 }
+
 .laf-cta-btn-ghost {
   background: transparent;
   color: #fff;
@@ -82,12 +66,27 @@
   transform: translateY(-3px);
 }
 
-/* Stats */
-.laf-stat-num {
-  font-size: 1.55rem;
-  font-weight: 900;
-  color: #fff;
-  display: block;
+.laf-trust-badge {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 8px;
+}
+.laf-trust-icon {
+  font-size: 1rem;
+  color: rgba(255,255,255,0.70);
+}
+.laf-trust-lbl {
+  font-size: 0.82rem;
+  color: rgba(255,255,255,0.65);
+  font-weight: 600;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 767px) {
+  .laf-cta { padding: 50px 0; }
+  .laf-trust-badge { flex-direction: column; gap: 4px; }
+  .laf-stat-divider { display: none !important; }
 }
 .laf-stat-lbl {
   font-size: 0.70rem;
@@ -105,4 +104,24 @@
 @media (max-width: 767px) {
   .laf-cta { padding: 50px 0; }
   .laf-stat-divider { display: none !important; }
+}
+
+.laf-section-inner {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.laf-cta-svg-bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0; 
+}
+.laf-section-inner {
+  position: relative;
+  z-index: 1; 
 }

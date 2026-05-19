@@ -1,18 +1,13 @@
+/* ============================================================
+   built.css
+   ✅ SAFE TO EDIT
+   ============================================================ */
+
 .laf-built {
   background: var(--laf-navy, #1e2a4a);
-  background-size: 40px 40px;
-  padding: 100px 0 120px 0;
+  padding: 80px 0;
   position: relative;
   overflow: hidden;
-  width: 100vw;
-  margin-left: calc(-50vw + 50%);
-}
-.laf-built .laf-section-inner {
-  max-width: 1300px;
-  margin: 0 auto;
-  padding: 0 20px;
-  position: relative;
-  z-index: 10;
 }
 .laf-built::before {
   content: '';
@@ -71,4 +66,12 @@
 
 @media (max-width: 767px) {
   .laf-built { padding: 50px 0; }
+}
+
+/* ── Inner content wrapper (keeps content aligned with navbar) ── */
+.laf-section-inner {
+  width: 100%;
+  max-width: 1320px;
+  margin: 0 auto;
+  padding: 0 24px;
 }

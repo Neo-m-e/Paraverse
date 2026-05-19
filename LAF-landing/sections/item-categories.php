@@ -1,10 +1,5 @@
-<?php /* ============================================================
-   SECTION: ITEM CATEGORIES
-   FILE: sections/item-categories.php
-   ✅ SAFE TO EDIT — only this file
-   ============================================================ */ ?>
 
-<link rel="stylesheet" href="assets/css/item-categories.css">
+<link rel="stylesheet" href="/LAF-landing/assets/css/item-categories.css">
 
 <section class="laf-item-categories" id="laf-item-categories">
   <div class="laf-section-inner">
@@ -17,11 +12,6 @@
       <p class="text-muted fs-6 mt-2 mx-auto" style="max-width:520px;">
         From everyday essentials to academic tools — if it's lost on campus, it belongs here.
       </p>
-      <div class="mt-4">
-        <span class="laf-live-tag">
-          <span class="dot"></span>
-          email straight under live updates
-        </span>
       </div>
     </div>
 

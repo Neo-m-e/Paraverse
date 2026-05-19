@@ -1,10 +1,4 @@
-<?php /* ============================================================
-   SECTION: GETTING STARTED
-   FILE: sections/getting-started.php
-   ✅ SAFE TO EDIT — only this file
-   ============================================================ */ ?>
-
-<link rel="stylesheet" href="assets/css/getting-started.css">
+<link rel="stylesheet" href="/LAF-landing/assets/css/getting-started.css">
 
 <section class="laf-getting-started" id="laf-getting-started">
   <div class="laf-section-inner">
