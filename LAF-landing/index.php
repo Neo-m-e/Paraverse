@@ -32,7 +32,6 @@ $META_TITLE = "Lost and Found · FEU Tech";
                 <?php include("sections/built.php"); ?>
                 <?php include("sections/how-to-turn-in.php"); ?>
                 <?php include("sections/recently-surrendered.php"); ?>
-                <?php include("sections/item-categories.php"); ?>
                 <?php include("sections/cta.php"); ?>
                 <?php include("partials/_modals.php"); ?>
               </div>

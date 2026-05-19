@@ -32,7 +32,7 @@
           <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
             <a href="/badges" onclick="KTApp.showPageLoading()" class="menu-link text-hover-primary">
               <span
-                class="menu-title">Leaderboard
+                class="menu-title">Home
                 <i class="fas fa-external-link-alt ms-2 fs-9 text-muted"></i>
               </span>
 
@@ -40,12 +40,12 @@
           </div>
           <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
             <a href="/badges" onclick="KTApp.showPageLoading()" class="menu-link text-hover-primary">
-              <span class="menu-title">Badges</span>
+              <span class="menu-title">Surrendered Items</span>
             </a>
           </div>
           <div class="menu-item menu-lg-down-accordion menu-sub-lg-down-indention me-0 me-lg-2">
             <a href="/badges" onclick="KTApp.showPageLoading()" class="menu-link text-hover-primary">
-              <span class="menu-title">Store</span>
+              <span class="menu-title">Lost Items</span>
             </a>
           </div>
         </div>

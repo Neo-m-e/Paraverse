@@ -14,11 +14,15 @@
   <div class="hero-shape hero-shape-2"></div>
   <div class="hero-shape hero-shape-3"></div>
   <div class="hero-shape hero-shape-4"></div>
+  <div class="hero-shape hero-shape-5"></div>
+<div class="hero-shape hero-shape-6"></div>
+<div class="hero-shape hero-shape-7"></div>
+<div class="hero-shape hero-shape-8"></div>
 
   <div class="hero-inner">
     <div class="row align-items-center g-8">
 
-      <!-- Left: Text -->
+    
       <div class="col-12 col-lg-6" data-aos="fade-right" data-aos-duration="700">
 
         <div class="hero-badge" data-aos="fade-down" data-aos-delay="100">
@@ -45,23 +49,23 @@
         </div>
       </div>
 
-      <!-- Right: 3D Image -->
+      <!--3D Image -->
       <div class="col-12 col-lg-6 d-flex justify-content-center mt-6 mt-lg-0"
         data-aos="fade-left" data-aos-duration="700" data-aos-delay="150">
 
         <div class="hero-img-wrap">
 
-          <!-- Glow ring -->
+          <!-- Glow  -->
           <div class="hero-img-glow"></div>
 
-          <!-- Floating stat card top right -->
+          <!-- Floating card top right -->
           <div class="hero-stat-card hero-stat-card-2">
             <div class="stat-icon" style="background:#eef0fa;">
               <i class="bi bi-search" style="color:var(--laf-primary);"></i>
             </div>
             <div>
-              1,200+ Items
-              <span class="stat-sub">in the system</span>
+                  Free to Use
+              <span class="stat-sub">Campus-wide</span>
             </div>
           </div>
 
@@ -71,14 +75,14 @@
             alt="Lost and Found 3D illustration"
             class="hero-3d-img">
 
-          <!-- Floating stat card bottom left -->
+          <!-- Floating  card bottom left -->
           <div class="hero-stat-card hero-stat-card-1">
             <div class="stat-icon" style="background:#f0fdf4;">
               <i class="bi bi-check2-circle" style="color:#22c55e;"></i>
             </div>
             <div>
-              860 Recovered
-              <span class="stat-sub">this semester</span>
+              Real-Time Updates
+              <span class="stat-sub">live item feed</span>
             </div>
           </div>
 

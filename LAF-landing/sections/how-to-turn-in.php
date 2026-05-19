@@ -23,7 +23,7 @@
             <div class="laf-step-num">1</div>
             <div>
               <h6 class="fw-bold mb-1">Secure Item</h6>
-              <p class="text-muted fs-6 mb-0">Bring the item to Discipline Unit Room 1501, the building admin office. Including any office blocks on Monday to Friday.</p>
+              <p class="text-muted fs-6 mb-0">Don’t leave the item unattended. Keep Item with you safely. Do not post it on social media until it has been properly logged.</p>
             </div>
           </div>
 
@@ -31,7 +31,7 @@
             <div class="laf-step-num">2</div>
             <div>
               <h6 class="fw-bold mb-1">Bring to Discipline Office</h6>
-              <p class="text-muted fs-6 mb-0">Give the found item to attending personnel who will verify and document it appropriately.</p>
+              <p class="text-muted fs-6 mb-0">Go to Room 1501, 15th Floor and hand the item to the staff on duty. Open Monday - Friday, 8AM - 5PM</p>
             </div>
           </div>
 
@@ -39,7 +39,7 @@
             <div class="laf-step-num">3</div>
             <div>
               <h6 class="fw-bold mb-1">Office Logging</h6>
-              <p class="text-muted fs-6 mb-0">Share collection information for proper record keeping and provide the correct information, even using Campus Lost &amp; Found.</p>
+              <p class="text-muted fs-6 mb-0">The item will be recorded in the Lost & Found system. The rightful owner will be notified if there’s a match. </p>
             </div>
           </div>
 

@@ -14,8 +14,8 @@
         <div class="laf-step-icon">
           <i class="bi bi-person-plus fs-3" style="color:var(--laf-primary, #4B5EAA);"></i>
         </div>
-        <h5 class="fw-bold mb-2">Create your account</h5>
-        <p class="text-muted fs-6 mb-0">Sign up using your university email to begin your lost and found journey.</p>
+        <h5 class="fw-bold mb-2">Access the Platform</h5>
+        <p class="text-muted fs-6 mb-0">Log in directly using your Paraverse FIT account to access the Lost and Found system and start tracking items.</p>
       </div>
 
       <div class="col-12 col-md-4" data-aos="fade-up" data-aos-delay="100">
@@ -31,7 +31,7 @@
           <i class="bi bi-people fs-3" style="color:var(--laf-primary, #4B5EAA);"></i>
         </div>
         <h5 class="fw-bold mb-2">Recover or reunite</h5>
-        <p class="text-muted fs-6 mb-0">The system notifies and connects owners so items can be safely returned to them.</p>
+        <p class="text-muted fs-6 mb-0">Once you spot your missing item in the system, simply visit the Discipline Unit in person to verify and claim your belongings safely.</p>
       </div>
 
     </div>
