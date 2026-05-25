@@ -17,7 +17,7 @@
         id="discourse-search-input"
       />
     </div>
-    <a href="#create-post" class="discourse-new-post-btn">
+    <a href="/Discourse/pages/view/create-post.php" class="discourse-new-post-btn">
       <i class="bi bi-plus-lg me-1"></i> New Post
     </a>
   </div>

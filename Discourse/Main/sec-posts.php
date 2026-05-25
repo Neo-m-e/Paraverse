@@ -14,7 +14,7 @@
       <div class="discourse-post-card-inner">
 
         <!-- Vote Column -->
-         
+
         <div class="discourse-vote-col">
           <button class="discourse-vote-btn discourse-vote-up" title="Upvote"><i class="bi bi-hand-thumbs-up"></i></button>
           <span class="discourse-vote-count">214</span>
@@ -33,11 +33,10 @@
             <span class="discourse-role-badge">TECHNOLOGY</span>
           </div>
           <h5 class="discourse-post-title">
-            <a href="#view-post">The silent revolution in edge AI — why on-device inference is changing everything</a>
+            <a href="/Discourse/pages/view/view-post-tech.php">The silent revolution in edge AI — why on-device inference is changing everything</a>
           </h5>
           <p class="discourse-post-excerpt">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam uma tempor.
-          </p>
+            A decade optimizing for server-side compute, but the thermal envelope of modern SoCs has quietly crossed a threshold nobody was paying attention to. Here's why 2025 is the last year data centers dominate... </p>
           <div class="discourse-post-actions-row">
             <div class="discourse-post-actions">
               <button class="discourse-action-btn"><i class="bi bi-chat me-1"></i> 1 Comment</button>
@@ -67,15 +66,15 @@
             <span class="discourse-post-timestamp"><i class="bi bi-clock me-1"></i>1d ago</span>
           </div>
           <div class="discourse-post-author-row">
-            <img src="assets/images/catalina.webp" alt="Juan Santos" class="discourse-author-avatar" />
-            <a href="#other-profile" class="discourse-author-name">Juan Santos</a>
+            <img src="assets/images/catalina.webp" alt="John Doe" class="discourse-author-avatar" />
+            <a href="#other-profile" class="discourse-author-name">John Doe</a>
             <span class="discourse-role-badge discourse-role-tech">TECHNOLOGY</span>
           </div>
           <h5 class="discourse-post-title">
-            <a href="#view-post">Why Rust is worth learning in 2025</a>
+            <a href="/Discourse/pages/view/view-post-sample.php">Lorem ipsum dolor sit amet consectetur adipiscing elit.</a>
           </h5>
           <p class="discourse-post-excerpt">
-            Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam uma tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.
+            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam uma tempor.
           </p>
           <div class="discourse-post-actions-row">
             <div class="discourse-post-actions">
@@ -110,10 +109,10 @@
             <span class="discourse-role-badge discourse-role-tech">TECHNOLOGY</span>
           </div>
           <h5 class="discourse-post-title">
-            <a href="#view-post">Lorem ipsum dolor sit amet consectetur adipiscing elit.</a>
+            <a href="/Discourse/pages/view/view-post-anonymous.php">What if FEU had a no-grade-penalty mental health leave policy?.</a>
           </h5>
           <p class="discourse-post-excerpt">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam uma tempor.
+            Just thinking — a lot of students I know failed a whole semester because they were dealing with severe anxiety during midterms. The university had no mechanism to help them — just a...
           </p>
           <div class="discourse-post-actions-row">
             <div class="discourse-post-actions">
@@ -143,12 +142,12 @@
             <span class="discourse-post-timestamp"><i class="bi bi-clock me-1"></i>1d ago</span>
           </div>
           <div class="discourse-post-author-row">
-            <img src="assets/images/catalina.webp" alt="Sofia Karim" class="discourse-author-avatar" />
-            <a href="#other-profile" class="discourse-author-name">Sofia Karim</a>
+            <img src="assets/images/catalina.webp" alt="John Doe" class="discourse-author-avatar" />
+            <a href="#other-profile" class="discourse-author-name">John Doe</a>
             <span class="discourse-role-badge discourse-role-tech">TECHNOLOGY</span>
           </div>
           <h5 class="discourse-post-title">
-            <a href="#view-post">Lorem ipsum dolor sit amet consectetur adipiscing elit.</a>
+            <a href="/Discourse/pages/view/view-post-sample.php">Lorem ipsum dolor sit amet consectetur adipiscing elit.</a>
           </h5>
           <p class="discourse-post-excerpt">
             Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam uma tempor.
@@ -186,7 +185,7 @@
             <span class="discourse-role-badge discourse-role-feu">FEU</span>
           </div>
           <h5 class="discourse-post-title">
-            <a href="#view-post">📊 Poll: How do you actually study for finals? Be honest.</a>
+            <a href="/Discourse/pages/view/view-post-poll.php">📊 Poll: How do you actually study for finals? Be honest.</a>
           </h5>
           <p class="discourse-post-excerpt mb-3">
             Curious how my fellow FEU Tech students survive finals season. Drop your honest answer below 👇
@@ -254,11 +253,10 @@
             <span class="discourse-role-badge ">TECHNOLOGY</span>
           </div>
           <h5 class="discourse-post-title">
-            <a href="#view-post">Lorem ipsum dolor sit amet consectetur adipiscing elit.</a>
+            <a href="/Discourse/pages/view/view-post-review.php">FEU Tech library study rooms — worth booking or just use the hallway?</a>
           </h5>
           <p class="discourse-post-excerpt">
-            Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam uma tempor.
-          </p>
+            Finally tried booking one of the new study rooms in the library. Honest review: the booking system is clunky, the AC is questionable, but the... </p>
           <div class="discourse-post-actions-row">
             <div class="discourse-post-actions">
               <button class="discourse-action-btn"><i class="bi bi-chat me-1"></i> 1 Comment</button>

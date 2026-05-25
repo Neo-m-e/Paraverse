@@ -15,7 +15,7 @@
     
     <div class="discourse-info-posts d-flex flex-column gap-1 border-top border-white-10 pt-2 flex-grow-1">
       
-      <a href="#view-post" class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded text-decoration-none transition-all">
+      <a href="/Discourse/pages/view/view-post-poll.php" class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded text-decoration-none transition-all">
         <span class="discourse-info-post-icon fs-7 mt-1">📊</span>
         <div class="discourse-info-post-text d-flex flex-column">
           <span class="discourse-info-post-title text-white fs-7 fw-semibold lh-sm text-line-clamp-2">
@@ -25,7 +25,7 @@
         </div>
       </a>
       
-      <a href="#view-post" class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded text-decoration-none transition-all">
+      <a href="/Discourse/pages/view/view-post-tech.php" class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded text-decoration-none transition-all">
         <span class="discourse-info-post-icon fs-7 mt-1">🔵</span>
         <div class="discourse-info-post-text d-flex flex-column">
           <span class="discourse-info-post-title text-white fs-7 fw-semibold lh-sm text-line-clamp-2">
@@ -35,7 +35,7 @@
         </div>
       </a>
       
-      <a href="#view-post" class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded text-decoration-none transition-all">
+      <a href="/Discourse/pages/view/view-post-sample.php" class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded text-decoration-none transition-all">
         <span class="discourse-info-post-icon fs-7 mt-1">💡</span>
         <div class="discourse-info-post-text d-flex flex-column">
           <span class="discourse-info-post-title text-white fs-7 fw-semibold lh-sm text-line-clamp-2">
