@@ -1,0 +1,94 @@
+.discourse-hero-banner {
+  background-color: #0b3220 !important;
+  border-radius: 24px !important;
+  overflow: visible !important;
+  position: relative;
+  box-shadow: 0 12px 36px rgba(11, 50, 32, 0.18) !important;
+  margin-top: 40px;
+}
+
+.discourse-hero-center-glow {
+  background: radial-gradient(circle 350px at 50% 50%, rgba(245, 166, 35, 0.28) 0%, rgba(245, 166, 35, 0.05) 60%, transparent 100%) !important;
+  z-index: 0;
+}
+
+.discourse-hero-inner {
+  overflow: visible !important;
+  min-height: 220px;
+}
+
+.discourse-hero-illustration-frame {
+  position: absolute;
+  right: 25px;
+  bottom: 0px;
+  height: 100%;
+  width: 40%;
+  overflow: visible !important;
+  display: flex;
+  align-items: flex-end;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.discourse-hero-img-matched {
+  height: 110% !important;
+  width: auto !important;
+  object-fit: contain !important;
+
+  margin-bottom: 0px !important;
+  padding-bottom: 0px !important;
+  vertical-align: bottom;
+
+  filter: drop-shadow(0 14px 24px rgba(0, 0, 0, 0.32));
+  transform-origin: bottom center;
+
+  .discourse-hero-btn {
+    transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease !important;
+  }
+
+  .discourse-hero-btn:hover {
+    background-color: #e09216 !important;
+    color: #000000 !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(245, 166, 35, 0.55) !important;
+  }
+
+  @media (max-width: 1199.98px) {
+    .discourse-hero-img-matched {
+      height: 126% !important;
+    }
+  }
+
+  @media (max-width: 991.98px) {
+    .discourse-hero-illustration-frame {
+      width: 44%;
+    }
+
+    .discourse-hero-img-matched {
+      height: 120% !important;
+    }
+  }
+
+  @media (max-width: 767.98px) {
+    .discourse-hero-banner {
+      overflow: hidden !important;
+      /* Safe desktop-to-mobile view containment override */
+      margin-top: 0;
+    }
+
+    .discourse-hero-content {
+      text-align: center !important;
+      padding: 1.5rem 0.25rem !important;
+    }
+
+    .discourse-hero-subtitle {
+      margin-left: auto !important;
+      margin-right: auto !important;
+      max-width: 100% !important;
+    }
+
+    .discourse-hero-btn {
+      margin: 0 auto !important;
+    }
+  }
+}

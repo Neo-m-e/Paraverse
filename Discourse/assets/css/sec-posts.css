@@ -1,0 +1,309 @@
+/* ============================================================
+   DISCOURSE — Post Feed / Cards Styles
+   File: assets/css/sec-posts.css
+============================================================ */
+
+/* ── Post Card ───────────────────────────────────────────── */
+.discourse-post-card {
+  border: 1px solid #e4e6ef !important;
+  border-radius: var(--dc-card-radius) !important;
+  box-shadow: var(--dc-card-shadow) !important;
+  overflow: hidden; /* DITO ANG SECRET: Para hindi lumampas ang kulay sa kanto */
+  transition: box-shadow 0.18s, transform 0.15s;
+}
+
+.discourse-post-card:hover {
+  box-shadow: 0 4px 20px rgba(0,0,0,0.11) !important;
+  transform: translateY(-1px);
+}
+
+.discourse-post-card-inner {
+  display: flex;
+  align-items: stretch; /* Importante ito para pantay ang taas ng green box at body */
+  gap: 0;               /* Alisin ang space sa pagitan ng vote box at body */
+  padding: 0;           /* Alisin ang padding para dumikit sa dulo */
+}
+
+/* ── Vote column ─────────────────────────────────────────── */
+.discourse-vote-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #f0faf5; /* Light green background */
+  width: 55px;              /* Fixed width */
+  flex-shrink: 0;           /* Wag hayaang mag-shrink */
+  padding: 10px 5px;        /* Padding sa loob ng green box */
+}
+.discourse-vote-btn {
+  background: none;
+  border: 1px solid #dcdcdc; /* Magdagdag ng border para magmukhang "box" */
+  border-radius: 6px;        /* Rounded corners para sa box */
+  color: #a1a5b7;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 4px 8px;          /* Padding para sa loob ng button box */
+  margin: 2px 0;             /* Espasyo sa pagitan ng buttons */
+  line-height: 1;
+  transition: all 0.2s;
+}
+.discourse-vote-btn:hover {
+  background-color: #e8f5e9; /* Light green on hover */
+  border-color: #0d5c3a;
+  color: #0d5c3a;
+}
+
+.discourse-vote-up:hover {
+  color: var(--dc-primary);
+}
+
+.discourse-vote-down:hover {
+  color: #e53935;
+}
+
+.discourse-vote-count {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #5e6278;
+  line-height: 1;
+}
+
+/* ── Post body ───────────────────────────────────────────── */
+.discourse-post-body {
+  flex: 1;
+  padding: 1rem 1.2rem;     /* Dito mo ilagay ang padding para sa text */
+  min-width: 0;
+}
+.discourse-post-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.4rem;
+}
+
+.discourse-community-pill,
+.discourse-role-badge {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.7rem;        
+  font-weight: 600;
+  padding: 0.25rem 0.7rem;
+  border-radius: 50px;    
+  background: #f0faf5;
+  color: #0d5c3a;          
+  border: 1px solid #c8e6c9; 
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  transition: all 0.15s ease-in-out;
+  text-decoration: none;
+}
+
+/* Hover effect na katulad ng topic tags */
+.discourse-community-pill:hover,
+.discourse-role-badge:hover {
+  background: #0d5c3a;      /* Solid green */
+  color: #fff;              /* White text */
+  border-color: #0d5c3a;
+  cursor: pointer;
+}
+
+.discourse-post-timestamp {
+  font-size: 0.72rem;
+  color: #a1a5b7;
+}
+
+/* ── Author row ──────────────────────────────────────────── */
+.discourse-post-author-row {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.4rem;
+}
+
+.discourse-author-avatar {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.discourse-author-name {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #1a1a2e;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.discourse-author-name:hover {
+  color: var(--dc-primary);
+}
+
+
+/* ── Post title ──────────────────────────────────────────── */
+.discourse-post-title {
+  font-size: 0.97rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+  line-height: 1.35;
+}
+
+.discourse-post-title a {
+  color: #1a1a2e;
+  text-decoration: none;
+  transition: color 0.15s;
+}
+
+.discourse-post-title a:hover {
+  color: var(--dc-primary);
+}
+
+/* ── Excerpt ─────────────────────────────────────────────── */
+.discourse-post-excerpt {
+  font-size: 0.82rem;
+  color: #7e8299;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  margin-bottom: 0.6rem;
+}
+
+/* ── Actions row ─────────────────────────────────────────── */
+.discourse-post-actions-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.discourse-post-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.1rem;
+}
+
+.discourse-action-btn {
+  background: none;
+  border: none;
+  color: #7e8299;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.55rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.14s, color 0.14s;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.discourse-action-btn:hover {
+  background: #f5f6fa;
+  color: var(--dc-primary);
+}
+
+.discourse-report-btn {
+  background: none;
+  border: none;
+  color: #a1a5b7;
+  font-size: 0.78rem;
+  font-weight: 600;
+  padding: 0.3rem 0.55rem;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.14s, color 0.14s;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+.discourse-report-btn:hover {
+  background: #fce4ec;
+  color: #c62828;
+}
+
+/* ── Poll post ───────────────────────────────────────────── */
+.discourse-poll-options {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.discourse-poll-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  background: #f5f6fa;
+  border: 1.5px solid #e4e6ef;
+  border-radius: 8px;
+  padding: 0.55rem 0.85rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+  width: 100%;
+}
+
+.discourse-poll-option:hover {
+  border-color: var(--dc-primary);
+  background: #f0faf5;
+}
+
+.discourse-poll-option.selected {
+  border-color: var(--dc-primary);
+  background: #f0faf5;
+}
+
+.discourse-poll-option-label {
+  font-size: 0.83rem;
+  font-weight: 600;
+  color: #3f4254;
+  white-space: nowrap;
+  min-width: 200px;
+  flex-shrink: 0;
+}
+
+.discourse-poll-bar-wrap {
+  flex: 1;
+  background: #e4e6ef;
+  border-radius: 50px;
+  height: 7px;
+  overflow: hidden;
+}
+
+.discourse-poll-bar {
+  height: 100%;
+  background: var(--dc-primary);
+  border-radius: 50px;
+  transition: width 0.4s ease;
+}
+
+.discourse-poll-meta {
+  font-size: 0.75rem;
+  color: #a1a5b7;
+  margin-bottom: 0;
+}
+
+/* ── Empty state ─────────────────────────────────────────── */
+.discourse-feed-tab-content .tab-pane .text-muted {
+  padding: 3rem 1rem;
+}
+
+/* ── Responsive ──────────────────────────────────────────── */
+@media (max-width: 576px) {
+  .discourse-post-card-inner {
+    padding: 0.75rem;
+  }
+
+  .discourse-poll-option-label {
+    min-width: 120px;
+    white-space: normal;
+    font-size: 0.78rem;
+  }
+
+  .discourse-post-actions-row {
+    flex-wrap: wrap;
+    gap: 0.35rem;
+  }
+}
