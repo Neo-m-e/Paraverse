@@ -8,7 +8,7 @@
   border: 1px solid #e4e6ef !important;
   border-radius: var(--dc-card-radius) !important;
   box-shadow: var(--dc-card-shadow) !important;
-  overflow: hidden; /* DITO ANG SECRET: Para hindi lumampas ang kulay sa kanto */
+  overflow: hidden; 
   transition: box-shadow 0.18s, transform 0.15s;
 }
 
@@ -19,9 +19,9 @@
 
 .discourse-post-card-inner {
   display: flex;
-  align-items: stretch; /* Importante ito para pantay ang taas ng green box at body */
-  gap: 0;               /* Alisin ang space sa pagitan ng vote box at body */
-  padding: 0;           /* Alisin ang padding para dumikit sa dulo */
+  align-items: stretch; 
+  gap: 0;               
+  padding: 0;           
 }
 
 /* ── Vote column ─────────────────────────────────────────── */
@@ -30,25 +30,25 @@
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  background-color: #f0faf5; /* Light green background */
-  width: 55px;              /* Fixed width */
-  flex-shrink: 0;           /* Wag hayaang mag-shrink */
-  padding: 10px 5px;        /* Padding sa loob ng green box */
+  background-color: #f0faf5; 
+  width: 55px;              
+  flex-shrink: 0;          
+  padding: 10px 5px;        
 }
 .discourse-vote-btn {
   background: none;
-  border: 1px solid #dcdcdc; /* Magdagdag ng border para magmukhang "box" */
-  border-radius: 6px;        /* Rounded corners para sa box */
+  border: 1px solid #dcdcdc; 
+  border-radius: 6px;       
   color: #a1a5b7;
   font-size: 0.9rem;
   cursor: pointer;
-  padding: 4px 8px;          /* Padding para sa loob ng button box */
-  margin: 2px 0;             /* Espasyo sa pagitan ng buttons */
+  padding: 4px 8px;          
+  margin: 2px 0;            
   line-height: 1;
   transition: all 0.2s;
 }
 .discourse-vote-btn:hover {
-  background-color: #e8f5e9; /* Light green on hover */
+  background-color: #e8f5e9; 
   border-color: #0d5c3a;
   color: #0d5c3a;
 }
@@ -71,7 +71,7 @@
 /* ── Post body ───────────────────────────────────────────── */
 .discourse-post-body {
   flex: 1;
-  padding: 1rem 1.2rem;     /* Dito mo ilagay ang padding para sa text */
+  padding: 1rem 1.2rem;     
   min-width: 0;
 }
 .discourse-post-meta-row {
