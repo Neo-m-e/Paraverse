@@ -405,3 +405,40 @@
 .discourse-report-cancel-btn:hover {
   background: #e4e6ef;
 }
+
+.dc-rules-card {
+      background: #f0faf5;
+      border: 1px solid #c8e6c9;
+      border-radius: 12px;
+      padding: 18px 20px;
+    }
+
+    .dc-rules-title {
+      font-size: 15px;
+      font-weight: 700;
+      color: #2D6A4F;
+      margin-bottom: 10px;
+    }
+
+    .dc-rules-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+    }
+
+    .dc-rules-list li {
+      font-size: 13px;
+      color: #2D6A4F;
+      display: flex;
+      align-items: flex-start;
+      gap: 7px;
+    }
+
+    .dc-rules-list li::before {
+      content: '✓';
+      font-weight: 700;
+      flex-shrink: 0;
+    }

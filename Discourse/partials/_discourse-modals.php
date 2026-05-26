@@ -1,3 +1,4 @@
+<!-- Refactored: custom CSS → Bootstrap/Metronic utilities -->
 <!-- ============================================================
      DISCOURSE — Modals & Dropdowns Partial
      File: partials/_discourse-modals.php
@@ -17,65 +18,71 @@
        data-bs-toggle="dropdown"
        data-bs-target="#discourseNotifDropdown"
 ══════════════════════════════════════════════════════════ -->
-<div class="discourse-notif-dropdown dropdown-menu p-0" id="discourseNotifDropdown" aria-labelledby="discourseNotifBell">
-  <div class="discourse-notif-header">
-    <span class="discourse-notif-title">Notifications</span>
-    <button class="discourse-notif-mark-all" id="discourse-mark-all-read">Mark all read</button>
+<div class="dropdown-menu p-0 discourse-notif-dropdown" id="discourseNotifDropdown" aria-labelledby="discourseNotifBell">
+
+  <!-- Header -->
+  <div class="d-flex align-items-center justify-content-between px-4 py-3 border-bottom">
+    <span class="fw-bold text-gray-800 fs-6">Notifications</span>
+    <button class="btn btn-sm btn-link text-success p-0 fw-bold fs-7 text-decoration-none" id="discourse-mark-all-read">
+      Mark all read
+    </button>
   </div>
+
+  <!-- List -->
   <div class="discourse-notif-list">
 
     <!-- Unread notification -->
-    <div class="discourse-notif-item discourse-notif-unread">
-      <span class="discourse-notif-dot"></span>
-      <div class="discourse-notif-body">
-        <p class="discourse-notif-text">
-          <strong>Miguel Reyes</strong> upvoted your post "Best AI tools for BSCS students"
+    <div class="d-flex align-items-start gap-3 px-4 py-3 border-bottom bg-light-success discourse-notif-unread">
+      <span class="discourse-notif-dot flex-shrink-0 mt-1"></span>
+      <div class="flex-grow-1 min-w-0">
+        <p class="fs-7 text-gray-700 mb-1">
+          <strong class="text-gray-800">Miguel Reyes</strong> upvoted your post "Best AI tools for BSCS students"
         </p>
-        <span class="discourse-notif-time">2 minutes ago</span>
+        <span class="fs-8 text-muted">2 minutes ago</span>
       </div>
     </div>
 
     <!-- Unread notification -->
-    <div class="discourse-notif-item discourse-notif-unread">
-      <span class="discourse-notif-dot"></span>
-      <div class="discourse-notif-body">
-        <p class="discourse-notif-text">
-          <strong>Anonymous</strong> replied to your comment in "Which IDE do you use for Java?"
+    <div class="d-flex align-items-start gap-3 px-4 py-3 border-bottom bg-light-success discourse-notif-unread">
+      <span class="discourse-notif-dot flex-shrink-0 mt-1"></span>
+      <div class="flex-grow-1 min-w-0">
+        <p class="fs-7 text-gray-700 mb-1">
+          <strong class="text-gray-800">Anonymous</strong> replied to your comment in "Which IDE do you use for Java?"
         </p>
-        <span class="discourse-notif-time">18 minutes ago</span>
+        <span class="fs-8 text-muted">18 minutes ago</span>
       </div>
     </div>
 
     <!-- Unread notification -->
-    <div class="discourse-notif-item discourse-notif-unread">
-      <span class="discourse-notif-dot"></span>
-      <div class="discourse-notif-body">
-        <p class="discourse-notif-text">
-          <strong>Aika Tan</strong> started following you
+    <div class="d-flex align-items-start gap-3 px-4 py-3 border-bottom bg-light-success discourse-notif-unread">
+      <span class="discourse-notif-dot flex-shrink-0 mt-1"></span>
+      <div class="flex-grow-1 min-w-0">
+        <p class="fs-7 text-gray-700 mb-1">
+          <strong class="text-gray-800">Aika Tan</strong> started following you
         </p>
-        <span class="discourse-notif-time">1 hour ago</span>
+        <span class="fs-8 text-muted">1 hour ago</span>
       </div>
     </div>
 
     <!-- Read notification -->
-    <div class="discourse-notif-item">
-      <span class="discourse-notif-dot discourse-notif-dot-read"></span>
-      <div class="discourse-notif-body">
-        <p class="discourse-notif-text">
+    <div class="d-flex align-items-start gap-3 px-4 py-3 border-bottom">
+      <span class="discourse-notif-dot discourse-notif-dot-read flex-shrink-0 mt-1"></span>
+      <div class="flex-grow-1 min-w-0">
+        <p class="fs-7 text-gray-700 mb-1">
           Your post "Rust in 2025" reached 50 upvotes 🎉
         </p>
-        <span class="discourse-notif-time">Yesterday</span>
+        <span class="fs-8 text-muted">Yesterday</span>
       </div>
     </div>
 
     <!-- Read notification -->
-    <div class="discourse-notif-item">
-      <span class="discourse-notif-dot discourse-notif-dot-read"></span>
-      <div class="discourse-notif-body">
-        <p class="discourse-notif-text">
-          <strong>Juan Santos</strong> commented on "FEU enrollment tips"
+    <div class="d-flex align-items-start gap-3 px-4 py-3">
+      <span class="discourse-notif-dot discourse-notif-dot-read flex-shrink-0 mt-1"></span>
+      <div class="flex-grow-1 min-w-0">
+        <p class="fs-7 text-gray-700 mb-1">
+          <strong class="text-gray-800">Juan Santos</strong> commented on "FEU enrollment tips"
         </p>
-        <span class="discourse-notif-time">2 days ago</span>
+        <span class="fs-8 text-muted">2 days ago</span>
       </div>
     </div>
 
@@ -89,14 +96,16 @@
        data-bs-toggle="dropdown"
        data-bs-target="#discourseProfileDropdown"
 ══════════════════════════════════════════════════════════ -->
-<div class="discourse-profile-dropdown dropdown-menu p-0" id="discourseProfileDropdown" aria-labelledby="discourseProfileAvatar">
+<div class="dropdown-menu p-0 discourse-profile-dropdown" id="discourseProfileDropdown" aria-labelledby="discourseProfileAvatar">
 
-  <!-- Top: Avatar + User Info -->
-  <div class="discourse-profile-top">
-    <img src="assets/images/catalina.webp" alt="Catalina Smith" class="discourse-profile-avatar-lg" />
-    <div class="discourse-profile-info">
-      <span class="discourse-profile-name">Catalina Smith</span>
-      <span class="discourse-profile-id">T202210292 · BS Information Technology</span>
+  <!-- Top: gradient header with avatar + user info -->
+  <div class="discourse-profile-top d-flex align-items-center gap-3 p-4">
+    <img src="assets/images/catalina.webp" alt="Catalina Smith"
+      class="rounded-circle flex-shrink-0"
+      style="width:52px;height:52px;object-fit:cover;border:2.5px solid rgba(255,255,255,0.4);" />
+    <div class="d-flex flex-column gap-1 flex-grow-1 overflow-hidden">
+      <span class="fs-6 fw-bolder text-white lh-sm">Catalina Smith</span>
+      <span class="fs-8 text-white opacity-75 lh-sm">T202210292 · BS Information Technology</span>
       <span class="discourse-profile-verified">
         <i class="bi bi-shield-check me-1"></i> Verified Student
       </span>
@@ -104,66 +113,66 @@
   </div>
 
   <!-- Stats Row -->
-  <div class="discourse-profile-stats-row">
-    <div class="discourse-profile-stat">
-      <span class="discourse-profile-stat-val">304</span>
-      <span class="discourse-profile-stat-label">KARMA</span>
+  <div class="d-flex justify-content-around align-items-center py-3 border-bottom border-top">
+    <div class="d-flex flex-column align-items-center">
+      <span class="fs-5 fw-bolder text-gray-800 lh-1">304</span>
+      <span class="fs-8 fw-bold text-muted text-uppercase mt-1">Karma</span>
     </div>
-    <div class="discourse-profile-stat">
-      <span class="discourse-profile-stat-val">3</span>
-      <span class="discourse-profile-stat-label">POSTS</span>
+    <div class="d-flex flex-column align-items-center">
+      <span class="fs-5 fw-bolder text-gray-800 lh-1">3</span>
+      <span class="fs-8 fw-bold text-muted text-uppercase mt-1">Posts</span>
     </div>
-    <div class="discourse-profile-stat">
-      <span class="discourse-profile-stat-val">7</span>
-      <span class="discourse-profile-stat-label">COMMENTS</span>
+    <div class="d-flex flex-column align-items-center">
+      <span class="fs-5 fw-bolder text-gray-800 lh-1">7</span>
+      <span class="fs-8 fw-bold text-muted text-uppercase mt-1">Comments</span>
     </div>
-    <div class="discourse-profile-stat">
-      <span class="discourse-profile-stat-val">1</span>
-      <span class="discourse-profile-stat-label">SAVED</span>
+    <div class="d-flex flex-column align-items-center">
+      <span class="fs-5 fw-bolder text-gray-800 lh-1">1</span>
+      <span class="fs-8 fw-bold text-muted text-uppercase mt-1">Saved</span>
     </div>
   </div>
 
   <!-- Account Links -->
-  <div class="discourse-profile-section">
-    <span class="discourse-profile-section-label">ACCOUNT</span>
-    <a href="#profile" class="discourse-profile-link">
-      <i class="bi bi-person me-2"></i> View My Profile
+  <div class="px-2 py-2 border-bottom">
+    <span class="d-block fs-8 fw-bolder text-muted text-uppercase px-3 py-1 ls-1">Account</span>
+    <a href="#profile" class="d-flex align-items-center fs-7 text-gray-700 text-hover-success text-decoration-none px-3 py-2 rounded-3">
+      <i class="bi bi-person me-3 text-muted fs-6" style="width:16px;text-align:center;"></i> View My Profile
     </a>
-    <a href="#profile" class="discourse-profile-link">
-      <i class="bi bi-file-text me-2"></i> My Posts
+    <a href="#profile" class="d-flex align-items-center fs-7 text-gray-700 text-hover-success text-decoration-none px-3 py-2 rounded-3">
+      <i class="bi bi-file-text me-3 text-muted fs-6" style="width:16px;text-align:center;"></i> My Posts
     </a>
-    <a href="#profile" class="discourse-profile-link">
-      <i class="bi bi-chat-left-text me-2"></i> My Comments
+    <a href="#profile" class="d-flex align-items-center fs-7 text-gray-700 text-hover-success text-decoration-none px-3 py-2 rounded-3">
+      <i class="bi bi-chat-left-text me-3 text-muted fs-6" style="width:16px;text-align:center;"></i> My Comments
     </a>
-    <a href="#profile" class="discourse-profile-link">
-      <i class="bi bi-hand-thumbs-up me-2"></i> Liked Posts
+    <a href="#profile" class="d-flex align-items-center fs-7 text-gray-700 text-hover-success text-decoration-none px-3 py-2 rounded-3">
+      <i class="bi bi-hand-thumbs-up me-3 text-muted fs-6" style="width:16px;text-align:center;"></i> Liked Posts
     </a>
-    <a href="#profile" class="discourse-profile-link">
-      <i class="bi bi-bookmark me-2"></i> Saved Posts
+    <a href="#profile" class="d-flex align-items-center fs-7 text-gray-700 text-hover-success text-decoration-none px-3 py-2 rounded-3">
+      <i class="bi bi-bookmark me-3 text-muted fs-6" style="width:16px;text-align:center;"></i> Saved Posts
     </a>
-    <a href="#profile" class="discourse-profile-link">
-      <i class="bi bi-people me-2"></i> My Communities
+    <a href="#profile" class="d-flex align-items-center fs-7 text-gray-700 text-hover-success text-decoration-none px-3 py-2 rounded-3">
+      <i class="bi bi-people me-3 text-muted fs-6" style="width:16px;text-align:center;"></i> My Communities
     </a>
   </div>
 
   <!-- Settings Links -->
-  <div class="discourse-profile-section">
-    <span class="discourse-profile-section-label">SETTINGS</span>
-    <a href="#profile" class="discourse-profile-link">
-      <i class="bi bi-gear me-2"></i> Settings
+  <div class="px-2 py-2 border-bottom">
+    <span class="d-block fs-8 fw-bolder text-muted text-uppercase px-3 py-1 ls-1">Settings</span>
+    <a href="#profile" class="d-flex align-items-center fs-7 text-gray-700 text-hover-success text-decoration-none px-3 py-2 rounded-3">
+      <i class="bi bi-gear me-3 text-muted fs-6" style="width:16px;text-align:center;"></i> Settings
     </a>
-    <a href="#profile" class="discourse-profile-link">
-      <i class="bi bi-shield-lock me-2"></i> Privacy and Security
+    <a href="#profile" class="d-flex align-items-center fs-7 text-gray-700 text-hover-success text-decoration-none px-3 py-2 rounded-3">
+      <i class="bi bi-shield-lock me-3 text-muted fs-6" style="width:16px;text-align:center;"></i> Privacy and Security
     </a>
-    <a href="#profile" class="discourse-profile-link">
-      <i class="bi bi-grid-3x3-gap me-2"></i> Paraverse Portal
+    <a href="#profile" class="d-flex align-items-center fs-7 text-gray-700 text-hover-success text-decoration-none px-3 py-2 rounded-3">
+      <i class="bi bi-grid-3x3-gap me-3 text-muted fs-6" style="width:16px;text-align:center;"></i> Paraverse Portal
     </a>
   </div>
 
   <!-- Log Out -->
-  <div class="discourse-profile-logout-wrap">
-    <a href="#" class="discourse-profile-logout">
-      <i class="bi bi-box-arrow-right me-2"></i> Log Out
+  <div class="px-2 py-2">
+    <a href="#" class="d-flex align-items-center fs-7 fw-bold text-danger text-hover-danger text-decoration-none px-3 py-2 rounded-3">
+      <i class="bi bi-box-arrow-right me-3 fs-6" style="width:16px;text-align:center;"></i> Log Out
     </a>
   </div>
 
@@ -179,48 +188,48 @@
     <div class="modal-content discourse-report-content">
 
       <!-- Header -->
-      <div class="modal-header discourse-report-header">
-        <h5 class="modal-title discourse-report-title" id="modalReportPostLabel">
+      <div class="modal-header border-bottom px-5 py-4">
+        <h5 class="modal-title fs-5 fw-bolder text-gray-800" id="modalReportPostLabel">
           <i class="bi bi-flag-fill text-danger me-2"></i> Report Post
         </h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <!-- Body -->
-      <div class="modal-body discourse-report-body">
-        <p class="discourse-report-subtitle">Why are you reporting this post? Select the best reason.</p>
+      <div class="modal-body px-5 py-5">
+        <p class="fs-7 text-muted mb-5">Why are you reporting this post? Select the best reason.</p>
 
-        <div class="discourse-report-options" id="discourseReportOptions">
+        <div class="d-flex flex-column gap-3" id="discourseReportOptions">
 
           <button class="discourse-report-option discourse-report-option-active" data-option="spam">
             <span class="discourse-report-option-icon discourse-report-icon-red"><i class="bi bi-x-circle-fill"></i></span>
-            <span class="discourse-report-option-label">Content is spam or misleading</span>
+            <span class="fs-7 fw-semibold text-gray-700">Content is spam or misleading</span>
           </button>
 
           <button class="discourse-report-option" data-option="irrelevant">
             <span class="discourse-report-option-icon discourse-report-icon-purple"><i class="bi bi-square-fill"></i></span>
-            <span class="discourse-report-option-label">Not relevant to this community</span>
+            <span class="fs-7 fw-semibold text-gray-700">Not relevant to this community</span>
           </button>
 
           <button class="discourse-report-option" data-option="rules">
             <span class="discourse-report-option-icon discourse-report-icon-amber"><i class="bi bi-exclamation-triangle-fill"></i></span>
-            <span class="discourse-report-option-label">Post violates community rules</span>
+            <span class="fs-7 fw-semibold text-gray-700">Post violates community rules</span>
           </button>
 
           <button class="discourse-report-option" data-option="other">
             <span class="discourse-report-option-icon discourse-report-icon-gray"><i class="bi bi-three-dots"></i></span>
-            <span class="discourse-report-option-label">Others</span>
+            <span class="fs-7 fw-semibold text-gray-700">Others</span>
           </button>
 
         </div>
       </div>
 
       <!-- Footer -->
-      <div class="modal-footer discourse-report-footer">
-        <button type="button" class="discourse-report-submit-btn" id="discourseReportSubmit">
+      <div class="modal-footer border-top px-5 py-4 gap-3">
+        <button type="button" class="btn btn-success fw-bold flex-grow-1" id="discourseReportSubmit">
           <i class="bi bi-send me-2"></i> Submit Report
         </button>
-        <button type="button" class="discourse-report-cancel-btn" data-bs-dismiss="modal">Cancel</button>
+        <button type="button" class="btn btn-light fw-bold" data-bs-dismiss="modal">Cancel</button>
       </div>
 
     </div>

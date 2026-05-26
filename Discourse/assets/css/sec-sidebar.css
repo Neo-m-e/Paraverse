@@ -1,269 +1,78 @@
-/* ============================================================
-   DISCOURSE — Sidebar Widgets Styles
-   File: assets/css/sec-sidebar.css
-============================================================ */
-/* ── Sidebar container ───────────────────────────────────── */
-.discourse-sidebar .card {
-  border: none;
-  border-radius: var(--dc-card-radius);
-  box-shadow: var(--dc-card-shadow);
-}
+/* ── Widget 1: Info card background ----*/
 
-.discourse-widget-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #1a1a2e;
-}
-
-/* ─── Widget 1: Discourse Info Card ─────────────────────── */
 .discourse-info-card {
-  background-color: #0b3220 !important; 
+  background-color: #0b3220 !important;
+  position: relative;
+  z-index: 2;  /* add this */
 }
 
+/* ── Info card glow overlay ──────────────────────────────────
+   radial-gradient: no Bootstrap utility equivalent.
+── */
 .discourse-widget-center-glow {
-  background: radial-gradient(circle 150px at 50% 40%, rgba(245, 166, 35, 0.20) 0%, rgba(245, 166, 35, 0.03) 70%, transparent 100%) !important;
-  z-index: 0;
+  background: radial-gradient(circle 150px at 50% 40%,
+      rgba(245, 166, 35, 0.20) 0%,
+      rgba(245, 166, 35, 0.03) 70%,
+      transparent 100%);
 }
 
+/* ── Sidebar logo height ─────────────────────────────────────
+   No Bootstrap utility for arbitrary px height on img.
+── */
 .discourse-sidebar-logo {
-  height: 80px; 
+  height: 80px;
   width: auto;
 }
 
+/* ── Info post item hover ────────────────────────────────────
+   rgba(255,255,255,0.06) white tint: no Bootstrap hover utility.
+── */
 .discourse-info-post-item {
-  background: transparent;
-  transition: background-color 0.12s ease-in-out !important;
+  transition: background-color 0.12s ease-in-out;
 }
 
 .discourse-info-post-item:hover {
   background: rgba(255, 255, 255, 0.06) !important;
 }
 
+/* ── White 10% opacity border ────────────────────────────────
+   rgba border colour: Metronic 8 has no border-opacity utility.
+── */
 .border-white-10 {
   border-color: rgba(255, 255, 255, 0.10) !important;
 }
 
+/* ── Line clamp ──────────────────────────────────────────────
+   -webkit-line-clamp: no Bootstrap utility equivalent.
+── */
 .text-line-clamp-2 {
   display: -webkit-box;
-  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-.transition-all {
-  transition: all 0.12s ease-in-out !important;
-}
-/* ─── Widget 2: Community Stats ─────────────────────────── */
-.discourse-stats-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
+/* ── Stats row divider ───────────────────────────────────────
+   :not(:last-child) border-bottom: cannot be expressed with
+   Bootstrap utilities without adding a class to every item.
+── */
+.discourse-stat-item:not(:last-child) {
+  border-bottom: 1px solid #eef2f5;
 }
 
-.discourse-stat-item {
-  display: flex;
-  align-items: center;
-  gap: 0.85rem;
-}
-
-.discourse-stat-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 8px;
-  background: #f0faf5;
-  color: var(--dc-primary);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1.05rem;
-  flex-shrink: 0;
-}
-
-.discourse-stat-body {
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  flex: 1;
-}
-
-.discourse-stat-label {
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.06em;
-  color: #a1a5b7;
-  text-transform: uppercase;
-  line-height: 1.2;
-}
-
-.discourse-stat-value {
-  font-size: 1.3rem;
-  font-weight: 800;
-  color: #1a1a2e;
-  line-height: 1.2;
-}
-
-.discourse-stat-sub {
-  font-size: 0.67rem;
-  color: #a1a5b7;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-/* ─── Widget 3: Communities List ────────────────────────── */
-.discourse-see-all-btn {
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--dc-primary);
-  text-decoration: none;
-  border: 1px solid var(--dc-primary);
-  padding: 0.22rem 0.7rem;
-  border-radius: 50px;
-  transition: background 0.15s, color 0.15s;
-}
-
-.discourse-see-all-btn:hover {
-  background: var(--dc-primary);
-  color: #fff;
-}
-
-.discourse-community-list {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-}
-
-.discourse-community-item {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  text-decoration: none;
-  padding: 0.4rem;
-  border-radius: 8px;
-  transition: background 0.15s;
-}
-
+/* ── Community item hover ────────────────────────────────────
+   #f5f6fa bg on hover: no standard Metronic bg-hover-* utility.
+── */
 .discourse-community-item:hover {
   background: #f5f6fa;
 }
 
-.discourse-community-avatar {
-  width: 38px;
-  height: 38px;
-  border-radius: 10px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 1rem;
-  flex-shrink: 0;
+/* ── Topic tag & See All button hover ────────────────────────
+   badge-light-success has no built-in :hover fill state.
+   Shared rule covers both .dc-topic-tag and .dc-see-all-btn.
+── */
+.dc-topic-tag:hover,
+.dc-see-all-btn:hover {
+  background-color: #0d5c3a !important;
+  color: #fff !important;
+  border-color: #0d5c3a !important;
 }
-
-.discourse-community-feutech {
-  background: #e8f5e9;
-  color: var(--dc-primary);
-}
-
-.discourse-community-feulife {
-  background: #fce4ec;
-  color: #c62828;
-}
-
-.discourse-community-culturehub {
-  background: #e3f2fd;
-  color: #1565c0;
-}
-
-.discourse-community-info {
-  display: flex;
-  flex-direction: column;
-}
-
-.discourse-community-name {
-  font-size: 0.87rem;
-  font-weight: 700;
-  color: #1a1a2e;
-}
-
-.discourse-community-members {
-  font-size: 0.73rem;
-  color: #a1a5b7;
-}
-
-/* ─── Widget 4: Browse Topics ────────────────────────────── */
-.discourse-topic-tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.discourse-topic-tag {
-  display: inline-flex;
-  align-items: center;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 0.28rem 0.65rem;
-  border-radius: 50px;
-  background: #f0faf5;
-  color: var(--dc-primary);
-  text-decoration: none;
-  border: 1px solid #c8e6c9;
-  transition: background 0.15s, color 0.15s;
-  letter-spacing: 0.02em;
-}
-
-.discourse-topic-tag:hover {
-  background: var(--dc-primary);
-  color: #fff;
-  border-color: var(--dc-primary);
-}
-
-/* ─── Widget 5: Campus Buzz ──────────────────────────────── */
-.discourse-buzz-section-label {
-  font-size: 0.67rem;
-  font-weight: 700;
-  letter-spacing: 0.08em;
-  color: #a1a5b7;
-  text-transform: uppercase;
-  margin-bottom: 0.5rem;
-}
-
-.discourse-hashtag-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-}
-
-.discourse-hashtag {
-  display: inline-block;
-  font-size: 0.73rem;
-  font-weight: 600;
-  padding: 0.25rem 0.65rem;
-  border-radius: 50px;
-  background: #f5f6fa;
-  color: #555;
-  border: 1px solid #e4e6ef;
-}
-
-.discourse-tips-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 0.55rem;
-}
-
-.discourse-tips-list li {
-  font-size: 0.8rem;
-  color: #5e6278;
-  line-height: 1.4;
-  display: flex;
-  align-items: flex-start;
-  gap: 0.35rem;
-}
-
-.discourse-tips-list li i {
-  color: var(--dc-accent);
-  flex-shrink: 0;
-  margin-top: 2px;
-}
-

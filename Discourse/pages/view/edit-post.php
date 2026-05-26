@@ -1,433 +1,247 @@
 <?php
-
+/* Refactored: custom CSS → Bootstrap/Metronic utilities */
 define('MBG', TRUE);
 include($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
 
 // IS_LOGGED_IN($_SERVER['REQUEST_URI']);
-
 // $SQL = "SELECT * FROM posts WHERE slug = ?";
-// ... fetch post record ...
 
 $META_TITLE = "Edit Post";
-$META_DESC = "Edit your existing post.";
+$META_DESC  = "Edit your existing post.";
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <?php HEAD_ESSENTIALS(); ?>
+  <link href="/Discourse/assets/css/dashboard.css" rel="stylesheet">
   <style>
-    /* ── Shared tokens (same as create-post) ─────────────────── */
-    body {
-      background: #f5f6fa !important;
-    }
-
-    .discourse-create-hero {
-      background: linear-gradient(135deg, #0b3220 0%, #1a5c38 60%, #2D6A4F 100%);
-      padding: 28px 0 22px;
-    }
-
-    .discourse-create-hero .back-btn {
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.22);
-      color: #fff;
-      border-radius: 8px;
-      padding: 7px 18px;
-      font-size: 13px;
-      font-weight: 600;
-      text-decoration: none;
-      transition: background 0.18s;
-    }
-
-    .discourse-create-hero .back-btn:hover {
-      background: rgba(255, 255, 255, 0.22);
-      color: #fff;
-    }
-
-    .discourse-create-hero .label-badge {
-      background: rgba(245, 166, 35, 0.18);
-      color: #f5a623;
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      border-radius: 6px;
-      padding: 3px 10px;
-      margin-bottom: 6px;
-      display: inline-block;
-    }
-
-    .discourse-create-hero h2 {
-      color: #fff;
-      font-size: 28px;
-      font-weight: 800;
-      margin-bottom: 2px;
-    }
-
-    .discourse-create-hero p {
-      color: rgba(255, 255, 255, 0.65);
+    /* ── Editor area: no Bootstrap equivalent for contenteditable ── */
+    .dc-editor-area {
+      width: 100%;
+      min-height: 180px;
+      padding: 14px 16px;
+      border: 1.5px solid #e4e6ef;
+      border-top: none;
+      border-bottom: none;
       font-size: 13.5px;
-      margin-bottom: 0;
-    }
-
-    .discourse-create-layout {
-      display: grid;
-      grid-template-columns: 1fr 300px;
-      gap: 1.4rem;
-      padding: 2rem 0 3rem;
-      align-items: start;
-    }
-
-    @media (max-width: 992px) {
-      .discourse-create-layout {
-        grid-template-columns: 1fr;
-      }
-    }
-
-    .dc-card {
-      background: #fff;
-      border-radius: 14px;
-      border: 1px solid #e4e6ef;
-      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
-      overflow: hidden;
-    }
-
-    .dc-card-header {
-      background: #f9fafb;
-      border-bottom: 1px solid #e4e6ef;
-      padding: 14px 20px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .dc-card-header .dc-card-icon {
-      width: 32px;
-      height: 32px;
-      background: #e8f5e9;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #2D6A4F;
-      font-size: 14px;
-    }
-
-    .dc-card-header h5 {
-      font-size: 14px;
-      font-weight: 700;
       color: #1a1a2e;
-      margin: 0;
-    }
-
-    .dc-card-body {
-      padding: 22px 22px 18px;
-    }
-
-    .dc-label {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #5e6278;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      margin-bottom: 6px;
+      background: #f9fafb;
+      outline: none;
+      font-family: inherit;
+      line-height: 1.7;
+      overflow-y: auto;
       display: block;
     }
 
-    .dc-input,
-    .dc-select,
-    .dc-textarea {
-      width: 100%;
-      border: 1.5px solid #e4e6ef;
-      border-radius: 8px;
-      padding: 10px 14px;
-      font-size: 13.5px;
-      color: #1a1a2e;
-      background: #f9fafb;
-      transition: border-color 0.18s, box-shadow 0.18s;
-      outline: none;
-      font-family: inherit;
-    }
-
-    .dc-input:focus,
-    .dc-select:focus,
-    .dc-textarea:focus {
-      border-color: #2D6A4F;
-      box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
-      background: #fff;
-    }
-
-    .dc-input::placeholder,
-    .dc-textarea::placeholder {
+    .dc-editor-area:empty:before {
+      content: attr(data-placeholder);
       color: #b5b5c3;
     }
 
-    .dc-textarea {
-      min-height: 140px;
-      resize: vertical;
+    .dc-editor-area:focus {
+      background: #fff;
     }
 
+    /* ── Toolbar ── */
     .dc-toolbar {
       display: flex;
       align-items: center;
-      gap: 4px;
-      padding: 8px 10px;
+      gap: 1px;
+      flex-wrap: wrap;
+      padding: 7px 10px;
       background: #f9fafb;
       border: 1.5px solid #e4e6ef;
-      border-bottom: none;
+      border-bottom: 1px solid #e4e6ef;
       border-radius: 8px 8px 0 0;
     }
 
-    .dc-toolbar-btn {
-      background: none;
-      border: 1px solid transparent;
-      border-radius: 5px;
-      padding: 5px 9px;
-      font-size: 12px;
-      font-weight: 700;
-      color: #5e6278;
-      cursor: pointer;
-      transition: all 0.15s;
-    }
-
-    .dc-toolbar-btn:hover {
-      background: #e8f5e9;
-      border-color: #c8e6c9;
-      color: #2D6A4F;
-    }
-
-    .dc-toolbar-sep {
+    .dc-tb-sep {
       width: 1px;
-      height: 18px;
-      background: #e4e6ef;
+      height: 20px;
+      background: #dde;
       margin: 0 4px;
-    }
-
-    .dc-body-textarea {
-      border-top-left-radius: 0 !important;
-      border-top-right-radius: 0 !important;
-    }
-
-    .dc-field {
-      margin-bottom: 18px;
-    }
-
-    .dc-field:last-child {
-      margin-bottom: 0;
-    }
-
-    /* ── Save / Cancel buttons ─────────────────────────────── */
-    .dc-save-btn {
-      width: 100%;
-      background: linear-gradient(135deg, #2D6A4F 0%, #1a5c38 100%);
-      color: #fff;
-      border: none;
-      border-radius: 10px;
-      padding: 13px 20px;
-      font-size: 14px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: opacity 0.18s, transform 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-    }
-
-    .dc-save-btn:hover {
-      opacity: 0.92;
-      transform: translateY(-1px);
-    }
-
-    .dc-cancel-btn {
-      width: 100%;
-      background: #f5f6fa;
-      color: #5e6278;
-      border: 1.5px solid #e4e6ef;
-      border-radius: 10px;
-      padding: 10px 20px;
-      font-size: 13px;
-      font-weight: 600;
-      cursor: pointer;
-      transition: all 0.15s;
-      margin-top: 8px;
-    }
-
-    .dc-cancel-btn:hover {
-      background: #fffde7;
-      border-color: #ffe082;
-      color: #795548;
-    }
-
-    /* ── Danger zone ───────────────────────────────────────── */
-    .dc-danger-card {
-      background: #fff5f5;
-      border: 1.5px solid #ffcdd2;
-      border-radius: 12px;
-      padding: 16px 18px;
-    }
-
-    .dc-danger-card h6 {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #c62828;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .dc-danger-card p {
-      font-size: 12px;
-      color: #7e8299;
-      margin-bottom: 12px;
-    }
-
-    .dc-delete-btn {
-      width: 100%;
-      background: #fff;
-      color: #c62828;
-      border: 1.5px solid #ef9a9a;
-      border-radius: 8px;
-      padding: 9px 16px;
-      font-size: 12.5px;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.15s;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 6px;
-    }
-
-    .dc-delete-btn:hover {
-      background: #c62828;
-      color: #fff;
-      border-color: #c62828;
-    }
-
-    /* ── Edit notice banner ────────────────────────────────── */
-    .dc-edit-notice {
-      background: linear-gradient(90deg, #fff8e1 0%, #fffde7 100%);
-      border: 1px solid #ffe082;
-      border-radius: 10px;
-      padding: 11px 16px;
-      font-size: 12.5px;
-      color: #795548;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      margin-bottom: 18px;
-    }
-
-    .dc-edit-notice i {
-      color: #f5a623;
       flex-shrink: 0;
     }
 
-    /* ── Edit History ──────────────────────────────────────── */
-    .dc-history-card {
+    .dc-tb-switch {
+      margin-left: auto;
+      font-size: 12px;
+      color: #2D6A4F;
+      font-weight: 700;
+      cursor: pointer;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .dc-tb-switch:hover {
+      text-decoration: underline;
+    }
+
+    /* ── Bottom media bar ── */
+    .dc-media-bar {
+      display: flex;
+      gap: 4px;
+      flex-wrap: wrap;
+      padding: 8px 12px;
       background: #f9fafb;
-      border: 1px solid #e4e6ef;
-      border-radius: 12px;
-      padding: 14px 18px;
+      border: 1.5px solid #e4e6ef;
+      border-top: 1px solid #e4e6ef;
+      border-radius: 0 0 8px 8px;
     }
 
-    .dc-history-card h6 {
-      font-size: 12px;
-      font-weight: 700;
-      color: #5e6278;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin-bottom: 10px;
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-
-    .dc-history-item {
-      display: flex;
-      align-items: flex-start;
-      gap: 8px;
-      font-size: 12px;
-      color: #5e6278;
-      padding: 5px 0;
-      border-bottom: 1px dashed #e4e6ef;
-    }
-
-    .dc-history-item:last-child {
-      border-bottom: none;
-    }
-
-    .dc-history-dot {
-      width: 8px;
-      height: 8px;
-      border-radius: 50%;
-      background: #2D6A4F;
-      flex-shrink: 0;
-      margin-top: 4px;
-    }
-
-    .dc-history-dot.dc-dot-gray {
-      background: #a1a5b7;
-    }
-
-    /* ── Post image preview ────────────────────────────────── */
-    .dc-image-preview {
-      width: 100%;
-      border-radius: 10px;
-      object-fit: cover;
-      max-height: 200px;
-      margin-top: 10px;
-      border: 1px solid #e4e6ef;
-    }
-
-    /* ── Guidelines card ───────────────────────────────────── */
-    .dc-rules-card {
-      background: linear-gradient(135deg, #f0faf5 0%, #e8f5e9 100%);
-      border: 1px solid #c8e6c9;
-      border-radius: 12px;
-      padding: 16px 18px;
-    }
-
-    .dc-rules-card h6 {
-      font-size: 11.5px;
-      font-weight: 700;
-      color: #1a5c38;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-      margin-bottom: 10px;
-    }
-
-    .dc-rules-list {
-      list-style: none;
-      padding: 0;
+    /* ── Attached image overlay ── */
+    .dc-image-wrapper {
+      position: relative;
       margin: 0;
     }
 
-    .dc-rules-list li {
-      font-size: 12px;
-      color: #2D6A4F;
-      padding: 3px 0;
+    .dc-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0);
+      border-radius: 10px;
       display: flex;
       align-items: flex-start;
+      justify-content: flex-end;
+      padding: 8px;
       gap: 6px;
+      transition: background .2s;
     }
 
-    .dc-rules-list li::before {
-      content: '✓';
+    .dc-image-wrapper:hover .dc-image-overlay {
+      background: rgba(0, 0, 0, .25);
+    }
+
+    .dc-image-action-btn {
+      opacity: 0;
+      transform: translateY(-4px);
+      transition: opacity .2s, transform .2s;
+      border: none;
+      border-radius: 7px;
+      padding: 6px 11px;
+      font-size: 12px;
       font-weight: 700;
-      flex-shrink: 0;
-      margin-top: 1px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      white-space: nowrap;
+    }
+
+    .dc-image-wrapper:hover .dc-image-action-btn {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .dc-image-replace-btn {
+      background: #fff;
+      color: #2D6A4F;
+    }
+
+    .dc-image-replace-btn:hover {
+      background: #e8f5e9;
+    }
+
+    .dc-image-remove-btn {
+      background: #fff;
+      color: #c62828;
+    }
+
+    .dc-image-remove-btn:hover {
+      background: #fff5f5;
+    }
+
+    /* ── No-image placeholder ── */
+    .dc-no-image-placeholder {
+      display: none;
+      margin: 8px 14px 12px;
+      border: 2px dashed #e4e6ef;
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+      color: #b5b5c3;
+      font-size: 12.5px;
+      cursor: pointer;
+      transition: border-color .15s, background .15s;
+    }
+
+    .dc-no-image-placeholder:hover {
+      border-color: #2D6A4F;
+      background: #f0faf5;
+      color: #2D6A4F;
+    }
+
+    /* ── Content-inserted elements ── */
+    .dc-code-block {
+      background: #1e1e2e;
+      color: #cdd6f4;
+      border-radius: 8px;
+      padding: 12px 16px;
+      margin: 6px 0;
+      font-family: monospace;
+      font-size: 13px;
+      outline: none;
+      min-height: 50px;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .dc-code-block:empty:before {
+      content: '// Your code here...';
+      color: #6c7086;
+    }
+
+    .dc-spoiler {
+      background: #fff8e1;
+      border: 1.5px solid #ffe082;
+      border-radius: 8px;
+      padding: 10px 14px;
+      margin: 6px 0;
+      position: relative;
+    }
+
+    .dc-spoiler-label {
+      font-size: 11px;
+      font-weight: 700;
+      color: #795548;
+      text-transform: uppercase;
+      margin-bottom: 5px;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    .dc-spoiler-content {
+      font-size: 13.5px;
+      color: #1a1a2e;
+      outline: none;
+      min-height: 30px;
+    }
+
+    .dc-spoiler-content:empty:before {
+      content: 'Hidden content here...';
+      color: #b5b5c3;
+    }
+
+    .dc-img-inserted {
+      max-width: 100%;
+      border-radius: 8px;
+      margin: 8px 0;
+      display: block;
+      border: 1px solid #e4e6ef;
+      max-height: 260px;
+      object-fit: cover;
     }
   </style>
 </head>
 
-<body id="kt_app_body" data-kt-app-page-loading-enabled="true" data-kt-app-page-loading="on"
-  data-kt-app-layout="light-header" data-kt-app-header-fixed="true" data-kt-app-header-fixed-mobile="true"
+<body id="kt_app_body"
+  data-kt-app-page-loading-enabled="true"
+  data-kt-app-page-loading="on"
+  data-kt-app-layout="light-header"
+  data-kt-app-header-fixed="true"
+  data-kt-app-header-fixed-mobile="true"
   class="app-default">
 
   <?php include($_SERVER['DOCUMENT_ROOT'] . '/Discourse/partials/_page-loader.php'); ?>
@@ -442,153 +256,335 @@ $META_DESC = "Edit your existing post.";
           <div class="d-flex flex-column flex-column-fluid">
             <main>
 
-              <!-- Hero Banner -->
-              <div class="discourse-create-hero">
+              <div style="background: linear-gradient(135deg, #0b3220 0%, #1a5c38 60%, #2D6A4F 100%); padding: 28px 0 22px;">
                 <div class="app-container container-xxl">
                   <div class="d-flex align-items-start justify-content-between">
                     <div>
-                      <span class="label-badge">Editing Post</span>
-                      <h2>Edit Post</h2>
-                      <p>Make changes to your existing post.</p>
+                      <i class="bi bi-pencil-square text-white opacity-75 fs-7"></i>
+                      <span class="text-white opacity-75 fs-8 fw-bold text-uppercase ls-1">Editing Post</span>
+                      <h2 class="text-white fs-2 fw-bolder mb-1">Edit Post</h2>
+                      <p class="text-white opacity-65 fs-6 mb-0">Make changes to your existing post.</p>
                     </div>
-                    <a href="javascript:history.back();" class="back-btn mt-2">
-                      <i class="ki-duotone ki-arrow-left fs-5 me-1"><span class="path1"></span><span class="path2"></span></i> Back
+                    <a href="javascript:history.back();" class="btn btn-sm btn-light fw-bold mt-2">
+                      <i class="bi bi-arrow-left me-1"></i> Back
                     </a>
                   </div>
                 </div>
               </div>
 
-              <!-- Main Content -->
               <div id="kt_app_content" class="flex-column-fluid">
                 <div class="app-container container-xxl">
-                  <div class="discourse-create-layout">
+                  <div class="row g-5 align-items-start py-5">
 
-                    <!-- LEFT: Edit Form -->
-                    <div>
-                      <div class="dc-card">
-                        <div class="dc-card-header">
-                          <div class="dc-card-icon">
-                            <i class="ki-duotone ki-pencil fs-5"><span class="path1"></span><span class="path2"></span></i>
+                    <div class="col-lg-8">
+                      <div class="card border-0 shadow-sm">
+
+                        <div class="card-header border-0 bg-light d-flex align-items-center gap-3 px-5" style="min-height: 60px;">
+                          <div class="d-flex align-items-center gap-3">
+                            <div class="bg-light-success rounded-2 p-2 d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+                              <i class="bi bi-pencil text-success fs-6"></i>
+                            </div>
+                            <h5 class="mb-0 fw-bold fs-6 text-gray-800">Edit Post Content</h5>
                           </div>
-                          <h5>Edit Post Content</h5>
                         </div>
-                        <div class="dc-card-body">
 
-                          <!-- Edit Notice -->
-                          <div class="dc-edit-notice">
-                            <i class="ki-duotone ki-information-2 fs-5"><span class="path1"></span><span class="path2"></span></i>
-                            Editing a post will mark it as <strong>edited</strong> with a timestamp visible to all readers. Significant changes to meaning are discouraged.
+                        <div class="card-body p-5">
+
+                          <div class="alert alert-warning d-flex align-items-center gap-2 mb-5">
+                            <i class="bi bi-exclamation-triangle-fill text-warning flex-shrink-0"></i>
+                            <span class="fs-7">Editing a post will mark it as <strong>edited</strong> with a timestamp visible to all readers. Significant changes to meaning are discouraged.</span>
                           </div>
 
-                          <!-- Title -->
-                          <div class="dc-field">
-                            <label class="dc-label">Title <span style="color:#e53935;">*</span></label>
-                            <input type="text" class="dc-input" id="edit_title"
+                          <div class="mb-5">
+                            <label class="form-label text-uppercase fw-bold text-gray-600 fs-8">
+                              Title <span class="text-danger">*</span>
+                            </label>
+                            <input type="text" class="form-control form-control-solid" id="edit_title"
                               value="Anyone else struggling with the new CS curriculum changes? Honest discussion.">
                           </div>
 
-                          <!-- Body -->
-                          <div class="dc-field">
-                            <label class="dc-label">Body <span class="text-muted fw-normal" style="text-transform:none; letter-spacing:0; font-size:11px;">— optional</span></label>
-                            <div class="dc-toolbar">
-                              <button class="dc-toolbar-btn" title="Bold"><b>B</b></button>
-                              <button class="dc-toolbar-btn" title="Italic"><i>I</i></button>
-                              <button class="dc-toolbar-btn" title="Strikethrough"><s>S</s></button>
-                              <button class="dc-toolbar-btn" title="Quote">
-                                <i class="ki-duotone ki-message-text fs-6"><span class="path1"></span><span class="path2"></span></i>
+                          <div class="mb-5">
+                            <label class="form-label text-uppercase fw-bold text-gray-600 fs-8">
+                              Body <span class="text-muted fw-normal fs-8" style="text-transform:none;letter-spacing:0;">— optional</span>
+                            </label>
+
+                            <div class="dc-toolbar" id="edit-toolbar">
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Bold" onclick="fmt('bold')"><b>B</b></button>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Italic" onclick="fmt('italic')"><i style="font-style:italic">i</i></button>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Strikethrough" onclick="fmt('strikeThrough')"><s>S</s></button>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Superscript" onclick="fmt('superscript')" style="font-size:11px;">x<sup>2</sup></button>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Paragraph" onclick="fmt('formatBlock','p')">¶T</button>
+                              <span class="dc-tb-sep"></span>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Insert Link">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                  <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
+                                  <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
+                                </svg>
+                              </button>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Insert Image" onclick="document.getElementById('replaceImageInput').click()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                                  <circle cx="8.5" cy="8.5" r="1.5" />
+                                  <polyline points="21 15 16 10 5 21" />
+                                </svg>
+                              </button>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Embed Video">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                  <circle cx="12" cy="12" r="10" />
+                                  <polygon points="10 8 16 12 10 16 10 8" />
+                                </svg>
+                              </button>
+                              <span class="dc-tb-sep"></span>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Ordered List" onclick="insertList('ol')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                  <line x1="9" y1="6" x2="20" y2="6" />
+                                  <line x1="9" y1="12" x2="20" y2="12" />
+                                  <line x1="9" y1="18" x2="20" y2="18" />
+                                  <path d="M4 6h1v4" />
+                                  <path d="M4 10h2" />
+                                  <path d="M6 18H4c0-1 2-2 2-3s-1-1.5-2-1" />
+                                </svg>
+                              </button>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Unordered List" onclick="insertList('ul')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                  <line x1="9" y1="6" x2="20" y2="6" />
+                                  <line x1="9" y1="12" x2="20" y2="12" />
+                                  <line x1="9" y1="18" x2="20" y2="18" />
+                                  <circle cx="4" cy="6" r="1.5" fill="currentColor" />
+                                  <circle cx="4" cy="12" r="1.5" fill="currentColor" />
+                                  <circle cx="4" cy="18" r="1.5" fill="currentColor" />
+                                </svg>
+                              </button>
+                              <span class="dc-tb-sep"></span>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Inline Code" onclick="fmt('insertHTML','<code style=&quot;background:#f0faf5;border-radius:4px;padding:1px 5px;font-family:monospace;font-size:12px;color:#1a5c38;&quot;>code</code>')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                  <polyline points="16 18 22 12 16 6" />
+                                  <polyline points="8 6 2 12 8 18" />
+                                </svg>
+                              </button>
+                              <button class="btn btn-sm btn-icon btn-light-success active" title="Blockquote" onclick="fmt('formatBlock','blockquote')">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
+                                  <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1zm12 0c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z" />
+                                </svg>
+                              </button>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Code Block" onclick="insertCodeBlock()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                  <polyline points="16 18 22 12 16 6" />
+                                  <polyline points="8 6 2 12 8 18" />
+                                  <line x1="12" y1="3" x2="12" y2="21" stroke-width="1.5" />
+                                </svg>
+                              </button>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Spoiler" onclick="insertSpoiler()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                                  <line x1="1" y1="1" x2="23" y2="23" />
+                                </svg>
+                              </button>
+                              <button class="btn btn-sm btn-icon btn-light-success" title="Insert Table" onclick="insertTable()">
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                                  <line x1="3" y1="9" x2="21" y2="9" />
+                                  <line x1="3" y1="15" x2="21" y2="15" />
+                                  <line x1="9" y1="3" x2="9" y2="21" />
+                                  <line x1="15" y1="3" x2="15" y2="21" />
+                                </svg>
+                              </button>
+                              <a class="dc-tb-switch" href="#" onclick="toggleMarkdown(event)">Switch to Markdown</a>
+                            </div>
+
+                            <div id="edit_body_editor" class="dc-editor-area" contenteditable="true"
+                              data-placeholder="Body text (optional)">The shift from Java to Python in first year intro courses has been both good and confusing. Some profs haven't updated their slides at all — they literally just changed variable names. Starting this thread to collect experiences and hopefully get some clarity from others who've gone through it.</div>
+
+                            <div class="dc-image-wrapper" id="imageWrapper">
+                              <img src="https://www.feu.edu.ph/wp-content/uploads/2023/06/thumbnail__a3-1.jpg"
+                                alt="Attached image" class="dc-img-inserted" id="attachedImage"
+                                style="max-height:220px;width:100%;object-fit:cover;margin:0;">
+                              <div class="dc-image-overlay">
+                                <button class="dc-image-action-btn dc-image-replace-btn"
+                                  onclick="document.getElementById('replaceImageInput').click()" title="Replace image">
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                  </svg>
+                                  Replace
+                                </button>
+                                <button class="dc-image-action-btn dc-image-remove-btn" onclick="removeImage()" title="Remove image">
+                                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <polyline points="3 6 5 6 21 6" />
+                                    <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
+                                    <path d="M10 11v6" />
+                                    <path d="M14 11v6" />
+                                    <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
+                                  </svg>
+                                  Remove
+                                </button>
+                              </div>
+                            </div>
+
+                            <div class="dc-no-image-placeholder" id="noImagePlaceholder"
+                              onclick="document.getElementById('replaceImageInput').click()">
+                              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c8e6c9" stroke-width="1.5" style="display:block;margin:0 auto 6px;">
+                                <rect x="3" y="3" width="18" height="18" rx="2" />
+                                <circle cx="8.5" cy="8.5" r="1.5" />
+                                <polyline points="21 15 16 10 5 21" />
+                              </svg>
+                              Click to add an image
+                            </div>
+
+                            <input type="file" id="replaceImageInput" accept="image/*" class="d-none" onchange="replaceImage(event)">
+
+                            <div class="dc-media-bar">
+                              <button class="btn btn-sm btn-light text-gray-600 d-inline-flex align-items-center gap-1" onclick="document.getElementById('replaceImageInput').click()">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                                  <circle cx="8.5" cy="8.5" r="1.5" />
+                                  <polyline points="21 15 16 10 5 21" />
+                                </svg>
+                                Image
+                              </button>
+                              <button class="btn btn-sm btn-light text-gray-600 d-inline-flex align-items-center gap-1">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                  <circle cx="12" cy="12" r="10" />
+                                  <polygon points="10 8 16 12 10 16 10 8" />
+                                </svg>
+                                Video
+                              </button>
+                              <button class="btn btn-sm btn-light text-gray-600 d-inline-flex align-items-center gap-1" onclick="insertList('ul')">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                  <line x1="9" y1="6" x2="20" y2="6" />
+                                  <line x1="9" y1="12" x2="20" y2="12" />
+                                  <line x1="9" y1="18" x2="20" y2="18" />
+                                  <circle cx="4" cy="6" r="1.5" fill="currentColor" />
+                                  <circle cx="4" cy="12" r="1.5" fill="currentColor" />
+                                  <circle cx="4" cy="18" r="1.5" fill="currentColor" />
+                                </svg>
+                                List
+                              </button>
+                              <button class="btn btn-sm btn-light text-gray-600 d-inline-flex align-items-center gap-1" onclick="insertSpoiler()">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94" />
+                                  <path d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19" />
+                                  <line x1="1" y1="1" x2="23" y2="23" />
+                                </svg>
+                                Spoiler
+                              </button>
+                              <button class="btn btn-sm btn-light text-gray-600 d-inline-flex align-items-center gap-1" onclick="insertCodeBlock()">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                  <polyline points="16 18 22 12 16 6" />
+                                  <polyline points="8 6 2 12 8 18" />
+                                </svg>
+                                Code
+                              </button>
+                              <button class="btn btn-sm btn-light text-gray-600 d-inline-flex align-items-center gap-1" onclick="insertTable()">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                  <rect x="3" y="3" width="18" height="18" rx="2" />
+                                  <line x1="3" y1="9" x2="21" y2="9" />
+                                  <line x1="3" y1="15" x2="21" y2="15" />
+                                  <line x1="9" y1="3" x2="9" y2="21" />
+                                  <line x1="15" y1="3" x2="15" y2="21" />
+                                </svg>
+                                Table
+                              </button>
+                              <button class="btn btn-sm btn-light text-gray-600 d-inline-flex align-items-center gap-1">
+                                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                  <line x1="18" y1="20" x2="18" y2="10" />
+                                  <line x1="12" y1="20" x2="12" y2="4" />
+                                  <line x1="6" y1="20" x2="6" y2="14" />
+                                </svg>
+                                Poll
                               </button>
                             </div>
-                            <textarea class="dc-input dc-textarea dc-body-textarea" id="edit_body">The shift from Java to Python in first year intro courses has been both good and confusing. Some profs haven't updated their slides at all — they literally just changed variable names. Starting this thread to collect experiences and hopefully get some clarity from others who've gone through it.</textarea>
-
-                            <!-- Attached Image Preview -->
-                            <img src="https://picsum.photos/seed/campus/800/300" alt="Attached image" class="dc-image-preview">
-                          </div>
-
-                          <!-- Edit History -->
-                          <div class="dc-field mt-4">
-                            <div class="dc-history-card">
-                              <h6><i class="ki-duotone ki-time fs-5"><span class="path1"></span><span class="path2"></span></i> Edit History</h6>
-                              <div class="dc-history-item">
-                                <div class="dc-history-dot"></div>
+                          </div><div class="mt-5">
+                            <div class="p-1">
+                              <h6 class="text-uppercase fw-bold text-gray-600 fs-8 mb-4 d-flex align-items-center gap-2">
+                                <i class="bi bi-clock text-gray-600"></i> Edit History
+                              </h6>
+                              
+                              <div class="d-flex align-items-center gap-3 py-2">
+                                <span class="rounded-circle bg-success flex-shrink-0" style="width: 8px; height: 8px; display: inline-block;"></span>
                                 <div>
-                                  <span class="fw-semibold text-dark" style="font-size:12px;">New</span>
-                                  <span class="text-muted" style="font-size:11.5px;"> — current version being edited</span>
+                                  <span class="fw-bold text-gray-900 fs-7">New</span>
+                                  <span class="text-muted fs-8"> — current version being edited</span>
                                 </div>
                               </div>
-                              <div class="dc-history-item">
-                                <div class="dc-history-dot dc-dot-gray"></div>
+                              
+                              <div class="d-flex align-items-center gap-3 py-2">
+                                <span class="rounded-circle bg-gray-400 flex-shrink-0" style="width: 8px; height: 8px; display: inline-block; background-color: #a1a5b7 !important;"></span>
                                 <div>
-                                  <span class="fw-semibold text-muted" style="font-size:12px;">Original</span>
-                                  <span class="text-muted" style="font-size:11.5px;"> — published version</span>
+                                  <span class="fw-bold text-gray-600 fs-7">Original</span>
+                                  <span class="text-muted fs-8"> — published version</span>
                                 </div>
                               </div>
+
                             </div>
                           </div>
 
-                        </div>
-                      </div>
-                    </div>
+                        </div></div></div><div class="col-lg-4">
 
-                    <!-- RIGHT: Save + Danger + Guidelines -->
-                    <div>
-
-                      <!-- Save Card -->
-                      <div class="dc-card mb-5">
-                        <div class="dc-card-body">
-                          <p class="text-gray-600 fs-6 mb-4">Your edits will be visible to everyone in the community.</p>
-                          <button class="dc-save-btn" onclick="savePost()">
-                            <i class="ki-duotone ki-check fs-5"><span class="path1"></span><span class="path2"></span></i>
-                            Save Changes
+                      <div class="card border-0 shadow-sm mb-5">
+                        <div class="card-body p-5">
+                          <p class="fs-6 text-gray-600 mb-5">Your edits will be visible to everyone in the community.</p>
+                          <button class="btn btn-success w-100 fw-bold" onclick="savePost()">
+                            <i class="bi bi-check-lg me-1"></i> Save Changes
                           </button>
-                          <button class="dc-cancel-btn" onclick="history.back()">Cancel</button>
+                          <button class="btn btn-light w-100 fw-bold mt-3" onclick="history.back()">Cancel</button>
                         </div>
                       </div>
 
-                      <!-- Danger Zone -->
-                      <div class="dc-danger-card mb-5">
-                        <h6>
-                          <i class="ki-duotone ki-warning-2 fs-5"><span class="path1"></span><span class="path2"></span></i>
-                          Danger Zone
-                        </h6>
-                        <p>Permanently remove this post and all its comments. This cannot be undone.</p>
-                        <button class="dc-delete-btn" onclick="confirmDelete()">
-                          <i class="ki-duotone ki-trash fs-5"><span class="path1"></span><span class="path2"></span></i>
-                          Delete Post
-                        </button>
+                      <div class="card border border-danger mb-5" style="background:#fff5f5;">
+                        <div class="card-body p-4">
+                          <h6 class="text-uppercase fw-bold text-danger fs-8 mb-3 d-flex align-items-center gap-2">
+                            <i class="bi bi-exclamation-triangle-fill"></i> Danger Zone
+                          </h6>
+                          <p class="fs-7 text-muted mb-4">Permanently remove this post and all its comments. This cannot be undone.</p>
+                          <button class="btn btn-light-danger w-100 fw-bold" onclick="confirmDelete()">
+                            <i class="bi bi-trash me-1"></i> Delete Post
+                          </button>
+                        </div>
                       </div>
 
-                      <!-- Edit Guidelines -->
-                      <div class="dc-card mb-5">
-                        <div class="dc-card-header">
-                          <div class="dc-card-icon">
-                            <i class="ki-duotone ki-information fs-5"><span class="path1"></span><span class="path2"></span></i>
+                      <div class="card border-0 shadow-sm mb-5">
+                        <div class="card-header border-0 bg-light d-flex align-items-center gap-3 px-5" style="min-height: 60px;">
+                          <div class="d-flex align-items-center gap-3">
+                            <div class="bg-light-success rounded-2 p-2 d-flex align-items-center justify-content-center" style="width:32px;height:32px;">
+                              <i class="bi bi-info-circle text-success fs-6"></i>
+                            </div>
+                            <h5 class="mb-0 fw-bold fs-6 text-gray-800">Edit Guidelines</h5>
                           </div>
-                          <h5>Edit Guidelines</h5>
                         </div>
-                        <div class="dc-card-body pt-3 pb-3">
-                          <ul class="dc-rules-list" style="color:#5e6278;">
-                            <li style="color:#5e6278;">Keep your <strong>title</strong> clear and informative for better discoverability</li>
-                            <li style="color:#5e6278;">Substantial edits may be <strong>flagged</strong> to show the post was modified</li>
-                            <li style="color:#5e6278;">You can <strong>delete</strong> a post from the danger zone if needed</li>
+                        <div class="card-body p-5">
+                          <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
+                            <li class="d-flex align-items-start gap-3 fs-7 text-gray-600">
+                              <span class="fw-bold text-success flex-shrink-0">✓</span>
+                              <span>Keep your <strong>title</strong> clear and informative for better discoverability</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-3 fs-7 text-gray-600">
+                              <span class="fw-bold text-success flex-shrink-0">✓</span>
+                              <span>Substantial edits may be <strong>flagged</strong> to show the post was modified</span>
+                            </li>
+                            <li class="d-flex align-items-start gap-3 fs-7 text-gray-600">
+                              <span class="fw-bold text-success flex-shrink-0">✓</span>
+                              <span>You can <strong>delete</strong> a post from the danger zone if needed</span>
+                            </li>
                           </ul>
                         </div>
                       </div>
 
-                      <!-- Community Rules -->
-                      <div class="dc-rules-card">
-                        <h6><i class="ki-duotone ki-shield-tick fs-5 me-1"><span class="path1"></span><span class="path2"></span></i> Community Rules</h6>
-                        <ul class="dc-rules-list">
-                          <li>Be respectful and constructive</li>
-                          <li>No personal attacks or harassment</li>
-                          <li>Keep posts relevant to FEU Tech</li>
-                          <li>Verify information before sharing</li>
-                        </ul>
+                      <div class="card border border-success bg-light-success">
+                        <div class="card-body p-5">
+                          <p class="fs-6 fw-bold text-success mb-3">Community Rules</p>
+                          <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
+                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>Be respectful and constructive</li>
+                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>No personal attacks or harassment</li>
+                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>Keep posts relevant to FEU Tech</li>
+                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>Verify information before sharing</li>
+                          </ul>
+                        </div>
                       </div>
 
-                    </div>
-
-                  </div><!-- /.discourse-create-layout -->
-                </div>
+                    </div></div></div>
               </div>
 
             </main>
@@ -601,28 +597,133 @@ $META_DESC = "Edit your existing post.";
 
   <?php include($_SERVER['DOCUMENT_ROOT'] . '/Discourse/partials/_scrolltop.php'); ?>
 
-  <link rel="stylesheet" href="/Discourse/assets/css/dashboard.css">
-  <link rel="stylesheet" href="/Discourse/assets/css/sec-posts.css">
-
   <script>
+    const editor = document.getElementById('edit_body_editor');
+
+    function fmt(cmd, val = null) {
+      editor.focus();
+      document.execCommand(cmd, false, val);
+    }
+
+    function insertAtCursor(html) {
+      editor.focus();
+      const sel = window.getSelection();
+      if (!sel.rangeCount) return;
+      const range = sel.getRangeAt(0);
+      range.deleteContents();
+      const div = document.createElement('div');
+      div.innerHTML = html;
+      const frag = document.createDocumentFragment();
+      let lastNode;
+      while (div.firstChild) {
+        lastNode = div.firstChild;
+        frag.appendChild(div.firstChild);
+      }
+      range.insertNode(frag);
+      if (lastNode) {
+        const r2 = range.cloneRange();
+        r2.setStartAfter(lastNode);
+        r2.collapse(true);
+        sel.removeAllRanges();
+        sel.addRange(r2);
+      }
+    }
+
+    function insertList(type) {
+      editor.focus();
+      document.execCommand(type === 'ol' ? 'insertOrderedList' : 'insertUnorderedList', false, null);
+    }
+
+    function insertCodeBlock() {
+      insertAtCursor('<div class="dc-code-block" contenteditable="true" spellcheck="false">// Your code here...</div><p><br></p>');
+    }
+
+    function insertSpoiler() {
+      insertAtCursor('<div class="dc-spoiler"><div class="dc-spoiler-label">⚠ Spoiler — click to reveal</div><div class="dc-spoiler-content" contenteditable="true">Hidden content here...</div></div><p><br></p>');
+    }
+
+    function insertTable() {
+      const html = `<table style="border-collapse:collapse;width:100%;margin:8px 0;"><thead><tr>
+        <th contenteditable="true" style="border:1px solid #e4e6ef;padding:6px 10px;background:#f0faf5;font-size:13px;">Header 1</th>
+        <th contenteditable="true" style="border:1px solid #e4e6ef;padding:6px 10px;background:#f0faf5;font-size:13px;">Header 2</th>
+        <th contenteditable="true" style="border:1px solid #e4e6ef;padding:6px 10px;background:#f0faf5;font-size:13px;">Header 3</th>
+      </tr></thead><tbody><tr>
+        <td contenteditable="true" style="border:1px solid #e4e6ef;padding:6px 10px;font-size:13px;">Cell</td>
+        <td contenteditable="true" style="border:1px solid #e4e6ef;padding:6px 10px;font-size:13px;">Cell</td>
+        <td contenteditable="true" style="border:1px solid #e4e6ef;padding:6px 10px;font-size:13px;">Cell</td>
+      </tr></tbody></table><p><br></p>`;
+      insertAtCursor(html);
+    }
+
+    let mdMode = false;
+
+    function toggleMarkdown(e) {
+      e.preventDefault();
+      mdMode = !mdMode;
+      if (mdMode) {
+        const md = editor.innerHTML
+          .replace(/<b>(.*?)<\/b>/gi, '**$1**').replace(/<i>(.*?)<\/i>/gi, '_$1_')
+          .replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]+>/g, '')
+          .replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>');
+        editor.contentEditable = 'false';
+        editor.style.display = 'none';
+        let ta = document.getElementById('md-textarea');
+        if (!ta) {
+          ta = document.createElement('textarea');
+          ta.id = 'md-textarea';
+          ta.className = 'dc-editor-area';
+          ta.style.borderTop = '1.5px solid #e4e6ef';
+          ta.style.display = 'block';
+          editor.parentNode.insertBefore(ta, editor.nextSibling);
+        }
+        ta.value = md;
+        ta.style.display = 'block';
+        e.target.textContent = 'Switch to Visual';
+      } else {
+        const ta = document.getElementById('md-textarea');
+        if (ta) {
+          editor.innerHTML = ta.value.replace(/\n/g, '<br>');
+          ta.style.display = 'none';
+        }
+        editor.contentEditable = 'true';
+        editor.style.display = 'block';
+        e.target.textContent = 'Switch to Markdown';
+      }
+    }
+
+    function removeImage() {
+      document.getElementById('imageWrapper').style.display = 'none';
+      document.getElementById('noImagePlaceholder').style.display = 'block';
+    }
+
+    function replaceImage(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = function(e) {
+        document.getElementById('attachedImage').src = e.target.result;
+        document.getElementById('imageWrapper').style.display = 'block';
+        document.getElementById('noImagePlaceholder').style.display = 'none';
+      };
+      reader.readAsDataURL(file);
+      event.target.value = '';
+    }
+
     function savePost() {
       const title = document.getElementById('edit_title').value.trim();
       if (!title) {
-        document.getElementById('edit_title').style.borderColor = '#e53935';
         document.getElementById('edit_title').focus();
         return;
       }
-      KTApp && KTApp.showPageLoading();
-      // TODO: AJAX save
+      typeof KTApp !== 'undefined' && KTApp.showPageLoading();
     }
 
     function confirmDelete() {
       if (confirm('Are you sure you want to permanently delete this post? This cannot be undone.')) {
-        KTApp && KTApp.showPageLoading();
-        // TODO: AJAX delete
+        typeof KTApp !== 'undefined' && KTApp.showPageLoading();
       }
     }
   </script>
-
 </body>
+
 </html>
