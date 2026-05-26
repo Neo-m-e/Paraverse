@@ -12,6 +12,9 @@ $META_DESC  = "A poll from FEU Tech Discourse community.";
 <head>
   <?php HEAD_ESSENTIALS(); ?>
   <link href="/Discourse/assets/css/dashboard.css" rel="stylesheet" type="text/css" />
+  <link href="/Discourse/assets/css/sec-posts.css" rel="stylesheet" type="text/css" />
+  <link href="/Discourse/assets/css/sec-modals.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body id="kt_app_body"
@@ -66,18 +69,9 @@ $META_DESC  = "A poll from FEU Tech Discourse community.";
 
                         <div class="card-body pb-0 pt-5 px-5">
 
-                          <div class="d-flex flex-wrap gap-2 mb-4">
-                            <span class="badge badge-light-success rounded-pill px-4 py-2 fs-8">FEU</span>
-                            <span class="badge badge-light-primary rounded-pill px-4 py-2 fs-8">
-                              <i class="bi bi-journal-text me-1"></i>Academic Life
-                            </span>
-                            <span class="badge badge-light-warning rounded-pill px-4 py-2 fs-8">
-                              <i class="bi bi-bar-chart-fill me-1"></i>POLL
-                            </span>
-                          </div>
-
+                        
                           <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">FEUTech</span>
+                            <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">FEUTech</span>
                             <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalReportPost">
                               <i class="bi bi-flag me-1"></i> Report
                             </button>
@@ -89,7 +83,7 @@ $META_DESC  = "A poll from FEU Tech Discourse community.";
                               <a href="#" class="fs-6 fw-bold text-gray-800 text-hover-primary">Marco Torres</a>
                               <span class="text-muted fs-8"><i class="bi bi-clock me-1 fs-8"></i>4h ago</span>
                             </div>
-                            <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">ACADEMIC LIFE</span>
+                            <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">ACADEMIC LIFE</span>
                           </div>
 
                           <h2 class="fs-3 fw-bold text-gray-800 mb-4">
@@ -102,115 +96,105 @@ $META_DESC  = "A poll from FEU Tech Discourse community.";
                             Curious how my fellow FEU Tech students survive finals season. Drop your honest answer below 👇
                           </p>
 
-                          <div class="card border border-success border-opacity-25 bg-light-success mb-4">
-                            <div class="card-body p-5">
-                              <h6 class="fs-6 fw-bold text-gray-800 mb-4">Choose your study strategy:</h6>
+                          <?php 
+                          // Control variable: Gawing true kapag bumoto na (mula sa DB) para lumitaw ang results
+                          // When true, JS/CSS .show-results state activates gradient fill + percentage reveal.
+                          $HAS_VOTED = false; 
+                          ?>
 
-                              <?php 
-                              // Control variable: Gawing true kapag bumoto na (mula sa DB) para lumitaw ang results
-                              $HAS_VOTED = false; 
+                          <h6 class="fs-6 fw-bold text-gray-800 mb-4">Choose your study strategy:</h6>
 
-                              if ($HAS_VOTED): 
-                                // ─── STATE A: USER HAS VOTED (Show Percentages & Progress Bars) ───
-                              ?>
-                                <div class="mb-4">
-                                  <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="fs-7 text-gray-700">Start early, study consistently</span>
-                                    <span class="fs-8 fw-bold text-gray-600">28%</span>
-                                  </div>
-                                  <div class="bg-white rounded-pill overflow-hidden" style="height:8px;">
-                                    <div class="bg-success rounded-pill h-100" style="width:28%;"></div>
-                                  </div>
-                                </div>
+                          <!-- discourse-poll-options: JS in sec-posts.js handles .show-results + .selected on click -->
+                          <!-- PHP adds 'show-results' class when $HAS_VOTED = true (from DB) -->
+                          <div class="d-flex flex-column gap-2 mb-3 discourse-poll-options<?= $HAS_VOTED ? ' show-results' : '' ?>">
 
-                                <div class="mb-4">
-                                  <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="fs-7 fw-semibold text-gray-800">Cram the night before</span>
-                                    <span class="fs-8 fw-bold text-warning">45%</span>
-                                  </div>
-                                  <div class="bg-white rounded-pill overflow-hidden" style="height:8px;">
-                                    <div class="bg-warning rounded-pill h-100" style="width:45%;"></div>
-                                  </div>
-                                </div>
+                            <button class="discourse-poll-option" data-poll-id="finals-poll" data-option="0" style="--target-width: 28%;">
+                              <span class="fs-7 fw-bold text-gray-800">Start early, study consistently</span>
+                              <span class="fs-7 fw-bold text-gray-800 discourse-poll-percentage">28%</span>
+                            </button>
 
-                                <div class="mb-4">
-                                  <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="fs-7 text-gray-700">Rely on group chats and past papers</span>
-                                    <span class="fs-8 fw-bold text-gray-600">19%</span>
-                                  </div>
-                                  <div class="bg-white rounded-pill overflow-hidden" style="height:8px;">
-                                    <div class="bg-success rounded-pill h-100" style="width:19%;"></div>
-                                  </div>
-                                </div>
+                            <button class="discourse-poll-option" data-poll-id="finals-poll" data-option="1" style="--target-width: 45%;">
+                              <span class="fs-7 fw-bold text-gray-800">Cram the night before</span>
+                              <span class="fs-7 fw-bold text-gray-800 discourse-poll-percentage">45%</span>
+                            </button>
 
-                                <div class="mb-4">
-                                  <div class="d-flex justify-content-between align-items-center mb-1">
-                                    <span class="fs-7 text-gray-700">Pray and submit anyway</span>
-                                    <span class="fs-8 fw-bold text-gray-600">8%</span>
-                                  </div>
-                                  <div class="bg-white rounded-pill overflow-hidden" style="height:8px;">
-                                    <div class="bg-success rounded-pill h-100" style="width:8%;"></div>
-                                  </div>
-                                </div>
+                            <button class="discourse-poll-option" data-poll-id="finals-poll" data-option="2" style="--target-width: 19%;">
+                              <span class="fs-7 fw-bold text-gray-800">Rely on group chats and past papers</span>
+                              <span class="fs-7 fw-bold text-gray-800 discourse-poll-percentage">19%</span>
+                            </button>
 
-                              <?php else: 
-                                // ─── STATE B: USER HAS NOT VOTED (Show Clean Clickable Radio Options) ───
-                              ?>
-                                <form id="poll_vote_form" method="POST" action="submit-vote.php" class="mb-4">
-                                  
-                                  <label class="d-flex align-items-center p-3 rounded-3 border border-gray-300 bg-white cursor-pointer mb-3 text-hover-success transition-all" style="transition: 0.2s ease;">
-                                    <input type="radio" name="poll_choice" value="1" class="form-check-input me-3" style="width:18px; height:18px; cursor: pointer;">
-                                    <span class="fs-7 text-gray-800 fw-medium">Start early, study consistently</span>
-                                  </label>
+                            <button class="discourse-poll-option" data-poll-id="finals-poll" data-option="3" style="--target-width: 8%;">
+                              <span class="fs-7 fw-bold text-gray-800">Pray and submit anyway</span>
+                              <span class="fs-7 fw-bold text-gray-800 discourse-poll-percentage">8%</span>
+                            </button>
 
-                                  <label class="d-flex align-items-center p-3 rounded-3 border border-gray-300 bg-white cursor-pointer mb-3 text-hover-success transition-all" style="transition: 0.2s ease;">
-                                    <input type="radio" name="poll_choice" value="2" class="form-check-input me-3" style="width:18px; height:18px; cursor: pointer;">
-                                    <span class="fs-7 text-gray-800 fw-medium">Cram the night before</span>
-                                  </label>
-
-                                  <label class="d-flex align-items-center p-3 rounded-3 border border-gray-300 bg-white cursor-pointer mb-3 text-hover-success transition-all" style="transition: 0.2s ease;">
-                                    <input type="radio" name="poll_choice" value="3" class="form-check-input me-3" style="width:18px; height:18px; cursor: pointer;">
-                                    <span class="fs-7 text-gray-800 fw-medium">Rely on group chats and past papers</span>
-                                  </label>
-
-                                  <label class="d-flex align-items-center p-3 rounded-3 border border-gray-300 bg-white cursor-pointer mb-4 text-hover-success transition-all" style="transition: 0.2s ease;">
-                                    <input type="radio" name="poll_choice" value="4" class="form-check-input me-3" style="width:18px; height:18px; cursor: pointer;">
-                                    <span class="fs-7 text-gray-800 fw-medium">Pray and submit anyway</span>
-                                  </label>
-
-                                  <button type="submit" class="btn btn-success btn-sm w-100 fw-bold py-3 fs-7">
-                                    <i class="bi bi-check-circle me-1"></i> Submit Vote
-                                  </button>
-                                </form>
-                              <?php endif; ?>
-
-                              <p class="text-muted fs-8 mb-0 border-top pt-3 mt-2">
-                                <i class="bi bi-people-fill me-1"></i>442 votes · 3 days left ·
-                                <a href="#" class="text-success fw-semibold fs-8">Feu-voted</a>
-                              </p>
-                            </div>
                           </div>
+
+                          <p class="text-muted fs-8 mb-0 border-top pt-3 mt-2">
+                            <i class="bi bi-people-fill me-1"></i>442 votes · 3 days left ·
+                            <a href="#" class=" fw-semibold fs-8" style="color:#2D6A4F;">Feu-voted</a>
+                          </p>
                         </div>
 
                         <div class="card-body pt-0 px-5 pb-0">
                           <div class="d-flex justify-content-between align-items-center border-top border-bottom py-3">
                             <div class="d-flex flex-wrap gap-1">
-                              <button class="btn btn-sm btn-light-success fw-semibold">
-                                <i class="bi bi-hand-thumbs-up-fill"></i> Like <span class="ms-1 fw-bold">441</span>
-                              </button>
-                              <button class="btn btn-sm">
-                                <i class="bi bi-hand-thumbs-down"></i> Dislike
-                              </button>
-                              <button class="btn btn-sm">
-                                <i class="bi bi-chat"></i> 2 Comments
-                              </button>
-                              <button class="btn btn-sm">
-                                <i class="bi bi-share"></i> Share
-                              </button>
-                              <button class="btn btn-sm">
-                                <i class="bi bi-bookmark"></i> Save
-                              </button>
-                            </div>
+                                            <button class="btn btn-sm fw-semibold" id="postLikeBtn"
+  onclick="(function(b){{
+    var liked=b.dataset.on==='1';
+    liked=!liked;
+    var dis=document.getElementById('postDislikeBtn');
+    if(liked){{dis.dataset.on='0';dis.style.cssText='';dis.innerHTML='<i class=\'bi bi-hand-thumbs-down\'></i> Dislike';}}
+    b.dataset.on=liked?'1':'0';
+    b.style.cssText=liked?'background:rgba(23,198,112,.15);color:#17c671;border-color:#17c671;':'';
+    b.innerHTML=liked?'<i class=\'bi bi-hand-thumbs-up-fill\'></i> Like <span>441</span>':'<i class=\'bi bi-hand-thumbs-up\'></i> Like <span>441</span>';
+  }})(this)">
+  <i class="bi bi-hand-thumbs-up"></i> Like <span>441</span>
+</button>
+<button class="btn btn-sm" id="postDislikeBtn"
+  onclick="(function(b){{
+    var on=b.dataset.on==='1';
+    on=!on;
+    var like=document.getElementById('postLikeBtn');
+    if(on){{like.dataset.on='0';like.style.cssText='';like.innerHTML='<i class=\'bi bi-hand-thumbs-up\'></i> Like <span>441</span>';}}
+    b.dataset.on=on?'1':'0';
+    b.style.cssText=on?'background:rgba(220,53,69,.12);color:#dc3545;border-color:#dc3545;':'';
+    b.innerHTML=on?'<i class=\'bi bi-hand-thumbs-down-fill\'></i> Dislike':'<i class=\'bi bi-hand-thumbs-down\'></i> Dislike';
+  }})(this)">
+  <i class="bi bi-hand-thumbs-down"></i> Dislike
+</button>
+<button class="btn btn-sm">
+  <i class="bi bi-chat"></i> 2 Comments
+</button>
+<button class="btn btn-sm" id="postShareBtn"
+  onclick="(function(b){{
+    try{{navigator.clipboard.writeText(window.location.href);}}catch(e){{}}
+    var t=document.getElementById('dc-toast');
+    t.querySelector('span').textContent='Link copied!';
+    t.style.display='flex';
+    clearTimeout(window._t);
+    window._t=setTimeout(function(){{t.style.display='none';}},2200);
+    b.style.color='#0d6efd';
+    setTimeout(function(){{b.style.color='';}},2000);
+  }})(this)">
+  <i class="bi bi-share"></i> Share
+</button>
+<button class="btn btn-sm" id="postSaveBtn"
+  onclick="(function(b){{
+    var on=b.dataset.on==='1';
+    on=!on;
+    b.dataset.on=on?'1':'0';
+    b.style.cssText=on?'background:rgba(13,110,253,.12);color:#0d6efd;border-color:#0d6efd;':'';
+    b.innerHTML=on?'<i class=\'bi bi-bookmark-fill\'></i> Saved':'<i class=\'bi bi-bookmark\'></i> Save';
+    if(on){{var t=document.getElementById('dc-toast');t.querySelector('span').textContent='Saved!';t.style.display='flex';clearTimeout(window._t2);window._t2=setTimeout(function(){{t.style.display='none';}},2200);}}
+  }})(this)">
+  <i class="bi bi-bookmark"></i> Save
+</button>
+</div>
+<!-- Toast -->
+<div id="dc-toast" style="display:none;align-items:center;gap:8px;margin-top:8px;padding:8px 14px;background:#f8f9fa;border:1px solid #dee2e6;border-radius:8px;font-size:13px;color:#212529;">
+  <i class="bi bi-check-circle-fill text-success"></i><span></span>
+</div>
                           </div>
                         </div>
 
@@ -225,14 +209,26 @@ $META_DESC  = "A poll from FEU Tech Discourse community.";
                               <div class="d-flex align-items-center gap-3 mb-2">
                                 <span class="fs-7 fw-bold text-gray-800">Sofia Karin</span>
                                 <span class="text-muted fs-8">30m ago</span>
-                                <span class="ms-auto text-muted fs-8">
-                                  <i class="bi bi-hand-thumbs-up-fill me-1"></i>10
-                                </span>
                               </div>
                               <p class="fs-7 text-gray-700 mb-2">The last option is way too relatable lmao.</p>
-                              <button class="btn btn-sm p-0 text-muted fs-8">
-                                <i class="bi bi-reply me-1"></i>Reply
-                              </button>
+                              <div class="d-flex align-items-center gap-2 mt-1">
+                                                <button class="btn btn-sm p-0 text-muted fs-8 dc-comment-like" title="Like">
+                                                  <i class="bi bi-hand-thumbs-up"></i>
+                                                </button>
+                                                <button class="btn btn-sm p-0 text-muted fs-8 dc-comment-dislike" title="Dislike">
+                                                  <i class="bi bi-hand-thumbs-down"></i>
+                                                </button>
+                                                <button class="btn btn-sm p-0 text-muted fs-8 dc-reply-btn" title="Reply">
+                                                  <i class="bi bi-reply me-1"></i>Reply
+                                                </button>
+                                              </div>
+                                              <div class="dc-reply-box mt-3 d-none">
+                                                <textarea class="form-control form-control-solid form-control-sm mb-2" rows="2" placeholder="Write a reply…"></textarea>
+                                                <div class="d-flex justify-content-end gap-2">
+                                                  <button class="btn btn-sm btn-light dc-reply-cancel">Cancel</button>
+                                                  <button class="btn btn-sm btn-success fw-bold"><i class="bi bi-send-fill me-1"></i>Reply</button>
+                                                </div>
+                                              </div>
                             </div>
                           </div>
 
@@ -242,22 +238,38 @@ $META_DESC  = "A poll from FEU Tech Discourse community.";
                               <div class="d-flex align-items-center gap-3 mb-2">
                                 <span class="fs-7 fw-bold text-gray-800">Anonymous</span>
                                 <span class="text-muted fs-8">30m ago</span>
-                                <span class="ms-auto text-muted fs-8">
-                                  <i class="bi bi-hand-thumbs-up-fill me-1"></i>6
-                                </span>
                               </div>
                               <p class="fs-7 text-gray-700 mb-2">Group chats are the actual syllabus honestly.</p>
-                              <button class="btn btn-sm p-0 text-muted fs-8">
-                                <i class="bi bi-reply me-1"></i>Reply
-                              </button>
+                              <div class="d-flex align-items-center gap-2 mt-1">
+                                                <button class="btn btn-sm p-0 text-muted fs-8 dc-comment-like" title="Like">
+                                                  <i class="bi bi-hand-thumbs-up"></i>
+                                                </button>
+                                                <button class="btn btn-sm p-0 text-muted fs-8 dc-comment-dislike" title="Dislike">
+                                                  <i class="bi bi-hand-thumbs-down"></i>
+                                                </button>
+                                                <button class="btn btn-sm p-0 text-muted fs-8 dc-reply-btn" title="Reply">
+                                                  <i class="bi bi-reply me-1"></i>Reply
+                                                </button>
+                                              </div>
+                                              <div class="dc-reply-box mt-3 d-none">
+                                                <textarea class="form-control form-control-solid form-control-sm mb-2" rows="2" placeholder="Write a reply…"></textarea>
+                                                <div class="d-flex justify-content-end gap-2">
+                                                  <button class="btn btn-sm btn-light dc-reply-cancel">Cancel</button>
+                                                  <button class="btn btn-sm btn-success fw-bold"><i class="bi bi-send-fill me-1"></i>Reply</button>
+                                                </div>
+                                              </div>
                             </div>
                           </div>
 
                           <div class="d-flex gap-3 mt-4">
                             <img src="/Discourse/assets/images/catalina.webp" alt="You" class="h-35px w-35px rounded-circle flex-shrink-0" />
                             <div class="flex-grow-1 d-flex flex-column gap-2">
-                              <textarea class="form-control form-control-solid" rows="2" placeholder="Write a comment…"></textarea>
-                              <div class="d-flex justify-content-end">
+                                            <label class="d-flex align-items-center gap-2 text-muted fs-8 cursor-pointer mb-0">
+                                              <input type="checkbox" class="form-check-input dc-anon-toggle" style="width:14px;height:14px;">
+                                              <i class="bi bi-eye-slash-fill"></i> Post anonymously
+                                            </label>
+                                            <textarea class="form-control form-control-solid" rows="2" placeholder="Write a comment…"></textarea>
+                                            <div class="d-flex justify-content-end">
                                 <button class="btn btn-sm btn-success fw-bold">
                                   <i class="bi bi-send-fill me-1"></i> Post
                                 </button>
@@ -297,7 +309,7 @@ $META_DESC  = "A poll from FEU Tech Discourse community.";
                             </div>
                           </div>
                           <a href="#" class="btn btn-sm btn-light-success w-100 fw-bold">
-                            <i class="bi bi-person-plus-fill me-1"></i> Follow
+                            <i class="bi bi-person-plus-fill me-1" style="color:#2D6A4F;"></i> Follow
                           </a>
                         </div>
                       </div>
@@ -308,14 +320,14 @@ $META_DESC  = "A poll from FEU Tech Discourse community.";
                         </div>
                         <div class="card-body p-0">
                           <a href="#" class="d-flex align-items-start gap-3 p-4 border-bottom text-decoration-none text-hover-primary">
-                            <span class="badge badge-light-warning rounded-pill px-3 py-2 fs-8 flex-shrink-0">#21</span>
+                            <span class="badge badge-light-success rounded-pill px-3 py-2 fs-8 flex-shrink-0" style="color:#2D6A4F;">#21</span>
                             <div>
                               <div class="fs-7 fw-semibold text-gray-800 mb-1">What's the hardest part of the CS program?</div>
                               <div class="text-muted fs-8">FEU · 4h ago · 80 pts</div>
                             </div>
                           </a>
                           <a href="#" class="d-flex align-items-start gap-3 p-4 text-decoration-none text-hover-primary">
-                            <span class="badge badge-light-warning rounded-pill px-3 py-2 fs-8 flex-shrink-0">#21</span>
+                            <span class="badge badge-light-success rounded-pill px-3 py-2 fs-8 flex-shrink-0" style="color:#2D6A4F;">#21</span>
                             <div>
                               <div class="fs-7 fw-semibold text-gray-800 mb-1">Best FEU canteen stall, definitive</div>
                               <div class="text-muted fs-8">FEU · 3d ago · 105 votes</div>
@@ -361,12 +373,12 @@ $META_DESC  = "A poll from FEU Tech Discourse community.";
 
                       <div class="card border border-success bg-light-success">
                         <div class="card-body p-5">
-                          <p class="fs-6 fw-bold text-success mb-3">Community Rules</p>
+                          <p class="fs-6 fw-bold mb-3" style="color:#2D6A4F;">Community Rules</p>
                           <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>Be respectful and constructive</li>
-                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>No personal attacks or harassment</li>
-                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>Keep posts relevant to FEU Tech</li>
-                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>Verify information before sharing</li>
+                            <li class="d-flex align-items-start gap-2 fs-7" style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Be respectful and constructive</li>
+                            <li class="d-flex align-items-start gap-2 fs-7" style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>No personal attacks or harassment</li>
+                            <li class="d-flex align-items-start gap-2 fs-7" style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Keep posts relevant to FEU Tech</li>
+                            <li class="d-flex align-items-start gap-2 fs-7" style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Verify information before sharing</li>
                           </ul>
                         </div>
                       </div>
@@ -390,6 +402,51 @@ $META_DESC  = "A poll from FEU Tech Discourse community.";
   <script src="/Discourse/assets/plugins/global/plugins.bundle.js"></script>
   <script src="/Discourse/assets/js/scripts.bundle.js"></script>
   <script src="/Discourse/assets/js/dashboard.js"></script>
+  <script src="/Discourse/assets/js/sec-posts.js"></script>
+  
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.dc-comment-like').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var bubble = this.closest('.bg-light');
+      var dislike = bubble.querySelector('.dc-comment-dislike');
+      var on = this.classList.toggle('text-success');
+      this.querySelector('i').className = on ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up';
+      if (on) { dislike.classList.remove('text-danger'); dislike.querySelector('i').className = 'bi bi-hand-thumbs-down'; }
+    });
+  });
+  document.querySelectorAll('.dc-comment-dislike').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var bubble = this.closest('.bg-light');
+      var like = bubble.querySelector('.dc-comment-like');
+      var on = this.classList.toggle('text-danger');
+      this.querySelector('i').className = on ? 'bi bi-hand-thumbs-down-fill' : 'bi bi-hand-thumbs-down';
+      if (on) { like.classList.remove('text-success'); like.querySelector('i').className = 'bi bi-hand-thumbs-up'; }
+    });
+  });
+  document.querySelectorAll('.dc-reply-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var box = this.closest('.bg-light').querySelector('.dc-reply-box');
+      box.classList.toggle('d-none');
+      if (!box.classList.contains('d-none')) box.querySelector('textarea').focus();
+    });
+  });
+  document.querySelectorAll('.dc-reply-cancel').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      this.closest('.dc-reply-box').classList.add('d-none');
+    });
+  });
+  var anonAvatar = '/Discourse/assets/images/anonymous.png';
+  document.querySelectorAll('.dc-anon-toggle').forEach(function (cb) {
+    var row = cb.closest('.d-flex.gap-3');
+    var avatarImg = row ? row.querySelector('img') : null;
+    var originalSrc = avatarImg ? avatarImg.src : null;
+    cb.addEventListener('change', function () {
+      if (avatarImg) avatarImg.src = this.checked ? anonAvatar : originalSrc;
+    });
+  });
+});
+</script>
 </body>
 
 </html>

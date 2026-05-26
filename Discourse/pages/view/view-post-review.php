@@ -12,6 +12,8 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
 <head>
   <?php HEAD_ESSENTIALS(); ?>
   <link href="/Discourse/assets/css/dashboard.css" rel="stylesheet" type="text/css" />
+  <link href="/Discourse/assets/css/sec-modals.css" rel="stylesheet" type="text/css" />
+
 </head>
 
 <body id="kt_app_body"
@@ -66,24 +68,9 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
 
                         <!-- Post Header -->
                         <div class="card-body pb-0 pt-5 px-5">
-
-                          <!-- Tags row -->
-                          <div class="d-flex flex-wrap gap-2 mb-4">
-                            <span class="badge badge-light-success rounded-pill px-4 py-2 fs-8">FEU</span>
-                            <span class="badge badge-light-primary rounded-pill px-4 py-2 fs-8">
-                              <i class="bi bi-building me-1"></i>Campus Life
-                            </span>
-                            <span class="badge badge-light-warning rounded-pill px-4 py-2 fs-8">
-                              <i class="bi bi-star-fill me-1"></i>REVIEW
-                            </span>
-                            <span class="badge badge-light-info rounded-pill px-4 py-2 fs-8">
-                              <i class="bi bi-person-check-fill me-1"></i>Your Post
-                            </span>
-                          </div>
-
                           <!-- Community badge + Report -->
                           <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">FEUTech</span>
+                            <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">FEUTech</span>
                             <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalReportPost">
                               <i class="bi bi-flag me-1"></i> Report
                             </button>
@@ -93,7 +80,10 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                           <div class="d-flex gap-3 align-items-center mb-4">
                             <img src="/Discourse/assets/images/catalina.webp" alt="Catalina Smith" class="h-40px w-40px rounded-circle" />
                             <div class="d-flex flex-column">
-                              <a href="#" class="fs-6 fw-bold text-gray-800 text-hover-primary">Catalina Smith</a>
+                              <div class="d-flex align-items-center gap-2">
+                                <a href="#" class="fs-6 fw-bold text-gray-800 text-hover-primary">Catalina Smith</a>
+                                <span class="badge badge-light-warning rounded-pill px-3 py-1 fs-8 fw-bold">Your Post</span>
+                              </div>
                               <span class="text-muted fs-8"><i class="bi bi-clock me-1 fs-8"></i>4h ago</span>
                             </div>
                           </div>
@@ -127,29 +117,59 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                         <div class="card-body pt-0 px-5 pb-0">
                           <div class="d-flex justify-content-between align-items-center border-top border-bottom py-3">
                             <div class="d-flex flex-wrap gap-1">
-                              <button class="btn btn-sm btn-light-success fw-semibold">
-                                <i class="bi bi-hand-thumbs-up-fill"></i> Like <span class="ms-1 fw-bold">44</span>
-                              </button>
-                              <button class="btn btn-sm">
-                                <i class="bi bi-hand-thumbs-down"></i> Dislike
-                              </button>
-                              <button class="btn btn-sm">
-                                <i class="bi bi-chat"></i> 1 Comment
-                              </button>
-                              <button class="btn btn-sm">
-                                <i class="bi bi-share"></i> Share
-                              </button>
-                              <button class="btn btn-sm">
-                                <i class="bi bi-bookmark"></i> Save
-                              </button>
-                              <a href="/discourse/pages/view/edit-post.php" class="btn btn-sm">
-                                <i class="bi bi-pencil"></i> Edit
-                              </a>
-                            </div>
-                          </div>
-                        </div>
 
-                        <!-- Comments Section -->
+              <button id="postLikeBtn" onclick="
+                var b=this,liked=b.dataset.on==='1';liked=!liked;b.dataset.on=liked?'1':'0';
+                var d=document.getElementById('postDislikeBtn');
+                if(liked){d.dataset.on='0';d.style.cssText='';d.innerHTML='<i class=\'bi bi-hand-thumbs-down\'></i> Dislike';}
+                b.style.cssText=liked?'background:rgba(23,198,112,.15);color:#17c671;border-color:#17c671;':'';
+                b.innerHTML=liked?'<i class=\'bi bi-hand-thumbs-up-fill\'></i> Like <span>45</span>':'<i class=\'bi bi-hand-thumbs-up\'></i> Like <span>44</span>';
+              " class="btn btn-sm">
+                <i class="bi bi-hand-thumbs-up"></i> Like <span>44</span>
+              </button>
+
+              <button id="postDislikeBtn" onclick="
+                var b=this,on=b.dataset.on==='1';on=!on;b.dataset.on=on?'1':'0';
+                var l=document.getElementById('postLikeBtn');
+                if(on){l.dataset.on='0';l.style.cssText='';l.innerHTML='<i class=\'bi bi-hand-thumbs-up\'></i> Like <span>44</span>';}
+                b.style.cssText=on?'background:rgba(220,53,69,.12);color:#dc3545;border-color:#dc3545;':'';
+                b.innerHTML=on?'<i class=\'bi bi-hand-thumbs-down-fill\'></i> Dislike':'<i class=\'bi bi-hand-thumbs-down\'></i> Dislike';
+              " class="btn btn-sm">
+                <i class="bi bi-hand-thumbs-down"></i> Dislike
+              </button>
+
+              <button class="btn btn-sm">
+                <i class="bi bi-chat"></i> 1 Comment
+              </button>
+
+              <button onclick="
+                try{navigator.clipboard.writeText(window.location.href);}catch(e){}
+                this.style.color='#0d6efd';setTimeout(()=>{this.style.color='';},2000);
+                var t=document.getElementById('dc-toast');
+                t.querySelector('span').textContent='Link copied!';t.style.display='flex';
+                clearTimeout(window._t);window._t=setTimeout(()=>{t.style.display='none';},2200);
+              " class="btn btn-sm">
+                <i class="bi bi-share"></i> Share
+              </button>
+
+              <button id="postSaveBtn" onclick="
+                var b=this,on=b.dataset.on==='1';on=!on;b.dataset.on=on?'1':'0';
+                b.style.cssText=on?'background:rgba(13,110,253,.12);color:#0d6efd;border-color:#0d6efd;':'';
+                b.innerHTML=on?'<i class=\'bi bi-bookmark-fill\'></i> Saved':'<i class=\'bi bi-bookmark\'></i> Save';
+                if(on){var t=document.getElementById('dc-toast');t.querySelector('span').textContent='Saved!';t.style.display='flex';clearTimeout(window._t2);window._t2=setTimeout(()=>{t.style.display='none';},2200);}
+              " class="btn btn-sm">
+                <i class="bi bi-bookmark"></i> Save
+              </button>
+
+            </div>
+
+            <div id="dc-toast" style="display:none;align-items:center;gap:8px;margin-top:10px;padding:8px 14px;background:#f1f1f1;border:1px solid #ddd;border-radius:8px;font-size:13px;color:#212529;">
+              <i class="bi bi-check-circle-fill text-success"></i><span></span>
+            </div>
+
+          </div>
+        </div>
+        <!-- Comments Section -->
                         <div class="card-body px-5 py-5">
                           <h6 class="fs-6 fw-bold text-gray-800 mb-4">
                             Comments <span class="text-muted fw-normal fs-7">3</span>
@@ -162,14 +182,26 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                               <div class="d-flex align-items-center gap-3 mb-2">
                                 <span class="fs-7 fw-bold text-gray-800">Sofia Karin</span>
                                 <span class="text-muted fs-8">1h ago</span>
-                                <span class="ms-auto text-muted fs-8">
-                                  <i class="bi bi-hand-thumbs-up-fill me-1"></i>10
-                                </span>
                               </div>
                               <p class="fs-7 text-gray-700 mb-2">The booking system needs a serious UX overhaul. I gave up twice before figuring it out.</p>
-                              <button class="btn btn-sm p-0 text-muted fs-8">
-                                <i class="bi bi-reply me-1"></i>Reply
-                              </button>
+                              <div class="d-flex align-items-center gap-2 mt-1">
+                                                <button class="btn btn-sm p-0 text-muted fs-8 dc-comment-like" title="Like">
+                                                  <i class="bi bi-hand-thumbs-up"></i>
+                                                </button>
+                                                <button class="btn btn-sm p-0 text-muted fs-8 dc-comment-dislike" title="Dislike">
+                                                  <i class="bi bi-hand-thumbs-down"></i>
+                                                </button>
+                                                <button class="btn btn-sm p-0 text-muted fs-8 dc-reply-btn" title="Reply">
+                                                  <i class="bi bi-reply me-1"></i>Reply
+                                                </button>
+                                              </div>
+                                              <div class="dc-reply-box mt-3 d-none">
+                                                <textarea class="form-control form-control-solid form-control-sm mb-2" rows="2" placeholder="Write a reply…"></textarea>
+                                                <div class="d-flex justify-content-end gap-2">
+                                                  <button class="btn btn-sm btn-light dc-reply-cancel">Cancel</button>
+                                                  <button class="btn btn-sm btn-success fw-bold"><i class="bi bi-send-fill me-1"></i>Reply</button>
+                                                </div>
+                                              </div>
                             </div>
                           </div>
 
@@ -177,8 +209,12 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                           <div class="d-flex gap-3 mt-4">
                             <img src="/Discourse/assets/images/catalina.webp" alt="You" class="h-35px w-35px rounded-circle flex-shrink-0" />
                             <div class="flex-grow-1 d-flex flex-column gap-2">
-                              <textarea class="form-control form-control-solid" rows="2" placeholder="Write a comment…"></textarea>
-                              <div class="d-flex justify-content-end">
+                                            <label class="d-flex align-items-center gap-2 text-muted fs-8 cursor-pointer mb-0">
+                                              <input type="checkbox" class="form-check-input dc-anon-toggle" style="width:14px;height:14px;">
+                                              <i class="bi bi-eye-slash-fill"></i> Post anonymously
+                                            </label>
+                                            <textarea class="form-control form-control-solid" rows="2" placeholder="Write a comment…"></textarea>
+                                            <div class="d-flex justify-content-end">
                                 <button class="btn btn-sm btn-success fw-bold">
                                   <i class="bi bi-send-fill me-1"></i> Post
                                 </button>
@@ -221,9 +257,10 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                               <div class="text-muted fs-8">Following</div>
                             </div>
                           </div>
-                          <a href="#" class="btn btn-sm btn-light-success w-100 fw-bold">
-                            <i class="bi bi-person-plus-fill me-1"></i> Follow
-                          </a>
+                          <div class="d-flex align-items-center justify-content-center gap-2 p-3 bg-light-success rounded-2">
+                            <i class="bi bi-person-check-fill" style="color:#2D6A4F;"></i>
+                            <span class="fs-7 fw-bold" style="color:#2D6A4F;">Your Post</span>
+                          </div>
                         </div>
                       </div>
 
@@ -234,14 +271,14 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                         </div>
                         <div class="card-body p-0">
                           <a href="#" class="d-flex align-items-start gap-3 p-4 border-bottom text-decoration-none text-hover-primary">
-                            <span class="badge badge-light-success rounded-pill px-3 py-2 fs-8 flex-shrink-0">#169</span>
+                            <span class="badge badge-light-success rounded-pill px-3 py-2 fs-8 flex-shrink-0" style="color:#2D6A4F;">#169</span>
                             <div>
                               <div class="fs-7 fw-semibold text-gray-800 mb-1">Pro tips for surviving enrollment season at FEU Tech</div>
                               <div class="text-muted fs-8">FEU · 4d ago</div>
                             </div>
                           </a>
                           <a href="#" class="d-flex align-items-start gap-3 p-4 text-decoration-none text-hover-primary">
-                            <span class="badge badge-light-success rounded-pill px-3 py-2 fs-8 flex-shrink-0">#127</span>
+                            <span class="badge badge-light-success rounded-pill px-3 py-2 fs-8 flex-shrink-0" style="color:#2D6A4F;">#127</span>
                             <div>
                               <div class="fs-7 fw-semibold text-gray-800 mb-1">What if FEU had a no-grade-penalty mental health leave policy?</div>
                               <div class="text-muted fs-8">Student Welfare · 1w ago</div>
@@ -251,14 +288,14 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                       </div>
 
                       <!-- Community Rules -->
-                     <div class="card border border-success bg-light-success">
+                      <div class="card border border-success bg-light-success">
                         <div class="card-body p-5">
-                          <p class="fs-6 fw-bold text-success mb-3">Community Rules</p>
+                          <p class="fs-6 fw-bold mb-3" style="color:#2D6A4F;">Community Rules</p>
                           <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>Be respectful and constructive</li>
-                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>No personal attacks or harassment</li>
-                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>Keep posts relevant to FEU Tech</li>
-                            <li class="d-flex align-items-start gap-2 fs-7 text-success"><span class="fw-bold flex-shrink-0">✓</span>Verify information before sharing</li>
+                            <li class="d-flex align-items-start gap-2 fs-7" style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Be respectful and constructive</li>
+                            <li class="d-flex align-items-start gap-2 fs-7 " style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>No personal attacks or harassment</li>
+                            <li class="d-flex align-items-start gap-2 fs-7 " style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Keep posts relevant to FEU Tech</li>
+                            <li class="d-flex align-items-start gap-2 fs-7 " style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Verify information before sharing</li>
                           </ul>
                         </div>
                       </div>
@@ -285,6 +322,50 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
   <script src="/Discourse/assets/plugins/global/plugins.bundle.js"></script>
   <script src="/Discourse/assets/js/scripts.bundle.js"></script>
   <script src="/Discourse/assets/js/dashboard.js"></script>
+  
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.dc-comment-like').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var bubble = this.closest('.bg-light');
+      var dislike = bubble.querySelector('.dc-comment-dislike');
+      var on = this.classList.toggle('text-success');
+      this.querySelector('i').className = on ? 'bi bi-hand-thumbs-up-fill' : 'bi bi-hand-thumbs-up';
+      if (on) { dislike.classList.remove('text-danger'); dislike.querySelector('i').className = 'bi bi-hand-thumbs-down'; }
+    });
+  });
+  document.querySelectorAll('.dc-comment-dislike').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var bubble = this.closest('.bg-light');
+      var like = bubble.querySelector('.dc-comment-like');
+      var on = this.classList.toggle('text-danger');
+      this.querySelector('i').className = on ? 'bi bi-hand-thumbs-down-fill' : 'bi bi-hand-thumbs-down';
+      if (on) { like.classList.remove('text-success'); like.querySelector('i').className = 'bi bi-hand-thumbs-up'; }
+    });
+  });
+  document.querySelectorAll('.dc-reply-btn').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var box = this.closest('.bg-light').querySelector('.dc-reply-box');
+      box.classList.toggle('d-none');
+      if (!box.classList.contains('d-none')) box.querySelector('textarea').focus();
+    });
+  });
+  document.querySelectorAll('.dc-reply-cancel').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      this.closest('.dc-reply-box').classList.add('d-none');
+    });
+  });
+  var anonAvatar = '/Discourse/assets/images/anonymous.png';
+  document.querySelectorAll('.dc-anon-toggle').forEach(function (cb) {
+    var row = cb.closest('.d-flex.gap-3');
+    var avatarImg = row ? row.querySelector('img') : null;
+    var originalSrc = avatarImg ? avatarImg.src : null;
+    cb.addEventListener('change', function () {
+      if (avatarImg) avatarImg.src = this.checked ? anonAvatar : originalSrc;
+    });
+  });
+});
+</script>
 </body>
 
 </html>

@@ -19,7 +19,8 @@
       />
     </div>
     <a href="/Discourse/pages/view/create-post.php" 
-   class="btn btn-sm btn-success rounded-pill fw-bold fs-7 px-4 py-3 d-inline-flex align-items-center justify-content-center gap-1">
+   class="btn btn-sm rounded-pill fw-bold fs-7 px-4 py-3 d-inline-flex align-items-center justify-content-center gap-1"
+   style="background:#0b301f; color:#fff;">
   <i class="bi bi-plus-lg me-1 fs-7"></i> New Post
 </a>
   </div>

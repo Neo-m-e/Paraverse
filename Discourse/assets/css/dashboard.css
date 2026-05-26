@@ -46,10 +46,6 @@ body {
   .discourse-dashboard-layout {
     grid-template-columns: 1fr;
   }
-
-  .discourse-sidebar-col {
-    order: -1;
-  }
 }
 
 @media (max-width: 768px) {

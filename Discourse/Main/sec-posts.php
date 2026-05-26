@@ -32,7 +32,7 @@
             <!-- Row 1: Community badge + Report button -->
             <div class="col-12 mb-2">
               <div class="d-flex justify-content-between align-items-center">
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">FEUTech</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">FEUTech</span>
                 <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalReportPost">
                   <i class="bi bi-flag me-1"></i> Report
                 </button>
@@ -47,7 +47,7 @@
                   <a href="#other-profile" class="fs-6 fw-bold text-gray-800 text-hover-primary">Ravi Joshi</a>
                   <span class="text-muted fs-8"><i class="bi bi-clock me-1 fs-8"></i>1d ago</span>
                 </div>
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">TECHNOLOGY</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">TECHNOLOGY</span>
               </div>
             </div>
 
@@ -100,7 +100,7 @@
             <!-- Row 1: Community badge + Report button -->
             <div class="col-12 mb-2">
               <div class="d-flex justify-content-between align-items-center">
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">FEUTech</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">FEUTech</span>
                 <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalReportPost">
                   <i class="bi bi-flag me-1"></i> Report
                 </button>
@@ -115,7 +115,7 @@
                   <a href="#other-profile" class="fs-6 fw-bold text-gray-800 text-hover-primary">John Doe</a>
                   <span class="text-muted fs-8"><i class="bi bi-clock me-1 fs-8"></i>1d ago</span>
                 </div>
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">TECHNOLOGY</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">TECHNOLOGY</span>
               </div>
             </div>
 
@@ -168,7 +168,7 @@
             <!-- Row 1: Community badge + Report button -->
             <div class="col-12 mb-2">
               <div class="d-flex justify-content-between align-items-center">
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">FEUTech</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">FEUTech</span>
                 <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalReportPost">
                   <i class="bi bi-flag me-1"></i> Report
                 </button>
@@ -183,7 +183,7 @@
                   <a href="#other-profile" class="fs-6 fw-bold text-gray-800 text-hover-primary">Anonymous</a>
                   <span class="text-muted fs-8"><i class="bi bi-clock me-1 fs-8"></i>1d ago</span>
                 </div>
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">TECHNOLOGY</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">TECHNOLOGY</span>
               </div>
             </div>
 
@@ -236,7 +236,7 @@
             <!-- Row 1: Community badge + Report button -->
             <div class="col-12 mb-2">
               <div class="d-flex justify-content-between align-items-center">
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">FEUTech</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">FEUTech</span>
                 <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalReportPost">
                   <i class="bi bi-flag me-1"></i> Report
                 </button>
@@ -251,7 +251,7 @@
                   <a href="#other-profile" class="fs-6 fw-bold text-gray-800 text-hover-primary">John Doe</a>
                   <span class="text-muted fs-8"><i class="bi bi-clock me-1 fs-8"></i>1d ago</span>
                 </div>
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">TECHNOLOGY</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">TECHNOLOGY</span>
               </div>
             </div>
 
@@ -304,7 +304,7 @@
             <!-- Row 1: Community badge + Report button -->
             <div class="col-12 mb-2">
               <div class="d-flex justify-content-between align-items-center">
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">FEULife</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">FEULife</span>
                 <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalReportPost">
                   <i class="bi bi-flag me-1"></i> Report
                 </button>
@@ -319,7 +319,7 @@
                   <a href="#other-profile" class="fs-6 fw-bold text-gray-800 text-hover-primary">Marco Torres</a>
                   <span class="text-muted fs-8"><i class="bi bi-clock me-1 fs-8"></i>4h ago</span>
                 </div>
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">FEU</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">FEU</span>
               </div>
             </div>
 
@@ -400,7 +400,7 @@
             <!-- Row 1: Community badge + Report button -->
             <div class="col-12 mb-2">
               <div class="d-flex justify-content-between align-items-center">
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">FEUTech</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">FEUTech</span>
                 <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalReportPost">
                   <i class="bi bi-flag me-1"></i> Report
                 </button>
@@ -415,7 +415,7 @@
                   <a href="#other-profile" class="fs-6 fw-bold text-gray-800 text-hover-primary">Catalina Smith</a>
                   <span class="text-muted fs-8"><i class="bi bi-clock me-1 fs-8"></i>1d ago</span>
                 </div>
-                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8">TECHNOLOGY</span>
+                <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">TECHNOLOGY</span>
               </div>
             </div>
 
