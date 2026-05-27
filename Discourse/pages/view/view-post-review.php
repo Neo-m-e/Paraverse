@@ -70,7 +70,7 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                         <div class="card-body pb-0 pt-5 px-5">
                           <!-- Community badge + Report -->
                           <div class="d-flex justify-content-between align-items-center mb-3">
-                            <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8" style="color:#2D6A4F;">FEUTech</span>
+                            <span class="badge badge-light-success rounded-pill px-5 py-2 fs-8"style="color:#2D6A4F;">FEUTech</span>
                             <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalReportPost">
                               <i class="bi bi-flag me-1"></i> Report
                             </button>
@@ -160,6 +160,10 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
               " class="btn btn-sm">
                 <i class="bi bi-bookmark"></i> Save
               </button>
+
+              <a href="/discourse/pages/view/edit-post.php" class="btn btn-sm">
+                <i class="bi bi-pencil"></i> Edit
+              </a>
 
             </div>
 
@@ -259,7 +263,7 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                           </div>
                           <div class="d-flex align-items-center justify-content-center gap-2 p-3 bg-light-success rounded-2">
                             <i class="bi bi-person-check-fill" style="color:#2D6A4F;"></i>
-                            <span class="fs-7 fw-bold" style="color:#2D6A4F;">Your Post</span>
+                            <span class="fs-7 fw-bold "style="color:#2D6A4F;">Your Post</span>
                           </div>
                         </div>
                       </div>
@@ -271,14 +275,14 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                         </div>
                         <div class="card-body p-0">
                           <a href="#" class="d-flex align-items-start gap-3 p-4 border-bottom text-decoration-none text-hover-primary">
-                            <span class="badge badge-light-success rounded-pill px-3 py-2 fs-8 flex-shrink-0" style="color:#2D6A4F;">#169</span>
+                            <span class="badge badge-light-success rounded-pill px-3 py-2 fs-8 flex-shrink-0"style="color:#2D6A4F;">#169</span>
                             <div>
                               <div class="fs-7 fw-semibold text-gray-800 mb-1">Pro tips for surviving enrollment season at FEU Tech</div>
                               <div class="text-muted fs-8">FEU · 4d ago</div>
                             </div>
                           </a>
                           <a href="#" class="d-flex align-items-start gap-3 p-4 text-decoration-none text-hover-primary">
-                            <span class="badge badge-light-success rounded-pill px-3 py-2 fs-8 flex-shrink-0" style="color:#2D6A4F;">#127</span>
+                            <span class="badge badge-light-success rounded-pill px-3 py-2 fs-8 flex-shrink-0"style="color:#2D6A4F;">#127</span>
                             <div>
                               <div class="fs-7 fw-semibold text-gray-800 mb-1">What if FEU had a no-grade-penalty mental health leave policy?</div>
                               <div class="text-muted fs-8">Student Welfare · 1w ago</div>
@@ -290,12 +294,12 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                       <!-- Community Rules -->
                       <div class="card border border-success bg-light-success">
                         <div class="card-body p-5">
-                          <p class="fs-6 fw-bold mb-3" style="color:#2D6A4F;">Community Rules</p>
+                          <p class="fs-6 fw-bold mb-3"style="color:#2D6A4F;">Community Rules</p>
                           <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                            <li class="d-flex align-items-start gap-2 fs-7" style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Be respectful and constructive</li>
-                            <li class="d-flex align-items-start gap-2 fs-7 " style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>No personal attacks or harassment</li>
-                            <li class="d-flex align-items-start gap-2 fs-7 " style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Keep posts relevant to FEU Tech</li>
-                            <li class="d-flex align-items-start gap-2 fs-7 " style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Verify information before sharing</li>
+                            <li class="d-flex align-items-start gap-2 fs-7 "style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Be respectful and constructive</li>
+                            <li class="d-flex align-items-start gap-2 fs-7 "style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>No personal attacks or harassment</li>
+                            <li class="d-flex align-items-start gap-2 fs-7 "style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Keep posts relevant to FEU Tech</li>
+                            <li class="d-flex align-items-start gap-2 fs-7 "style="color:#2D6A4F;"><span class="fw-bold flex-shrink-0">✓</span>Verify information before sharing</li>
                           </ul>
                         </div>
                       </div>
