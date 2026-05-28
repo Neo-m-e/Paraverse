@@ -1,17 +1,3 @@
-/* Refactored: custom CSS → Bootstrap/Metronic utilities */
-/* ============================================================
-   DISCOURSE — Post Feed / Cards Styles
-   File: assets/css/sec-posts.css
-
-   NOTE: The vast majority of styles have been migrated to
-   Bootstrap/Metronic utility classes directly in the HTML.
-   Only rules with zero Bootstrap equivalent remain here.
-============================================================ */
-
-/* ── Post card hover lift ────────────────────────────────────
-   Bootstrap has no transform/hover-shadow equivalent utility.
-   shadow class covers base shadow; this adds hover upgrade.
-── */
 [data-dc="post-card"] {
   transition: box-shadow 0.18s, transform 0.15s;
 }
@@ -20,28 +6,15 @@
   transform: translateY(-1px);
 }
 
-/* ── Badge / pill hover → solid fill ────────────────────────
-   Metronic badge-light-success has no built-in hover state.
-   This provides the filled green on hover per approved design.
-── */
 .badge-light-success:hover {
   background-color: #0d5c3a !important;
   color: #fff !important;
   cursor: pointer;
 }
 
-/* ── Vote button hover colours ───────────────────────────────
-   btn-tertiary hover does not carry semantic up/down colours.
-   These two rules add the green/red directional feedback.
-── */
 .dc-vote-up:hover  { color: #2D6A4F !important; }
 .dc-vote-down:hover { color: #c62828 !important; }
 
-/* ── Poll options ────────────────────────────────────────────
-   The animated gradient fill uses a CSS custom property
-   (--target-width) set inline per option and toggled by JS.
-   There is no Bootstrap utility equivalent for this pattern.
-── */
 .discourse-poll-option {
   display: flex;
   align-items: center;
@@ -62,7 +35,6 @@
   background: #f0faf5;
 }
 
-/* Percentage hidden until voted */
 .discourse-poll-percentage {
   opacity: 0;
   visibility: hidden;
@@ -70,7 +42,6 @@
   margin-left: auto;
 }
 
-/* After vote: gradient fill reveals percentages */
 .discourse-poll-options.show-results .discourse-poll-option {
   background: linear-gradient(to right, #f0faf5 var(--target-width), #f5f6fa var(--target-width));
   border-color: #e4e6ef;

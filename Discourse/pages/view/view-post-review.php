@@ -167,7 +167,7 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
 
             </div>
 
-            <div id="dc-toast" style="display:none;align-items:center;gap:8px;margin-top:10px;padding:8px 14px;background:#f1f1f1;border:1px solid #ddd;border-radius:8px;font-size:13px;color:#212529;">
+            <div id="dc-toast" class="d-none d-flex align-items-center gap-2 mt-3 px-4 py-2 bg-light border rounded-2 fs-6 text-gray-700">
               <i class="bi bi-check-circle-fill text-success"></i><span></span>
             </div>
 
@@ -214,7 +214,7 @@ $META_DESC  = "A review post from FEU Tech Discourse community.";
                             <img src="/Discourse/assets/images/catalina.webp" alt="You" class="h-35px w-35px rounded-circle flex-shrink-0" />
                             <div class="flex-grow-1 d-flex flex-column gap-2">
                                             <label class="d-flex align-items-center gap-2 text-muted fs-8 cursor-pointer mb-0">
-                                              <input type="checkbox" class="form-check-input dc-anon-toggle" style="width:14px;height:14px;">
+                                              <input type="checkbox" class="form-check-input dc-anon-toggle">
                                               <i class="bi bi-eye-slash-fill"></i> Post anonymously
                                             </label>
                                             <textarea class="form-control form-control-solid" rows="2" placeholder="Write a comment…"></textarea>

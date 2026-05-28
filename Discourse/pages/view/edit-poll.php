@@ -15,119 +15,7 @@ $META_DESC  = "Edit your existing poll.";
 <head>
   <?php HEAD_ESSENTIALS(); ?>
   <link href="/Discourse/assets/css/dashboard.css" rel="stylesheet">
-  <style>
-    /* ── Editor (copied from edit-post) ── */
-    .dc-editor-area {
-      width: 100%;
-      min-height: 180px;
-      padding: 14px 16px;
-      border: 1.5px solid #e4e6ef;
-      border-top: none;
-      border-bottom: none;
-      font-size: 13.5px;
-      color: #1a1a2e;
-      background: #f9fafb;
-      outline: none;
-      font-family: inherit;
-      line-height: 1.7;
-      overflow-y: auto;
-      display: block;
-    }
-    .dc-editor-area:empty:before { content: attr(data-placeholder); color: #b5b5c3; }
-    .dc-editor-area:focus { background: #fff; }
-    .dc-toolbar {
-      display: flex; align-items: center; gap: 1px; flex-wrap: wrap;
-      padding: 7px 10px; background: #f9fafb;
-      border: 1.5px solid #e4e6ef; border-bottom: 1px solid #e4e6ef;
-      border-radius: 8px 8px 0 0;
-    }
-    .dc-tb-sep { width: 1px; height: 20px; background: #dde; margin: 0 4px; flex-shrink: 0; }
-    .dc-tb-switch { margin-left: auto; font-size: 12px; color: #2D6A4F; font-weight: 700; cursor: pointer; text-decoration: none; white-space: nowrap; }
-    .dc-tb-switch:hover { text-decoration: underline; }
-    .dc-media-bar {
-      display: flex; gap: 4px; flex-wrap: wrap; padding: 8px 12px;
-      background: #f9fafb; border: 1.5px solid #e4e6ef; border-top: 1px solid #e4e6ef;
-      border-radius: 0 0 8px 8px;
-    }
-    .dc-image-wrapper { position: relative; margin: 0; }
-    .dc-image-overlay {
-      position: absolute; inset: 0; background: rgba(0,0,0,0); border-radius: 10px;
-      display: flex; align-items: flex-start; justify-content: flex-end;
-      padding: 8px; gap: 6px; transition: background .2s;
-    }
-    .dc-image-wrapper:hover .dc-image-overlay { background: rgba(0,0,0,.25); }
-    .dc-image-action-btn {
-      opacity: 0; transform: translateY(-4px); transition: opacity .2s, transform .2s;
-      border: none; border-radius: 7px; padding: 6px 11px; font-size: 12px; font-weight: 700;
-      cursor: pointer; display: flex; align-items: center; gap: 5px; white-space: nowrap;
-    }
-    .dc-image-wrapper:hover .dc-image-action-btn { opacity: 1; transform: translateY(0); }
-    .dc-image-replace-btn { background: #fff; color: #2D6A4F; }
-    .dc-image-replace-btn:hover { background: #e8f5e9; }
-    .dc-image-remove-btn { background: #fff; color: #c62828; }
-    .dc-image-remove-btn:hover { background: #fff5f5; }
-    .dc-no-image-placeholder {
-      display: none; margin: 8px 14px 12px; border: 2px dashed #e4e6ef; border-radius: 10px;
-      padding: 16px; text-align: center; color: #b5b5c3; font-size: 12.5px; cursor: pointer;
-      transition: border-color .15s, background .15s;
-    }
-    .dc-no-image-placeholder:hover { border-color: #2D6A4F; background: #f0faf5; color: #2D6A4F; }
-    .dc-code-block {
-      background: #1e1e2e; color: #cdd6f4; border-radius: 8px; padding: 12px 16px;
-      margin: 6px 0; font-family: monospace; font-size: 13px; outline: none;
-      min-height: 50px; white-space: pre; overflow-x: auto;
-    }
-    .dc-code-block:empty:before { content: '// Your code here...'; color: #6c7086; }
-    .dc-spoiler { background: #fff8e1; border: 1.5px solid #ffe082; border-radius: 8px; padding: 10px 14px; margin: 6px 0; position: relative; }
-    .dc-spoiler-label { font-size: 11px; font-weight: 700; color: #795548; text-transform: uppercase; margin-bottom: 5px; display: flex; align-items: center; gap: 5px; }
-    .dc-spoiler-content { font-size: 13.5px; color: #1a1a2e; outline: none; min-height: 30px; }
-    .dc-spoiler-content:empty:before { content: 'Hidden content here...'; color: #b5b5c3; }
-    .dc-img-inserted { max-width: 100%; border-radius: 8px; margin: 8px 0; display: block; border: 1px solid #e4e6ef; max-height: 260px; object-fit: cover; }
-
-    /* ── Toggle switch: no Bootstrap equivalent for custom range slider ── */
-    .dc-toggle {
-      position: relative;
-      width: 40px;
-      height: 22px;
-      flex-shrink: 0;
-    }
-
-    .dc-toggle input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-
-    .dc-toggle-slider {
-      position: absolute;
-      inset: 0;
-      background: #e4e6ef;
-      border-radius: 22px;
-      cursor: pointer;
-      transition: background .2s;
-    }
-
-    .dc-toggle-slider:before {
-      content: '';
-      position: absolute;
-      width: 16px;
-      height: 16px;
-      background: #fff;
-      border-radius: 50%;
-      top: 3px;
-      left: 3px;
-      transition: transform .2s;
-      box-shadow: 0 1px 4px rgba(0, 0, 0, .15);
-    }
-
-    .dc-toggle input:checked+.dc-toggle-slider {
-      background: #2D6A4F;
-    }
-
-    .dc-toggle input:checked+.dc-toggle-slider:before {
-      transform: translateX(18px);
-    }
-  </style>
+  <link href="/Discourse/assets/css/dc-editor.css" rel="stylesheet">
 </head>
 
 <body id="kt_app_body"
@@ -205,7 +93,7 @@ $META_DESC  = "Edit your existing poll.";
                                 <i style="font-style:italic; color: #2D6A4F !important;">I</i>
                               </button>
                               <button class="btn btn-sm btn-icon btn-light-success" style="color:#2D6A4F;" title="Strikethrough" onclick="fmt('strikeThrough')"><s>S</s></button>
-                              <button class="btn btn-sm btn-icon btn-light-success" style="color:#2D6A4F;" title="Superscript" onclick="fmt('superscript')" style="font-size:11px;">x<sup>2</sup></button>
+                              <button class="btn btn-sm btn-icon btn-light-success" style="color:#2D6A4F;" title="Superscript" onclick="fmt('superscript')">x<sup>2</sup></button>
                               <button class="btn btn-sm btn-icon btn-light-success" style="color:#2D6A4F;" title="Paragraph" onclick="fmt('formatBlock','p')">¶T</button>
                               <span class="dc-tb-sep"></span>
                               <button class="btn btn-sm btn-icon btn-light-success"style="color:#2D6A4F;" title="Insert Link" onclick="openModal('modal-link')">
@@ -481,7 +369,7 @@ $META_DESC  = "Edit your existing poll.";
                               </div>
 
                               <div class="d-flex align-items-center gap-3 py-2">
-                                <span class="rounded-circle bg-gray-400 flex-shrink-0" style="width: 8px; height: 8px; display: inline-block; background-color: #a1a5b7 !important;"></span>
+                                <span class="rounded-circle bg-gray-400 flex-shrink-0" style="width: 8px; height: 8px;"></span>
                                 <div>
                                   <span class="fw-bold text-gray-600 fs-7">Original</span>
                                   <span class="text-muted fs-8"> — published version</span>

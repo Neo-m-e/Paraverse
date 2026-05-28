@@ -1,11 +1,3 @@
-/* ============================================================
-   DISCOURSE — Dashboard Layout (shared/global)
-   File: assets/css/dashboard.css
-   
-   Defines the 2-column grid and shared design tokens used
-   by all Discourse dashboard sections.
-============================================================ */
-
 /* ── Design tokens ──────────────────────────────────────── */
 :root {
   --dc-primary: #2D6A4F;

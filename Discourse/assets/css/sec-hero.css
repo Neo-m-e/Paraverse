@@ -1,28 +1,9 @@
-/* Refactored: custom CSS → Bootstrap/Metronic utilities */
-/* ============================================================
-   DISCOURSE — Hero Section Styles
-   File: assets/css/sec-hero.css
-
-   NOTE: Layout, spacing, typography, and colour utilities have
-   been migrated to Bootstrap/Metronic classes in the HTML.
-   Only rules with zero Bootstrap/Metronic equivalent remain.
-   Invalid nested CSS from the original has been corrected.
-============================================================ */
-
-/* ── Banner background ───────────────────────────────────────
-   #0b3220 dark green: no Bootstrap bg-* class covers this.
-   overflow:visible is required so the illustration can extend
-   above the card boundary — Bootstrap's overflow-hidden would
-   clip it. The mobile @media block below overrides it to hidden.
-── */
 .discourse-hero-banner {
   background-color: #0b3220 !important;
   overflow: visible !important;
 }
 
-/* ── Radial centre glow ──────────────────────────────────────
-   radial-gradient: no Bootstrap utility equivalent.
-── */
+/* ── Radial centre glow ──────────────────────────────────────── */
 .discourse-hero-center-glow {
   background: radial-gradient(
     circle 350px at 50% 50%,
@@ -32,17 +13,12 @@
   );
 }
 
-/* ── Inner container min-height ──────────────────────────────
-   Bootstrap has no min-height utility for arbitrary px values.
-── */
+/* ── Inner container min-height ──────────────────────────────── */
 .discourse-hero-inner {
   min-height: 220px;
 }
 
-/* ── Illustration frame ──────────────────────────────────────
-   Absolute positioning anchored bottom-right, overflow visible,
-   and width:40% cannot be expressed with Bootstrap utilities.
-── */
+/* ── Illustration frame ──────────────────────────────────────── */
 .discourse-hero-illustration-frame {
   position: absolute;
   right: 25px;
@@ -57,10 +33,7 @@
   z-index: 0;
 }
 
-/* ── Hero image ──────────────────────────────────────────────
-   height:110% (relative to frame), drop-shadow filter, and
-   transform-origin have no Bootstrap utility equivalents.
-── */
+/* ── Hero image ─────────────────────────────────────────────── */
 .discourse-hero-img-matched {
   height: 110%;
   width: auto;
@@ -70,9 +43,7 @@
   transform-origin: bottom center;
 }
 
-/* ── CTA button hover ────────────────────────────────────────
-   Hover lift + glow: no Bootstrap utility equivalent.
-── */
+/* ── CTA button hover ────────────────────────────────────────── */
 .discourse-hero-btn {
   transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
@@ -83,11 +54,7 @@
   box-shadow: 0 6px 20px rgba(245, 166, 35, 0.55) !important;
 }
 
-/* ── Responsive overrides ────────────────────────────────────
-   These adjust illustration size and mobile content alignment.
-   Original rules were incorrectly nested inside
-   .discourse-hero-img-matched {}; corrected to top-level here.
-── */
+/* ── Responsive overrides ────────────────────────────────────── */
 @media (max-width: 1199.98px) {
   .discourse-hero-img-matched {
     height: 126%;

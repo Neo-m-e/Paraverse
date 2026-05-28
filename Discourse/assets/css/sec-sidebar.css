@@ -1,14 +1,10 @@
-/* ── Widget 1: Info card background ----*/
-
 .discourse-info-card {
   background-color: #0b3220 !important;
   position: relative;
   z-index: 2;  /* add this */
 }
 
-/* ── Info card glow overlay ──────────────────────────────────
-   radial-gradient: no Bootstrap utility equivalent.
-── */
+
 .discourse-widget-center-glow {
   background: radial-gradient(circle 150px at 50% 40%,
       rgba(245, 166, 35, 0.20) 0%,
@@ -16,17 +12,13 @@
       transparent 100%);
 }
 
-/* ── Sidebar logo height ─────────────────────────────────────
-   No Bootstrap utility for arbitrary px height on img.
-── */
+
 .discourse-sidebar-logo {
   height: 80px;
   width: auto;
 }
 
-/* ── Info post item hover ────────────────────────────────────
-   rgba(255,255,255,0.06) white tint: no Bootstrap hover utility.
-── */
+
 .discourse-info-post-item {
   transition: background-color 0.12s ease-in-out;
 }
@@ -35,41 +27,27 @@
   background: rgba(255, 255, 255, 0.06) !important;
 }
 
-/* ── White 10% opacity border ────────────────────────────────
-   rgba border colour: Metronic 8 has no border-opacity utility.
-── */
+
 .border-white-10 {
   border-color: rgba(255, 255, 255, 0.10) !important;
 }
 
-/* ── Line clamp ──────────────────────────────────────────────
-   -webkit-line-clamp: no Bootstrap utility equivalent.
-── */
+
 .text-line-clamp-2 {
   display: -webkit-box;
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
 
-/* ── Stats row divider ───────────────────────────────────────
-   :not(:last-child) border-bottom: cannot be expressed with
-   Bootstrap utilities without adding a class to every item.
-── */
 .discourse-stat-item:not(:last-child) {
   border-bottom: 1px solid #eef2f5;
 }
 
-/* ── Community item hover ────────────────────────────────────
-   #f5f6fa bg on hover: no standard Metronic bg-hover-* utility.
-── */
+
 .discourse-community-item:hover {
   background: #f5f6fa;
 }
 
-/* ── Topic tag & See All button hover ────────────────────────
-   badge-light-success has no built-in :hover fill state.
-   Shared rule covers both .dc-topic-tag and .dc-see-all-btn.
-── */
 .dc-topic-tag:hover,
 .dc-see-all-btn:hover {
   background-color: #0d5c3a !important;
