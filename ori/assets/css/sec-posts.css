@@ -1,0 +1,108 @@
+[data-dc="post-card"] {
+  transition: box-shadow 0.18s, transform 0.15s;
+}
+[data-dc="post-card"]:hover {
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.11) !important;
+  transform: translateY(-1px);
+}
+
+.badge-light-success:hover {
+  background-color: #0d5c3a !important;
+  color: #fff !important;
+  cursor: pointer;
+}
+
+.dc-vote-up:hover  { color: #2D6A4F !important; }
+.dc-vote-down:hover { color: #c62828 !important; }
+
+.discourse-poll-option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f5f6fa;
+  border: 1.5px solid #e4e6ef;
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.4s ease;
+  width: 100%;
+  position: relative;
+}
+
+.discourse-poll-option:hover {
+  border-color: #2D6A4F;
+  background: #f0faf5;
+}
+
+.discourse-poll-percentage {
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+  margin-left: auto;
+}
+
+.discourse-poll-options.show-results .discourse-poll-option {
+  background: linear-gradient(to right, #f0faf5 var(--target-width), #f5f6fa var(--target-width));
+  border-color: #e4e6ef;
+  pointer-events: none;
+}
+
+.discourse-poll-options.show-results .discourse-poll-option.selected {
+  border-color: #2D6A4F;
+  background: linear-gradient(to right, #e2f5eb var(--target-width), #f5f6fa var(--target-width));
+}
+
+.discourse-poll-options.show-results .discourse-poll-percentage {
+  opacity: 1;
+  visibility: visible;
+}
+
+  /* Title: clamp to 1 line with ellipsis */
+  [data-dc="post-card"] .flex-grow-1 {
+    min-width: 0 !important;
+  }
+
+  [data-dc="post-card"] .d-flex.flex-column.gap-2 {
+    min-width: 0 !important;
+  }
+
+  [data-dc="post-card"] .col-12 {
+    min-width: 0 !important;
+  }
+
+  [data-dc="post-card"] .fs-5.fw-bold {
+    display: block !important;
+    white-space: nowrap !important;
+    overflow: hidden !important;
+    text-overflow: ellipsis !important;
+    max-width: 100% !important;
+  }
+
+  /* Body: clamp to 3 lines */
+  .dc-body-clamp {
+    display: -webkit-box !important;
+    -webkit-line-clamp: 3 !important;
+    -webkit-box-orient: vertical !important;
+    overflow: hidden !important;
+  }
+
+  .dc-body-clamp.dc-expanded {
+    display: block !important;
+    -webkit-line-clamp: unset !important;
+    overflow: visible !important;
+  }
+
+  .dc-see-more-link {
+    color: #3a5c45 !important;
+    font-weight: 600 !important;
+    cursor: pointer !important;
+    font-size: 0.8rem;
+    text-decoration: none !important;
+    display: inline-block;
+    margin-top: 2px;
+  }
+
+  .dc-see-more-link:hover {
+    text-decoration: underline !important;
+  }
