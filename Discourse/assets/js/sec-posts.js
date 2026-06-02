@@ -98,54 +98,76 @@
     });
 
     // Handle quick comment submission
-    document.querySelectorAll('.dc-quick-comment-form').forEach(function (form) {
-      form.addEventListener('submit', function (e) {
-        e.preventDefault();
-        var input = this.querySelector('input');
-        var commentText = input.value.trim();
-        if (!commentText) return;
+    $(document).on('submit', '.dc-quick-comment-form', function(e) {
+      e.preventDefault();
+      var form = this;
+      var input = form.querySelector('input[type="text"]');
+      var commentText = input.value.trim();
+      var postIdInput = form.querySelector('input[name="post_id"]');
+      var postId = postIdInput ? postIdInput.value : '';
+      if (!commentText || !postId) return;
 
-        var card = this.closest('[data-dc="post-card"]');
-        var commentsList = card.querySelector('.dc-quick-comments-list');
-        var commentCountBtn = card.querySelector('.dc-post-comment');
+      var card = form.closest('[data-dc="post-card"]');
+      var commentsList = card ? card.querySelector('.dc-quick-comments-list') : null;
+      var commentCountBtn = card ? card.querySelector('.dc-post-comment') : null;
 
-        function escapeHtml(text) {
-          return text
-            .replace(/&/g, "&amp;")
-            .replace(/</g, "&lt;")
-            .replace(/>/g, "&gt;")
-            .replace(/"/g, "&quot;")
-            .replace(/'/g, "&#039;");
-        }
+      function escapeHtml(text) {
+        return text
+          .replace(/&/g, "&amp;")
+          .replace(/</g, "&lt;")
+          .replace(/>/g, "&gt;")
+          .replace(/"/g, "&quot;")
+          .replace(/'/g, "&#039;");
+      }
 
-        var newCommentHtml = `
-          <div class="d-flex align-items-start gap-2 fs-7">
-            <img src="/Discourse/assets/images/catalina.webp" class="h-25px w-25px rounded-circle" alt="User avatar">
-            <div class="bg-light p-2 rounded-3 flex-grow-1">
-              <div class="d-flex justify-content-between">
-                <span class="fw-bold text-gray-800">You (Catalina)</span>
-                <span class="text-muted fs-9">just now</span>
+      $.ajax({
+        url: '/Discourse/pages/version/add-comment-action.php',
+        method: 'POST',
+        data: {
+          post_id: postId,
+          body: commentText
+        },
+        dataType: 'json',
+        success: function(response) {
+          if (response.success) {
+            var avatar = window.currentUser ? window.currentUser.avatar : '/Discourse/assets/images/anonymous.png';
+            var displayName = window.currentUser ? window.currentUser.displayName : 'You';
+            
+            var newCommentHtml = `
+              <div class="d-flex align-items-start gap-2 fs-7 animate__animated animate__fadeIn">
+                <img src="${avatar}" class="h-25px w-25px rounded-circle" alt="User avatar">
+                <div class="bg-light p-2 rounded-3 flex-grow-1">
+                  <div class="d-flex justify-content-between">
+                    <span class="fw-bold text-gray-800">${displayName}</span>
+                    <span class="text-muted fs-9">just now</span>
+                  </div>
+                  <p class="text-gray-700 m-0 mt-1">${escapeHtml(commentText)}</p>
+                </div>
               </div>
-              <p class="text-gray-700 m-0 mt-1">${escapeHtml(commentText)}</p>
-            </div>
-          </div>
-        `;
-        
-        if (commentsList) {
-          commentsList.insertAdjacentHTML('beforeend', newCommentHtml);
-          commentsList.scrollTop = commentsList.scrollHeight;
+            `;
+            
+            if (commentsList) {
+              commentsList.insertAdjacentHTML('beforeend', newCommentHtml);
+              commentsList.scrollTop = commentsList.scrollHeight;
+            }
+
+            input.value = '';
+
+            if (commentCountBtn) {
+              var countText = commentCountBtn.textContent.replace(/Comments?/g, '').trim();
+              var count = parseInt(countText, 10) || 0;
+              count++;
+              commentCountBtn.innerHTML = '<i class="bi bi-chat me-1"></i> ' + count + (count === 1 ? ' Comment' : ' Comments');
+            }
+
+            showFeedToast('Comment posted!');
+          } else {
+            alert(response.message || 'Failed to post comment.');
+          }
+        },
+        error: function() {
+          alert('Error communicating with database.');
         }
-
-        input.value = '';
-
-        if (commentCountBtn) {
-          var countText = commentCountBtn.textContent.replace(/Comments?/g, '').trim();
-          var count = parseInt(countText, 10) || 0;
-          count++;
-          commentCountBtn.innerHTML = '<i class="bi bi-chat me-1"></i> ' + count + (count === 1 ? ' Comment' : ' Comments');
-        }
-
-        showFeedToast('Comment posted!');
       });
     });
 
@@ -164,16 +186,36 @@
     });
 
     // Save — toggle bookmark state, toast on save
-    document.querySelectorAll('.dc-post-save').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var on = this.dataset.on === '1';
-        on = !on;
-        this.dataset.on = on ? '1' : '0';
-        this.style.cssText = on ? 'background:rgba(13,110,253,.12);color:#0d6efd;border-color:#0d6efd;' : '';
-        this.innerHTML = on
-          ? '<i class="bi bi-bookmark-fill me-1"></i> Saved'
-          : '<i class="bi bi-bookmark me-1"></i> Save';
-        if (on) showFeedToast('Page saved!');
+    $(document).on('click', '.dc-post-save', function(e) {
+      e.preventDefault();
+      var btn = this;
+      var card = btn.closest('[data-dc="post-card"]');
+      if (!card) return;
+      var postId = card.getAttribute('data-post-id');
+      if (!postId) return;
+
+      $.ajax({
+        url: '/Discourse/pages/version/save-post-action.php',
+        method: 'POST',
+        data: { post_id: postId },
+        dataType: 'json',
+        success: function(res) {
+          if (res.success) {
+            var saved = res.saved;
+            btn.dataset.on = saved ? '1' : '0';
+            btn.style.cssText = saved ? 'background:rgba(13,110,253,.12);color:#0d6efd;border-color:#0d6efd;' : '';
+            btn.innerHTML = saved
+              ? '<i class="bi bi-bookmark-fill me-1"></i> Saved'
+              : '<i class="bi bi-bookmark me-1"></i> Save';
+            
+            showFeedToast(saved ? 'Post saved!' : 'Post unsaved!');
+          } else {
+            alert(res.message || 'Error processing request.');
+          }
+        },
+        error: function() {
+          alert('Error communicating with database.');
+        }
       });
     });
   })();

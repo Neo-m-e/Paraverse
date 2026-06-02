@@ -1,9 +1,110 @@
 <?php
+define('MBG', TRUE);
+include(dirname(dirname(__DIR__)) . '/functions-new.php');
+
+if (!function_exists('get_relative_time')) {
+    function get_relative_time($datetime) {
+        $time = strtotime($datetime);
+        if (!$time) return '1d ago';
+        $now = time();
+        $diff = $now - $time;
+        if ($diff < 60) return 'Just now';
+        $diff = round($diff / 60);
+        if ($diff < 60) return $diff . 'm ago';
+        $diff = round($diff / 60);
+        if ($diff < 24) return $diff . 'h ago';
+        $diff = round($diff / 24);
+        if ($diff < 30) return $diff . 'd ago';
+        return date('F j, Y', $time);
+    }
+}
+
+// ── DB loading ──────────────────────────────────────────────
+$post      = null;
+$post_id   = isset($_GET['id']) ? intval($_GET['id']) : 0;
+$comments  = [];
+
+if ($EDITH && $post_id > 0) {
+    $stmt = $EDITH->prepare("SELECT p.*, a.display_name, a.avatar_md, a.role as author_role
+                             FROM posts p
+                             JOIN accounts a ON p.author_id = a.identification
+                             WHERE p.id = ?");
+    if ($stmt) {
+        $stmt->bind_param("i", $post_id);
+        $stmt->execute();
+        $post = $stmt->get_result()->fetch_assoc();
+        $stmt->close();
+    }
+    if ($post) {
+        $stmt_c = $EDITH->prepare("SELECT c.*, a.display_name as author_name, a.avatar_md
+                                   FROM comments c
+                                   LEFT JOIN accounts a ON c.author_id = a.identification
+                                   WHERE c.post_id = ? ORDER BY c.created_at ASC");
+        if ($stmt_c) {
+            $stmt_c->bind_param("i", $post['id']);
+            $stmt_c->execute();
+            $res_c = $stmt_c->get_result();
+            while ($row_c = $res_c->fetch_assoc()) $comments[] = $row_c;
+            $stmt_c->close();
+        }
+        if ($post['is_poll']) {
+            $stmt_opt = $EDITH->prepare("SELECT * FROM poll_options WHERE post_id = ?");
+            $stmt_opt->bind_param("i", $post['id']);
+            $stmt_opt->execute();
+            $opt_res = $stmt_opt->get_result();
+            $post['poll_options'] = [];
+            $total_votes = 0;
+            while ($opt = $opt_res->fetch_assoc()) { $post['poll_options'][] = $opt; $total_votes += $opt['votes']; }
+            $post['total_poll_votes'] = $total_votes;
+            $stmt_opt->close();
+        }
+    }
+}
+
+// Session mock-post fallback
+if (!$post && isset($_SESSION['mock_posts']) && is_array($_SESSION['mock_posts'])) {
+    $slug_param = $_GET['slug'] ?? '';
+    foreach ($_SESSION['mock_posts'] as $mp) {
+        if (($post_id > 0 && $mp['id'] === $post_id) || (!empty($slug_param) && $mp['slug'] === $slug_param)) {
+            $post     = $mp;
+            $comments = $mp['comments'] ?? [];
+            break;
+        }
+    }
+}
+
+// ── Override static vars from DB post if found ──────────────
+$db_post_loaded = false;
+if ($post) {
+    $db_post_loaded  = true;
+    $isAnon          = ($post['is_anonymous'] == 1);
+    $META_TITLE      = htmlspecialchars($post['title']) . " - Discourse";
+    $showImage       = !empty($post['image_url']);
+    $showPoll        = ($post['is_poll'] == 1);
+    $showAnon        = $isAnon;
+    $showSample      = false;
+    $postTitle       = $post['title'];
+    $postDesc        = $post['body'];
+    $authorName      = $isAnon ? 'Anonymous' : ($post['display_name'] ?? 'User');
+    $authorInitials  = $isAnon ? 'A' : implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $authorName)));
+    $authorAvatar    = $isAnon ? '/Discourse/assets/images/anonymous.png' : ($post['avatar_md'] ?? '');
+    $authorProfileLink = $isAnon ? 'javascript:void(0)' : '/Discourse/pages/version/profile-other.php?id=' . $post['author_id'];
+    $bannerMeta      = $post['community'] . ' • Posted by ' . $authorName . ' • ' . get_relative_time($post['created_at']);
+    $tag             = !empty($post['tags']) ? $post['tags'] : $post['topic'];
+    $community       = $post['community'];
+    $can_edit        = isset($_SESSION['identification']) && $post['author_id'] === $_SESSION['identification'];
+}
+
+if (!$db_post_loaded) {
 $META_TITLE = "View Post - Discourse";
 $showImage = isset($_GET['img']) && $_GET['img'] == '1';
 $showPoll = isset($_GET['poll']) && $_GET['poll'] == '1';
 $showAnon = isset($_GET['anon']) && $_GET['anon'] == '1';
 $showSample = isset($_GET['sample']) && $_GET['sample'] == '1';
+$can_edit = false;
+$authorAvatar = '';
+$authorProfileLink = 'javascript:void(0)';
+}
 
 $communityMeta = [
     'FEU Tech'    => ['members' => '12.3k', 'type' => 'Public Group'],
@@ -12,7 +113,7 @@ $communityMeta = [
     'FEU Diliman' => ['members' => '2.7k',  'type' => 'Public Group'],
 ];
 
-if ($showImage) {
+if (!$db_post_loaded && $showImage) {
     $postTitle   = "Review: FEU Tech library study rooms — worth booking or just use the hallway?";
     $postDesc    = "Finally tried booking one of the new study rooms in the library. Honest review: the booking system is clunky, the AC is questionable, but the soundproofing is actually great. Worth it for group study if you plan ahead.<br><br>Not ideal for solo cramming though — the chairs are surprisingly uncomfortable for long sessions.";
     $authorName  = "Catalina Smith";
@@ -20,7 +121,8 @@ if ($showImage) {
     $bannerMeta  = "ACADEMICS • Posted by Catalina Smith • 5d ago";
     $tag         = "ACADEMICS";
     $community   = "FEU Tech";
-} elseif ($showPoll) {
+    $can_edit    = true;
+} elseif (!$db_post_loaded && $showPoll) {
     $postTitle   = "📊 Poll: How do you actually study for finals? Be honest.";
     $postDesc    = "Curious how my fellow FEU Tech students survive finals season. Drop your honest answer below 👇";
     $authorName  = "Marco Torres";
@@ -28,7 +130,7 @@ if ($showImage) {
     $bannerMeta  = "FEU • Posted by Marco Torres • 4h ago";
     $tag         = "FEU";
     $community   = "FEU Life";
-} elseif ($showAnon) {
+} elseif (!$db_post_loaded && $showAnon) {
     $postTitle   = "What if FEU had a no-grade-penalty mental health leave policy?";
     $postDesc    = "Just thinking — a lot of students I know failed a whole semester because they were dealing with severe anxiety during midterms. The university had no mechanism to help them — just a strict drop policy or failure. Other universities have mental health leaves where students can pause without academic penalty. Should FEU implement something similar?";
     $authorName  = "Anonymous";
@@ -36,7 +138,7 @@ if ($showImage) {
     $bannerMeta  = "Issues • Posted anonymously • 1d ago";
     $tag         = "ISSUES";
     $community   = "FEU Tech";
-} elseif ($showSample) {
+} elseif (!$db_post_loaded && $showSample) {
     $postTitle   = "Lorem ipsum dolor sit amet consectetur adipiscing elit.";
     $postDesc    = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam uma tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.";
     $authorName  = "John Doe";
@@ -44,7 +146,7 @@ if ($showImage) {
     $bannerMeta  = "Entertainment • Posted by John Doe • 1d ago";
     $tag         = "ENTERTAINMENT";
     $community   = "FEU Tech";
-} else {
+} elseif (!$db_post_loaded) {
     $postTitle   = "The silent revolution in edge AI — why on-device inference is changing everything";
     $postDesc    = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestib";
     $authorName  = "Ravi Joshi";
@@ -236,7 +338,7 @@ if ($showImage) {
                                             <span class="text-white text-opacity-75 fs-8"><?php echo $bannerType; ?> • <?php echo $bannerMembers; ?> Members</span>
                                         </div>
                                     </div>
-                                    <a href="/Discourse/pages/version/community.php"
+                                    <a href="/Discourse/pages/version/community.php?c=<?php echo urlencode($community ?? 'FEU LIFE'); ?>"
                                         class="btn btn-sm btn-outline btn-outline-white text-white border-white border-opacity-25 px-4 py-2 d-flex align-items-center gap-2 text-decoration-none">
                                         <i class="ki-duotone ki-arrow-left text-white fs-8"><span class="path1"></span><span class="path2"></span></i> Back to Feed
                                     </a>
@@ -258,18 +360,18 @@ if ($showImage) {
                                                             <div class="symbol-label bg-success text-white fw-bold fs-6"><?php echo $authorInitials; ?></div>
                                                         </div>
                                                         <div class="d-flex align-items-center gap-2">
-                                                            <a href="/Discourse/pages/version/profile-other.php" class="fw-bolder text-dark text-hover-primary fs-6"><?php echo $authorName; ?></a>
+                                                            <a href="<?php echo $authorProfileLink ?? '/Discourse/pages/version/profile-other.php'; ?>" class="fw-bolder text-dark text-hover-primary fs-6"><?php echo htmlspecialchars($authorName); ?></a>
                                                             <span class="text-muted fs-8">in</span>
                                                             <?php $commDetails = getCommunityIconDetails($community); ?>
                                                             <!-- FIX 2: text_class moved to <i> tag -->
-                                                            <a href="/Discourse/pages/version/community.php" class="d-inline-flex align-items-center gap-1 text-decoration-none">
+                                                            <a href="/Discourse/pages/version/community.php?c=<?php echo urlencode($community); ?>" class="d-inline-flex align-items-center gap-1 text-decoration-none">
                                                                 <div class="d-flex align-items-center justify-content-center rounded-2 <?php echo $commDetails['bg_class']; ?>"
                                                                     style="width:20px;height:20px;">
                                                                     <i class="bi <?php echo $commDetails['icon']; ?> <?php echo $commDetails['text_class']; ?>" style="font-size:8px;"></i>
                                                                 </div>
-                                                                <span class="fw-bold text-gray-800 text-hover-primary" style="font-size:11px;">c/<?php echo $community; ?></span>
+                                                                <span class="fw-bold text-gray-800 text-hover-primary" style="font-size:11px;">c/<?php echo htmlspecialchars($community); ?></span>
                                                             </a>
-                                                            <?php if ($showImage) { ?>
+                                                            <?php if ($can_edit) { ?>
                                                                 <span class="tag-badge rounded-pill d-inline-flex align-items-center gap-1" style="font-size:9px;padding:2px 8px;background-color:#dcfce7;color:#166534;">
                                                                     <i class="ki-duotone ki-check fs-10 text-success"><span class="path1"></span><span class="path2"></span></i> MINE
                                                                 </span>
@@ -277,17 +379,19 @@ if ($showImage) {
                                                         </div>
                                                     </div>
                                                     <div class="text-muted fs-8 fw-medium">
-                                                        <?php echo $showImage ? '1d ago' : '3h ago'; ?>
+                                                        <?php echo $post ? get_relative_time($post['created_at']) : ($showImage ? '1d ago' : '3h ago'); ?>
                                                     </div>
                                                 </div>
 
                                                 <!-- Post Title & Body -->
-                                                <div class="mb-2 text-start">
-                                                    <?php $postBadge = getCategoryBadgeStyle($tag); ?>
-                                                    <a href="/Discourse/pages/view/topic.php?t=<?php echo strtoupper($tag); ?>" class="badge <?php echo $postBadge['class']; ?> rounded-pill px-3 py-2 fs-8 fw-bold text-decoration-none">
-                                                        <i class="bi <?php echo $postBadge['icon']; ?> <?php echo $postBadge['icon_color']; ?> me-1"></i>
-                                                        <?php echo strtoupper($tag); ?>
-                                                    </a>
+                                                <div class="mb-2 text-start d-flex flex-wrap align-items-center gap-1">
+                                                    <?php
+                                                    // Topic = post['topic'], hashtags = post['tags'] (separate from topic)
+                                                    $post_topic = $post ? ($post['topic'] ?? $tag) : $tag;
+                                                    $post_tags  = $post ? ($post['tags']  ?? '') : '';
+                                                    echo renderTopicBadge($post_topic);
+                                                    echo renderHashtagBadges($post_tags, 6);
+                                                    ?>
                                                 </div>
                                                 <h1 class="fw-bolder text-dark fs-2x mb-4"><?php echo $postTitle; ?></h1>
                                                 <div class="text-gray-800 fs-6 lh-lg mb-6">
@@ -341,13 +445,13 @@ if ($showImage) {
                                                 <div class="d-flex align-items-center justify-content-between mb-8 mt-2">
                                                     <div class="d-flex align-items-center gap-1">
                                                         <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-3 py-2 rounded-pill">
-                                                            <i class="bi bi-hand-thumbs-up fs-7"></i> <span class="fw-bold fs-8"><?php echo $showImage ? '49' : '12'; ?></span>
+                                                            <i class="bi bi-hand-thumbs-up fs-7"></i> <span class="fw-bold fs-8"><?php echo $post ? ($post['upvotes'] ?? 0) : ($showImage ? '49' : '12'); ?></span>
                                                         </button>
                                                         <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-3 py-2 rounded-pill">
                                                             <i class="bi bi-hand-thumbs-down fs-7"></i> <span class="fw-bold fs-8">1</span>
                                                         </button>
                                                         <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-3 py-2 rounded-pill">
-                                                            <i class="bi bi-chat fs-7"></i> <span class="fw-bold fs-8"><?php echo $showImage ? '1' : '3'; ?></span>
+                                                            <i class="bi bi-chat fs-7"></i> <span class="fw-bold fs-8" id="comment-count-text-btn"><?php echo $post ? count($comments) : ($showImage ? '1' : '3'); ?></span>
                                                         </button>
                                                         <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-3 py-2 rounded-pill">
                                                             <i class="bi bi-share fs-7"></i> <span class="fw-bold fs-8">Share</span>
@@ -357,8 +461,8 @@ if ($showImage) {
                                                         </button>
                                                     </div>
                                                     <div class="d-flex align-items-center gap-1">
-                                                        <?php if ($showImage) { ?>
-                                                            <a href="/Discourse/pages/view/edit-post.php" class="btn btn-sm btn-light-primary d-flex align-items-center gap-1 px-3 py-2 rounded-pill">
+                                                        <?php if ($can_edit ?? $showImage) { ?>
+                                                            <a href="/Discourse/pages/view/edit-post.php<?php echo $post ? '?id=' . $post['id'] : ''; ?>" class="btn btn-sm btn-light-primary d-flex align-items-center gap-1 px-3 py-2 rounded-pill">
                                                                 <i class="bi bi-pencil-square fs-7 text-primary"></i> <span class="fw-bold fs-8">Edit Post</span>
                                                             </a>
                                                         <?php } ?>
@@ -376,15 +480,39 @@ if ($showImage) {
                                                     <div class="d-flex align-items-center gap-2 mb-6">
                                                         <h4 class="fw-bolder text-dark m-0 fs-5">Comments</h4>
                                                         <span class="badge bg-light-success text-success fw-bold rounded-circle w-20px h-20px d-flex align-items-center justify-content-center p-0"
-                                                            id="comment-count-badge" style="font-size:10px;"><?php
-                                                                                                                if ($showImage) echo '1';
-                                                                                                                elseif ($showPoll) echo '1';
-                                                                                                                elseif ($showAnon) echo '1';
-                                                                                                                elseif ($showSample) echo '1';
-                                                                                                                else echo '3';
-                                                                                                                ?></span>
+                                                            id="comment-count-badge" style="font-size:10px;"><?php echo $post ? count($comments) : ($showImage || $showPoll || $showAnon || $showSample ? '1' : '3'); ?></span>
                                                     </div>
 
+                                                    <?php if ($post && !empty($comments)) {
+                                                        foreach ($comments as $comment) {
+                                                            $cInitials = implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $comment['author_name'] ?? 'U')));
+                                                            $cAvatar = !empty($comment['avatar_md']) ? $comment['avatar_md'] : '';
+                                                    ?>
+                                                    <div class="mb-4">
+                                                        <div class="d-flex">
+                                                            <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
+                                                                <?php if ($cAvatar) { ?>
+                                                                    <img src="<?php echo htmlspecialchars($cAvatar); ?>" class="h-30px w-30px rounded-circle" alt="<?php echo htmlspecialchars($comment['author_name']); ?>">
+                                                                <?php } else { ?>
+                                                                    <div class="symbol-label bg-success text-white fw-bold fs-7"><?php echo htmlspecialchars($cInitials ?: 'U'); ?></div>
+                                                                <?php } ?>
+                                                            </div>
+                                                            <div class="flex-grow-1">
+                                                                <div class="d-flex align-items-center gap-2 mb-1">
+                                                                    <span class="fw-bolder text-dark fs-7"><?php echo htmlspecialchars($comment['author_name'] ?? 'User'); ?></span>
+                                                                    <span class="text-muted fs-9"><?php echo get_relative_time($comment['created_at']); ?></span>
+                                                                </div>
+                                                                <p class="text-gray-800 fs-7 mb-2"><?php echo htmlspecialchars($comment['body']); ?></p>
+                                                                <div class="d-flex align-items-center gap-1 mt-2">
+                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <?php } ?>
+                                                    <?php } else { ?>
                                                     <!-- Comment Thread 1 -->
                                                     <div class="mb-2">
                                                         <div class="d-flex">
@@ -408,81 +536,45 @@ if ($showImage) {
                                                                     ?>
                                                                 </p>
                                                                 <div class="d-flex align-items-center gap-1 mt-2">
-                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill">
-                                                                        <i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9"><?php echo $showImage ? '6' : '12'; ?></span>
-                                                                    </button>
-                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill">
-                                                                        <i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span>
-                                                                    </button>
-                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill">
-                                                                        <i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span>
-                                                                    </button>
+                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9"><?php echo $showImage ? '6' : '12'; ?></span></button>
+                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
                                                                 </div>
                                                             </div>
                                                         </div>
-
                                                         <?php if (!$showImage && !$showPoll && !$showAnon && !$showSample) { ?>
                                                             <div class="comment-thread-line mt-3 mb-4">
                                                                 <div class="d-flex">
-                                                                    <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
-                                                                        <div class="symbol-label bg-light text-muted fw-bold fs-7">
-                                                                            <i class="ki-duotone ki-profile-circle"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i>
-                                                                        </div>
-                                                                    </div>
+                                                                    <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0"><div class="symbol-label bg-light text-muted fw-bold fs-7"><i class="ki-duotone ki-profile-circle"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i></div></div>
                                                                     <div class="flex-grow-1">
-                                                                        <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                            <div class="d-flex align-items-center gap-2">
-                                                                                <span class="fw-bolder text-dark fs-7">Anonymous</span>
-                                                                                <span class="text-muted fs-9">1h ago</span>
-                                                                            </div>
-                                                                        </div>
+                                                                        <div class="d-flex align-items-center gap-2 mb-1"><span class="fw-bolder text-dark fs-7">Anonymous</span><span class="text-muted fs-9">1h ago</span></div>
                                                                         <p class="text-gray-800 fs-7 mb-2">What about power consumption on mobile devices though? Battery drain is still a real concern for everyday users.</p>
                                                                         <div class="d-flex align-items-center gap-1 mt-2">
-                                                                            <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill">
-                                                                                <i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">5</span>
-                                                                            </button>
-                                                                            <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill">
-                                                                                <i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span>
-                                                                            </button>
-                                                                            <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill">
-                                                                                <i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span>
-                                                                            </button>
+                                                                            <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">5</span></button>
+                                                                            <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                            <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
                                                                         </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         <?php } ?>
                                                     </div>
-
                                                     <?php if (!$showImage && !$showPoll && !$showAnon && !$showSample) { ?>
-                                                        <!-- Comment Thread 2 -->
                                                         <div class="mb-2 mt-6">
                                                             <div class="d-flex">
-                                                                <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
-                                                                    <div class="symbol-label bg-success text-white fw-bold fs-7">MT</div>
-                                                                </div>
+                                                                <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0"><div class="symbol-label bg-success text-white fw-bold fs-7">MT</div></div>
                                                                 <div class="flex-grow-1">
-                                                                    <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                        <div class="d-flex align-items-center gap-2">
-                                                                            <span class="fw-bolder text-dark fs-7">Marco Torres</span>
-                                                                            <span class="text-muted fs-9">45m ago</span>
-                                                                        </div>
-                                                                    </div>
+                                                                    <div class="d-flex align-items-center gap-2 mb-1"><span class="fw-bolder text-dark fs-7">Marco Torres</span><span class="text-muted fs-9">45m ago</span></div>
                                                                     <p class="text-gray-800 fs-7 mb-2">The TPU integration in Apple Silicon is basically proof of concept already.</p>
                                                                     <div class="d-flex align-items-center gap-1 mt-2">
-                                                                        <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill">
-                                                                            <i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">8</span>
-                                                                        </button>
-                                                                        <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill">
-                                                                            <i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span>
-                                                                        </button>
-                                                                        <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill">
-                                                                            <i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span>
-                                                                        </button>
+                                                                        <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">8</span></button>
+                                                                        <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                        <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
+                                                    <?php } ?>
                                                     <?php } ?>
                                                 </div>
 
@@ -583,78 +675,77 @@ if ($showImage) {
                                                     </div>
                                                 </div>
 
-                                                <?php if (!$showImage && !$showAnon) { ?>
-                                                    <button class="btn w-100 btn-green btn-sm fw-bold">
-                                                        <i class="ki-duotone ki-user-tick me-1"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i> Follow
+                                                <?php
+                                                $show_follow = !$showAnon && $post && $post['author_id'] !== ($identification ?? '');
+                                                $is_following = false;
+                                                $follow_target = $post ? $post['author_id'] : '';
+                                                if ($show_follow && $EDITH && $identification && $follow_target) {
+                                                    $stmt_f = $EDITH->prepare("SELECT id FROM followers WHERE follower_id=? AND following_id=?");
+                                                    $stmt_f->bind_param("ss", $identification, $follow_target);
+                                                    $stmt_f->execute();
+                                                    $stmt_f->store_result();
+                                                    $is_following = $stmt_f->num_rows > 0;
+                                                    $stmt_f->close();
+                                                }
+                                                if ($show_follow) { ?>
+                                                    <button id="follow-btn"
+                                                        class="btn w-100 btn-sm fw-bold"
+                                                        data-target="<?php echo htmlspecialchars($follow_target); ?>"
+                                                        data-following="<?php echo $is_following ? '1' : '0'; ?>"
+                                                        style="<?php echo $is_following
+                                                            ? 'background:transparent;color:#1A8B44;border:2px solid #1A8B44;'
+                                                            : 'background:#1A8B44;color:#fff;border:2px solid #1A8B44;'; ?>">
+                                                        <i class="bi <?php echo $is_following ? 'bi-check-lg' : 'bi-person-plus-fill'; ?> me-1"></i>
+                                                        <?php echo $is_following ? 'Followed' : 'Follow'; ?>
                                                     </button>
                                                 <?php } ?>
                                             </div>
                                         </div>
 
                                         <!-- Related Posts -->
+                                        <?php
+                                        $related_posts = [];
+                                        if ($EDITH && $post) {
+                                            $excl = (int)$post['id'];
+                                            $comm_esc = $EDITH->real_escape_string($community);
+                                            $topic_esc = $EDITH->real_escape_string($tag);
+                                            $res_rel = $EDITH->query(
+                                                "SELECT id, title, topic, upvotes, created_at FROM posts
+                                                 WHERE id != $excl AND (community='$comm_esc' OR topic='$topic_esc')
+                                                 ORDER BY upvotes DESC LIMIT 3"
+                                            );
+                                            if ($res_rel) {
+                                                while ($rr = $res_rel->fetch_assoc()) $related_posts[] = $rr;
+                                            }
+                                        }
+                                        if (!empty($related_posts)) { ?>
                                         <div class="card sidebar-card mb-5">
                                             <div class="card-header border-0 pt-5 pb-0 min-h-auto">
                                                 <h3 class="card-title text-gray-700 fs-8 fw-bold text-uppercase m-0">RELATED POSTS</h3>
                                             </div>
                                             <div class="card-body p-5">
                                                 <div class="d-flex flex-column gap-4">
-
-                                                    <a href="/Discourse/pages/version/view-post.php" class="d-flex align-items-start gap-3 text-decoration-none">
+                                                    <?php foreach ($related_posts as $idx => $rp) {
+                                                        if ($idx > 0) echo '<div class="separator separator-dashed my-1"></div>';
+                                                    ?>
+                                                    <a href="/Discourse/pages/version/view-post.php?id=<?php echo $rp['id']; ?>" class="d-flex align-items-start gap-3 text-decoration-none">
                                                         <div class="d-flex align-items-center gap-1 mt-1 text-success">
                                                             <i class="ki-duotone ki-arrow-up fs-9"><span class="path1"></span><span class="path2"></span></i>
-                                                            <span class="vote-count-up"><?php echo $showImage ? '189' : '88'; ?></span>
+                                                            <span class="vote-count-up"><?php echo $rp['upvotes']; ?></span>
                                                         </div>
                                                         <div>
-                                                            <h5 class="text-dark fw-bold fs-7 mb-1 text-hover-primary lh-sm">
-                                                                <?php echo $showImage ? 'Pro tips for surviving enrollment season at FEU Tech' : 'Is Qualcomm finally catching up to Apple Silicon on AI benchmarks?'; ?>
-                                                            </h5>
+                                                            <h5 class="text-dark fw-bold fs-7 mb-1 text-hover-primary lh-sm"><?php echo htmlspecialchars(mb_substr($rp['title'], 0, 60)) . (mb_strlen($rp['title']) > 60 ? '…' : ''); ?></h5>
                                                             <div class="d-flex align-items-center gap-2">
                                                                 <i class="ki-duotone ki-flash text-warning fs-10"><span class="path1"></span><span class="path2"></span></i>
-                                                                <span class="text-muted fs-9"><?php echo $showImage ? 'FEU • 1d ago' : 'Technology • 1d ago'; ?></span>
+                                                                <span class="text-muted fs-9"><?php echo htmlspecialchars($rp['topic']); ?></span>
                                                             </div>
                                                         </div>
                                                     </a>
-
-                                                    <div class="separator separator-dashed my-1"></div>
-
-                                                    <a href="/Discourse/pages/version/view-post.php?img=1" class="d-flex align-items-start gap-3 text-decoration-none">
-                                                        <div class="d-flex align-items-center gap-1 mt-1 text-success">
-                                                            <i class="ki-duotone ki-arrow-up fs-9"><span class="path1"></span><span class="path2"></span></i>
-                                                            <span class="vote-count-up"><?php echo $showImage ? '127' : '72'; ?></span>
-                                                        </div>
-                                                        <div>
-                                                            <h5 class="text-dark fw-bold fs-7 mb-1 text-hover-primary lh-sm">
-                                                                <?php echo $showImage ? 'What if FEU had a no-grade-penalty mental health leave?' : 'How local LLMs will reshape app development in the next 2 years'; ?>
-                                                            </h5>
-                                                            <div class="d-flex align-items-center gap-2">
-                                                                <i class="ki-duotone ki-flash text-warning fs-10"><span class="path1"></span><span class="path2"></span></i>
-                                                                <span class="text-muted fs-9"><?php echo $showImage ? 'Ideas • 1w ago' : 'Technology • 2d ago'; ?></span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-
-                                                    <?php if (!$showImage) { ?>
-                                                        <div class="separator separator-dashed my-1"></div>
-                                                        <a href="/Discourse/pages/version/view-post.php?anon=1" class="d-flex align-items-start gap-3 text-decoration-none">
-                                                            <div class="d-flex align-items-center gap-1 mt-1 text-success">
-                                                                <i class="ki-duotone ki-arrow-up fs-9"><span class="path1"></span><span class="path2"></span></i>
-                                                                <span class="vote-count-up">54</span>
-                                                            </div>
-                                                            <div>
-                                                                <h5 class="text-dark fw-bold fs-7 mb-1 text-hover-primary lh-sm">
-                                                                    Anyone else obsessed with the new Phi-3 Mini benchmarks?
-                                                                </h5>
-                                                                <div class="d-flex align-items-center gap-2">
-                                                                    <i class="ki-duotone ki-flash text-warning fs-10"><span class="path1"></span><span class="path2"></span></i>
-                                                                    <span class="text-muted fs-9">AI • 3d ago</span>
-                                                                </div>
-                                                            </div>
-                                                        </a>
                                                     <?php } ?>
-
                                                 </div>
                                             </div>
                                         </div>
+                                        <?php } ?>
 
                                         <!-- Community Rules -->
                                         <div class="card sidebar-card">
@@ -703,7 +794,8 @@ if ($showImage) {
             let commentCount = parseInt($('#comment-count-badge').text()) || 0;
             let replyingToThread = null;
             let isAnonymous = false;
-            const realName = '<?php echo $authorName; ?>';
+            const postId = <?php echo json_encode($post ? $post['id'] : 0); ?>;
+            const realName = '<?php echo addslashes($authorName); ?>';
             const realInitials = '<?php echo $authorInitials; ?>';
 
             $('#anon-toggle-checkbox').on('change', function() {
@@ -722,6 +814,34 @@ if ($showImage) {
                     badge.html('<i class="bi bi-person-fill" style="font-size:10px;"></i> Posting as <strong>' + realName + '</strong>');
                     avatar.text(realInitials).css('background', '');
                 }
+            });
+
+            // Follow / Unfollow
+            $('#follow-btn').on('click', function() {
+                const btn = $(this);
+                const target = btn.data('target');
+                const following = btn.data('following') == '1';
+                btn.prop('disabled', true);
+                $.ajax({
+                    url: '/Discourse/pages/version/follow-action.php',
+                    method: 'POST',
+                    data: { target_id: target },
+                    dataType: 'json',
+                    success: function(res) {
+                        if (res.success) {
+                            const nowFollowing = res.following;
+                            btn.data('following', nowFollowing ? '1' : '0');
+                            if (nowFollowing) {
+                                btn.css({'background':'transparent','color':'#1A8B44','border':'2px solid #1A8B44'});
+                                btn.html('<i class="bi bi-check-lg me-1"></i> Followed');
+                            } else {
+                                btn.css({'background':'#1A8B44','color':'#fff','border':'2px solid #1A8B44'});
+                                btn.html('<i class="bi bi-person-plus-fill me-1"></i> Follow');
+                            }
+                        }
+                    },
+                    complete: function() { btn.prop('disabled', false); }
+                });
             });
 
             $('#save-post-btn').on('click', function() {
@@ -788,6 +908,20 @@ if ($showImage) {
                 const input = $('#main-comment-input');
                 const text = input.val().trim();
                 if (!text) return;
+                if (postId > 0) {
+                    $.ajax({
+                        url: '/Discourse/pages/version/add-comment-action.php',
+                        method: 'POST',
+                        data: { post_id: postId, body: text },
+                        dataType: 'json',
+                        success: function(res) {
+                            if (res.success) { window.location.reload(); }
+                            else { alert(res.message || 'Failed to post comment.'); }
+                        },
+                        error: function() { alert('Error communicating with database.'); }
+                    });
+                    return;
+                }
                 const displayName = isAnonymous ? 'Anonymous' : realName;
                 const displayInitials = isAnonymous ? 'A' : realInitials;
                 const avatarBg = isAnonymous ? '#ea580c' : '#198754';

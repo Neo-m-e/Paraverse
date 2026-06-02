@@ -1,6 +1,6 @@
 <?php
 define('MBG', TRUE);
-include($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
+include(dirname(dirname(__DIR__)) . '/functions-new.php');
 
 // IS_LOGGED_IN($_SERVER['REQUEST_URI']);
 // $SQL = "SELECT * FROM posts WHERE slug = ?";
@@ -22,12 +22,12 @@ $META_DESC  = "Edit your existing post.";
   data-kt-app-header-fixed-mobile="true"
   class="app-default">
 
-  <?php include($_SERVER['DOCUMENT_ROOT'] . '/Discourse/partials/_page-loader.php'); ?>
+  <?php include(dirname(dirname(__DIR__)) . '/partials/_page-loader.php'); ?>
 
   <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
     <div class="app-page flex-column flex-column-fluid" id="kt_app_page">
 
-      <?php include($_SERVER['DOCUMENT_ROOT'] . '/Discourse/partials/_header.php'); ?>
+      <?php include(dirname(dirname(__DIR__)) . '/partials/_header.php'); ?>
 
       <div class="app-wrapper flex-column flex-row-fluid" id="kt_app_wrapper">
         <div class="app-main flex-column flex-row-fluid" id="kt_app_main">
@@ -178,9 +178,9 @@ $META_DESC  = "Edit your existing post.";
                               style="height:300px !important;overflow-y:auto !important;">Finally tried booking one of the new study rooms in the library. Honest review: the booking system is clunky, the AC is questionable, but the soundproofing is actually great. Worth it for group study if you plan ahead.<br><br>Not ideal for solo cramming though — the chairs are surprisingly uncomfortable for long sessions.</div>
 
                             <div class="dc-image-wrapper" id="imageWrapper" style="display:block;">
-                              <img src="https://www.feu.edu.ph/wp-content/uploads/2023/06/thumbnail__a3-1.jpg"
+                              <img src="https://images.unsplash.com/photo-1541829070764-84a7d30dd3f3?q=80&w=1200&auto=format&fit=crop"
                                 alt="Attached image" class="dc-img-inserted" id="attachedImage"
-                                style="max-height:220px;width:100%;object-fit:cover;margin:0;">
+                                style="max-height:220px;width:100%;object-fit:cover;margin:0;filter:brightness(0.8) sepia(0.2) hue-rotate(90deg);">
                               <div class="dc-image-overlay">
                                 <button class="dc-image-action-btn dc-image-replace-btn"
                                   onclick="document.getElementById('replaceImageInput').click()" title="Replace image">
@@ -376,13 +376,13 @@ $META_DESC  = "Edit your existing post.";
 
             </main>
           </div>
-          <?php include($_SERVER['DOCUMENT_ROOT'] . '/Discourse/partials/_footer.php'); ?>
+          <?php include(dirname(dirname(__DIR__)) . '/partials/_footer.php'); ?>
         </div>
       </div>
     </div>
   </div>
 
-  <?php include($_SERVER['DOCUMENT_ROOT'] . '/Discourse/partials/_scrolltop.php'); ?>
+  <?php include(dirname(dirname(__DIR__)) . '/partials/_scrolltop.php'); ?>
 
   <!-- Link Modal -->
   <div class="modal fade" id="modal-link" tabindex="-1" aria-hidden="true">
