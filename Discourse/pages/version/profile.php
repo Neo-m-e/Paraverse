@@ -17,6 +17,7 @@ $karma         = 0;
 $joined_count  = 0;
 $my_posts      = [];
 $my_comments   = [];
+$my_communities = [];
 
 if ($EDITH && $identification) {
     $id = $identification;
@@ -57,6 +58,20 @@ if ($EDITH && $identification) {
         $stmt->bind_param("s", $id);
         $stmt->execute();
         $my_comments = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+    }
+
+    // Communities tab
+    $stmt = $EDITH->prepare(
+        "SELECT cm.community_title, COALESCE(c.members,0) as members
+         FROM community_members cm
+         LEFT JOIN communities c ON c.title = cm.community_title
+         WHERE cm.identification=? ORDER BY cm.id ASC"
+    );
+    if ($stmt) {
+        $stmt->bind_param("s", $id);
+        $stmt->execute();
+        $my_communities = $stmt->get_result()->fetch_all(MYSQLI_ASSOC);
         $stmt->close();
     }
 }
@@ -188,6 +203,7 @@ if (!function_exists('profile_relative_time')) {
                       <a class="profile-tab fw-bolder fs-6 text-muted <?php echo $active_tab === 'upvoted' ? 'active' : ''; ?> py-3 text-nowrap" data-tab="upvoted">Upvoted</a>
                       <a class="profile-tab fw-bolder fs-6 text-muted <?php echo $active_tab === 'downvoted' ? 'active' : ''; ?> py-3 text-nowrap" data-tab="downvoted">Downvoted</a>
                       <a class="profile-tab fw-bolder fs-6 text-muted <?php echo $active_tab === 'saved' ? 'active' : ''; ?> py-3 text-nowrap" data-tab="saved">Saved</a>
+                      <a class="profile-tab fw-bolder fs-6 text-muted <?php echo $active_tab === 'communities' ? 'active' : ''; ?> py-3 text-nowrap" data-tab="communities">Communities</a>
                     </div>
 
                     <!-- Tab Content -->
@@ -609,6 +625,40 @@ if (!function_exists('profile_relative_time')) {
                           }
                       }
                       ?>
+                    </div>
+
+                    <!-- Communities Tab -->
+                    <div class="tab-pane <?php echo $active_tab === 'communities' ? 'active' : ''; ?>" id="tab-communities">
+                      <div class="row g-4">
+                        <?php if (empty($my_communities)) { ?>
+                        <div class="col-12 text-center py-10 text-muted">
+                          <i class="bi bi-people fs-1 d-block mb-3 opacity-50"></i>
+                          <p class="fs-6">You haven't joined any communities yet.</p>
+                        </div>
+                        <?php }
+                        foreach ($my_communities as $comm) {
+                          $mCount = $comm['members'] >= 1000 ? round($comm['members']/1000,1).'k' : $comm['members'];
+                          $c_commDetails = getCommunityIconDetails($comm['community_title']);
+                        ?>
+                        <div class="col-md-6">
+                          <div class="card border border-gray-300 shadow-none rounded-2" style="cursor:pointer;" onclick="window.location.href='/Discourse/pages/version/community.php?c=<?php echo urlencode($comm['community_title']); ?>'">
+                            <div class="card-body p-5 d-flex align-items-center gap-4">
+                              <div class="w-50px h-50px rounded-3 d-flex align-items-center justify-content-center flex-shrink-0 <?php echo $c_commDetails['bg_class']; ?>">
+                                <i class="bi <?php echo $c_commDetails['icon']; ?> fs-3 <?php echo $c_commDetails['text_class']; ?>"></i>
+                              </div>
+                              <div class="flex-grow-1">
+                                <h5 class="fw-bolder text-dark fs-5 mb-1"><?php echo htmlspecialchars($comm['community_title']); ?></h5>
+                                <div class="d-flex align-items-center gap-1 text-muted fs-8">
+                                  <i class="ki-duotone ki-people fs-9"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
+                                  <span><?php echo $mCount; ?> members</span>
+                                </div>
+                              </div>
+                              <i class="ki-duotone ki-arrow-right text-muted fs-8"><span class="path1"></span><span class="path2"></span></i>
+                            </div>
+                          </div>
+                        </div>
+                        <?php } ?>
+                      </div>
                     </div>
 
                   </div>

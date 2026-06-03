@@ -152,12 +152,15 @@ if (!function_exists('profile_relative_time')) {
                             <?php
                             $prof_is_following = false;
                             if ($EDITH && $identification && $other_id) {
-                                $stmt_pf = $EDITH->prepare("SELECT id FROM followers WHERE follower_id=? AND following_id=?");
-                                $stmt_pf->bind_param("ss", $identification, $other_id);
-                                $stmt_pf->execute();
-                                $stmt_pf->store_result();
-                                $prof_is_following = $stmt_pf->num_rows > 0;
-                                $stmt_pf->close();
+                                $tbl_check = $EDITH->query("SHOW TABLES LIKE 'followers'");
+                                if ($tbl_check && $tbl_check->num_rows > 0) {
+                                    $stmt_pf = $EDITH->prepare("SELECT id FROM followers WHERE follower_id=? AND following_id=?");
+                                    $stmt_pf->bind_param("ss", $identification, $other_id);
+                                    $stmt_pf->execute();
+                                    $stmt_pf->store_result();
+                                    $prof_is_following = $stmt_pf->num_rows > 0;
+                                    $stmt_pf->close();
+                                }
                             }
                             ?>
                             <div class="flex-shrink-0">
