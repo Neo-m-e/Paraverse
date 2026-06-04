@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function () {
   var btnLost = document.getElementById('btn-i-lost-something');
   if (btnLost) {
     btnLost.addEventListener('click', function () {
-      window.location.href = 'pages/lost-something/index.php';
+      window.location.href = 'lost-something/index.php';
     });
   }
 
@@ -148,6 +148,10 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.btn-how-to-claim').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
+      var card = btn.closest('.laf-item-card');
+      var itemName = card ? card.querySelector('.item-name')?.textContent?.trim() : 'Item';
+      var label = document.getElementById('modalHowToClaimLabel');
+      if (label) label.textContent = 'How to Claim: ' + itemName;
       lafShowModal('modalHowToClaim');
     });
   });
@@ -155,15 +159,33 @@ document.addEventListener('DOMContentLoaded', function () {
   document.querySelectorAll('.btn-i-found').forEach(function (btn) {
     btn.addEventListener('click', function (e) {
       e.stopPropagation();
+      var card = btn.closest('.laf-lost-card');
+      var itemName = card ? card.querySelector('.lost-title')?.textContent?.trim() : 'Item';
+      var label = document.getElementById('modalHowToSurrenderLabel');
+      if (label) label.textContent = 'Found: ' + itemName + '? Here\'s What to Do';
       lafShowModal('modalHowToSurrender');
     });
   });
 
   var btnMine = document.getElementById('btn-this-is-mine');
-  if (btnMine) btnMine.addEventListener('click', function () { lafShowModal('modalHowToClaim'); });
+  if (btnMine) {
+    btnMine.addEventListener('click', function () {
+      var itemName = document.querySelector('h2')?.textContent?.replace('🔍', '')?.replace('✅', '')?.trim() || 'Item';
+      var label = document.getElementById('modalHowToClaimLabel');
+      if (label) label.textContent = 'How to Claim: ' + itemName;
+      lafShowModal('modalHowToClaim');
+    });
+  }
 
   var btnFoundDetail = document.getElementById('btn-i-found-detail');
-  if (btnFoundDetail) btnFoundDetail.addEventListener('click', function () { lafShowModal('modalHowToSurrender'); });
+  if (btnFoundDetail) {
+    btnFoundDetail.addEventListener('click', function () {
+      var itemName = document.querySelector('h2')?.textContent?.replace('🔍', '')?.replace('✅', '')?.trim() || 'Item';
+      var label = document.getElementById('modalHowToSurrenderLabel');
+      if (label) label.textContent = 'Found: ' + itemName + '? Here\'s What to Do';
+      lafShowModal('modalHowToSurrender');
+    });
+  }
 
   /* ══════════════════════════════════════════════════════
      SEARCH BAR

@@ -42,7 +42,7 @@ $user_avatar = '/LAF/assets/images/catalina.webp';
     <a href="/account-settings" style="display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.88rem;font-weight:600;color:#1e1e2d;text-decoration:none;" class="laf-dd-item">
       <i class="bi bi-gear-fill" style="color:#a1a5b7;font-size:1rem;width:18px;"></i> Account Settings
     </a>
-    <a href="/LAF/pages/lost-item-reports/index.php" style="display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.88rem;font-weight:600;color:#1e1e2d;text-decoration:none;" class="laf-dd-item">
+    <a href="/LAF/lost-item-reports/index.php" style="display:flex;align-items:center;gap:10px;padding:10px 16px;font-size:.88rem;font-weight:600;color:#1e1e2d;text-decoration:none;" class="laf-dd-item">
       <i class="bi bi-clipboard2-check-fill" style="color:#a1a5b7;font-size:1rem;width:18px;"></i> Lost Item Reports
     </a>
     <div style="height:1px;background:#e9e9ef;margin:4px 0;"></div>
