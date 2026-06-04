@@ -92,6 +92,13 @@
     </div>
   </div>
 
+  <!-- Scroll hint -->
+  <div class="hero-scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-arrow">
+      <i class="bi bi-chevron-down" style="font-size:0.7rem;"></i>
+    </div>
+  </div>
 
 </section>
 
