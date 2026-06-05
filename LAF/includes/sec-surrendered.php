@@ -1,5 +1,8 @@
 <?php
-$surrendered_items = array_slice(LAF_GET_SURRENDERED_ITEMS(), 0, 4, true);
+$all_unclaimed = array_filter(LAF_GET_SURRENDERED_ITEMS(), function($item) {
+  return strtolower($item['status'] ?? '') === 'unclaimed';
+});
+$surrendered_items = array_slice($all_unclaimed, 0, 4, true);
 
 $categories = ['All Categories', 'Academic', 'Electronics', 'Bags', 'Accessories','Clothing','Wallets','Documents','Personal Essentials', 'Others'];
 

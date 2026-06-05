@@ -11,6 +11,13 @@ $all_items = LAF_GET_SURRENDERED_ITEMS();
 
 $item = isset($all_items[$item_id]) ? $all_items[$item_id] : $all_items[1];
 $is_unclaimed = (strtolower($item['status']) === 'unclaimed');
+
+if (!$is_unclaimed) {
+  $claimed_items = LAF_GET_CLAIMED_ITEMS();
+  if (isset($claimed_items[$item_id])) {
+    $item = array_merge($item, $claimed_items[$item_id]);
+  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">

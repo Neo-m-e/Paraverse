@@ -50,7 +50,8 @@ $cat_css_map = [
           $cat_class = $cat_css_map[$cat_key] ?? 'cat-others';
         ?>
         <div class="col">
-          <div class="laf-claimed-card <?= $cat_class ?>">
+          <div class="laf-claimed-card laf-card-clickable <?= $cat_class ?>"
+               onclick="window.location.href='../item-details/index.php?id=<?= (int)$item['id'] ?>'; KTApp.showPageLoading();">
             <div class="claimed-icon-wrap">
               <i class="<?= $iconClass ?>" style="font-size: 1.4rem;"></i>
             </div>

@@ -40,9 +40,9 @@ $cat_css_map = [
 ];
 
 $claimed_items = [
-  ['id'=>1,'name'=>'Keys','category'=>'Keys','floor'=>'1st Floor, Parking','claimed_by'=>'Kristin V. Dy'],
-  ['id'=>2,'name'=>'Eyeglasses','category'=>'Accessories','floor'=>'3rd Floor, Library','claimed_by'=>'Roel M. Tan'],
-  ['id'=>3,'name'=>'Smartphone','category'=>'Electronics','floor'=>'5th Floor, Study Area','claimed_by'=>'Dana P. Reyes'],
+  ['id'=>5,'name'=>'Keys','category'=>'Keys','floor'=>'1st Floor, Parking','claimed_by'=>'Kristin V. Dy'],
+  ['id'=>6,'name'=>'Eyeglasses','category'=>'Accessories','floor'=>'3rd Floor, Library','claimed_by'=>'Roel M. Tan'],
+  ['id'=>7,'name'=>'Smartphone','category'=>'Electronics','floor'=>'5th Floor, Study Area','claimed_by'=>'Dana P. Reyes'],
 ];
 ?>
 
@@ -90,7 +90,8 @@ $claimed_items = [
         $cat_class = $cat_css_map[$cat_key] ?? 'cat-others';
       ?>
         <div class="col">
-          <div class="laf-claimed-card <?= $cat_class ?> border rounded-3 p-4 bg-white d-flex align-items-center gap-3 h-100">
+          <div class="laf-claimed-card laf-card-clickable <?= $cat_class ?> border rounded-3 p-4 bg-white d-flex align-items-center gap-3 h-100"
+               onclick="window.location.href='/LAF/item-details/index.php?id=<?= (int)$item['id'] ?>'; KTApp.showPageLoading();">
             <div class="claimed-icon-wrap rounded-3 d-flex align-items-center justify-content-center" style="width:52px; height:52px;">
               <i class="<?= $iconClass ?>" style="font-size: 1.4rem;"></i>
             </div>

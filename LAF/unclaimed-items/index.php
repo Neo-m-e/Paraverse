@@ -5,7 +5,9 @@ include($_SERVER['DOCUMENT_ROOT'] . '/LAF/functions-new.php');
 $META_TITLE = "All Unclaimed Items · Lost and Found";
 $META_DESC  = "View all unclaimed items in FEU Tech Lost and Found.";
 
-$items = LAF_GET_SURRENDERED_ITEMS();
+$items = array_filter(LAF_GET_SURRENDERED_ITEMS(), function($item) {
+  return strtolower($item['status'] ?? '') === 'unclaimed';
+});
 
 $categories = ['All Categories', 'Academic', 'Electronics', 'Bags', 'Accessories', 'Clothing', 'Wallets', 'Documents', 'Personal Essentials', 'Others'];
 ?>

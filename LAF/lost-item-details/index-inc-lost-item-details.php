@@ -13,6 +13,16 @@ if (!isset($item)) {
     'additional_context' => '',
     'image_url' => ''
   ];
+} else {
+  if (!isset($item['date_last_seen']) && isset($item['date'])) {
+    $item['date_last_seen'] = $item['date'];
+  }
+  if (!isset($item['time_last_seen']) && isset($item['time'])) {
+    $item['time_last_seen'] = $item['time'];
+  }
+  if (!isset($item['image_url']) && isset($item['image'])) {
+    $item['image_url'] = $item['image'];
+  }
 }
 
 $categoryIcons = [
