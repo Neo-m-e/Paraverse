@@ -1,10 +1,3 @@
-/**
- * Paraverse Sliding Puzzle — 3×3
- * puzzle.js
- * Sound: crispy tile-slide via Web Audio API (no external files)
- * Tiles: Paraverse logo sliced via background-position
- * Flow: solved (fixed) → Play → timer starts + shuffle → play → win
- */
 
 /* ── Audio Engine ────────────────────────────────────────────── */
 const SoundFX = (() => {

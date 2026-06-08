@@ -1,15 +1,4 @@
-/*
- * Paraverse Sliding Puzzle — 3×3
- * style.css
- *
- * RULE: Bootstrap 5 utilities handle all layout/spacing/typography.
- * This file contains ONLY what Bootstrap cannot provide:
- *   1. Body background gradient
- *   2. Tile absolute positioning + slide transition
- *   3. Tile image slice styles
- *   4. Solved overlay opacity transition
- *   5. Flash keyframe animation
- */
+
 
 /* 1. Body background — deep-space gradient with palette colors */
 body {
