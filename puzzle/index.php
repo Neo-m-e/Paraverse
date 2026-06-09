@@ -1,14 +1,7 @@
 <?php
 
-
-
-define('MBG', TRUE);
-include($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
-
 $META_TITLE = "Sliding Puzzle";
-$META_DESC  = "Paraverse 3×3 Sliding Puzzle — FEU Institute of Technology EdITH";
-$logoPath   = "assets/images/paraverse.svg";
-$hasLogo    = file_exists($logoPath);
+$META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -19,41 +12,79 @@ $hasLogo    = file_exists($logoPath);
   <title><?= htmlspecialchars($META_TITLE) ?> — Paraverse</title>
   <meta name="description" content="<?= htmlspecialchars($META_DESC) ?>">
 
-  <!-- Bootstrap 5 -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css">
-
-  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Exo+2:wght@400;500;600&display=swap" rel="stylesheet">
-
   <link rel="stylesheet" href="assets/css/style.css">
+
+  <style>
+    /* Homepage-only: mode cards */
+    .mode-card {
+      background: linear-gradient(160deg, rgba(11, 3, 34, .75) 0%, rgba(27, 29, 82, .4) 100%);
+      border: 1px solid rgba(139, 111, 255, .2);
+      border-radius: 16px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      cursor: pointer;
+      transition: border-color .2s ease, box-shadow .2s ease, transform .18s ease;
+      text-decoration: none !important;
+    }
+
+    .mode-card:hover {
+      border-color: #8B6FFF;
+      box-shadow: 0 0 28px rgba(139, 111, 255, .35), 0 8px 32px rgba(0, 0, 0, .5);
+      transform: translateY(-3px);
+    }
+
+    .mode-card.disabled-card {
+      opacity: .45;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+
+    .mode-grid-preview {
+      display: grid;
+      gap: 3px;
+      border-radius: 8px;
+      overflow: hidden;
+      background: rgba(4, 0, 15, .4);
+      border: 1px solid rgba(139, 111, 255, .15);
+    }
+
+    .mode-grid-preview span {
+      display: block;
+      background: rgba(139, 111, 255, .18);
+      border-radius: 3px;
+    }
+
+    .badge-soon {
+      font-family: 'Exo 2', sans-serif;
+      font-size: .55rem;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      color: rgba(237, 232, 255, .45);
+      background: rgba(139, 111, 255, .15);
+      border: 1px solid rgba(139, 111, 255, .2);
+      border-radius: 20px;
+      padding: 2px 8px;
+    }
+  </style>
 </head>
 
-<body class="d-flex align-items-center justify-content-center min-vh-100 overflow-hidden">
+<body class="d-flex align-items-center justify-content-center min-vh-100">
 
-  <div class="puzzle-card d-flex flex-column align-items-center gap-4 p-4 p-md-5 rounded-4 position-relative">
+  <div class="puzzle-card d-flex flex-column align-items-center gap-5 p-4 p-md-5 rounded-4"
+    style="min-width:340px;max-width:420px;width:100%;">
 
     <!-- Brand -->
     <div class="d-flex flex-column align-items-center gap-2">
-      <div class="logo-wrap d-flex align-items-center justify-content-center rounded-3 overflow-hidden"
+      <div class="d-flex align-items-center justify-content-center rounded-3 overflow-hidden"
         style="width:68px;height:68px;background:linear-gradient(135deg,#2A1C5A,#3C2166);border:1.5px solid rgba(139,111,255,.3);">
-        <?php if ($hasLogo): ?>
-          <img src="<?= htmlspecialchars($logoPath) ?>" alt="Paraverse Logo" width="46" height="46" style="object-fit:contain;">
-        <?php else: ?>
-          <svg viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" width="46" height="46">
-            <circle cx="22" cy="22" r="20" stroke="#8B6FFF" stroke-width="1.5" stroke-dasharray="4 2" />
-            <polygon points="22,6 27,16 38,16 30,24 33,35 22,29 11,35 14,24 6,16 17,16"
-              fill="none" stroke="#B8A3FF" stroke-width="1.2" stroke-linejoin="round" />
-            <circle cx="22" cy="22" r="3.5" fill="#8B6FFF" />
-          </svg>
-        <?php endif; ?>
+        <img src="assets/images/paraverse.svg" alt="Paraverse Logo" width="46" height="46" style="object-fit:contain;">
       </div>
-
       <p class="mb-0 text-uppercase text-white fw-bold"
-        style="font-family:'Orbitron',sans-serif;font-size:.92rem;letter-spacing:.26em;">
-        Paraverse
-      </p>
+        style="font-family:'Orbitron',sans-serif;font-size:.92rem;letter-spacing:.26em;">Paraverse</p>
       <p class="mb-0 text-uppercase"
         style="font-family:'Exo 2',sans-serif;font-size:.67rem;letter-spacing:.14em;color:rgba(237,232,255,.35);">
         FEU Institute of Technology &middot; EdITH
@@ -63,131 +94,96 @@ $hasLogo    = file_exists($logoPath);
     <!-- Divider -->
     <div class="w-100" style="height:1px;background:linear-gradient(90deg,transparent,rgba(139,111,255,.3),transparent);"></div>
 
-    <!-- Grid shell -->
-    <div class="grid-shell position-relative rounded-3 p-2">
-      <div id="puzzle-grid" class="puzzle-grid position-relative" role="grid" aria-label="3 by 3 sliding puzzle"></div>
-
-      <!-- Solved overlay -->
-      <div id="solved-overlay"
-        class="solved-overlay position-absolute top-0 start-0 w-100 h-100 rounded-3
-                  d-flex flex-column align-items-center justify-content-center gap-3"
-        aria-live="polite">
-        <span style="font-size:3.2rem;filter:drop-shadow(0 0 12px #5DFFB0);">✦</span>
-        <p class="mb-0 fw-black text-uppercase"
-          style="font-family:'Orbitron',sans-serif;font-size:1.25rem;letter-spacing:.22em;
-                  background:linear-gradient(135deg,#5DFFB0,#A0FFC8);-webkit-background-clip:text;
-                  -webkit-text-fill-color:transparent;background-clip:text;
-                  filter:drop-shadow(0 0 16px rgba(93,255,176,.6));">Puzzle Solved!</p>
-        <p id="solved-moves" class="mb-0"
-          style="font-family:'Exo 2',sans-serif;font-size:.85rem;letter-spacing:.1em;color:rgba(237,232,255,.85);"></p>
-        <p id="solved-time" class="mb-0"
-          style="font-family:'Exo 2',sans-serif;font-size:.85rem;letter-spacing:.1em;color:rgba(237,232,255,.6);"></p>
-        <button id="btn-play-again" type="button" class="btn-pv mt-1">
-          Play Again
-        </button>
-      </div>
+    <!-- Title -->
+    <div class="d-flex flex-column align-items-center gap-1">
+      <p class="mb-0 text-uppercase fw-bold"
+        style="font-family:'Orbitron',sans-serif;font-size:1rem;letter-spacing:.22em;color:#B8A3FF;">
+        Sliding Puzzle
+      </p>
+      <p class="mb-0" style="font-family:'Exo 2',sans-serif;font-size:.7rem;letter-spacing:.08em;color:rgba(237,232,255,.35);">
+        Choose your difficulty
+      </p>
     </div>
 
-    <!-- Timer + Moves row — hidden until game starts -->
-    <div id="puzzle-controls" class="d-flex align-items-center justify-content-between w-100 gap-3" style="display:none!important;">
-      <div class="d-flex flex-column gap-1">
-        <span class="stat-label">Moves</span>
-        <span id="move-count" class="stat-value">0</span>
-      </div>
-      <div class="d-flex flex-column align-items-center gap-1">
-        <span class="stat-label">Time</span>
-        <span id="timer-count" class="stat-value" style="min-width:5ch;">00:00</span>
-      </div>
-      <!-- Sound toggle -->
-      <button id="btn-sound" type="button" aria-label="Toggle sound" class="btn-icon-pv">
-        <svg class="icon-sound-on" width="16" height="16" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-          <path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path>
-          <path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>
-        </svg>
-        <svg class="icon-sound-off" width="16" height="16" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          style="display:none;">
-          <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-          <line x1="23" y1="9" x2="17" y2="15"></line>
-          <line x1="17" y1="9" x2="23" y2="15"></line>
-        </svg>
-      </button>
-    </div>
+    <!-- Mode cards -->
+    <div class="d-flex flex-column gap-3 w-100">
 
-    <!-- Action row -->
-    <div class="d-flex align-items-center justify-content-between w-100 gap-3">
-
-      <!-- PLAY button — preview state -->
-      <button id="btn-play" type="button" aria-label="Start puzzle" class="btn-pv btn-pv-full">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;">
-          <polygon points="5 3 19 12 5 21 5 3"></polygon>
-        </svg>
-        Play
-      </button>
-
-      <!-- RESTART button — playing state -->
-      <button id="btn-shuffle" type="button" aria-label="Restart puzzle" class="btn-pv" style="display:none;">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      <!-- 3×3 -->
+      <a href="3x3/index.php" class="mode-card d-flex align-items-center gap-4 p-4 text-decoration-none">
+        <!-- Mini grid preview: 3×3 -->
+        <div class="mode-grid-preview flex-shrink-0" style="grid-template-columns:repeat(3,1fr);width:54px;height:54px;">
+          <?php for ($i = 0; $i < 9; $i++): ?>
+            <span style="height:16px;<?= $i === 8 ? 'opacity:0;' : '' ?>"></span>
+          <?php endfor; ?>
+        </div>
+        <div class="d-flex flex-column gap-1 flex-grow-1">
+          <span class="fw-bold" style="font-family:'Orbitron',sans-serif;font-size:.82rem;letter-spacing:.16em;color:#EDE8FF;">
+            3 &times; 3
+          </span>
+          <span style="font-family:'Exo 2',sans-serif;font-size:.68rem;color:rgba(237,232,255,.45);">
+            8 tiles &nbsp;&middot;&nbsp; Beginner
+          </span>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(139,111,255,.6)"
           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
-          <polyline points="16 3 21 3 21 8"></polyline>
-          <line x1="4" y1="20" x2="21" y2="3"></line>
-          <polyline points="21 16 21 21 16 21"></polyline>
-          <line x1="15" y1="15" x2="21" y2="21"></line>
+          <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
-        Restart
-      </button>
+      </a>
 
-      <!-- GIVE UP button — playing state -->
-      <button id="btn-giveup" type="button" aria-label="Give up and see solution" class="btn-pv btn-pv-danger" style="display:none;">
-        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+      <!-- 4×4 -->
+      <a href="4x4" class="mode-card disabled-card d-flex align-items-center gap-4 p-4 text-decoration-none">
+
+        <!-- Mini grid preview: 4×4 -->
+        <div class="mode-grid-preview flex-shrink-0" style="grid-template-columns:repeat(4,1fr);width:54px;height:54px;">
+          <?php for ($i = 0; $i < 16; $i++): ?>
+            <span style="height:12px;<?= $i === 15 ? 'opacity:0;' : '' ?>"></span>
+          <?php endfor; ?>
+        </div>
+        <div class="d-flex flex-column gap-1 flex-grow-1">
+          <span class="fw-bold" style="font-family:'Orbitron',sans-serif;font-size:.82rem;letter-spacing:.16em;color:#EDE8FF;">
+            4 &times; 4
+                        <span class="badge-soon">Coming Soon</span>
+
+          </span>
+          <span style="font-family:'Exo 2',sans-serif;font-size:.68rem;color:rgba(237,232,255,.45);">
+            15 tiles &nbsp;&middot;&nbsp; Intermediate
+          </span>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(139,111,255,.6)"
           stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
-          <circle cx="12" cy="12" r="10"></circle>
-          <line x1="12" y1="8" x2="12" y2="12"></line>
-          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+          <polyline points="9 18 15 12 9 6"></polyline>
         </svg>
-        Give Up
-      </button>
+      </a>
 
-    </div>
+      <!-- 5×5 — coming soon -->
+      <a href="5x5" class="mode-card disabled-card d-flex align-items-center gap-4 p-4 text-decoration-none">
+        <!-- Mini grid preview: 5×5 -->
+        <div class="mode-grid-preview flex-shrink-0" style="grid-template-columns:repeat(5,1fr);width:54px;height:54px;">
+          <?php for ($i = 0; $i < 25; $i++): ?>
+            <span style="height:9px;<?= $i === 24 ? 'opacity:0;' : '' ?>"></span>
+          <?php endfor; ?>
+        </div>
+        <div class="d-flex flex-column gap-1 flex-grow-1">
+          <div class="d-flex align-items-center gap-2">
+            <span class="fw-bold" style="font-family:'Orbitron',sans-serif;font-size:.82rem;letter-spacing:.16em;color:#EDE8FF;">
+              5 &times; 5
+            </span>
+            <span class="badge-soon">Coming Soon</span>
+          </div>
+          <span style="font-family:'Exo 2',sans-serif;font-size:.68rem;color:rgba(237,232,255,.45);">
+            24 tiles &nbsp;&middot;&nbsp; Expert
+          </span>
+        </div>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(139,111,255,.3)"
+          stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;">
+          <polyline points="9 18 15 12 9 6"></polyline>
+        </svg>
+      </a>
 
-    <!-- Hint row with inline eye toggle — shown while playing -->
-    <div id="hint-row" class="d-flex align-items-center gap-2 w-100" style="display:none!important;">
-      <!-- Eye / Ghost toggle button -->
-      <button id="btn-ghost" type="button" aria-label="Toggle guide" class="btn-eye-pv">
-        <!-- Eye open -->
-        <svg class="icon-ghost-on" width="14" height="14" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-          style="display:none;">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
-          <circle cx="12" cy="12" r="3"></circle>
-        </svg>
-        <!-- Eye closed -->
-        <svg class="icon-ghost-off" width="14" height="14" viewBox="0 0 24 24" fill="none"
-          stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"></path>
-          <line x1="1" y1="1" x2="23" y2="23"></line>
-        </svg>
-      </button>
-      <span class="hint-text">Having a hard time? Use the guide above.</span>
-    </div>
+    </div><!-- /.mode cards -->
 
   </div><!-- /.puzzle-card -->
 
-  <script src="assets/js/puzzle.js"></script>
-
-  <script>
-    const shuffleObserver = new MutationObserver(() => {
-      const playing = document.getElementById('btn-shuffle').style.display !== 'none';
-      const hint = document.getElementById('hint-row');
-      if (hint) hint.style.setProperty('display', playing ? 'flex' : 'none', 'important');
-    });
-    shuffleObserver.observe(document.getElementById('btn-shuffle'), {
-      attributes: true,
-      attributeFilter: ['style']
-    });
-  </script>
 </body>
 
 </html>
