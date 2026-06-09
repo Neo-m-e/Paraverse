@@ -313,3 +313,63 @@
     50%  { opacity: 1; transform: translateY(-40px) scale(1.2); }
     100% { opacity: 0; transform: translateY(-80px) scale(0.8); }
 }
+
+/* ═══════════════════════════════════════════
+   MOBILE RESPONSIVENESS — HERO SECTION
+   ═══════════════════════════════════════════ */
+
+/* Tablet: condense padding */
+@media (max-width: 991px) {
+    .arc-hero {
+        padding: 70px 0 80px;
+    }
+    /* Hide 3D illustration column on tablet/mobile — too heavy */
+    .arc-hero .col-lg-6:last-child {
+        display: none !important;
+    }
+    .arc-hero .col-lg-6:first-child {
+        text-align: center;
+    }
+    .arc-hero .d-flex.justify-content-start.gap-3 {
+        justify-content: center !important;
+    }
+    .arc-hero .arc-hero-stats {
+        justify-content: center !important;
+    }
+    .arc-hero .arc-hero-tag {
+        margin-left: auto;
+        margin-right: auto;
+        display: inline-flex;
+    }
+}
+
+/* Mobile */
+@media (max-width: 575px) {
+    .arc-hero {
+        padding: 50px 0 60px;
+    }
+    .arc-hero h1 {
+        font-size: clamp(2rem, 9vw, 2.8rem) !important;
+    }
+    .arc-hero .hero-desc {
+        font-size: 0.95rem !important;
+    }
+    .arc-hero .d-flex.justify-content-start.gap-3 {
+        flex-direction: column !important;
+        align-items: center;
+        gap: 12px !important;
+    }
+    .arc-btn-primary, .arc-btn-secondary {
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+    .arc-hero-stats {
+        gap: 20px !important;
+        flex-wrap: wrap;
+        justify-content: center !important;
+    }
+    .stat-item .stat-num {
+        font-size: 1.6rem;
+    }
+}

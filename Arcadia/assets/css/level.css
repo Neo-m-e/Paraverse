@@ -32,7 +32,7 @@
     50%       { box-shadow: 0 3px 0 #faccb3, 0 4px 20px rgba(232,82,26,0.2); }
 }
 
-/* gradient line */
+/* ── LEVEL TRACK ── */
 .level-track {
     display: flex;
     align-items: flex-end;
@@ -40,6 +40,8 @@
     gap: 0;
     padding: 3.5rem 0 2.5rem;
     position: relative;
+    flex-wrap: nowrap;
+    overflow: visible;
 }
 
 .level-track::before {
@@ -95,7 +97,7 @@
     background: #fff;
     transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
     position: relative;
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
 }
 
 .level-circle span { font-size: 2rem; }
@@ -107,16 +109,16 @@
 }
 
 /* Tier colours */
-.level-item--bronze  .level-circle  { border-color: #8b5e34; }
-.level-item--bronze  .level-label   { color: #8b5e34; }
-.level-item--silver  .level-circle  { border-color: #94a3b8; }
-.level-item--silver  .level-label   { color: #94a3b8; }
-.level-item--gold    .level-circle  { border-color: #f59e0b; }
-.level-item--gold    .level-label   { color: #f59e0b; }
-.level-item--platinum .level-circle { border-color: #0ea5e9; }
-.level-item--platinum .level-label  { color: #0ea5e9; }
-.level-item--diamond .level-circle  { border-color: #6366f1; }
-.level-item--diamond .level-label   { color: #6366f1; }
+.level-item--bronze   .level-circle  { border-color: #8b5e34; }
+.level-item--bronze   .level-label   { color: #8b5e34; }
+.level-item--silver   .level-circle  { border-color: #94a3b8; }
+.level-item--silver   .level-label   { color: #94a3b8; }
+.level-item--gold     .level-circle  { border-color: #f59e0b; }
+.level-item--gold     .level-label   { color: #f59e0b; }
+.level-item--platinum .level-circle  { border-color: #0ea5e9; }
+.level-item--platinum .level-label   { color: #0ea5e9; }
+.level-item--diamond  .level-circle  { border-color: #6366f1; }
+.level-item--diamond  .level-label   { color: #6366f1; }
 
 /* Gold shimmer */
 .level-item--gold .level-circle {
@@ -141,15 +143,15 @@
     font-size: 0.85rem !important;
     font-weight: 800 !important;
     text-transform: uppercase;
-    margin-bottom: 20px !important;
+    margin-bottom: 24px !important;
     display: block;
 }
 
-.tier-label--bronze  { color: #8b5e34;  text-align: left !important; }
-.tier-label--silver  { color: #94a3b8;  text-align: left !important; }
-.tier-label--gold    { color: #f59e0b;  text-align: left !important; }
-.tier-label--platinum{ color: #0ea5e9;  text-align: left !important; }
-.tier-label--diamond { color: #6366f1;  text-align: left !important; }
+.tier-label--bronze   { color: #8b5e34;  text-align: left !important; }
+.tier-label--silver   { color: #94a3b8;  text-align: left !important; }
+.tier-label--gold     { color: #f59e0b;  text-align: left !important; }
+.tier-label--platinum { color: #0ea5e9;  text-align: left !important; }
+.tier-label--diamond  { color: #6366f1;  text-align: left !important; }
 
 /* Titles Table */
 .titles-table {
@@ -158,7 +160,7 @@
     border-radius: 24px;
     overflow: hidden;
     margin-top: 6rem;
-    padding: 35px;
+    padding: 48px 44px !important;
     text-align: left !important;
     box-shadow: 0 8px 0 #F0D5C8;
 }
@@ -168,13 +170,13 @@
     display: flex;
     align-items: center;
     background: #FFFFFF;
-    min-height: 40px;
+    min-height: 46px !important;
     border-radius: 10px;
-    padding: 5px 15px;
+    padding: 10px 18px !important;
     font-size: 0.8rem;
     color: #1a1614;
     font-weight: 700;
-    margin-bottom: 12px;
+    margin-bottom: 14px !important;
     box-shadow: 0 3px 0 #d0ccc8;
     transition: all 0.15s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     cursor: pointer;
@@ -187,7 +189,6 @@
     box-shadow: 0 1px 0 #d0ccc8;
     background: #FFF5EC;
 }
-
 .title-chip:active {
     top: 3px;
     box-shadow: none;
@@ -210,9 +211,8 @@
 
 .titles-table .col-lg {
     border-right: 1px solid #F0D5C8;
-    padding: 0 20px;
+    padding: 0 28px !important;
 }
-
 .titles-table .col-lg:last-child { border-right: none; }
 
 .titles-table h3 {
@@ -254,4 +254,130 @@
     35%  { transform: translate(-50%,-50%) scale(1);   opacity: 1; }
     70%  { transform: translate(-50%,-50%) scale(1);   opacity: 1; }
     100% { transform: translate(-50%,-50%) scale(0.8); opacity: 0; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE — stack vertically, full-size circles
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 991px) {
+    .level-section {
+        padding-top: 60px !important;
+        padding-bottom: 60px !important;
+    }
+
+    /* Stack vertically */
+    .level-track {
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 28px;
+        padding: 2rem 20px;
+        overflow: visible;
+    }
+
+    /* Vertical connecting line — behind the circles */
+    .level-track::before {
+        display: block;
+        top: 45px;
+        bottom: 45px;
+        left: calc(45px);  /* half of circle width (90px/2) from left edge of track */
+        right: auto;
+        width: 4px;
+        height: auto;
+        transform: translateX(-50%) scaleY(0);
+        transform-origin: top;
+        background: linear-gradient(180deg,
+            #8b5e34 0%, #94a3b8 25%, #f59e0b 50%, #0ea5e9 75%, #6366f1 100%);
+        transition: transform 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+        z-index: 0;
+    }
+
+    .level-section.animate-in .level-track::before {
+        transform: translateX(-50%) scaleY(1);
+    }
+
+    /* Each item: row layout, circle left, text right */
+    .level-item {
+        flex: none;
+        width: 100%;
+        max-width: 340px;
+        flex-direction: row;
+        align-items: center;
+        justify-content: flex-start;
+        gap: 20px;
+        padding: 0 0 0 0;
+        position: relative;
+        z-index: 1;
+    }
+
+    /* Circle sits ON TOP of the line */
+    .level-circle {
+        position: relative;
+        z-index: 2;
+        flex-shrink: 0;
+        background: #fff;
+    }
+
+    /* Circle stays full size */
+    .level-circle {
+        width: 90px;
+        height: 90px;
+        flex-shrink: 0;
+    }
+    .level-circle span { font-size: 2rem; }
+
+    /* Text left-aligned beside the circle */
+    .level-item .level-label,
+    .level-item .level-xp {
+        text-align: left !important;
+        margin-top: 0 !important;
+    }
+
+    .level-label { font-size: 1.1rem !important; }
+    .level-xp    { font-size: 0.72rem !important; }
+}
+
+/* ═══════════════════════════════════════════════════════
+   MOBILE — Titles Table stacked
+   ═══════════════════════════════════════════════════════ */
+@media (max-width: 767px) {
+    .titles-table {
+        padding: 26px 16px 20px !important;
+        margin-top: 2rem !important;
+        border-radius: 18px !important;
+    }
+    .titles-table h3 { font-size: 1.5rem !important; }
+
+    .titles-table .row { flex-direction: column !important; }
+
+    .titles-table .col-lg {
+        border-right: none !important;
+        border-bottom: 1px solid #F0D5C8 !important;
+        padding: 20px 6px !important;
+    }
+    .titles-table .col-lg:last-child { border-bottom: none !important; }
+
+    .tier-label {
+        font-size: 0.76rem !important;
+        margin-bottom: 14px !important;
+    }
+
+    .title-chip {
+        font-size: 0.76rem !important;
+        padding: 10px 14px !important;
+        margin-bottom: 10px !important;
+        min-height: 40px !important;
+    }
+
+    .title-icon {
+        width: 26px !important;
+        height: 26px !important;
+        margin-right: 8px !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .titles-table { padding: 18px 12px 14px !important; }
+    .titles-table .col-lg { padding: 16px 4px !important; }
+    .title-chip { font-size: 0.72rem !important; padding: 9px 11px !important; }
 }

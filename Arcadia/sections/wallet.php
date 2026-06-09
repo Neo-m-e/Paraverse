@@ -10,36 +10,49 @@
             <h2 class="arc-wlt-headline">Every coin earned.<br><span>Every win counted.</span></h2>
             <p class="arc-wlt-sub">Your online card holds every TamCoin you've ever earned — with a full transaction history.</p>
 
-            <!-- Card visual -->
+            <!-- Card — Paraverse black card exact replica -->
             <div class="arc-wlt-card">
-                <div class="arc-wlt-card-shine"></div>
 
-                <!-- Top row: brand left, chip right -->
+                <!-- TOP: Logo left · Chip right -->
                 <div class="arc-wlt-card-toprow">
-                    <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/paraverse-lettermark-purple.svg" alt="Paraverse" class="arc-wlt-card-brand-img" />
-                    <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/chip.png" alt="chip" class="arc-wlt-card-chip-img" />
+                    <img
+                        src="https://paraverse.feutech.edu.ph/arcadia/assets/images/paraverse-lettermark-purple.svg"
+                        alt="Paraverse"
+                        class="arc-wlt-card-brand-img"
+                    />
+                    <img
+                        src="https://paraverse.feutech.edu.ph/arcadia/assets/images/chip.png"
+                        alt="chip"
+                        class="arc-wlt-card-chip-img"
+                    />
                 </div>
 
-                <!-- Balance -->
-                <div class="arc-wlt-card-balance-row">
-                    <span class="arc-wlt-card-amount">2,847</span>
-                    <span class="arc-wlt-card-unit">TC</span>
-                    <span class="arc-wlt-card-delta">+419TC</span>
+                <!-- MIDDLE: coin · ◆◆◆ · TC · eye-icon — then Available Balance -->
+                <div>
+                    <div class="arc-wlt-card-balance-row">
+                        <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/coins/OR-colored-coin.png" class="arc-wlt-card-coin-icon" alt="TC" />
+                        <span class="arc-wlt-card-dots">◆ ◆ ◆</span>
+                        <span class="arc-wlt-card-unit">TC</span>
+                        <span class="arc-wlt-card-wifi">
+                            <i class="bi bi-eye-slash" style="color: #4A90E2; font-size: 1.5rem;"></i>
+                        </span>
+                    </div>
+                    <div class="arc-wlt-card-available">Available Balance</div>
                 </div>
-                <div class="arc-wlt-card-available">Available Balance</div>
 
-                <div class="arc-wlt-card-number">2024 &nbsp; 0272 &nbsp; 2203 &nbsp; 7001</div>
+                <!-- CARD NUMBER -->
+                <div class="arc-wlt-card-number">2022 &nbsp;1029 &nbsp;2577 &nbsp;6001</div>
 
-                <!-- Bottom row: holder left, 3 icons right -->
+                <!-- BOTTOM: holder left · FEU logos right -->
                 <div class="arc-wlt-card-bottomrow">
                     <div class="arc-wlt-card-holder">
                         <span class="arc-wlt-status-dot"></span>
-                        MICAH M. VILLARUZ
+                        DENISE NEOME P. ALVARAN
                     </div>
                     <div class="arc-wlt-card-icons">
-                        <img src="assets/images/feu-alabang.webp" alt="" class="arc-wlt-card-icon" />
-                        <img src="assets/images/feu-tech.webp" alt="" class="arc-wlt-card-icon" />
-                        <img src="assets/images/feu-diliman.webp" alt="" class="arc-wlt-card-icon" />
+                        <img src="assets/images/feu-alabang.webp" alt="FEU Alabang" class="arc-wlt-card-icon" />
+                        <img src="assets/images/feu-tech.webp"    alt="FEU Tech"    class="arc-wlt-card-icon" />
+                        <img src="assets/images/feu-diliman.webp" alt="FEU Diliman" class="arc-wlt-card-icon" />
                     </div>
                 </div>
             </div>
@@ -54,7 +67,7 @@
 
             <div class="arc-wlt-txn-list">
                 <div class="arc-wlt-txn-item">
-                    <div class="arc-wlt-txn-icon" style="background:#1C1917;">
+                    <div class="arc-wlt-txn-icon">
                         <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-yIrZSILT6eWOU5yJNJ7LVlvEDBslW2xChBgS8z51.png" alt="badge" />
                     </div>
                     <div class="arc-wlt-txn-info">
@@ -63,9 +76,8 @@
                     </div>
                     <span class="arc-wlt-txn-amt gain">+25 TC</span>
                 </div>
-
                 <div class="arc-wlt-txn-item">
-                    <div class="arc-wlt-txn-icon" style="background:#1C1917;">
+                    <div class="arc-wlt-txn-icon">
                         <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-PlblWWIDBahdzK5c3YcUfp2OiZIIsMab1w9vqFL9.png" alt="badge" />
                     </div>
                     <div class="arc-wlt-txn-info">
@@ -74,20 +86,18 @@
                     </div>
                     <span class="arc-wlt-txn-amt gain">+30 TC</span>
                 </div>
-
                 <div class="arc-wlt-txn-item">
-                    <div class="arc-wlt-txn-icon" style="background:#1C1917;">
+                    <div class="arc-wlt-txn-icon">
                         <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-NGQLoejGOGMz332ZPzuDuaJ6zk1jTj3M4UFdULi9.png" alt="badge" />
                     </div>
                     <div class="arc-wlt-txn-info">
-                        <span class="arc-wlt-txn-name">National Sun Yat-Sen University (Taiwan) Study Abroad Program Representative</span>
+                        <span class="arc-wlt-txn-name">National Sun Yat-Sen University Study Abroad Representative</span>
                         <span class="arc-wlt-txn-date">Jul 09, 2024</span>
                     </div>
                     <span class="arc-wlt-txn-amt gain">+250 TC</span>
                 </div>
-
                 <div class="arc-wlt-txn-item">
-                    <div class="arc-wlt-txn-icon" style="background:#1C1917;">
+                    <div class="arc-wlt-txn-icon">
                         <img src="https://paraverse.feutech.edu.ph/arcadia/assets/images/badges/OR-p7II2RSea5nMyC1QNBOhGrnmSHeaepj6qY1vqfPA.png" alt="badge" />
                     </div>
                     <div class="arc-wlt-txn-info">
@@ -96,9 +106,8 @@
                     </div>
                     <span class="arc-wlt-txn-amt gain">+400 TC</span>
                 </div>
-
                 <div class="arc-wlt-txn-item">
-                    <div class="arc-wlt-txn-icon" style="background:#1C1917;">
+                    <div class="arc-wlt-txn-icon">
                         <img src="assets/images/tote bag_v1.png" alt="badge" />
                     </div>
                     <div class="arc-wlt-txn-info">

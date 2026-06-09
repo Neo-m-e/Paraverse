@@ -9,19 +9,16 @@
     font-family: 'Nunito', sans-serif;
 }
 
-/* Orange glow — matches flow */
 .arc-wallet-section::before {
     content: '';
     position: absolute;
     top: 0; left: 0; right: 0; bottom: 0;
     background:
-        radial-gradient(circle at 30% 60%, rgba(232,82,26,0.18) 0%, transparent 60%),
-        radial-gradient(circle at 80% 20%, rgba(232,82,26,0.10) 0%, transparent 50%);
+        radial-gradient(circle at 30% 60%, rgba(232,82,26,0.10) 0%, transparent 60%),
+        radial-gradient(circle at 80% 20%, rgba(232,82,26,0.06) 0%, transparent 50%);
     pointer-events: none;
     z-index: 0;
 }
-
-/* No ::after needed */
 .arc-wallet-section::after { content: none; }
 
 .arc-wallet-container {
@@ -58,6 +55,10 @@
     box-shadow: 0 3px 0 rgba(245,158,11,0.4);
     animation: arc-tag-bounce-amber 2.5s ease-in-out infinite;
 }
+@keyframes arc-tag-bounce-amber {
+    0%, 100% { box-shadow: 0 3px 0 rgba(245,158,11,0.4); }
+    50%       { box-shadow: 0 3px 0 rgba(245,158,11,0.4), 0 4px 20px rgba(245,158,11,0.25); }
+}
 
 .arc-wlt-headline {
     font-family: 'Fredoka One', sans-serif;
@@ -77,100 +78,125 @@
     margin-bottom: 32px;
 }
 
-/* ── CARD VISUAL ── */
+/* ══════════════════════════════════════════════
+   CARD — exact Paraverse black card replica
+   ══════════════════════════════════════════════ */
 .arc-wlt-card {
-    background: linear-gradient(135deg, #1C1410 0%, #2A1D14 55%, #3D2B1A 100%);
-    border-radius: 22px;
-    padding: 26px 28px;
+    background: #0d0d0d;
+    border-radius: 18px;
+    padding: 30px 28px 26px;
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(232,82,26,0.15);
-    box-shadow: 0 24px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.05);
-    max-width: 380px;
+    border: 1px solid rgba(255,255,255,0.05);
+    box-shadow:
+        0 40px 80px rgba(0,0,0,0.8),
+        inset 0 1px 0 rgba(255,255,255,0.04);
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 1.586 / 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
-.arc-wlt-card-shine {
-    position: absolute;
-    top: -50%; left: -60%;
-    width: 40%; height: 200%;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.04), transparent);
-    animation: wlt-card-shine 6s ease-in-out infinite;
-    pointer-events: none;
-}
-@keyframes wlt-card-shine {
-    0%, 100% { left: -60%; }
-    50%       { left: 130%; }
+
+/* All inner elements sit above the texture */
+.arc-wlt-card > * { position: relative; z-index: 2; }
+
+/* ── TOP ROW: logo left · chip right ── */
+.arc-wlt-card-toprow {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
 }
 
-.arc-wlt-card-chip {
-    font-size: 1.5rem;
-    color: #F5A623;
-    margin-bottom: 16px;
-    opacity: 0.9;
-    line-height: 1;
+.arc-wlt-card-brand-img {
+    height: 28px;
+    width: auto;
+    object-fit: contain;
+    filter: brightness(0) invert(1);
+    opacity: 0.95;
 }
 
-.arc-wlt-card-brand {
-    position: absolute;
-    top: 26px; right: 28px;
-    font-family: 'Fredoka One', sans-serif;
-    font-size: 1rem;
-    color: rgba(255,255,255,0.8);
-    letter-spacing: 1px;
+.arc-wlt-card-chip-img {
+    width: 52px;
+    height: auto;
+    filter: sepia(40%) saturate(200%) brightness(1.1);
+    opacity: 1;
 }
-.arc-wlt-card-brand sup { font-size: 0.55rem; }
 
+/* ── MIDDLE ── */
 .arc-wlt-card-balance-row {
     display: flex;
-    align-items: baseline;
-    gap: 6px;
-    margin-bottom: 4px;
+    align-items: center;
+    gap: 10px;
 }
 
-.arc-wlt-card-amount {
-    font-family: 'Fredoka One', sans-serif;
-    font-size: 2.6rem;
-    color: #fff;
+.arc-wlt-card-coin-icon {
+    width: 26px;
+    height: 26px;
+    object-fit: contain;
+    flex-shrink: 0;
+}
+
+.arc-wlt-card-dots {
+    font-size: 1rem;
+    color: rgba(255,255,255,0.9);
+    letter-spacing: 4px;
     line-height: 1;
 }
 
 .arc-wlt-card-unit {
-    font-size: 1rem;
-    font-weight: 900;
-    color: rgba(255,255,255,0.45);
+    font-size: 0.9rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.6);
+    letter-spacing: 1px;
+    font-family: 'inter', sans-serif;
 }
 
-.arc-wlt-card-delta {
-    font-size: 0.72rem;
-    font-weight: 900;
-    color: #10B981;
-    background: rgba(16,185,129,0.15);
-    padding: 2px 8px;
-    border-radius: 50px;
+.arc-wlt-card-wifi {
     margin-left: 4px;
+    display: flex;
+    align-items: center;
+}
+.arc-wlt-card-wifi svg {
+    stroke: #4A90E2;
+    opacity: 0.85;
+    width: 20px;
+    height: 20px;
 }
 
 .arc-wlt-card-available {
-    font-size: 0.68rem;
-    font-weight: 800;
-    color: rgba(255,255,255,0.35);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    margin-bottom: 20px;
+    font-size: 0.65rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.4);
+    text-transform: none;
+    letter-spacing: 0.5px;
+    margin-top: 4px;
 }
 
+/* ── CARD NUMBER ── */
 .arc-wlt-card-number {
-    font-family: 'Courier New', monospace;
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.4);
-    letter-spacing: 2px;
-    margin-bottom: 12px;
+    font-family: 'Inter', sans-serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
+    letter-spacing: 6px;
+    word-spacing: 8px;
+}
+
+/* ── BOTTOM ROW ── */
+.arc-wlt-card-bottomrow {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .arc-wlt-card-holder {
+    font-family: 'Inter', sans-serif;
     font-size: 0.72rem;
-    font-weight: 900;
-    color: rgba(255,255,255,0.5);
+    font-weight: 700;
+    color: rgba(255,255,255,0.85);
     letter-spacing: 2px;
     text-transform: uppercase;
     display: flex;
@@ -179,16 +205,28 @@
 }
 
 .arc-wlt-status-dot {
-    width: 7px; height: 7px;
+    width: 8px; height: 8px;
     background: #10B981;
     border-radius: 50%;
-    box-shadow: 0 0 0 3px rgba(16,185,129,0.2);
+    box-shadow: 0 0 0 3px rgba(16,185,129,0.25);
     animation: wlt-dot-pulse 2s ease-in-out infinite;
     flex-shrink: 0;
 }
 @keyframes wlt-dot-pulse {
-    0%, 100% { box-shadow: 0 0 0 3px rgba(16,185,129,0.2); }
+    0%, 100% { box-shadow: 0 0 0 3px rgba(16,185,129,0.25); }
     50%       { box-shadow: 0 0 0 7px rgba(16,185,129,0); }
+}
+
+.arc-wlt-card-icons {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+.arc-wlt-card-icon {
+    width: 30px;
+    height: 30px;
+    object-fit: contain;
+    opacity: 0.9;
 }
 
 /* ── RIGHT SIDE: TRANSACTIONS ── */
@@ -207,13 +245,11 @@
     padding-bottom: 14px;
     border-bottom: 1px solid rgba(255,255,255,0.07);
 }
-
 .arc-wlt-txn-title {
     font-family: 'Fredoka One', sans-serif;
     font-size: 1.1rem;
     color: #F9FAFB;
 }
-
 .arc-wlt-txn-viewall {
     font-size: 0.78rem;
     font-weight: 900;
@@ -231,7 +267,6 @@
     gap: 14px;
     padding: 12px 0;
     border-bottom: 1px solid rgba(255,255,255,0.05);
-    transition: background 0.2s ease;
     border-radius: 10px;
 }
 .arc-wlt-txn-item:last-child { border-bottom: none; }
@@ -242,37 +277,37 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 1.1rem;
     flex-shrink: 0;
-    background: #1C1917 !important;        /* uniform subtle black, overrides inline styles */
+    background: #1C1917 !important;
     border: 1px solid rgba(255,255,255,0.07);
 }
 .arc-wlt-txn-icon img {
-    width: 100%;
-    height: 100%;
+    width: 100%; height: 100%;
     object-fit: contain;
     border-radius: 10px;
     padding: 4px;
 }
+
 .arc-wlt-txn-info {
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 3px;
+    min-width: 0;
 }
-
 .arc-wlt-txn-name {
     font-size: 0.85rem;
     font-weight: 800;
     color: #E5E7EB;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
-
 .arc-wlt-txn-date {
     font-size: 0.7rem;
     font-weight: 700;
     color: #4B5563;
 }
-
 .arc-wlt-txn-amt {
     font-size: 0.85rem;
     font-weight: 900;
@@ -281,55 +316,70 @@
 .arc-wlt-txn-amt.gain  { color: #10B981; }
 .arc-wlt-txn-amt.spend { color: #EF4444; }
 
-/* Top row */
-.arc-wlt-card-toprow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-bottom: 20px;
+/* ══ TABLET ══ */
+@media (max-width: 991px) {
+    .arc-wallet-section { padding: 80px 0; }
+    .arc-wlt-card { max-width: 100%; }
+    .arc-wlt-right { padding: 24px; }
 }
 
-/* Brand — now left-aligned */
-.arc-wlt-card-brand {
-    font-family: 'Fredoka One', sans-serif;
-    font-size: 1.1rem;
-    color: rgba(255,255,255,0.85);
-    letter-spacing: 1px;
-    position: static; /* remove the old absolute positioning */
-    top: unset; right: unset;
-}
-.arc-wlt-card-brand-img {
-    height: 22px;
-    width: auto;
-    object-fit: contain;
-    opacity: 0.9;
+/* ══ MOBILE ══ */
+@media (max-width: 575px) {
+    .arc-wallet-section { padding: 60px 0; }
+
+    .arc-wallet-container { padding: 0 16px; gap: 24px; }
+
+    /* Card fills width, keeps credit-card ratio */
+    .arc-wlt-card {
+        max-width: 100%;
+        width: 100%;
+        padding: 16px 15px 14px;
+        border-radius: 14px;
+    }
+
+    .arc-wlt-card-brand-img { height: 20px; }
+    .arc-wlt-card-chip-img  { width: 36px; }
+
+    .arc-wlt-card-coin-icon { width: 20px; height: 20px; }
+    .arc-wlt-card-dots      { font-size: 0.78rem; letter-spacing: 3px; }
+    .arc-wlt-card-unit      { font-size: 0.72rem; }
+    .arc-wlt-card-wifi svg  { width: 15px; height: 15px; }
+    .arc-wlt-card-available { font-size: 0.55rem; }
+
+    .arc-wlt-card-number {
+        font-size: 0.72rem;
+        letter-spacing: 3px;
+        word-spacing: 5px;
+    }
+
+    .arc-wlt-card-holder {
+        font-size: 0.55rem;
+        letter-spacing: 1px;
+        gap: 5px;
+    }
+    .arc-wlt-status-dot { width: 6px; height: 6px; }
+    .arc-wlt-card-icon  { width: 22px; height: 22px; }
+    .arc-wlt-card-icons { gap: 3px; }
+
+    /* Transactions */
+    .arc-wlt-right   { padding: 16px; border-radius: 16px; }
+    .arc-wlt-txn-title { font-size: 0.95rem; }
+    .arc-wlt-txn-name  { font-size: 0.78rem; }
+    .arc-wlt-txn-date  { font-size: 0.63rem; }
+    .arc-wlt-txn-amt   { font-size: 0.78rem; }
+    .arc-wlt-txn-icon  { width: 34px; height: 34px; border-radius: 10px; }
+    .arc-wlt-txn-item  { gap: 10px; padding: 10px 0; }
 }
 
-/* Chip image — right side */
-.arc-wlt-card-chip-img {
-    width: 44px;
-    height: auto;
-    opacity: 0.9;
-}
-
-/* Bottom row */
-.arc-wlt-card-bottomrow {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin-top: 12px;
-}
-
-/* 3 small icons bottom-right */
-.arc-wlt-card-icons {
-    display: flex;
-    align-items: center;
-    gap: 6px;
-}
-
-.arc-wlt-card-icon {
-    width: 26px;
-    height: 26px;
-    object-fit: contain;
-    opacity: 0.85;
+/* ══ VERY SMALL (≤380px) ══ */
+@media (max-width: 380px) {
+    .arc-wlt-card {
+        padding: 12px 12px 11px;
+        border-radius: 12px;
+    }
+    .arc-wlt-card-number  { font-size: 0.6rem; letter-spacing: 2px; word-spacing: 3px; }
+    .arc-wlt-card-holder  { font-size: 0.48rem; letter-spacing: 0.5px; }
+    .arc-wlt-card-brand-img { height: 16px; }
+    .arc-wlt-card-chip-img  { width: 28px; }
+    .arc-wlt-card-icon      { width: 18px; height: 18px; }
 }

@@ -106,63 +106,65 @@
 .arc-rewards-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    grid-template-rows: 1fr 1fr;
-    gap: 12px;
+    gap: 16px;
 }
 
-/* ── PRODUCT CARD ── */
+@media (max-width: 600px) {
+    .arc-rewards-grid { grid-template-columns: 1fr 1fr; gap: 10px; }
+}
+
+/* ── PRODUCT CARD — Shop style ── */
 .arc-pcard {
-    border-radius: 20px;
+    background: #fff !important;
+    border-radius: 18px;
     overflow: hidden;
     cursor: pointer;
     position: relative;
     top: 0;
-    padding: 18px 18px 14px;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
-    min-height: 200px;
-    background: linear-gradient(135deg, #2A2320 0%, #1C1917 100%);
-    transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
-    box-shadow: 0 6px 0 rgba(0,0,0,0.25);
+    border: 2px solid #F0EBE5;
+    box-shadow: 0 4px 0 #E0D5CD;
+    transition: all 0.18s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
+/* Dark variant overridden — all cards are now white */
 .arc-pcard-dark {
-    background: linear-gradient(135deg, #2A2320 0%, #1C1917 100%) !important;
+    background: #fff !important;
 }
 
 .arc-pcard:hover {
-    top: 4px;
-    box-shadow: 0 2px 0 rgba(0,0,0,0.25), 0 12px 30px rgba(0,0,0,0.2);
-    transform: scale(1.01);
+    top: 3px;
+    box-shadow: 0 1px 0 #E0D5CD;
+    border-color: #faccb3;
 }
 
-/* Top row: name + HOT badge */
-.arc-pcard-top {
+/* Image area at top */
+.arc-pcard-img-wrap {
+    background: #F9F5F2;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: center;
+    padding: 20px 16px 14px;
+    min-height: 160px;
+    position: relative;
 }
 
-.arc-pcard-name {
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.7rem;
-    font-weight: 900;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.75);
-}
-
+/* HOT badge repositioned inside image area */
 .arc-badge-hot {
+    position: absolute;
+    top: 10px;
+    right: 10px;
     background: #E8521A;
     color: #fff;
-    padding: 2px 9px;
+    padding: 3px 10px;
     border-radius: 50px;
     font-size: 0.55rem;
     font-weight: 900;
     text-transform: uppercase;
     letter-spacing: 1px;
     animation: hot-pulse 1.5s ease-in-out infinite;
+    z-index: 2;
 }
 
 @keyframes hot-pulse {
@@ -170,53 +172,122 @@
     50%       { box-shadow: 0 0 0 5px rgba(232,82,26,0); }
 }
 
-/* Image in center */
-.arc-pcard-img {
-    flex: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 8px 0;
-}
-
-.arc-pcard-img img {
-    height: 140px;
+.arc-pcard-img-wrap img {
+    height: 130px;
     width: auto;
     object-fit: contain;
-    filter: drop-shadow(0 6px 16px rgba(0,0,0,0.35));
-    transition: transform 0.35s cubic-bezier(0.34,1.56,0.64,1);
+    filter: drop-shadow(0 4px 12px rgba(0,0,0,0.12));
+    transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
+
+.arc-pcard:hover .arc-pcard-img-wrap img {
+    transform: scale(1.08) translateY(-4px);
+}
+
+/* Card body: category pill, name, desc, price, button */
+.arc-pcard-body {
+    padding: 12px 14px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    flex: 1;
+}
+
+/* Category pill */
+.arc-pcard-cat {
+    display: inline-block;
+    background: #FFF5EC;
+    border: 1.5px solid #faccb3;
+    color: #E8521A;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.62rem;
+    font-weight: 900;
+    padding: 3px 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    align-self: flex-start;
+}
+
+.arc-pcard-name {
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1rem;
+    color: #1F2937;
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.25;
+}
+
+.arc-pcard-desc {
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    color: #9CA3AF;
+    line-height: 1.5;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* Price row + button */
+.arc-pcard-foot {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 4px;
+    gap: 8px;
+}
+
+.arc-pcard-price {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-family: 'Fredoka One', sans-serif;
+    font-size: 1rem;
+    color: #E8521A;
+}
+
 .arc-pdot-coin {
     width: 16px;
     height: 16px;
     object-fit: contain;
-}
-.arc-pcard:hover .arc-pcard-img img {
-    transform: scale(1.1) translateY(-4px);
-}
-
-/* Bottom: price with dot */
-.arc-pcard-foot {
-    display: flex;
-    align-items: center;
-    gap: 7px;
-    font-family: 'Nunito', sans-serif;
-    font-size: 0.82rem;
-    font-weight: 900;
-    color: rgba(255,255,255,0.9);
-}
-
-.arc-pdot {
-    width: 8px;
-    height: 8px;
-    border-radius: 50%;
-    background: #22C55E;
-    display: inline-block;
     flex-shrink: 0;
-    box-shadow: 0 0 6px rgba(34,197,94,0.6);
 }
 
-.arc-pdot-free {
-    background: #22C55E;
-    box-shadow: 0 0 8px rgba(34,197,94,0.8);
+.arc-pcard-btn {
+    background: #E8521A;
+    color: #fff;
+    font-family: 'Nunito', sans-serif;
+    font-size: 0.68rem;
+    font-weight: 900;
+    padding: 6px 14px;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 0 3px 0 #a83810;
+    position: relative;
+    top: 0;
+    transition: all 0.12s ease;
+    letter-spacing: 0.3px;
+}
+
+.arc-pcard-btn:hover {
+    top: 2px;
+    box-shadow: 0 1px 0 #a83810;
+}
+
+/* Legacy selectors kept for compat (old .arc-pcard-top/.arc-pcard-img) */
+.arc-pcard-top { display: none; }
+.arc-pcard-img { display: none; }
+.arc-pdot { display: none; }
+
+@media (max-width: 480px) {
+    .arc-pcard-img-wrap { min-height: 120px; padding: 14px 10px 10px; }
+    .arc-pcard-img-wrap img { height: 90px; }
+    .arc-pcard-body { padding: 10px 10px 12px; }
+    .arc-pcard-name { font-size: 0.88rem; }
+    .arc-pcard-foot { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .arc-pcard-btn { width: 100%; text-align: center; }
 }
