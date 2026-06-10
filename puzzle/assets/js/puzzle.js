@@ -106,10 +106,33 @@ const SoundFX = (() => {
     } catch (_) {}
   }
 
+  function giveUp() {
+    if (muted) return;
+    try {
+      const ac = getCtx();
+      // Descending "wah-wah" — sad trombone feel: falling notes, sawtooth, slow decay
+      const notes = [415, 370, 330, 277, 220];
+      notes.forEach((freq, i) => {
+        setTimeout(() => {
+          const osc = ac.createOscillator();
+          const g   = ac.createGain();
+          osc.connect(g); g.connect(ac.destination);
+          osc.type = 'sawtooth';
+          osc.frequency.value = freq;
+          const t = ac.currentTime;
+          g.gain.setValueAtTime(0, t);
+          g.gain.linearRampToValueAtTime(0.14 - i * 0.015, t + 0.02);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + 0.32);
+          osc.start(t); osc.stop(t + 0.35);
+        }, i * 130);
+      });
+    } catch (_) {}
+  }
+
   function toggleMute() { muted = !muted; return muted; }
   function isMuted()     { return muted; }
 
-  return { slide, invalid, shuffle, win, toggleMute, isMuted };
+  return { slide, invalid, shuffle, win, giveUp, toggleMute, isMuted };
 })();
 
 
@@ -303,8 +326,19 @@ class Puzzle3x3 {
   }
 
   /* ── Rendering ── */
+  _calcTileSize() {
+    // Measure grid-shell directly — already the correct inner width
+    const shell = this.gridEl.parentElement;
+    // shell p-2 (8px each side) + 1px border each side = 18px total horizontal inset
+    const available = (shell ? shell.clientWidth : window.innerWidth) - 18;
+    const GAP  = 5;
+    const COLS = this.SIZE;
+    const max = Math.floor((available - GAP * (COLS - 1)) / COLS);
+    return Math.min(108, Math.max(72, max));
+  }
+
   _render() {
-    const TSIZE = 108;
+    const TSIZE = this._calcTileSize();
     const GAP   = 5;
     const COLS  = this.SIZE;
     const gridW = TSIZE * COLS + GAP * (COLS - 1);
@@ -390,7 +424,16 @@ class Puzzle3x3 {
   _showSolved(gaveUp = false) {
     if (this.solvedMov)  this.solvedMov.textContent  = gaveUp ? 'You gave up 😅' : `Solved in ${this.moves} move${this.moves !== 1 ? 's' : ''} · ${this._formatTime(this._seconds)}`;
     if (this.solvedTime) this.solvedTime.textContent  = gaveUp ? `After ${this._formatTime(this._seconds)}` : '';
-    if (this.solvedEl)   this.solvedEl.classList.add('show');
+    if (this.solvedEl) {
+      this.solvedEl.classList.toggle('gave-up', gaveUp);
+      // Swap icon and title text based on state
+      const iconEl  = this.solvedEl.querySelector('.overlay-icon');
+      const titleEl = this.solvedEl.querySelector('.overlay-title');
+      if (iconEl)  iconEl.textContent  = gaveUp ? '✖' : '✦';
+      if (iconEl)  iconEl.style.filter = gaveUp ? 'drop-shadow(0 0 12px #FF6B6B)' : 'drop-shadow(0 0 12px #5DFFB0)';
+      if (titleEl) titleEl.textContent = gaveUp ? 'You Gave Up' : 'Puzzle Solved!';
+      this.solvedEl.classList.add('show');
+    }
   }
 
   _hideSolved() {
@@ -419,7 +462,7 @@ class Puzzle3x3 {
       this.solved = true;
       this._stopTimer();
       this._showSolved(true);
-      SoundFX.win();
+      SoundFX.giveUp();
     });
     this.ghostBtn?.addEventListener('click', () => {
       this._ghostVisible = !this._ghostVisible;
@@ -450,4 +493,16 @@ class Puzzle3x3 {
   }
 }
 
-document.addEventListener('DOMContentLoaded', () => { new Puzzle3x3(); });
+document.addEventListener('DOMContentLoaded', () => {
+  const puzzle = new Puzzle3x3();
+  // Re-render on resize / orientation change so tiles stay properly sized
+  let _resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(_resizeTimer);
+    _resizeTimer = setTimeout(() => {
+      puzzle._tileEls = null;
+      puzzle.gridEl.innerHTML = '';
+      puzzle._render();
+    }, 120);
+  });
+});

@@ -8,7 +8,7 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
 
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <title><?= htmlspecialchars($META_TITLE) ?> — Paraverse</title>
   <meta name="description" content="<?= htmlspecialchars($META_DESC) ?>">
 
@@ -75,7 +75,7 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
 <body class="d-flex align-items-center justify-content-center min-vh-100">
 
   <div class="puzzle-card d-flex flex-column align-items-center gap-5 p-4 p-md-5 rounded-4"
-    style="min-width:340px;max-width:420px;width:100%;">
+    style="width:100%;max-width:420px;">
 
     <!-- Brand -->
     <div class="d-flex flex-column align-items-center gap-2">
@@ -132,7 +132,6 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
 
       <!-- 4×4 -->
       <a href="4x4" class="mode-card disabled-card d-flex align-items-center gap-4 p-4 text-decoration-none">
-
         <!-- Mini grid preview: 4×4 -->
         <div class="mode-grid-preview flex-shrink-0" style="grid-template-columns:repeat(4,1fr);width:54px;height:54px;">
           <?php for ($i = 0; $i < 16; $i++): ?>
@@ -142,9 +141,8 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
         <div class="d-flex flex-column gap-1 flex-grow-1">
           <span class="fw-bold" style="font-family:'Orbitron',sans-serif;font-size:.82rem;letter-spacing:.16em;color:#EDE8FF;">
             4 &times; 4
-                        <span class="badge-soon">Coming Soon</span>
-
           </span>
+          <span class="badge-soon">Coming Soon</span>
           <span style="font-family:'Exo 2',sans-serif;font-size:.68rem;color:rgba(237,232,255,.45);">
             15 tiles &nbsp;&middot;&nbsp; Intermediate
           </span>
