@@ -11,18 +11,18 @@ $categoryIcons = [
   'accessories'         => 'bi bi-watch',
   'documents'           => 'bi bi-file-earmark-text',
   'keys'                => 'bi bi-key',
-  'bags'         => 'bi bi-briefcase',
-  'wallet'       => 'bi bi-wallet2',
-  'wallets'      => 'bi bi-wallet2',
-  'jewelry'      => 'bi bi-gem',
-  'books'        => 'bi bi-book',
+  'bags'                => 'bi bi-briefcase',
+  'wallet'              => 'bi bi-wallet2',
+  'wallets'             => 'bi bi-wallet2',
+  'jewelry'             => 'bi bi-gem',
+  'books'               => 'bi bi-book',
   'academic'            => 'bi bi-mortarboard',
   'personal essentials' => 'bi bi-bag-plus',
   'essentials'          => 'bi bi-bag-plus',
   'id / cards'          => 'bi bi-person-badge',
   'id-cards'            => 'bi bi-person-badge',
   'others'              => 'bi bi-tag',
-  'default'      => 'bi bi-tag',
+  'default'             => 'bi bi-tag',
 ];
 
 $cat_css_map = [
@@ -39,11 +39,7 @@ $cat_css_map = [
   'others'              => 'cat-others',
 ];
 
-$claimed_items = [
-  ['id'=>5,'name'=>'Keys','category'=>'Keys','floor'=>'1st Floor, Parking','claimed_by'=>'Kristin V. Dy'],
-  ['id'=>6,'name'=>'Eyeglasses','category'=>'Accessories','floor'=>'3rd Floor, Library','claimed_by'=>'Roel M. Tan'],
-  ['id'=>7,'name'=>'Smartphone','category'=>'Electronics','floor'=>'5th Floor, Study Area','claimed_by'=>'Dana P. Reyes'],
-];
+$claimed_items = array_slice(array_values(LAF_GET_CLAIMED_ITEMS()), 0, 3);
 ?>
 
 <!-- Featured Users -->
@@ -83,25 +79,30 @@ $claimed_items = [
     <a href="/LAF/claimed-items/index.php" class="laf-view-all fs-7 fw-semibold text-primary text-hover-primary" onclick="KTApp.showPageLoading()">View All</a>
   </div>
   <div class="laf-card-body px-6 pb-6">
-    <div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="row row-cols-1 row-cols-md-3 g-3">
       <?php foreach ($claimed_items as $item):
-        $cat_key = strtolower($item['category'] ?? '');
+        $cat_key   = strtolower($item['category'] ?? '');
         $iconClass = $categoryIcons[$cat_key] ?? $categoryIcons['default'];
         $cat_class = $cat_css_map[$cat_key] ?? 'cat-others';
       ?>
-        <div class="col">
-          <div class="laf-claimed-card laf-card-clickable <?= $cat_class ?> border rounded-3 p-4 bg-white d-flex align-items-center gap-3 h-100"
+        <div class="col laf-h-col">
+          <div class="laf-h-card laf-h-card--mini laf-card-clickable <?= $cat_class ?>"
                onclick="window.location.href='/LAF/item-details/index.php?id=<?= (int)$item['id'] ?>'; KTApp.showPageLoading();">
-            <div class="claimed-icon-wrap rounded-3 d-flex align-items-center justify-content-center" style="width:52px; height:52px;">
-              <i class="<?= $iconClass ?>" style="font-size: 1.4rem;"></i>
+            <div class="h-img-wrap">
+              <?php if (!empty($item['image'])): ?>
+                <img class="lozad" style="width:100%;height:100%;object-fit:cover;mix-blend-mode:multiply;filter:contrast(1.03);" data-src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>">
+              <?php else: ?>
+                <i class="<?= $iconClass ?>"></i>
+              <?php endif; ?>
+              <div class="h-img-fade"></div>
             </div>
-            <div class="flex-grow-1">
-              <div class="d-flex align-items-center gap-2 mb-1">
-                <span class="claimed-name fs-6 fw-bold text-gray-800"><?= htmlspecialchars($item['name']) ?></span>
+            <div class="h-card-body">
+              <div class="h-badges">
                 <span class="badge-laf-claimed">Claimed</span>
               </div>
-              <div class="claimed-meta text-muted fs-8">📍 <?= htmlspecialchars($item['floor']) ?></div>
-              <div class="claimed-meta text-muted fs-8">👤 Claimed By: <?= htmlspecialchars($item['claimed_by']) ?></div>
+              <div class="h-item-name"><?= htmlspecialchars($item['name']) ?></div>
+              <div class="h-item-meta">📍 <?= htmlspecialchars($item['floor']) ?></div>
+              <div class="h-item-meta">👤 <?= htmlspecialchars($item['claimed_by']) ?></div>
             </div>
           </div>
         </div>

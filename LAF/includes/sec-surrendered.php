@@ -12,18 +12,18 @@ $categoryIcons = [
   'accessories'         => 'bi bi-watch',
   'documents'           => 'bi bi-file-earmark-text',
   'keys'                => 'bi bi-key',
-  'bags'         => 'bi bi-briefcase',
-  'wallet'       => 'bi bi-wallet2',
-  'wallets'      => 'bi bi-wallet2',
-  'jewelry'      => 'bi bi-gem',
-  'books'        => 'bi bi-book',
+  'bags'                => 'bi bi-briefcase',
+  'wallet'              => 'bi bi-wallet2',
+  'wallets'             => 'bi bi-wallet2',
+  'jewelry'             => 'bi bi-gem',
+  'books'               => 'bi bi-book',
   'academic'            => 'bi bi-mortarboard',
   'personal essentials' => 'bi bi-bag-plus',
   'essentials'          => 'bi bi-bag-plus',
   'id / cards'          => 'bi bi-person-badge',
   'id-cards'            => 'bi bi-person-badge',
   'others'              => 'bi bi-tag',
-  'default'      => 'bi bi-tag',
+  'default'             => 'bi bi-tag',
 ];
 ?>
 
@@ -50,33 +50,41 @@ $categoryIcons = [
   </div>
 
   <div class="laf-card-body px-6 pb-6">
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-4 g-4">
+    <div class="row row-cols-1 g-3">
       <?php foreach ($surrendered_items as $item):
         $cat_key = strtolower($item['category'] ?? '');
         $iconClass = $categoryIcons[$cat_key] ?? $categoryIcons['default'];
       ?>
-        <div class="col">
-          <div class="laf-item-card laf-card-clickable <?= htmlspecialchars($item['cat_key']) ?>"
+        <div class="col laf-h-col">
+          <div class="laf-h-card laf-card-clickable <?= htmlspecialchars($item['cat_key']) ?>"
             data-item-id="<?= (int)$item['id'] ?>"
             onclick="window.location.href='/LAF/item-details/index.php?id=<?= (int)$item['id'] ?>'; KTApp.showPageLoading();">
-            <div class="item-card-top d-flex justify-content-between align-items-center mb-3">
-              <span class="badge-laf-cat <?= htmlspecialchars($item['category_class']) ?>"><?= htmlspecialchars($item['category']) ?></span>
-              <span class="badge-laf-unclaimed"><?= htmlspecialchars($item['status']) ?></span>
-            </div>
-            
-            <div class="item-icon-wrap w-100 d-flex align-items-center justify-content-center mb-3">
+
+            <!-- Image / icon area -->
+            <div class="h-img-wrap">
               <?php if (!empty($item['image'])): ?>
-                <img class="lozad rounded object-fit-cover w-50px h-50px" data-src="<?= htmlspecialchars($item['image']) ?>">
+                <img class="card-photo" src="<?= htmlspecialchars($item['image']) ?>" alt="<?= htmlspecialchars($item['name']) ?>">
               <?php else: ?>
-                <i class="<?= $iconClass ?> text-primary" style="font-size: 2.8rem;"></i>
+                <i class="<?= $iconClass ?>"></i>
               <?php endif; ?>
+              <div class="h-img-fade"></div>
             </div>
-            
-            <div class="item-name fs-6 fw-bold text-gray-900 mb-1"><?= htmlspecialchars($item['name']) ?></div>
-            <div class="item-meta dash-floor fs-8 text-muted" data-real="📍<?= htmlspecialchars($item['floor']) ?>">📍 ●●● ●●●●●</div>
-            <div class="item-meta dash-time fs-8 text-muted" data-real="🕐 <?= htmlspecialchars($item['time']) ?>">🕐 ●●:●●</div>
-            <div class="item-meta dash-by fs-8 text-muted mb-3" data-real="👤 <?= htmlspecialchars($item['surrendered_by']) ?>">👤 ●●● ●●●●●●</div>
-            <button class="btn-how-to-claim mt-auto" data-item-id="<?= (int)$item['id'] ?>" onclick="event.stopPropagation();">🏢 How to Claim</button>
+
+            <!-- Card body -->
+            <div class="h-card-body">
+              <div>
+                <div class="h-badges">
+                  <span class="badge-laf-cat <?= htmlspecialchars($item['category_class']) ?>"><?= htmlspecialchars($item['category']) ?></span>
+                  <span class="badge-laf-unclaimed"><?= htmlspecialchars($item['status']) ?></span>
+                </div>
+                <div class="h-item-name"><?= htmlspecialchars($item['name']) ?></div>
+                <div class="h-item-meta dash-floor" data-real="📍<?= htmlspecialchars($item['floor']) ?>">📍 ●●● ●●●●●</div>
+                <div class="h-item-meta dash-time" data-real="🕐 <?= htmlspecialchars($item['time']) ?>">🕐 ●●:●●</div>
+                <div class="h-item-meta dash-by" data-real="👤 <?= htmlspecialchars($item['surrendered_by']) ?>">👤 ●●● ●●●●●●</div>
+              </div>
+              <button class="btn-how-to-claim mt-2" data-item-id="<?= (int)$item['id'] ?>" onclick="event.stopPropagation();">🏢 How to Claim</button>
+            </div>
+
           </div>
         </div>
       <?php endforeach; ?>

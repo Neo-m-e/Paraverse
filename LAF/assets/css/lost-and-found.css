@@ -1,5 +1,5 @@
 /* ============================================================
-   LOST AND FOUND — Compiled Stylesheet (Cleaned)
+   LOST AND FOUND — Compiled Stylesheet (Cleaned & Adaptive Fixes)
    FEU Tech · Educational Innovation and Technology Hub
    ============================================================ */
 
@@ -310,24 +310,6 @@
 .laf-lost-card:hover {
   box-shadow: 0 6px 20px rgba(246,78,96,.10);
   transform: translateY(-2px);
-}
-
-.laf-item-card .item-icon-wrap, .laf-lost-card .lost-icon-wrap {
-  background: var(--laf-gray-bg);
-  border-radius: 12px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-bottom: 10px;
-}
-.laf-item-card .item-icon-wrap {
-  height: 90px;
-  font-size: 2.8rem;
-}
-.laf-lost-card .lost-icon-wrap {
-  height: 80px;
-  font-size: 2.4rem;
-  background: #fff5f5;
 }
 
 .cat-accessories .item-icon-wrap, .cat-accessories .lost-icon-wrap, .cat-accessories .claimed-icon-wrap { background: #ffeef8; } 
@@ -908,3 +890,270 @@
 .laf-empty-state { text-align: center; padding: 60px 20px; color: var(--laf-muted); }
 .laf-empty-state .empty-icon { font-size: 2.5rem; margin-bottom: 12px; }
 .laf-empty-state p { font-size: .9rem; margin: 0; }
+
+/* ── Option C Card Layout (Adaptive Heights Fixed) ── */
+.laf-item-card,
+.laf-lost-card {
+  padding: 0;
+  overflow: hidden;
+}
+
+.laf-item-card .item-icon-wrap,
+.laf-lost-card .item-icon-wrap {
+  position: relative;
+  height: 200px; /* Force a consistent, beautiful height for the grid rows */
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.item-card-badges {
+  position: absolute;
+  top: 12px; left: 12px; right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 3;
+}
+
+.item-card-overlay {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 30%;
+  background: linear-gradient(to top, #fff 0%, rgba(255,255,255,0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* Fallback styling for pure SVG/Font Awesome icons when NO image is provided */
+.laf-item-card .item-icon-wrap i,
+.laf-lost-card .item-icon-wrap i {
+  font-size: 3.5rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  opacity: .85;
+}
+
+/* THE FIX: Reverts to cover to fill empty space, but uses mix-blend-mode to multiply out white backgrounds */
+.item-icon-wrap img.card-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Spans across the entire container width flawlessly */
+  mix-blend-mode: multiply; /* Drops out product image white backgrounds into your theme color! */
+  filter: contrast(1.03); /* Keeps item details incredibly sharp */
+  z-index: 1;
+}
+
+.item-card-body {
+  padding: 16px 16px 16px;
+  display: flex;
+  flex-direction: column;
+}
+/* ══════════════════════════════════════════════════════════
+   HORIZONTAL CARD LAYOUT (.laf-h-card)
+   Used in: sec-surrendered.php, index-inc-unclaimed-items.php
+   Buttons (.btn-how-to-claim) and eye toggle are UNCHANGED.
+══════════════════════════════════════════════════════════ */
+.laf-h-card {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  border-radius: 14px;
+  border: 1px solid var(--laf-border);
+  background: #fff;
+  overflow: hidden;
+  cursor: pointer;
+  transition: box-shadow .2s, transform .15s;
+  box-shadow: 0 2px 8px rgba(0,0,0,.06);
+  height: 100%;
+}
+.laf-h-card:hover {
+  box-shadow: 0 6px 24px rgba(108,99,255,.14);
+  transform: translateY(-2px);
+}
+
+/* image / icon side */
+.h-img-wrap {
+  position: relative;
+  flex: 0 0 120px;
+  width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+.h-img-wrap img.card-photo {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  mix-blend-mode: multiply;
+  filter: contrast(1.03);
+  position: relative;
+  z-index: 1;
+}
+.h-img-wrap i {
+  font-size: 2.4rem;
+  position: relative;
+  z-index: 1;
+  opacity: .85;
+}
+
+/* category gradient backgrounds */
+.cat-accessories .h-img-wrap { background: linear-gradient(135deg, #f7a8e0 0%, #ffeef8 100%); }
+.cat-bags        .h-img-wrap { background: linear-gradient(135deg, #ffc98a 0%, #fff0e6 100%); }
+.cat-academic    .h-img-wrap { background: linear-gradient(135deg, #90cff7 0%, #e6f7ff 100%); }
+.cat-essentials  .h-img-wrap { background: linear-gradient(135deg, #b4b0f7 0%, #f0f0fb 100%); }
+.cat-electronics .h-img-wrap { background: linear-gradient(135deg, #b6ffe0 0%, #e6fff0 100%); }
+.cat-clothing    .h-img-wrap { background: linear-gradient(135deg, #ffe9a0 0%, #fff9e6 100%); }
+.cat-wallets     .h-img-wrap { background: linear-gradient(135deg, #e0a0f7 0%, #fde8ff 100%); }
+.cat-documents   .h-img-wrap { background: linear-gradient(135deg, #80f0bb 0%, #e8fff3 100%); }
+.cat-others      .h-img-wrap { background: linear-gradient(135deg, #f7a0a0 0%, #ffe8e8 100%); }
+
+/* icon colors inside h-img-wrap */
+.cat-accessories .h-img-wrap i { color: #c0408a !important; }
+.cat-bags        .h-img-wrap i { color: #b55a00 !important; }
+.cat-academic    .h-img-wrap i { color: #0070b0 !important; }
+.cat-essentials  .h-img-wrap i { color: #5050cc !important; }
+.cat-electronics .h-img-wrap i { color: #00802b !important; }
+.cat-clothing    .h-img-wrap i { color: #b58000 !important; }
+.cat-wallets     .h-img-wrap i { color: #a020f0 !important; }
+.cat-documents   .h-img-wrap i { color: #008040 !important; }
+.cat-others      .h-img-wrap i { color: #d03030 !important; }
+
+/* fade: transparent left → white right */
+.h-img-fade {
+  position: absolute;
+  top: 0; right: 0; bottom: 0;
+  width: 30%;
+  background: linear-gradient(to right, transparent 0%, #fff 100%);
+  z-index: 2;
+  pointer-events: none;
+}
+
+/* card body */
+.h-card-body {
+  flex: 1;
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-width: 0;
+}
+.h-badges {
+  display: flex;
+  gap: 5px;
+  flex-wrap: wrap;
+  margin-bottom: 5px;
+}
+.h-item-name {
+  font-size: .92rem;
+  font-weight: 700;
+  color: var(--laf-text);
+  margin-bottom: 3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.h-item-meta {
+  font-size: .72rem;
+  color: var(--laf-muted);
+  margin-bottom: 2px;
+}
+.h-item-desc {
+  font-size: .74rem;
+  color: #555;
+  line-height: 1.45;
+  margin: 4px 0 8px;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+/* make grid cols full-height for horizontal cards */
+#items-grid .col,
+.laf-h-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* ── Mini Horizontal Card (.laf-h-card--mini) ── */
+/* For claimed items: same structure but smaller image strip, no button */
+.laf-h-card--mini {
+  min-height: 72px;
+}
+.laf-h-card--mini .h-img-wrap {
+  flex: 0 0 80px;
+  width: 80px;
+}
+.laf-h-card--mini .h-img-wrap i {
+  font-size: 1.6rem;
+}
+.laf-h-card--mini .h-card-body {
+  padding: 10px 12px;
+  justify-content: center;
+}
+.laf-h-card--mini .h-item-name {
+  font-size: .84rem;
+  margin-bottom: 2px;
+}
+.laf-h-card--mini .h-item-meta {
+  font-size: .69rem;
+}
+
+/* ── Detail Page Card Panel (matches grid card style) ── */
+.laf-detail-card {
+  background: #fff;
+}
+/* image area — same gradient backgrounds as h-img-wrap via cat-* classes */
+.laf-detail-img-area {
+  position: relative;
+  height: 220px;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+/* inherit category gradients */
+.cat-accessories .laf-detail-img-area { background: linear-gradient(135deg, #f7a8e0 0%, #ffeef8 100%); }
+.cat-bags        .laf-detail-img-area { background: linear-gradient(135deg, #ffc98a 0%, #fff0e6 100%); }
+.cat-academic    .laf-detail-img-area { background: linear-gradient(135deg, #90cff7 0%, #e6f7ff 100%); }
+.cat-essentials  .laf-detail-img-area { background: linear-gradient(135deg, #b4b0f7 0%, #f0f0fb 100%); }
+.cat-electronics .laf-detail-img-area { background: linear-gradient(135deg, #b6ffe0 0%, #e6fff0 100%); }
+.cat-clothing    .laf-detail-img-area { background: linear-gradient(135deg, #ffe9a0 0%, #fff9e6 100%); }
+.cat-wallets     .laf-detail-img-area { background: linear-gradient(135deg, #e0a0f7 0%, #fde8ff 100%); }
+.cat-documents   .laf-detail-img-area { background: linear-gradient(135deg, #80f0bb 0%, #e8fff3 100%); }
+.cat-others      .laf-detail-img-area { background: linear-gradient(135deg, #f7a0a0 0%, #ffe8e8 100%); }
+/* icon colors */
+.cat-accessories .laf-detail-img-area i { color: #c0408a !important; }
+.cat-bags        .laf-detail-img-area i { color: #b55a00 !important; }
+.cat-academic    .laf-detail-img-area i { color: #0070b0 !important; }
+.cat-essentials  .laf-detail-img-area i { color: #5050cc !important; }
+.cat-electronics .laf-detail-img-area i { color: #00802b !important; }
+.cat-clothing    .laf-detail-img-area i { color: #b58000 !important; }
+.cat-wallets     .laf-detail-img-area i { color: #a020f0 !important; }
+.cat-documents   .laf-detail-img-area i { color: #008040 !important; }
+.cat-others      .laf-detail-img-area i { color: #d03030 !important; }
+.laf-detail-img-area i {
+  font-size: 4.5rem;
+  opacity: .85;
+  position: relative;
+  z-index: 1;
+}
+/* bottom fade like card overlay */
+.laf-detail-img-fade {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 40%;
+  background: linear-gradient(to top, #fff 0%, rgba(255,255,255,0) 100%);
+  z-index: 2;
+  pointer-events: none;
+}

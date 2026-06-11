@@ -141,8 +141,8 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
         <div class="d-flex flex-column gap-1 flex-grow-1">
           <span class="fw-bold" style="font-family:'Orbitron',sans-serif;font-size:.82rem;letter-spacing:.16em;color:#EDE8FF;">
             4 &times; 4
+            <span class="badge-soon">Coming Soon</span>
           </span>
-          <span class="badge-soon">Coming Soon</span>
           <span style="font-family:'Exo 2',sans-serif;font-size:.68rem;color:rgba(237,232,255,.45);">
             15 tiles &nbsp;&middot;&nbsp; Intermediate
           </span>

@@ -63,11 +63,13 @@ document.addEventListener('DOMContentLoaded', function () {
      Each card has data-item-id and cells with dash-floor,
      dash-time, dash-by classes + data-real attribute.
   ══════════════════════════════════════════════════════ */
-  document.querySelectorAll('.laf-item-card[data-item-id]').forEach(function (card) {
+  /* Works for both vertical (.laf-item-card) and horizontal (.laf-h-card) cards */
+  document.querySelectorAll('.laf-item-card[data-item-id], .laf-h-card[data-item-id]').forEach(function (card) {
     var itemId = card.getAttribute('data-item-id');
 
     var fieldMap = [
       { cls: 'dash-floor', field: 'floor'        },
+      { cls: 'dash-date',  field: 'date'         },
       { cls: 'dash-time',  field: 'time'         },
       { cls: 'dash-by',    field: 'surrendered_by'},
     ];
@@ -329,6 +331,14 @@ document.addEventListener('DOMContentLoaded', function () {
       if (m) m.hide();
       alert('Your lost report has been submitted! You will be notified if a match is found.');
     });
+  }
+
+  /* ══════════════════════════════════════════════════════
+     LAZY IMAGES (lozad)
+  ══════════════════════════════════════════════════════ */
+  if (typeof lozad !== 'undefined') {
+    var observer = lozad('.lozad', { rootMargin: '200px 0px' });
+    observer.observe();
   }
 
   /* ══════════════════════════════════════════════════════
