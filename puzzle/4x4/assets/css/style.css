@@ -270,6 +270,7 @@ body {
   transition: opacity .3s ease;
 }
 
+
 /* ── Fit-to-viewport responsive sizing ─────────────────────────── */
 
 /* Card padding scales down on short / narrow viewports */
@@ -292,6 +293,14 @@ body {
 .puzzle-title {
   font-size: clamp(.62rem, 2.6vh, .92rem) !important;
   letter-spacing: .18em !important;
+}
+
+/* Subtitle shrinks / hides on short viewports */
+.puzzle-subtitle {
+  font-size: clamp(.5rem, 1.6vh, .67rem) !important;
+}
+@media (max-height: 620px) {
+  .puzzle-subtitle { display: none; }
 }
 
 /* Divider can collapse on very short screens */

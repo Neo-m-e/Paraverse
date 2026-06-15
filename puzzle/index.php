@@ -131,7 +131,7 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
       </a>
 
       <!-- 4×4 -->
-      <a href="4x4" class="mode-card disabled-card d-flex align-items-center gap-4 p-4 text-decoration-none">
+      <a href="4x4/index.php" class="mode-card d-flex align-items-center gap-4 p-4 text-decoration-none">
         <!-- Mini grid preview: 4×4 -->
         <div class="mode-grid-preview flex-shrink-0" style="grid-template-columns:repeat(4,1fr);width:54px;height:54px;">
           <?php for ($i = 0; $i < 16; $i++): ?>
@@ -141,7 +141,6 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
         <div class="d-flex flex-column gap-1 flex-grow-1">
           <span class="fw-bold" style="font-family:'Orbitron',sans-serif;font-size:.82rem;letter-spacing:.16em;color:#EDE8FF;">
             4 &times; 4
-            <span class="badge-soon">Coming Soon</span>
           </span>
           <span style="font-family:'Exo 2',sans-serif;font-size:.68rem;color:rgba(237,232,255,.45);">
             15 tiles &nbsp;&middot;&nbsp; Intermediate

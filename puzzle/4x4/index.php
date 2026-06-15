@@ -3,8 +3,8 @@
 
 
 
-$META_TITLE = "Sliding Puzzle";
-$META_DESC  = "Paraverse 3×3 Sliding Puzzle — FEU Institute of Technology EdITH";
+$META_TITLE = "4×4 Sliding Puzzle";
+$META_DESC  = "Paraverse 4×4 Sliding Puzzle — FEU Institute of Technology EdITH";;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -32,11 +32,9 @@ $META_DESC  = "Paraverse 3×3 Sliding Puzzle — FEU Institute of Technology EdI
 
     <!-- Back to home — absolute top-left inside card -->
     <a href="../index.php" class="position-absolute top-0 start-0 d-flex align-items-center gap-2 text-decoration-none m-3"
-      style="font-family:'Exo 2',sans-serif;font-size:.65rem;letter-spacing:.08em;color:rgba(139,111,255,.6);z-index:5;">
+       style="font-family:'Exo 2',sans-serif;font-size:.65rem;letter-spacing:.08em;color:rgba(139,111,255,.6);z-index:5;">
       <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-        stroke-linecap="round" stroke-linejoin="round">
-        <polyline points="15 18 9 12 15 6"></polyline>
-      </svg>
+           stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>
       Back
     </a>
 
@@ -44,12 +42,16 @@ $META_DESC  = "Paraverse 3×3 Sliding Puzzle — FEU Institute of Technology EdI
     <div class="d-flex flex-column align-items-center gap-2">
       <div class="logo-wrap d-flex align-items-center justify-content-center rounded-3 overflow-hidden"
         style="width:68px;height:68px;background:linear-gradient(135deg,#2A1C5A,#3C2166);border:1.5px solid rgba(139,111,255,.3);">
-        <img src="assets/images/paraverse.svg" alt="Paraverse Logo" width="46" height="46" style="object-fit:contain;">
+          <img src="assets/images/paraverse.svg" alt="Paraverse Logo" width="46" height="46" style="object-fit:contain;">
       </div>
 
-      <p class="puzzle-title mb-0 text-uppercase text-white fw-bold text-center"
+      <p class="puzzle-title mb-0 text-uppercase text-white fw-bold"
         style="font-family:'Orbitron',sans-serif;font-size:.92rem;letter-spacing:.26em;">
-        Paraverse Sliding Puzzle
+        Paraverse
+      </p>
+      <p class="puzzle-subtitle mb-0 text-uppercase"
+        style="font-family:'Exo 2',sans-serif;font-size:.67rem;letter-spacing:.14em;color:rgba(237,232,255,.35);">
+        FEU Institute of Technology &middot; EdITH
       </p>
     </div>
 
@@ -58,7 +60,7 @@ $META_DESC  = "Paraverse 3×3 Sliding Puzzle — FEU Institute of Technology EdI
 
     <!-- Grid shell -->
     <div class="grid-shell position-relative rounded-3 p-2">
-      <div id="puzzle-grid" class="puzzle-grid position-relative" role="grid" aria-label="3 by 3 sliding puzzle"></div>
+      <div id="puzzle-grid" class="puzzle-grid position-relative" role="grid" aria-label="4 by 4 sliding puzzle"></div>
 
       <!-- Solved overlay -->
       <div id="solved-overlay"
