@@ -136,10 +136,10 @@ const SoundFX = (() => {
 
 
 /* ── Puzzle Logic ────────────────────────────────────────────── */
-class Puzzle4x4 {
+class Puzzle5x5 {
   constructor() {
-    this.SIZE    = 4;
-    this.TOTAL   = 16;
+    this.SIZE    = 5;
+    this.TOTAL   = 25;
     this.tiles   = [];
     this.moves   = 0;
     this.solved  = false;
@@ -269,7 +269,7 @@ class Puzzle4x4 {
 
   /* ── Shuffle (internal) ── */
   _shuffle() {
-    const steps = 400 + Math.floor(Math.random() * 200);
+    const steps = 550 + Math.floor(Math.random() * 250);
     for (let i = 0; i < steps; i++) {
       const movable = this._getMovable();
       this.tiles = this._swapEmpty(this.tiles, movable[Math.floor(Math.random() * movable.length)]);
@@ -356,7 +356,7 @@ class Puzzle4x4 {
     const maxByW = Math.floor((availableW - GAP * (COLS - 1)) / COLS);
     const maxByH = Math.floor((availableH - GAP * (COLS - 1)) / COLS);
     const max = Math.min(maxByW, maxByH);
-    return Math.min(78, Math.max(50, max));
+    return Math.min(62, Math.max(36, max));
   }
 
   _render() {
@@ -521,7 +521,7 @@ class Puzzle4x4 {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const puzzle = new Puzzle4x4();
+  const puzzle = new Puzzle5x5();
   let _resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(_resizeTimer);

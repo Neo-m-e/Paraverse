@@ -411,11 +411,6 @@ class Puzzle4x4 {
         el.style.backgroundPosition = `-${offX}px -${offY}px`;
         el.style.backgroundRepeat   = 'no-repeat';
 
-        const badge = document.createElement('span');
-        badge.classList.add('tile-num');
-        badge.textContent = v;
-        el.appendChild(badge);
-
         el.addEventListener('click', () => {
           this._move(this.tiles.indexOf(v));
         });
@@ -455,8 +450,7 @@ class Puzzle4x4 {
       this.solvedEl.classList.toggle('gave-up', gaveUp);
       const iconEl  = this.solvedEl.querySelector('.overlay-icon');
       const titleEl = this.solvedEl.querySelector('.overlay-title');
-      if (iconEl)  iconEl.classList.toggle('bi-stars', !gaveUp);
-      if (iconEl)  iconEl.classList.toggle('bi-x-octagon-fill', gaveUp);
+      if (iconEl)  iconEl.textContent  = gaveUp ? '✖' : '✦';
       if (iconEl)  iconEl.style.filter = gaveUp ? 'drop-shadow(0 0 12px #FF6B6B)' : 'drop-shadow(0 0 12px #5DFFB0)';
       if (titleEl) titleEl.textContent = gaveUp ? 'You Gave Up' : 'Puzzle Solved!';
       this.solvedEl.classList.add('show');

@@ -3,8 +3,8 @@
 
 
 
-$META_TITLE = "4×4 Sliding Puzzle";
-$META_DESC  = "Paraverse 4×4 Sliding Puzzle — FEU Institute of Technology EdITH";;
+$META_TITLE = "5×5 Sliding Puzzle";
+$META_DESC  = "Paraverse 5×5 Sliding Puzzle — FEU Institute of Technology EdITH";;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +54,7 @@ $META_DESC  = "Paraverse 4×4 Sliding Puzzle — FEU Institute of Technology EdI
 
     <!-- Grid shell -->
     <div class="grid-shell position-relative rounded-3 p-2">
-      <div id="puzzle-grid" class="puzzle-grid position-relative" role="grid" aria-label="4 by 4 sliding puzzle"></div>
+      <div id="puzzle-grid" class="puzzle-grid position-relative" role="grid" aria-label="5 by 5 sliding puzzle"></div>
 
       <!-- Solved overlay -->
       <div id="solved-overlay"

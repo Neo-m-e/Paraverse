@@ -110,6 +110,7 @@ const SoundFX = (() => {
     if (muted) return;
     try {
       const ac = getCtx();
+      // Descending "wah-wah" — sad trombone feel: falling notes, sawtooth, slow decay
       const notes = [415, 370, 330, 277, 220];
       notes.forEach((freq, i) => {
         setTimeout(() => {
@@ -136,10 +137,10 @@ const SoundFX = (() => {
 
 
 /* ── Puzzle Logic ────────────────────────────────────────────── */
-class Puzzle4x4 {
+class Puzzle3x3 {
   constructor() {
-    this.SIZE    = 4;
-    this.TOTAL   = 16;
+    this.SIZE    = 3;
+    this.TOTAL   = 9;
     this.tiles   = [];
     this.moves   = 0;
     this.solved  = false;
@@ -269,7 +270,7 @@ class Puzzle4x4 {
 
   /* ── Shuffle (internal) ── */
   _shuffle() {
-    const steps = 400 + Math.floor(Math.random() * 200);
+    const steps = 250 + Math.floor(Math.random() * 150);
     for (let i = 0; i < steps; i++) {
       const movable = this._getMovable();
       this.tiles = this._swapEmpty(this.tiles, movable[Math.floor(Math.random() * movable.length)]);
@@ -326,37 +327,14 @@ class Puzzle4x4 {
 
   /* ── Rendering ── */
   _calcTileSize() {
-    // Measure the grid-shell (the direct parent of puzzle-grid) — already the right width
+    // Measure grid-shell directly — already the correct inner width
     const shell = this.gridEl.parentElement;
-    // shell has p-2 (8px each side) + 1px border each side = 18px total horizontal inset
-    const availableW = (shell ? shell.clientWidth : window.innerWidth) - 18;
-
-    // Estimate vertical space available for the grid by measuring
-    // everything else in the card and subtracting from viewport height.
-    const card = document.querySelector('.puzzle-card');
-    let availableH = availableW;
-    if (card) {
-      let usedH = 0;
-      Array.from(card.children).forEach(child => {
-        if (child === shell) return;
-        const style = window.getComputedStyle(child);
-        if (style.display === 'none') return;
-        usedH += child.offsetHeight;
-      });
-      const cardStyle  = window.getComputedStyle(card);
-      const padV       = parseFloat(cardStyle.paddingTop) + parseFloat(cardStyle.paddingBottom);
-      const gap        = parseFloat(cardStyle.rowGap || cardStyle.gap || 0);
-      const gapCount   = Math.max(card.children.length - 1, 0);
-      const viewportH  = window.innerHeight;
-      availableH = viewportH - usedH - padV - (gap * gapCount) - 18 - 24; // 24px breathing room
-    }
-
+    // shell p-2 (8px each side) + 1px border each side = 18px total horizontal inset
+    const available = (shell ? shell.clientWidth : window.innerWidth) - 18;
     const GAP  = 5;
     const COLS = this.SIZE;
-    const maxByW = Math.floor((availableW - GAP * (COLS - 1)) / COLS);
-    const maxByH = Math.floor((availableH - GAP * (COLS - 1)) / COLS);
-    const max = Math.min(maxByW, maxByH);
-    return Math.min(78, Math.max(50, max));
+    const max = Math.floor((available - GAP * (COLS - 1)) / COLS);
+    return Math.min(108, Math.max(72, max));
   }
 
   _render() {
@@ -411,11 +389,6 @@ class Puzzle4x4 {
         el.style.backgroundPosition = `-${offX}px -${offY}px`;
         el.style.backgroundRepeat   = 'no-repeat';
 
-        const badge = document.createElement('span');
-        badge.classList.add('tile-num');
-        badge.textContent = v;
-        el.appendChild(badge);
-
         el.addEventListener('click', () => {
           this._move(this.tiles.indexOf(v));
         });
@@ -453,10 +426,10 @@ class Puzzle4x4 {
     if (this.solvedTime) this.solvedTime.textContent  = gaveUp ? `After ${this._formatTime(this._seconds)}` : '';
     if (this.solvedEl) {
       this.solvedEl.classList.toggle('gave-up', gaveUp);
+      // Swap icon and title text based on state
       const iconEl  = this.solvedEl.querySelector('.overlay-icon');
       const titleEl = this.solvedEl.querySelector('.overlay-title');
-      if (iconEl)  iconEl.classList.toggle('bi-stars', !gaveUp);
-      if (iconEl)  iconEl.classList.toggle('bi-x-octagon-fill', gaveUp);
+      if (iconEl)  iconEl.textContent  = gaveUp ? '✖' : '✦';
       if (iconEl)  iconEl.style.filter = gaveUp ? 'drop-shadow(0 0 12px #FF6B6B)' : 'drop-shadow(0 0 12px #5DFFB0)';
       if (titleEl) titleEl.textContent = gaveUp ? 'You Gave Up' : 'Puzzle Solved!';
       this.solvedEl.classList.add('show');
@@ -521,7 +494,8 @@ class Puzzle4x4 {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const puzzle = new Puzzle4x4();
+  const puzzle = new Puzzle3x3();
+  // Re-render on resize / orientation change so tiles stay properly sized
   let _resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(_resizeTimer);

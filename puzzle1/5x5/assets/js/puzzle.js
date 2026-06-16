@@ -136,10 +136,10 @@ const SoundFX = (() => {
 
 
 /* ── Puzzle Logic ────────────────────────────────────────────── */
-class Puzzle4x4 {
+class Puzzle5x5 {
   constructor() {
-    this.SIZE    = 4;
-    this.TOTAL   = 16;
+    this.SIZE    = 5;
+    this.TOTAL   = 25;
     this.tiles   = [];
     this.moves   = 0;
     this.solved  = false;
@@ -269,7 +269,7 @@ class Puzzle4x4 {
 
   /* ── Shuffle (internal) ── */
   _shuffle() {
-    const steps = 400 + Math.floor(Math.random() * 200);
+    const steps = 550 + Math.floor(Math.random() * 250);
     for (let i = 0; i < steps; i++) {
       const movable = this._getMovable();
       this.tiles = this._swapEmpty(this.tiles, movable[Math.floor(Math.random() * movable.length)]);
@@ -356,7 +356,7 @@ class Puzzle4x4 {
     const maxByW = Math.floor((availableW - GAP * (COLS - 1)) / COLS);
     const maxByH = Math.floor((availableH - GAP * (COLS - 1)) / COLS);
     const max = Math.min(maxByW, maxByH);
-    return Math.min(78, Math.max(50, max));
+    return Math.min(62, Math.max(36, max));
   }
 
   _render() {
@@ -411,11 +411,6 @@ class Puzzle4x4 {
         el.style.backgroundPosition = `-${offX}px -${offY}px`;
         el.style.backgroundRepeat   = 'no-repeat';
 
-        const badge = document.createElement('span');
-        badge.classList.add('tile-num');
-        badge.textContent = v;
-        el.appendChild(badge);
-
         el.addEventListener('click', () => {
           this._move(this.tiles.indexOf(v));
         });
@@ -455,8 +450,7 @@ class Puzzle4x4 {
       this.solvedEl.classList.toggle('gave-up', gaveUp);
       const iconEl  = this.solvedEl.querySelector('.overlay-icon');
       const titleEl = this.solvedEl.querySelector('.overlay-title');
-      if (iconEl)  iconEl.classList.toggle('bi-stars', !gaveUp);
-      if (iconEl)  iconEl.classList.toggle('bi-x-octagon-fill', gaveUp);
+      if (iconEl)  iconEl.textContent  = gaveUp ? '✖' : '✦';
       if (iconEl)  iconEl.style.filter = gaveUp ? 'drop-shadow(0 0 12px #FF6B6B)' : 'drop-shadow(0 0 12px #5DFFB0)';
       if (titleEl) titleEl.textContent = gaveUp ? 'You Gave Up' : 'Puzzle Solved!';
       this.solvedEl.classList.add('show');
@@ -521,7 +515,7 @@ class Puzzle4x4 {
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const puzzle = new Puzzle4x4();
+  const puzzle = new Puzzle5x5();
   let _resizeTimer;
   window.addEventListener('resize', () => {
     clearTimeout(_resizeTimer);

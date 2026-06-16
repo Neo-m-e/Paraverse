@@ -77,25 +77,6 @@ body {
 /* Image tile — no font, bg-image is the logo slice */
 .tile.img-tile { font-size: 0; }
 
-.tile-num {
-  position: absolute;
-  top: 2px;
-  left: 3px;
-  font-family: 'Exo 2', sans-serif;
-  font-size: clamp(7px, 1.3vh, 9px);
-  font-weight: 700;
-  line-height: 1;
-  color: rgba(237,232,255,.5);
-  background: rgba(4,0,15,.45);
-  border-radius: 3px;
-  padding: 1px 3px;
-  pointer-events: none;
-  z-index: 2;
-  letter-spacing: 0;
-}
-
-.tile.empty .tile-num { display: none; }
-
 .tile:hover:not(.empty) {
   border-color: #8B6FFF;
   box-shadow: 0 0 18px rgba(139,111,255,.5), inset 0 1px 0 rgba(255,255,255,.12);
@@ -289,7 +270,6 @@ body {
   transition: opacity .3s ease;
 }
 
-
 /* ── Fit-to-viewport responsive sizing ─────────────────────────── */
 
 /* Card padding scales down on short / narrow viewports */
@@ -312,14 +292,6 @@ body {
 .puzzle-title {
   font-size: clamp(.62rem, 2.6vh, .92rem) !important;
   letter-spacing: .18em !important;
-}
-
-/* Subtitle shrinks / hides on short viewports */
-.puzzle-subtitle {
-  font-size: clamp(.5rem, 1.6vh, .67rem) !important;
-}
-@media (max-height: 620px) {
-  .puzzle-subtitle { display: none; }
 }
 
 /* Divider can collapse on very short screens */
