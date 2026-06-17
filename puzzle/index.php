@@ -16,11 +16,21 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Exo+2:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="assets/css/3x3.css">
 
   <style>
     body {
-      background-color: #0d0826; 
+      background: linear-gradient(150deg,
+        #04000F 0%,
+        #0B0322 15%,
+        #170B2E 30%,
+        #111139 45%,
+        #1B1D52 60%,
+        #2A1C5A 75%,
+        #3C2166 90%,
+        #04000F 100%
+      );
+      background-attachment: fixed;
     }
 
     .mode-card {
@@ -54,6 +64,20 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
       background: rgba(139, 111, 255, .18);
       border-radius: 3px;
     }
+
+    .home-logo-wrap {
+      width: 68px;
+      height: 68px;
+      background: rgba(27, 29, 82, 0.85);
+      border: 1px solid rgba(139, 111, 255, .3);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, .08), 0 3px 10px rgba(0, 0, 0, .45);
+      border-radius: 10px;
+    }
+
+    .home-logo-wrap img {
+      object-fit: contain;
+      filter: drop-shadow(0 0 1px #FFFFFF) drop-shadow(0 0 1.5px #FFFFFF);
+    }
   </style>
 </head>
 
@@ -63,8 +87,7 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
     style="width:100%; max-width:420px; background: rgba(20, 15, 45, 0.6); border: 1px solid rgba(139, 111, 255, 0.15);">
 
     <div class="d-flex flex-column align-items-center gap-2 w-100 mb-3">
-      <div class="d-flex align-items-center justify-content-center rounded-3 overflow-hidden"
-        style="width:68px; height:68px; background:linear-gradient(135deg,#2A1C5A,#3C2166); border:1.5px solid rgba(139,111,255,.3);">
+      <div class="home-logo-wrap d-flex align-items-center justify-content-center overflow-hidden">
         <img src="assets/images/paraverse.svg" alt="Paraverse Logo" width="46" height="46" style="object-fit:contain;">
       </div>
       <p class="puzzle-title mb-0 text-uppercase text-white fw-bold text-center"

@@ -23,7 +23,7 @@ $META_DESC  = "Paraverse 5×5 Sliding Puzzle — FEU Institute of Technology EdI
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Exo+2:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="assets/css/style.css">
+  <link rel="stylesheet" href="../assets/css/5x5.css">
 </head>
 
 <body class="d-flex align-items-center justify-content-center min-vh-100 overflow-hidden">
@@ -41,7 +41,7 @@ $META_DESC  = "Paraverse 5×5 Sliding Puzzle — FEU Institute of Technology EdI
     <div class="d-flex flex-column align-items-center gap-2">
       <div class="logo-wrap d-flex align-items-center justify-content-center rounded-3 overflow-hidden"
         style="width:68px;height:68px;background:linear-gradient(135deg,#2A1C5A,#3C2166);border:1.5px solid rgba(139,111,255,.3);">
-        <img src="assets/images/paraverse.svg" alt="Paraverse Logo" width="46" height="46" style="object-fit:contain;">
+        <img src="../assets/images/paraverse.svg" alt="Paraverse Logo" width="46" height="46" style="object-fit:contain;">
       </div>
       <p class="puzzle-title mb-0 text-uppercase text-white fw-bold text-center"
         style="font-family:'Orbitron',sans-serif;font-size:.92rem;letter-spacing:.26em;">
@@ -68,9 +68,14 @@ $META_DESC  = "Paraverse 5×5 Sliding Puzzle — FEU Institute of Technology EdI
           style="font-family:'Exo 2',sans-serif;font-size:.85rem;letter-spacing:.1em;color:rgba(237,232,255,.85);"></p>
         <p id="solved-time" class="mb-0"
           style="font-family:'Exo 2',sans-serif;font-size:.85rem;letter-spacing:.1em;color:rgba(237,232,255,.6);"></p>
-        <button id="btn-play-again" type="button" class="btn-pv mt-1">
-          Play Again
-        </button>
+        <div class="d-flex gap-2 mt-1">
+          <button id="btn-play-again" type="button" class="btn-pv">
+            <i class="bi bi-arrow-clockwise" style="font-size:.8rem;"></i> Play Again
+          </button>
+          <button id="btn-new-puzzle" type="button" class="btn-pv">
+            <i class="bi bi-shuffle" style="font-size:.8rem;"></i> New Puzzle
+          </button>
+        </div>
       </div>
     </div>
 
@@ -122,12 +127,12 @@ $META_DESC  = "Paraverse 5×5 Sliding Puzzle — FEU Institute of Technology EdI
         <i class="bi bi-eye-fill icon-ghost-on" style="font-size:.85rem;display:none;"></i>
         <i class="bi bi-eye-slash-fill icon-ghost-off" style="font-size:.85rem;"></i>
       </button>
-      <span class="hint-text">Having a hard time? Use the guide above.</span>
+      <span class="hint-text">Having a hard time? Click the eye for a hint.</span>
     </div>
 
   </div><!-- /.puzzle-card -->
 
-  <script src="assets/js/puzzle.js"></script>
+  <script src="../assets/js/5x5.js"></script>
 
   <script>
     const shuffleObserver = new MutationObserver(() => {
