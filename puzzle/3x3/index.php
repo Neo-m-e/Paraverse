@@ -1,10 +1,8 @@
 <?php
 
-
-
-
-$META_TITLE = "Sliding Puzzle";
-$META_DESC  = "Paraverse 3×3 Sliding Puzzle — FEU Institute of Technology EdITH";
+$PUZZLE_SIZE = 3;
+$META_TITLE  = "{$PUZZLE_SIZE}×{$PUZZLE_SIZE} Sliding Puzzle";
+$META_DESC   = "Paraverse {$PUZZLE_SIZE}×{$PUZZLE_SIZE} Sliding Puzzle — FEU Institute of Technology EdITH";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -23,10 +21,11 @@ $META_DESC  = "Paraverse 3×3 Sliding Puzzle — FEU Institute of Technology EdI
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Exo+2:wght@400;500;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="../assets/css/3x3.css">
+  <link rel="stylesheet" href="../assets/css/puzzle.css">
 </head>
 
 <body class="d-flex align-items-center justify-content-center min-vh-100 overflow-hidden">
+
 
   <div class="puzzle-card d-flex flex-column align-items-center rounded-4 position-relative">
 
@@ -53,9 +52,13 @@ $META_DESC  = "Paraverse 3×3 Sliding Puzzle — FEU Institute of Technology EdI
     <!-- Divider -->
     <div class="pv-divider w-100" style="height:1px;background:linear-gradient(90deg,transparent,rgba(139,111,255,.3),transparent);"></div>
 
+    <!-- Personal best for this grid size -->
+    <p id="best-stat" class="best-stat-text mb-0 text-center" aria-live="polite"></p>
+
     <!-- Grid shell -->
     <div class="grid-shell position-relative rounded-3 p-2">
-      <div id="puzzle-grid" class="puzzle-grid position-relative" role="grid" aria-label="3 by 3 sliding puzzle"></div>
+      <div id="puzzle-grid" class="puzzle-grid position-relative" role="grid" tabindex="0"
+        aria-label="<?= $PUZZLE_SIZE ?> by <?= $PUZZLE_SIZE ?> sliding puzzle" data-size="<?= $PUZZLE_SIZE ?>"></div>
 
       <!-- Solved overlay -->
       <div id="solved-overlay"
@@ -133,19 +136,7 @@ $META_DESC  = "Paraverse 3×3 Sliding Puzzle — FEU Institute of Technology EdI
 
   </div><!-- /.puzzle-card -->
 
-  <script src="../assets/js/3x3.js"></script>
-
-  <script>
-    const shuffleObserver = new MutationObserver(() => {
-      const playing = document.getElementById('btn-shuffle').style.display !== 'none';
-      const hint = document.getElementById('hint-row');
-      if (hint) hint.style.setProperty('display', playing ? 'flex' : 'none', 'important');
-    });
-    shuffleObserver.observe(document.getElementById('btn-shuffle'), {
-      attributes: true,
-      attributeFilter: ['style']
-    });
-  </script>
+  <script src="../assets/js/puzzle.js"></script>
 </body>
 
 </html>

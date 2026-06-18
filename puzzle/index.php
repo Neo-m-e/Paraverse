@@ -16,7 +16,7 @@ $META_DESC  = "Paraverse Sliding Puzzle — FEU Institute of Technology EdITH";
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600;700;900&family=Exo+2:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="assets/css/3x3.css">
+  <link rel="stylesheet" href="assets/css/puzzle.css">
 
   <style>
     body {

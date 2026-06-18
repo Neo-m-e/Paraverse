@@ -50,6 +50,13 @@ body {
 /* Puzzle grid container — fills the shell */
 #puzzle-grid {
   margin: 0 auto;
+  border-radius: 8px;
+  outline: none;
+}
+
+/* Visible focus ring when navigating/playing via keyboard */
+#puzzle-grid:focus-visible {
+  box-shadow: 0 0 0 2px rgba(139,111,255,.7), 0 0 22px rgba(139,111,255,.4);
 }
 
 /* 4. Tiles — absolute positioned, slide via top/left transition */
@@ -86,7 +93,8 @@ body {
   z-index: 1;
   /* Glow/outline filter to make dark or light transparent SVGs stand out on dark tiles */
   filter: drop-shadow(0 0 1px #FFFFFF) drop-shadow(0 0 1.5px #FFFFFF);
-  transform: scale(1); /*per tile */
+    transform: scale(1); /*per tile */
+
 }
 
 /* Image tile — no font */
@@ -307,6 +315,29 @@ body {
   letter-spacing: .06em;
   color: rgba(237,232,255,.32);
   font-style: italic;
+}
+
+/* Personal best line — shown above the grid at all times */
+.best-stat-text {
+  font-family: 'Exo 2', sans-serif;
+  font-size: clamp(.58rem, 1.5vh, .68rem);
+  letter-spacing: .06em;
+  color: rgba(237,232,255,.4);
+  margin-top: -2px;
+}
+.best-stat-text .best-value {
+  color: #B8A3FF;
+  font-weight: 600;
+}
+@media (max-height: 560px) {
+  .best-stat-text { display: none; }
+}
+
+/* New personal-best announcement in the solved overlay */
+#solved-time.new-best-glow {
+  color: #FFD76A !important;
+  font-weight: 700;
+  text-shadow: 0 0 10px rgba(255, 215, 106, .6);
 }
 
 /* Ghost guide — full logo watermark behind the tiles */

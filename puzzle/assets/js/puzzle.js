@@ -183,9 +183,9 @@ class SlidingPuzzle {
     this.soundBtn   = document.getElementById('btn-sound');
     this.ghostBtn   = document.getElementById('btn-ghost');
     this.controlsEl = document.getElementById('puzzle-controls');
+    this.hintRow    = document.getElementById('hint-row');
+    this.bestStatEl = document.getElementById('best-stat');
     this._ghostVisible = false;
-
-//put cheat here
 
     this._bindEvents();
     this._initPreview();
@@ -219,12 +219,14 @@ class SlidingPuzzle {
     this._selectRandomLogo();
 
     this._updateTimer();
+    this._renderBest();
 
     // Show Play button, hide Shuffle; disable tile clicks
     if (this.playBtn)    this.playBtn.style.display    = '';
     if (this.shuffleBtn) this.shuffleBtn.style.display = 'none';
     if (this.giveupBtn)  this.giveupBtn.style.display  = 'none';
     if (this.controlsEl) this.controlsEl.style.display = 'none';
+    if (this.hintRow)    this.hintRow.style.setProperty('display', 'none', 'important');
 
     this._render();
     // Tiles non-interactive in preview
@@ -249,6 +251,7 @@ class SlidingPuzzle {
     if (this.shuffleBtn) this.shuffleBtn.style.display = '';
     if (this.giveupBtn)  this.giveupBtn.style.display  = '';
     if (this.controlsEl) this.controlsEl.style.display = '';
+    if (this.hintRow)    this.hintRow.style.setProperty('display', 'flex', 'important');
 
     // Reset to solved order then shuffle
     this.tiles = [...Array(this.TOTAL).keys()].map(i => i === this.TOTAL - 1 ? 0 : i + 1);
@@ -257,6 +260,7 @@ class SlidingPuzzle {
     this._setTilesInteractive(true);
     this._startTimer();
     SoundFX.shuffle();
+    this.gridEl.focus();
   }
 
   /* ── Restart mid-game ── */
@@ -392,7 +396,51 @@ class SlidingPuzzle {
     this.solved = true;
     this._stopTimer();
     this._setTilesInteractive(false);
-    setTimeout(() => { this._showSolved(); SoundFX.win(); }, 200);
+    const { newMoves, newTime } = this._updateBest();
+    setTimeout(() => { this._showSolved(false, false, newMoves, newTime); SoundFX.win(); }, 200);
+  }
+
+  /* ── Personal best (per grid size, stored in localStorage) ── */
+  _bestKey() {
+    return `paraverse-sliding-puzzle-best-${this.SIZE}`;
+  }
+
+  _loadBest() {
+    try {
+      const raw = localStorage.getItem(this._bestKey());
+      const parsed = raw ? JSON.parse(raw) : null;
+      if (parsed && typeof parsed.moves === 'number' && typeof parsed.seconds === 'number') return parsed;
+    } catch (_) {}
+    return null;
+  }
+
+  _renderBest() {
+    if (!this.bestStatEl) return;
+    const best = this._loadBest();
+    if (best) {
+      this.bestStatEl.innerHTML =
+        `Best: <span class="best-value">${best.moves} move${best.moves !== 1 ? 's' : ''}</span>` +
+        ` &middot; <span class="best-value">${this._formatTime(best.seconds)}</span>`;
+    } else {
+      this.bestStatEl.textContent = 'No record yet — be the first!';
+    }
+  }
+
+  /* Called only on a genuine solve. Returns which categories were beaten. */
+  _updateBest() {
+    const best = this._loadBest();
+    const newMoves = !best || this.moves < best.moves;
+    const newTime  = !best || this._seconds < best.seconds;
+
+    if (newMoves || newTime) {
+      const updated = {
+        moves:   newMoves ? this.moves    : best.moves,
+        seconds: newTime  ? this._seconds : best.seconds
+      };
+      try { localStorage.setItem(this._bestKey(), JSON.stringify(updated)); } catch (_) {}
+    }
+    this._renderBest();
+    return { newMoves, newTime };
   }
 
   /* ── Rendering ── */
@@ -541,7 +589,7 @@ class SlidingPuzzle {
     if (this.movesEl) this.movesEl.textContent = this.moves;
   }
 
-  _showSolved(gaveUp = false, timedOut = false) {
+  _showSolved(gaveUp = false, timedOut = false, newMoves = false, newTime = false) {
     let statusText = '';
     if (gaveUp) {
       statusText = 'You gave up 😅';
@@ -558,11 +606,20 @@ class SlidingPuzzle {
       subText = `After ${this._formatTime(this._seconds)}`;
     } else if (timedOut) {
       subText = `Made ${this.moves} move${this.moves !== 1 ? 's' : ''}`;
+    } else if (newMoves && newTime) {
+      subText = '🏆 New best — moves & time!';
+    } else if (newMoves) {
+      subText = '🏆 New best move count!';
+    } else if (newTime) {
+      subText = '🏆 New best time!';
     } else {
       subText = '';
     }
 
-    if (this.solvedTime) this.solvedTime.textContent = subText;
+    if (this.solvedTime) {
+      this.solvedTime.textContent = subText;
+      this.solvedTime.classList.toggle('new-best-glow', !gaveUp && !timedOut && (newMoves || newTime));
+    }
 
     if (this.solvedEl) {
       this.solvedEl.classList.toggle('gave-up', gaveUp || timedOut);
@@ -658,12 +715,34 @@ class SlidingPuzzle {
         iconOff.style.display = muted ? ''     : 'none';
       }
     });
+
+    // Keyboard controls — arrow keys slide the tile adjacent to the
+    // empty cell in the pressed direction. Bound to the grid itself
+    // (rather than document) so it only activates while the puzzle
+    // has focus, and won't hijack arrow keys used elsewhere on the page.
+    this.gridEl?.addEventListener('keydown', (e) => {
+      if (this._gameState !== 'playing' || this.solved) return;
+
+      let targetIdx;
+      const emptyIdx = this.tiles.indexOf(0);
+      switch (e.key) {
+        case 'ArrowUp':    targetIdx = emptyIdx + this.SIZE; break; // tile below slides up
+        case 'ArrowDown':  targetIdx = emptyIdx - this.SIZE; break; // tile above slides down
+        case 'ArrowLeft':  targetIdx = emptyIdx + 1;         break; // tile to the right slides left
+        case 'ArrowRight': targetIdx = emptyIdx - 1;         break; // tile to the left slides right
+        default: return;
+      }
+      e.preventDefault();
+      this._move(targetIdx);
+    });
   }
 }
 
 /* ── Auto Initialization ── */
 document.addEventListener('DOMContentLoaded', () => {
-  const puzzle = new SlidingPuzzle(5);
+  const gridEl = document.getElementById('puzzle-grid');
+  const size = parseInt(gridEl?.dataset.size, 10) || 3;
+  const puzzle = new SlidingPuzzle(size);
 
   // Re-render on resize / orientation change so tiles stay properly sized
   let _resizeTimer;
