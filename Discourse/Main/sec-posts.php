@@ -1,201 +1,8 @@
 <?php
-if (!function_exists('getCommunityIconDetails')) {
-  function getCommunityIconDetails($name, $category = null)
-  {
-    $name_lower = strtolower($name);
+// Functions removed and separated to functions-new.php
+// Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
 
-    $icon       = "bi-cpu";
-    $bg_class   = "bg-light-success";
-    $text_class = "text-success";
-
-    if (strpos($name_lower, 'life') !== false) {
-      $icon       = "bi-heart-fill";
-      $bg_class   = "bg-light-danger";
-      $text_class = "text-danger";
-    } elseif (strpos($name_lower, 'culture') !== false || strpos($name_lower, 'hub') !== false) {
-      $icon       = "bi-music-note-beamed";
-      $bg_class   = "bg-light-primary";
-      $text_class = "text-primary";
-    } elseif (strpos($name_lower, 'food') !== false || strpos($name_lower, 'trip') !== false) {
-      $icon       = "bi-cup-hot-fill";
-      $bg_class   = "bg-light-warning";
-      $text_class = "text-warning";
-    } elseif (strpos($name_lower, 'cosplay') !== false || strpos($name_lower, 'artist') !== false) {
-      $icon       = "bi-palette-fill";
-      $bg_class   = "bg-light-primary";
-      $text_class = "text-primary";
-    } elseif (strpos($name_lower, 'enroll') !== false || strpos($name_lower, 'thesis') !== false || strpos($name_lower, 'advice') !== false) {
-      $icon       = "bi-journal-bookmark-fill";
-      $bg_class   = "bg-light-warning";
-      $text_class = "text-warning";
-    } elseif (strpos($name_lower, 'innovat') !== false || strpos($name_lower, 'startup') !== false) {
-      $icon       = "bi-lightbulb-fill";
-      $bg_class   = "bg-light-warning";
-      $text_class = "text-warning";
-    } elseif (strpos($name_lower, 'alabang') !== false) {
-      $icon       = "bi-building-fill";
-      $bg_class   = "bg-light-warning";
-      $text_class = "text-warning";
-    } elseif (strpos($name_lower, 'diliman') !== false) {
-      $icon       = "bi-mortarboard-fill";
-      $bg_class   = "bg-light-info";
-      $text_class = "text-info";
-    } elseif (strpos($name_lower, 'fresh') !== false || strpos($name_lower, 'study') !== false || strpos($name_lower, 'group') !== false) {
-      $icon       = "bi-people-fill";
-      $bg_class   = "bg-light-info";
-      $text_class = "text-info";
-    } elseif (strpos($name_lower, 'tech') !== false || strpos($name_lower, 'dev') !== false || strpos($name_lower, 'support') !== false) {
-      $icon       = "bi-cpu-fill";
-      $bg_class   = "bg-light-success";
-      $text_class = "text-success";
-    }
-
-    return [
-      'icon'       => $icon,
-      'bg_class'   => $bg_class,
-      'text_class' => $text_class,
-      'bg_hex'     => '',
-      'color_hex'  => '',
-    ];
-  }
-}
-
-if (!function_exists('getCategoryBadgeStyle')) {
-  function getCategoryBadgeStyle($category)
-  {
-    $cat = strtoupper(trim($category));
-    switch ($cat) {
-      case 'TECHNOLOGY':
-        return ['class' => 'badge-light-primary',  'icon' => 'bi-cpu',               'icon_color' => 'text-primary'];
-      case 'CULTURE':
-        return ['class' => 'badge-light-danger',   'icon' => 'bi-palette',           'icon_color' => 'text-danger'];
-      case 'GAMING':
-        return ['class' => 'badge-light-warning',  'icon' => 'bi-controller',        'icon_color' => 'text-warning'];
-      case 'FEU':
-        return ['class' => 'badge-light-warning',  'icon' => 'bi-building',          'icon_color' => 'text-warning'];
-      case 'IDEAS':
-        return ['class' => 'badge-light-info',     'icon' => 'bi-lightbulb',         'icon_color' => 'text-info'];
-      case 'CREATIVE':
-        return ['class' => 'badge-light-primary',  'icon' => 'bi-stars',             'icon_color' => 'text-primary'];
-      case 'SCIENCE':
-        return ['class' => 'badge-light-info',     'icon' => 'bi-droplet-half',      'icon_color' => 'text-info'];
-      case 'NEWS':
-        return ['class' => 'badge-light-danger',   'icon' => 'bi-newspaper',         'icon_color' => 'text-danger'];
-      case 'AI':
-        return ['class' => 'badge-light-success',  'icon' => 'bi-robot',             'icon_color' => 'text-success'];
-      case 'ACADEMICS':
-        return ['class' => 'badge-light-warning',  'icon' => 'bi-book',              'icon_color' => 'text-warning'];
-      case 'LIFESTYLE':
-        return ['class' => 'badge-light-info',     'icon' => 'bi-emoji-smile',       'icon_color' => 'text-info'];
-      case 'ENTERTAINMENT':
-        return ['class' => 'badge-light-primary',  'icon' => 'bi-film',              'icon_color' => 'text-primary'];
-      case 'MUSIC':
-        return ['class' => 'badge-light-danger',   'icon' => 'bi-music-note',        'icon_color' => 'text-danger'];
-      case 'POLITICS':
-        return ['class' => 'badge-light-dark',     'icon' => 'bi-megaphone',         'icon_color' => 'text-dark'];
-      case 'ISSUES':
-        return ['class' => 'badge-light-danger',   'icon' => 'bi-exclamation-circle', 'icon_color' => 'text-danger'];
-      case 'SPORTS':
-        return ['class' => 'badge-light-warning',  'icon' => 'bi-trophy',            'icon_color' => 'text-warning'];
-      default:
-        return ['class' => 'badge-light-secondary', 'icon' => 'bi-tag',               'icon_color' => 'text-secondary'];
-    }
-  }
-}
-
-// Dynamic Fetching from Database with fallback
-
-if (!function_exists('get_relative_time')) {
-    function get_relative_time($datetime) {
-        $time = strtotime($datetime);
-        if (!$time) return '1d ago';
-        $now = time();
-        $diff = $now - $time;
-        if ($diff < 60) {
-            return 'Just now';
-        }
-        $diff = round($diff / 60);
-        if ($diff < 60) {
-            return $diff . 'm ago';
-        }
-        $diff = round($diff / 60);
-        if ($diff < 24) {
-            return $diff . 'h ago';
-        }
-        $diff = round($diff / 24);
-        if ($diff < 30) {
-            return $diff . 'd ago';
-        }
-        return date('F j, Y', $time);
-    }
-}
-
-$feed_posts = [];
-if (isset($EDITH) && $EDITH) {
-    $query = "SELECT p.*, a.display_name, a.avatar_md, a.role as author_role
-              FROM posts p
-              JOIN accounts a ON p.author_id = a.identification
-              ORDER BY p.created_at DESC";
-    $result = $EDITH->query($query);
-    if ($result) {
-        while ($row = $result->fetch_assoc()) {
-            // Get comment count
-            $stmt_cc = $EDITH->prepare("SELECT COUNT(*) as cc FROM comments WHERE post_id = ?");
-            $stmt_cc->bind_param("i", $row['id']);
-            $stmt_cc->execute();
-            $cc_res = $stmt_cc->get_result()->fetch_assoc();
-            $row['comment_count'] = $cc_res['cc'] ?? 0;
-            $stmt_cc->close();
-
-            // Load comments list
-            $row['comments'] = [];
-            $stmt_c = $EDITH->prepare("SELECT c.*, a.avatar_md 
-                                       FROM comments c 
-                                       LEFT JOIN accounts a ON c.author_id = a.identification 
-                                       WHERE c.post_id = ? AND c.parent_id IS NULL
-                                       ORDER BY c.created_at ASC LIMIT 5");
-            $stmt_c->bind_param("i", $row['id']);
-            $stmt_c->execute();
-            $c_res = $stmt_c->get_result();
-            while ($c_row = $c_res->fetch_assoc()) {
-                $row['comments'][] = $c_row;
-            }
-            $stmt_c->close();
-            
-            // If it is a poll, load options
-            if ($row['is_poll']) {
-                $options_query = "SELECT * FROM poll_options WHERE post_id = ?";
-                $stmt_opt = $EDITH->prepare($options_query);
-                $stmt_opt->bind_param("i", $row['id']);
-                $stmt_opt->execute();
-                $opt_res = $stmt_opt->get_result();
-                $row['poll_options'] = [];
-                $total_votes = 0;
-                while ($opt = $opt_res->fetch_assoc()) {
-                    $row['poll_options'][] = $opt;
-                    $total_votes += $opt['votes'];
-                }
-                $row['total_poll_votes'] = $total_votes;
-                $stmt_opt->close();
-            }
-            $feed_posts[] = $row;
-        }
-    }
-}
-
-// Add session mock posts if any exist
-if (isset($_SESSION['mock_posts']) && is_array($_SESSION['mock_posts'])) {
-    $existing_ids = array_column($feed_posts, 'id');
-    $existing_slugs = array_column($feed_posts, 'slug');
-    foreach ($_SESSION['mock_posts'] as $mp) {
-        if (!in_array($mp['id'], $existing_ids) && !in_array($mp['slug'], $existing_slugs)) {
-            array_unshift($feed_posts, $mp);
-        }
-    }
-}
-
-if (empty($feed_posts)) {
-    // Mock posts fallback matching exactly the existing HTML design
+    // Sample posts matching exactly the existing HTML design
     $feed_posts = [
         [
             'id' => 1,
@@ -361,7 +168,6 @@ if (empty($feed_posts)) {
             ]
         ]
     ];
-}
 ?>
 
 <?php
@@ -377,19 +183,42 @@ if (!function_exists('renderPostCardMarkup')) {
         $isAnon = (isset($post['is_anonymous']) && $post['is_anonymous'] == 1);
         $avatar = $isAnon ? '/Discourse/assets/images/anonymous.png' : (!empty($post['avatar_md']) ? $post['avatar_md'] : '/Discourse/assets/images/anonymous.png');
         $authorName = $isAnon ? 'Anonymous' : ($post['display_name'] ?? 'User');
-        $authorLink = $isAnon ? 'javascript:void(0)' : '/Discourse/pages/version/profile-other.php?id=' . $post['author_id'];
+        $authorLink = $isAnon ? 'javascript:void(0)' : '/Discourse/profiles/index.php?id=' . $post['author_id'];
+        ?>
+        <?php
+        $c_highlighted = (!empty($post['is_highlighted']));
+        $card_classes = 'card border-0 shadow mb-5';
+        if (!empty($post['is_announcement'])) {
+            $card_classes .= ' post-card-announcement border-start border-4 border-success';
+        } elseif ($c_highlighted) {
+            $card_classes .= ' post-card-highlighted border-start border-4 border-warning';
+        }
+        $card_style = '';
+        if (!empty($post['is_announcement'])) {
+            $card_style = 'background: #f4faf6;';
+        } elseif ($c_highlighted) {
+            $card_style = 'background: #fffdf5;';
+        }
         ?>
         <!-- ── Post Card ── -->
-        <div class="card border-0 shadow mb-5" data-dc="post-card" data-post-id="<?php echo $post['id']; ?>">
+        <div class="<?php echo $card_classes; ?>" data-dc="post-card" data-post-id="<?php echo $post['id']; ?>" style="<?php echo $card_style; ?>">
           <div class="d-flex">
     
+            <?php
+            $vote_bg = '#e8ede9';
+            if (!empty($post['is_announcement'])) {
+                $vote_bg = '#e2f0e7';
+            } elseif ($c_highlighted) {
+                $vote_bg = '#fff8e1';
+            }
+            ?>
             <!-- Vote Column -->
-            <div class="d-flex flex-column align-items-center gap-1 p-3" style="width:55px;flex-shrink:0;background-color:#e8ede9;">
-              <button class="btn btn-sm btn-tertiary dc-vote-up" title="Upvote">
+            <div class="d-flex flex-column align-items-center gap-1 p-3" style="width:55px;flex-shrink:0;background-color:<?php echo $vote_bg; ?>;">
+              <button type="button" class="btn btn-sm btn-tertiary dc-vote-up" title="Upvote">
                 <i class="bi bi-hand-thumbs-up p-0"></i>
               </button>
               <span class="fs-7 fw-bold text-gray-600 dc-vote-count"><?php echo $post['upvotes']; ?></span>
-              <button class="btn btn-sm btn-tertiary dc-vote-down" title="Downvote">
+              <button type="button" class="btn btn-sm btn-tertiary dc-vote-down" title="Downvote">
                 <i class="bi bi-hand-thumbs-down p-0"></i>
               </button>
             </div>
@@ -401,14 +230,25 @@ if (!function_exists('renderPostCardMarkup')) {
                 <!-- Row 1: Community badge + Report button -->
                 <div class="col-12 mb-2">
                   <div class="d-flex justify-content-between align-items-center">
-                    <a href="/Discourse/pages/version/community.php?c=<?php echo urlencode($post['community']); ?>" class="d-flex align-items-center gap-2 text-decoration-none">
-                      <div class="d-flex align-items-center justify-content-center rounded-2 <?php echo $commDetails['bg_class']; ?>"
-                           style="width: 24px; height: 24px;">
-                        <i class="bi <?php echo $commDetails['icon']; ?> fs-8 <?php echo $commDetails['text_class']; ?>"></i>
-                      </div>
-                      <span class="fw-bold text-gray-800 text-hover-primary fs-7">c/<?php echo htmlspecialchars($post['community']); ?></span>
-                    </a>
-                    <button class="btn btn-sm" data-bs-toggle="modal" data-bs-target="#modalReportPost">
+                    <div class="d-flex align-items-center gap-2">
+                        <a href="/Discourse/communities/index.php?c=<?php echo urlencode($post['community']); ?>" class="d-flex align-items-center gap-2 text-decoration-none">
+                          <div class="d-flex align-items-center justify-content-center rounded-2 <?php echo $commDetails['bg_class']; ?>"
+                               style="width: 24px; height: 24px;">
+                            <i class="bi <?php echo $commDetails['icon']; ?> fs-8 <?php echo $commDetails['text_class']; ?>"></i>
+                          </div>
+                          <span class="fw-bold text-gray-800 text-hover-primary fs-7">c/<?php echo htmlspecialchars($post['community']); ?></span>
+                        </a>
+                        <?php if (!empty($post['is_announcement'])) { ?>
+                        <span class="badge badge-light-success d-flex align-items-center gap-1 px-3 py-1 fw-bolder fs-8 rounded-pill">
+                          <i class="bi bi-megaphone-fill fs-9 text-success"></i> ANNOUNCEMENT
+                        </span>
+                        <?php } elseif ($c_highlighted) { ?>
+                        <span class="badge badge-light-warning d-flex align-items-center gap-1 px-3 py-1 fw-bolder fs-8 rounded-pill text-warning" style="background-color: rgba(255, 193, 7, 0.15); color: #b58105 !important;">
+                          <i class="bi bi-star-fill fs-9 text-warning"></i> HIGHLIGHTED
+                        </span>
+                        <?php } ?>
+                    </div>
+                    <button class="btn btn-sm dc-post-report" data-bs-toggle="modal" data-bs-target="#modalReportPost">
                       <i class="bi bi-flag me-1"></i> Report
                     </button>
                   </div>
@@ -429,19 +269,29 @@ if (!function_exists('renderPostCardMarkup')) {
                 <div class="col-12 mb-2">
                   <div class="d-flex flex-column gap-2 text-start">
                     <div class="d-flex flex-wrap align-items-center gap-1">
-                      <?php echo renderTopicBadge($post['topic']); ?>
+                      <?php 
+                      $is_post_announcement = !empty($post['is_announcement']);
+                      echo renderTopicBadge($is_post_announcement ? 'ANNOUNCEMENT' : $post['topic']); 
+                      ?>
                     </div>
-                    <a href="/Discourse/pages/version/view-post.php?id=<?php echo $post['id']; ?>" class="text-gray-800 text-hover-primary fs-5 fw-bold dc-post-title-link">
+                    <a href="/Discourse/posts/index.php?id=<?php echo $post['id']; ?>&back=dashboard" class="text-gray-800 text-hover-primary fs-5 fw-bold dc-post-title-link">
                       <?php echo htmlspecialchars($post['title']); ?>
                     </a>
                     <div class="dc-body-wrap">
-                      <span class="fs-7 text-gray-700 dc-body-clamp"><?php echo strip_tags($post['body']); ?></span>
+                      <span class="fs-7 text-gray-700 dc-body-clamp"><?php echo linkHashtags(strip_tags($post['body'])); ?></span>
                       <a href="#" class="dc-see-more-link fw-semibold cursor-pointer d-none" onclick="dcToggleBody(event, this)">See More</a>
                     </div>
+                    <?php if (!empty($post['image_url'])): ?>
+                    <div class="mt-4 mb-2">
+                        <img src="<?php echo htmlspecialchars($post['image_url']); ?>" alt="Post image" class="img-fluid rounded shadow-sm" style="max-height: 350px; width: auto; object-fit: cover;">
+                    </div>
+                    <?php endif; ?>
+                    <?php if (!$is_post_announcement): ?>
                     <?php $htags = renderHashtagBadges($post['tags'] ?? ''); if ($htags): ?>
                     <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
                       <?php echo $htags; ?>
                     </div>
+                    <?php endif; ?>
                     <?php endif; ?>
                   </div>
                 </div>
@@ -468,15 +318,14 @@ if (!function_exists('renderPostCardMarkup')) {
               <!-- Actions Row -->
               <div class="row">
                 <div class="d-flex justify-content-start align-items-center w-100 px-5">
-                  <button class="btn btn-sm dc-post-comment"><i class="bi bi-chat me-1"></i> <?php echo $post['comment_count']; ?> Comment<?php echo $post['comment_count'] == 1 ? '' : 's'; ?></button>
-                  <button class="btn btn-sm dc-post-share"><i class="bi bi-share me-1"></i> Share</button>
+                  <button type="button" class="btn btn-sm dc-post-comment"><i class="bi bi-chat me-1"></i> <?php echo $post['comment_count']; ?> Comment<?php echo $post['comment_count'] == 1 ? '' : 's'; ?></button>
+                  <button type="button" class="btn btn-sm dc-post-share"><i class="bi bi-share me-1"></i> Share</button>
                   <?php 
                   $is_saved = IS_POST_SAVED($post['id'], $identification);
                   ?>
-                  <button class="btn btn-sm dc-post-save" 
-                          data-on="<?php echo $is_saved ? '1' : '0'; ?>"
-                          style="<?php echo $is_saved ? 'background:rgba(13,110,253,.12);color:#0d6efd;border-color:#0d6efd;' : ''; ?>">
-                      <i class="bi <?php echo $is_saved ? 'bi-bookmark-fill' : 'bi-bookmark'; ?> me-1"></i>
+                   <button type="button" class="btn btn-sm dc-post-save" 
+                           data-on="<?php echo $is_saved ? '1' : '0'; ?>">
+                       <i class="bi <?php echo $is_saved ? 'bi-bookmark-fill' : 'bi-bookmark'; ?> me-1"></i>
                       <?php echo $is_saved ? 'Saved' : 'Save'; ?>
                   </button>
                 </div>

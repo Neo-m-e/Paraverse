@@ -1,0 +1,166 @@
+/* ──────────────────────────────────────────────────────────
+   1. NOTIFICATIONS DROPDOWN
+────────────────────────────────────────────────────────── */
+.discourse-notif-dropdown {
+  width: 340px;
+  border: none !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+  overflow: hidden;
+}
+
+.discourse-notif-list {
+  max-height: 360px;
+  overflow-y: auto;
+}
+
+.discourse-notif-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--dc-primary);
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.discourse-notif-dot-read {
+  background: #d5d5d5;
+}
+
+/* ──────────────────────────────────────────────────────────
+   2. PROFILE DROPDOWN
+────────────────────────────────────────────────────────── */
+.discourse-profile-dropdown {
+  width: 280px;
+  border: none !important;
+  border-radius: 14px !important;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.12) !important;
+  overflow: hidden;
+  padding: 0 !important;
+}
+
+.discourse-profile-top {
+  background: linear-gradient(135deg, var(--dc-primary) 0%, #1f4e39 100%);
+  border-radius: 14px 14px 0 0;
+}
+
+.discourse-profile-avatar-lg {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2.5px solid rgba(255,255,255,0.4);
+  flex-shrink: 0;
+}
+
+.discourse-profile-verified {
+  display: inline-flex;
+  align-items: center;
+  font-size: 0.68rem;
+  font-weight: 700;
+  background: rgba(255,255,255,0.15);
+  color: rgba(255,255,255,0.9);
+  padding: 0.15rem 0.5rem;
+  border-radius: 50px;
+  margin-top: 0.2rem;
+  width: fit-content;
+}
+
+/* ── Community Rules card ────────────────────────────────── */
+.dc-rules-card {
+  background: #f0faf5;
+  border: 1px solid #c8e6c9;
+  border-radius: 12px;
+  padding: 18px 20px;
+}
+
+/* ──────────────────────────────────────────────────────────
+   3. REPORT POST MODAL
+────────────────────────────────────────────────────────── */
+.discourse-report-dialog {
+  max-width: 440px;
+}
+
+.discourse-report-content {
+  border: none !important;
+  border-radius: 16px !important;
+  overflow: hidden;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.15) !important;
+}
+
+.discourse-report-option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  background: #fff;
+  border: 1.5px solid #e4e6ef;
+  border-radius: 10px;
+  padding: 0.7rem 0.9rem;
+  cursor: pointer;
+  text-align: left;
+  transition: border-color 0.15s, background 0.15s;
+}
+
+.discourse-report-option:hover {
+  border-color: var(--dc-primary);
+  background: #f0faf5;
+}
+
+.discourse-report-option-active {
+  border-color: var(--dc-primary) !important;
+  background: #f0faf5 !important;
+}
+
+.discourse-report-option-icon {
+  width: 30px;
+  height: 30px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.95rem;
+  flex-shrink: 0;
+}
+
+.discourse-report-icon-red    { background: #fce4ec; color: #e53935; }
+.discourse-report-icon-purple { background: #ede7f6; color: #7b1fa2; }
+.discourse-report-icon-amber  { background: #fff8e1; color: #f57f17; }
+.discourse-report-icon-gray   { background: #f5f6fa; color: #7e8299; }
+
+.discourse-report-submit-btn {
+  flex: 1;
+  background: var(--dc-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0.65rem 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  transition: background 0.17s;
+}
+
+.discourse-report-submit-btn:hover {
+  background: var(--dc-primary-dark);
+}
+
+.discourse-report-cancel-btn {
+  background: #f5f6fa;
+  color: #5e6278;
+  font-weight: 700;
+  font-size: 0.88rem;
+  border: none;
+  border-radius: 10px;
+  padding: 0.65rem 1.1rem;
+  cursor: pointer;
+  transition: background 0.15s;
+}
+
+.discourse-report-cancel-btn:hover {
+  background: #e4e6ef;
+}
