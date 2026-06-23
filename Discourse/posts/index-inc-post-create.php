@@ -1,17 +1,15 @@
 <?php
-define('MBG', TRUE);
+if (!defined('MBG')) define('MBG', TRUE);
 include_once(dirname(__DIR__) . '/functions-new.php');
 
-// Fetch all communities
-$db_communities = [];
-if ($EDITH) {
-    $res = $EDITH->query("SELECT * FROM communities ORDER BY title ASC");
-    if ($res) {
-        while ($row = $res->fetch_assoc()) {
-            $db_communities[] = $row;
-        }
-    }
-}
+// Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
+$db_communities = [
+    ['title' => 'FEU Tech',         'logo_url' => '', 'icon' => 'bi-cpu',                 'theme_color' => '#17c653', 'custom_topics' => ''],
+    ['title' => 'FEU Life',         'logo_url' => '', 'icon' => 'bi-heart-fill',           'theme_color' => '#d63384', 'custom_topics' => ''],
+    ['title' => 'CultureHub',       'logo_url' => '', 'icon' => 'bi-music-note-beamed',    'theme_color' => '#0b5ed7', 'custom_topics' => ''],
+    ['title' => 'Freshies',         'logo_url' => '', 'icon' => 'bi-people-fill',          'theme_color' => '#1A8B44', 'custom_topics' => ''],
+    ['title' => 'Study Group',      'logo_url' => '', 'icon' => 'bi-people-fill',          'theme_color' => '#1A8B44', 'custom_topics' => ''],
+];
 
 // Build community to topics map
 $community_topics_map = [

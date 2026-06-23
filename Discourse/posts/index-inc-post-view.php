@@ -1,5 +1,5 @@
 <?php
-define('MBG', TRUE);
+if (!defined('MBG')) define('MBG', TRUE);
 include_once(dirname(__DIR__) . '/functions-new.php');
 
 if (!function_exists('get_relative_time')) {
@@ -19,86 +19,13 @@ if (!function_exists('get_relative_time')) {
     }
 }
 
-// ── DB loading ──────────────────────────────────────────────
+// Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
 $post      = null;
 $post_id   = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $comments  = [];
 
-if ($EDITH && $post_id > 0) {
-    $stmt = $EDITH->prepare("SELECT p.*, a.display_name, a.avatar_md, a.role as author_role
-                             FROM posts p
-                             LEFT JOIN accounts a ON p.author_id = a.identification
-                             WHERE p.id = ?");
-    if ($stmt) {
-        $stmt->bind_param("i", $post_id);
-        $stmt->execute();
-        $post = $stmt->get_result()->fetch_assoc();
-        $stmt->close();
-    }
-    if ($post) {
-        $stmt_c = $EDITH->prepare("SELECT c.*, a.display_name as author_name, a.avatar_md
-                                   FROM comments c
-                                   LEFT JOIN accounts a ON c.author_id = a.identification
-                                   WHERE c.post_id = ? ORDER BY c.created_at ASC");
-        if ($stmt_c) {
-            $stmt_c->bind_param("i", $post['id']);
-            $stmt_c->execute();
-            $res_c = $stmt_c->get_result();
-            while ($row_c = $res_c->fetch_assoc()) $comments[] = $row_c;
-            $stmt_c->close();
-        }
-        if ($post['is_poll']) {
-            $stmt_opt = $EDITH->prepare("SELECT * FROM poll_options WHERE post_id = ?");
-            $stmt_opt->bind_param("i", $post['id']);
-            $stmt_opt->execute();
-            $opt_res = $stmt_opt->get_result();
-            $post['poll_options'] = [];
-            $total_votes = 0;
-            while ($opt = $opt_res->fetch_assoc()) { $post['poll_options'][] = $opt; $total_votes += $opt['votes']; }
-            $post['total_poll_votes'] = $total_votes;
-            $stmt_opt->close();
-        }
-    }
-}
-
-// Session mock-post fallback
-if (!$post && isset($_SESSION['mock_posts']) && is_array($_SESSION['mock_posts'])) {
-    $slug_param = $_GET['slug'] ?? '';
-    foreach ($_SESSION['mock_posts'] as $mp) {
-        if (($post_id > 0 && $mp['id'] === $post_id) || (!empty($slug_param) && $mp['slug'] === $slug_param)) {
-            $post     = $mp;
-            $comments = $mp['comments'] ?? [];
-            break;
-        }
-    }
-}
-
-// ── Override static vars from DB post if found ──────────────
+// ── Static sample vars (no DB lookup) ──────────────────────
 $db_post_loaded = false;
-if ($post) {
-    $db_post_loaded  = true;
-    $isAnon          = ($post['is_anonymous'] == 1);
-    $META_TITLE      = htmlspecialchars($post['title']) . " - Discourse";
-    $showImage       = !empty($post['image_url']);
-    $showPoll        = ($post['is_poll'] == 1);
-    $showAnon        = $isAnon;
-    $showSample      = false;
-    $postTitle       = $post['title'];
-    $postDesc        = $post['body'];
-    
-    $authorAccount   = GET_ACCOUNT_DETAILS($post['author_id']);
-    $dbDisplayName   = $post['display_name'] ?? $authorAccount['display_name'] ?? 'User';
-    $dbAvatar        = $post['avatar_md'] ?? $authorAccount['avatar_md'] ?? '';
-    
-    $authorName      = $isAnon ? 'Anonymous' : $dbDisplayName;
-    $authorInitials  = $isAnon ? 'A' : implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $authorName)));
-    $authorAvatar    = $isAnon ? '/Discourse/assets/images/anonymous.png' : $dbAvatar;
-    $authorProfileLink = $isAnon ? 'javascript:void(0)' : '/Discourse/profiles/index.php?id=' . $post['author_id'];
-    $bannerMeta      = $post['community'] . ' • Posted by ' . $authorName . ' • ' . get_relative_time($post['created_at']);
-    $tag             = !empty($post['tags']) ? $post['tags'] : $post['topic'];
-    $community       = $post['community'];
-    $can_edit        = isset($_SESSION['identification']) && $post['author_id'] === $_SESSION['identification'];
-}
 
 $loggedInName      = $ACCOUNT['display_name'] ?? 'User';
 $loggedInInitials  = implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $loggedInName)));
@@ -121,7 +48,68 @@ $communityMeta = [
     'FEU Diliman' => ['members' => '2.7k',  'type' => 'Public Group'],
 ];
 
-if (!$db_post_loaded && $showImage) {
+// Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
+// Map of sample posts (matching main/sec-posts.php IDs) so each post link shows its own content
+// instead of every post falling through to the same default.
+$samplePostsById = [
+    1 => [
+        'postTitle' => 'The silent revolution in edge AI — why on-device inference is changing everything',
+        'postDesc'  => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.",
+        'authorName' => 'Ravi Joshi', 'authorInitials' => 'RJ',
+        'bannerMeta' => 'Technology • Posted by Ravi Joshi • 3h ago',
+        'tag' => 'TECHNOLOGY', 'community' => 'FEU Tech', 'showImage' => false, 'showPoll' => false, 'showAnon' => false, 'can_edit' => false,
+    ],
+    2 => [
+        'postTitle' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
+        'postDesc'  => 'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.',
+        'authorName' => 'John Doe', 'authorInitials' => 'JD',
+        'bannerMeta' => 'Entertainment • Posted by John Doe • 1d ago',
+        'tag' => 'ENTERTAINMENT', 'community' => 'FEU Tech', 'showImage' => false, 'showPoll' => false, 'showAnon' => false, 'can_edit' => false,
+    ],
+    3 => [
+        'postTitle' => 'What if FEU had a no-grade-penalty mental health leave policy?',
+        'postDesc'  => 'Just thinking — a lot of students I know failed a whole semester because they were dealing with severe anxiety during midterms. The university had no mechanism to help them — just a strict drop policy or failure. Other universities have mental health leaves where students can pause without academic penalty. Should FEU implement something similar?',
+        'authorName' => 'Anonymous', 'authorInitials' => 'A',
+        'bannerMeta' => 'Issues • Posted anonymously • 1d ago',
+        'tag' => 'ISSUES', 'community' => 'FEU Tech', 'showImage' => false, 'showPoll' => false, 'showAnon' => true, 'can_edit' => false,
+    ],
+    4 => [
+        'postTitle' => 'Lorem ipsum dolor sit amet consectetur adipiscing elit.',
+        'postDesc'  => 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.',
+        'authorName' => 'John Doe', 'authorInitials' => 'JD',
+        'bannerMeta' => 'Entertainment • Posted by John Doe • 1d ago',
+        'tag' => 'ENTERTAINMENT', 'community' => 'FEU Tech', 'showImage' => false, 'showPoll' => false, 'showAnon' => false, 'can_edit' => false,
+    ],
+    5 => [
+        'postTitle' => '📊 Poll: How do you actually study for finals? Be honest.',
+        'postDesc'  => 'Curious how my fellow FEU Tech students survive finals season. Drop your honest answer below 👇',
+        'authorName' => 'Marco Torres', 'authorInitials' => 'MT',
+        'bannerMeta' => 'FEU • Posted by Marco Torres • 4h ago',
+        'tag' => 'FEU', 'community' => 'FEU Life', 'showImage' => false, 'showPoll' => true, 'showAnon' => false, 'can_edit' => false,
+    ],
+    6 => [
+        'postTitle' => 'FEU Tech library study rooms — worth booking or just use the hallway?',
+        'postDesc'  => "Finally tried booking one of the new study rooms in the library. Honest review: the booking system is clunky, the AC is questionable, but the soundproofing is actually great. Worth it for group study if you plan ahead.<br><br>Not ideal for solo cramming though — the chairs are surprisingly uncomfortable for long sessions.",
+        'authorName' => 'Catalina Smith', 'authorInitials' => 'CS',
+        'bannerMeta' => 'ACADEMICS • Posted by Catalina Smith • 5d ago',
+        'tag' => 'ACADEMICS', 'community' => 'FEU Tech', 'showImage' => true, 'showPoll' => false, 'showAnon' => false, 'can_edit' => true,
+    ],
+];
+
+if (!$db_post_loaded && isset($samplePostsById[$post_id])) {
+    $sp = $samplePostsById[$post_id];
+    $postTitle      = $sp['postTitle'];
+    $postDesc       = $sp['postDesc'];
+    $authorName     = $sp['authorName'];
+    $authorInitials = $sp['authorInitials'];
+    $bannerMeta     = $sp['bannerMeta'];
+    $tag            = $sp['tag'];
+    $community      = $sp['community'];
+    $showImage      = $sp['showImage'];
+    $showPoll       = $sp['showPoll'];
+    $showAnon       = $sp['showAnon'];
+    $can_edit       = $sp['can_edit'];
+} elseif (!$db_post_loaded && $showImage) {
     $postTitle   = "Review: FEU Tech library study rooms — worth booking or just use the hallway?";
     $postDesc    = "Finally tried booking one of the new study rooms in the library. Honest review: the booking system is clunky, the AC is questionable, but the soundproofing is actually great. Worth it for group study if you plan ahead.<br><br>Not ideal for solo cramming though — the chairs are surprisingly uncomfortable for long sessions.";
     $authorName  = "Catalina Smith";
@@ -163,6 +151,9 @@ if (!$db_post_loaded && $showImage) {
     $tag         = "TECHNOLOGY";
     $community   = "FEU Tech";
 }
+
+// $isAnon mirrors $showAnon — used for the anonymous badge/icon in the post header
+$isAnon = $showAnon;
 
 // ── Back URL: context-aware navigation ──────────────────────
 $backParam = $_GET['back'] ?? '';
@@ -801,17 +792,10 @@ switch ($backParam) {
                                                 </div>
 
                                                 <?php
+                                                // Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
                                                 $show_follow = !$showAnon && $post && $post['author_id'] !== ($identification ?? '');
                                                 $is_following = false;
                                                 $follow_target = $post ? $post['author_id'] : '';
-                                                if ($show_follow && $EDITH && $identification && $follow_target) {
-                                                    $stmt_f = $EDITH->prepare("SELECT id FROM followers WHERE follower_id=? AND following_id=?");
-                                                    $stmt_f->bind_param("ss", $identification, $follow_target);
-                                                    $stmt_f->execute();
-                                                    $stmt_f->store_result();
-                                                    $is_following = $stmt_f->num_rows > 0;
-                                                    $stmt_f->close();
-                                                }
                                                 if ($show_follow) { ?>
                                                     <button id="follow-btn"
                                                         class="btn w-100 btn-sm fw-bold"
@@ -829,20 +813,12 @@ switch ($backParam) {
 
                                         <!-- Related Posts -->
                                         <?php
-                                        $related_posts = [];
-                                        if ($EDITH && $post) {
-                                            $excl = (int)$post['id'];
-                                            $comm_esc = $EDITH->real_escape_string($community);
-                                            $topic_esc = $EDITH->real_escape_string($tag);
-                                            $res_rel = $EDITH->query(
-                                                "SELECT id, title, topic, upvotes, created_at FROM posts
-                                                 WHERE id != $excl AND (community='$comm_esc' OR topic='$topic_esc')
-                                                 ORDER BY upvotes DESC LIMIT 3"
-                                            );
-                                            if ($res_rel) {
-                                                while ($rr = $res_rel->fetch_assoc()) $related_posts[] = $rr;
-                                            }
-                                        }
+                                        // Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
+                                        $related_posts = [
+                                            ['id' => 2, 'title' => 'Anyone else feel like group projects are 80% scheduling conflicts?', 'topic' => 'ACADEMICS', 'upvotes' => 89],
+                                            ['id' => 3, 'title' => 'PSA: the library extended hours during finals week', 'topic' => 'FEU', 'upvotes' => 152],
+                                            ['id' => 4, 'title' => 'Best note-taking apps for CS majors in 2026?', 'topic' => 'TECHNOLOGY', 'upvotes' => 67],
+                                        ];
                                         if (!empty($related_posts)) { ?>
                                         <div class="card sidebar-card mb-5">
                                             <div class="card-header border-0 pt-5 pb-0 min-h-auto">

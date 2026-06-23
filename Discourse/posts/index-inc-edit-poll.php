@@ -1,9 +1,8 @@
 <?php
-define('MBG', TRUE);
+if (!defined('MBG')) define('MBG', TRUE);
 include(dirname(dirname(__DIR__)) . '/functions-new.php');
 
-// IS_LOGGED_IN($_SERVER['REQUEST_URI']);
-// $SQL = "SELECT * FROM polls WHERE slug = ?";
+// Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
 
 $META_TITLE = "Edit Poll";
 $META_DESC  = "Edit your existing poll.";

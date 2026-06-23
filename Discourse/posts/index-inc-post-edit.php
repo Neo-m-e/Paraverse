@@ -1,38 +1,15 @@
 <?php
-define('MBG', TRUE);
+if (!defined('MBG')) define('MBG', TRUE);
 include_once(dirname(__DIR__) . '/functions-new.php');
 
+// Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
 $post_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
-$post = null;
-
-if ($post_id > 0) {
-    if ($EDITH) {
-        $stmt = $EDITH->prepare("SELECT * FROM posts WHERE id = ?");
-        if ($stmt) {
-            $stmt->bind_param("i", $post_id);
-            $stmt->execute();
-            $res = $stmt->get_result();
-            if ($res && $res->num_rows > 0) {
-                $post = $res->fetch_assoc();
-            }
-            $stmt->close();
-        }
-    }
-    // Fallback: search in mock session posts
-    if (!$post && isset($_SESSION['mock_posts'])) {
-        foreach ($_SESSION['mock_posts'] as $mp) {
-            if ($mp['id'] == $post_id) {
-                $post = $mp;
-                break;
-            }
-        }
-    }
-}
-
-if (!$post) {
-    header("Location: /Discourse/index.php");
-    exit();
-}
+$post = [
+    'id'        => $post_id > 0 ? $post_id : 1,
+    'title'     => 'The silent revolution in edge AI — why on-device inference is changing everything',
+    'body'      => 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat.',
+    'image_url' => '',
+];
 
 $META_TITLE = "Edit Post - " . htmlspecialchars($post['title']);
 $META_DESC  = "Edit your existing post.";
