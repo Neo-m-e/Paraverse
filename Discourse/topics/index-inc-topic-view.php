@@ -68,44 +68,6 @@ $defaultPosts = [
 ];
 
 $posts = [];
-if ($EDITH) {
-    $stmt_p = $EDITH->prepare("SELECT p.*, a.display_name, a.avatar_md, a.role as author_role
-                               FROM posts p
-                               JOIN accounts a ON p.author_id = a.identification
-                               WHERE LOWER(p.topic) = LOWER(?)
-                               ORDER BY p.created_at DESC");
-    if ($stmt_p) {
-        $stmt_p->bind_param("s", $topic);
-        $stmt_p->execute();
-        $res_p = $stmt_p->get_result();
-        while ($row = $res_p->fetch_assoc()) {
-            // Load comment count
-            $stmt_cc = $EDITH->prepare("SELECT COUNT(*) as cc FROM comments WHERE post_id = ?");
-            $stmt_cc->bind_param("i", $row['id']);
-            $stmt_cc->execute();
-            $cc_res = $stmt_cc->get_result()->fetch_assoc();
-            $row['comments_count'] = $cc_res['cc'] ?? 0;
-            $stmt_cc->close();
-
-            // Load first comment
-            $row['first_comment'] = '';
-            $stmt_fc = $EDITH->prepare("SELECT body FROM comments WHERE post_id = ? ORDER BY created_at ASC LIMIT 1");
-            $stmt_fc->bind_param("i", $row['id']);
-            $stmt_fc->execute();
-            $fc_res = $stmt_fc->get_result()->fetch_assoc();
-            $row['first_comment'] = $fc_res['body'] ?? '';
-            $stmt_fc->close();
-
-            $row['avatar'] = !empty($row['avatar_md']) ? $row['avatar_md'] : 'https://ui-avatars.com/api/?name=' . urlencode($row['display_name']) . '&background=f3f4f6&color=d97706&rounded=true';
-            $row['author'] = $row['display_name'] ?? 'User';
-            $row['time'] = get_relative_time($row['created_at']);
-            $row['votes'] = $row['upvotes'] - $row['downvotes'];
-
-            $posts[] = $row;
-        }
-        $stmt_p->close();
-    }
-}
 
 if (empty($posts)) {
     $samplePosts = isset($topicPosts[$topic]) ? $topicPosts[$topic] : $defaultPosts;
@@ -305,120 +267,121 @@ $META_TITLE = ucfirst(strtolower($topic)) . " — Discourse Topics";
                                                 $t_postHref = '/Discourse/posts/index.php?id=' . $post['id'] . '&back=topic&topic=' . urlencode($_GET['t'] ?? '');
                                                 $t_commentCount = $post['comments_count'] ?? 0;
                                             ?>
-                                            <!-- ── Post Card ── -->
-                                            <div class="card border-0 shadow mb-5" data-dc="post-card" data-post-id="<?php echo $post['id']; ?>">
-                                                <div class="d-flex">
+                                                <!-- ── Post Card ── -->
+                                                <div class="card border-0 shadow mb-5" data-dc="post-card" data-post-id="<?php echo $post['id']; ?>">
+                                                    <div class="d-flex">
 
-                                                    <!-- Vote Column -->
-                                                    <div class="d-flex flex-column align-items-center gap-1 p-3" style="width:55px;flex-shrink:0;background-color:#e8ede9;">
-                                                        <button type="button" class="btn btn-sm btn-tertiary dc-vote-up" title="Upvote">
-                                                            <i class="bi bi-hand-thumbs-up p-0"></i>
-                                                        </button>
-                                                        <span class="fs-7 fw-bold text-gray-600 dc-vote-count"><?php echo $post['votes']; ?></span>
-                                                        <button type="button" class="btn btn-sm btn-tertiary dc-vote-down" title="Downvote">
-                                                            <i class="bi bi-hand-thumbs-down p-0"></i>
-                                                        </button>
-                                                    </div>
+                                                        <!-- Vote Column -->
+                                                        <div class="d-flex flex-column align-items-center gap-1 p-3" style="width:55px;flex-shrink:0;background-color:#e8ede9;">
+                                                            <button type="button" class="btn btn-sm btn-tertiary dc-vote-up" title="Upvote">
+                                                                <i class="bi bi-hand-thumbs-up p-0"></i>
+                                                            </button>
+                                                            <span class="fs-7 fw-bold text-gray-600 dc-vote-count"><?php echo $post['votes']; ?></span>
+                                                            <button type="button" class="btn btn-sm btn-tertiary dc-vote-down" title="Downvote">
+                                                                <i class="bi bi-hand-thumbs-down p-0"></i>
+                                                            </button>
+                                                        </div>
 
-                                                    <!-- Content -->
-                                                    <div class="d-flex flex-column py-5 flex-grow-1">
-                                                        <div class="row g-0 px-5">
+                                                        <!-- Content -->
+                                                        <div class="d-flex flex-column py-5 flex-grow-1">
+                                                            <div class="row g-0 px-5">
 
-                                                            <!-- Row 1: Community + Report -->
-                                                            <div class="col-12 mb-2">
-                                                                <div class="d-flex justify-content-between align-items-center">
-                                                                    <a href="<?php echo $t_commHref; ?>" class="d-flex align-items-center gap-2 text-decoration-none">
-                                                                        <div class="d-flex align-items-center justify-content-center rounded-2 <?php echo $t_commDetails['bg_class']; ?>" style="width:24px;height:24px;">
-                                                                            <i class="bi <?php echo $t_commDetails['icon']; ?> fs-8 <?php echo $t_commDetails['text_class']; ?>"></i>
+                                                                <!-- Row 1: Community + Report -->
+                                                                <div class="col-12 mb-2">
+                                                                    <div class="d-flex justify-content-between align-items-center">
+                                                                        <a href="<?php echo $t_commHref; ?>" class="d-flex align-items-center gap-2 text-decoration-none">
+                                                                            <div class="d-flex align-items-center justify-content-center rounded-2 <?php echo $t_commDetails['bg_class']; ?>" style="width:24px;height:24px;">
+                                                                                <i class="bi <?php echo $t_commDetails['icon']; ?> fs-8 <?php echo $t_commDetails['text_class']; ?>"></i>
+                                                                            </div>
+                                                                            <span class="fw-bold text-gray-800 text-hover-primary fs-7">c/<?php echo htmlspecialchars($post['community'] ?? ''); ?></span>
+                                                                        </a>
+                                                                        <button class="btn btn-sm dc-post-report" data-bs-toggle="modal" data-bs-target="#modalReportPost">
+                                                                            <i class="bi bi-flag me-1"></i> Report
+                                                                        </button>
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Row 2: Avatar + Author + Time -->
+                                                                <div class="col-12 mb-2">
+                                                                    <div class="d-flex gap-3 align-items-center">
+                                                                        <img src="<?php echo htmlspecialchars($post['avatar']); ?>" alt="<?php echo htmlspecialchars($post['author']); ?>" class="h-40px w-40px rounded-circle" />
+                                                                        <div class="d-flex flex-column">
+                                                                            <a href="<?php echo $t_authorHref; ?>" class="fs-6 fw-bold text-gray-800 text-hover-primary"><?php echo htmlspecialchars($post['author']); ?></a>
+                                                                            <span class="text-muted fs-8"><i class="bi bi-clock me-1 fs-8"></i><?php echo $post['time']; ?></span>
                                                                         </div>
-                                                                        <span class="fw-bold text-gray-800 text-hover-primary fs-7">c/<?php echo htmlspecialchars($post['community'] ?? ''); ?></span>
-                                                                    </a>
-                                                                    <button class="btn btn-sm dc-post-report" data-bs-toggle="modal" data-bs-target="#modalReportPost">
-                                                                        <i class="bi bi-flag me-1"></i> Report
+                                                                    </div>
+                                                                </div>
+
+                                                                <!-- Row 3: Topic badge + Title + Body + Hashtags -->
+                                                                <div class="col-12 mb-2">
+                                                                    <div class="d-flex flex-column gap-2 text-start">
+                                                                        <div class="d-flex flex-wrap align-items-center gap-1">
+                                                                            <?php
+                                                                            $is_post_announcement = !empty($post['is_announcement']);
+                                                                            echo renderTopicBadge($is_post_announcement ? 'ANNOUNCEMENT' : $topic);
+                                                                            ?>
+                                                                        </div>
+                                                                        <a href="<?php echo $t_postHref; ?>" class="text-gray-800 text-hover-primary fs-5 fw-bold dc-post-title-link">
+                                                                            <?php echo htmlspecialchars($post['title']); ?>
+                                                                        </a>
+                                                                        <div class="dc-body-wrap">
+                                                                            <span class="fs-7 text-gray-700 dc-body-clamp"><?php echo linkHashtags(strip_tags($post['body'])); ?></span>
+                                                                            <a href="#" class="dc-see-more-link fw-semibold cursor-pointer d-none" onclick="dcToggleBody(event, this)">See More</a>
+                                                                        </div>
+                                                                        <?php if (!$is_post_announcement): ?>
+                                                                            <?php $t_htags = renderHashtagBadges($post['tags'] ?? '');
+                                                                            if ($t_htags): ?>
+                                                                                <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
+                                                                                    <?php echo $t_htags; ?>
+                                                                                </div>
+                                                                            <?php endif; ?>
+                                                                        <?php endif; ?>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+
+                                                            <!-- Actions -->
+                                                            <div class="row">
+                                                                <div class="d-flex justify-content-start align-items-center w-100 px-5">
+                                                                    <button type="button" class="btn btn-sm dc-post-comment"><i class="bi bi-chat me-1"></i> <?php echo $t_commentCount; ?> Comment<?php echo $t_commentCount !== 1 ? 's' : ''; ?></button>
+                                                                    <button type="button" class="btn btn-sm dc-post-share"><i class="bi bi-share me-1"></i> Share</button>
+                                                                    <button type="button" class="btn btn-sm dc-post-save"
+                                                                        data-on="<?php echo $t_saved ? '1' : '0'; ?>">
+                                                                        <i class="bi <?php echo $t_saved ? 'bi-bookmark-fill' : 'bi-bookmark'; ?> me-1"></i>
+                                                                        <?php echo $t_saved ? 'Saved' : 'Save'; ?>
                                                                     </button>
                                                                 </div>
                                                             </div>
 
-                                                            <!-- Row 2: Avatar + Author + Time -->
-                                                            <div class="col-12 mb-2">
-                                                                <div class="d-flex gap-3 align-items-center">
-                                                                    <img src="<?php echo htmlspecialchars($post['avatar']); ?>" alt="<?php echo htmlspecialchars($post['author']); ?>" class="h-40px w-40px rounded-circle" />
-                                                                    <div class="d-flex flex-column">
-                                                                        <a href="<?php echo $t_authorHref; ?>" class="fs-6 fw-bold text-gray-800 text-hover-primary"><?php echo htmlspecialchars($post['author']); ?></a>
-                                                                        <span class="text-muted fs-8"><i class="bi bi-clock me-1 fs-8"></i><?php echo $post['time']; ?></span>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-
-                                                            <!-- Row 3: Topic badge + Title + Body + Hashtags -->
-                                                            <div class="col-12 mb-2">
-                                                                <div class="d-flex flex-column gap-2 text-start">
-                                                                    <div class="d-flex flex-wrap align-items-center gap-1">
-                                                                        <?php 
-                                                                        $is_post_announcement = !empty($post['is_announcement']);
-                                                                        echo renderTopicBadge($is_post_announcement ? 'ANNOUNCEMENT' : $topic); 
-                                                                        ?>
-                                                                    </div>
-                                                                    <a href="<?php echo $t_postHref; ?>" class="text-gray-800 text-hover-primary fs-5 fw-bold dc-post-title-link">
-                                                                        <?php echo htmlspecialchars($post['title']); ?>
-                                                                    </a>
-                                                                    <div class="dc-body-wrap">
-                                                                        <span class="fs-7 text-gray-700 dc-body-clamp"><?php echo linkHashtags(strip_tags($post['body'])); ?></span>
-                                                                        <a href="#" class="dc-see-more-link fw-semibold cursor-pointer d-none" onclick="dcToggleBody(event, this)">See More</a>
-                                                                    </div>
-                                                                    <?php if (!$is_post_announcement): ?>
-                                                                    <?php $t_htags = renderHashtagBadges($post['tags'] ?? ''); if ($t_htags): ?>
-                                                                    <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
-                                                                        <?php echo $t_htags; ?>
-                                                                    </div>
-                                                                    <?php endif; ?>
-                                                                    <?php endif; ?>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-
-                                                        <!-- Actions -->
-                                                        <div class="row">
-                                                            <div class="d-flex justify-content-start align-items-center w-100 px-5">
-                                                                <button type="button" class="btn btn-sm dc-post-comment"><i class="bi bi-chat me-1"></i> <?php echo $t_commentCount; ?> Comment<?php echo $t_commentCount !== 1 ? 's' : ''; ?></button>
-                                                                <button type="button" class="btn btn-sm dc-post-share"><i class="bi bi-share me-1"></i> Share</button>
-                                                                <button type="button" class="btn btn-sm dc-post-save"
-                                                                        data-on="<?php echo $t_saved ? '1' : '0'; ?>">
-                                                                    <i class="bi <?php echo $t_saved ? 'bi-bookmark-fill' : 'bi-bookmark'; ?> me-1"></i>
-                                                                    <?php echo $t_saved ? 'Saved' : 'Save'; ?>
-                                                                </button>
-                                                            </div>
-                                                        </div>
-
-                                                        <!-- Quick Comment Drawer -->
-                                                        <div class="dc-quick-comment-drawer border-top border-gray-200 mt-4 pt-4 px-5" style="display:none;background-color:#fcfdfc;">
-                                                            <div class="dc-quick-comments-list mb-4 d-flex flex-column gap-3" style="max-height:180px;overflow-y:auto;">
-                                                                <?php if (!empty($post['first_comment'])): ?>
-                                                                <div class="d-flex align-items-start gap-2 fs-7">
-                                                                    <img src="<?php echo htmlspecialchars($post['avatar']); ?>" class="h-25px w-25px rounded-circle" alt="<?php echo htmlspecialchars($post['author']); ?>">
-                                                                    <div class="bg-light p-2 rounded-3 flex-grow-1 text-start">
-                                                                        <div class="d-flex justify-content-between">
-                                                                            <span class="fw-bold text-gray-800"><?php echo htmlspecialchars($post['author']); ?></span>
-                                                                            <span class="text-muted fs-9">recent</span>
+                                                            <!-- Quick Comment Drawer -->
+                                                            <div class="dc-quick-comment-drawer border-top border-gray-200 mt-4 pt-4 px-5" style="display:none;background-color:#fcfdfc;">
+                                                                <div class="dc-quick-comments-list mb-4 d-flex flex-column gap-3" style="max-height:180px;overflow-y:auto;">
+                                                                    <?php if (!empty($post['first_comment'])): ?>
+                                                                        <div class="d-flex align-items-start gap-2 fs-7">
+                                                                            <img src="<?php echo htmlspecialchars($post['avatar']); ?>" class="h-25px w-25px rounded-circle" alt="<?php echo htmlspecialchars($post['author']); ?>">
+                                                                            <div class="bg-light p-2 rounded-3 flex-grow-1 text-start">
+                                                                                <div class="d-flex justify-content-between">
+                                                                                    <span class="fw-bold text-gray-800"><?php echo htmlspecialchars($post['author']); ?></span>
+                                                                                    <span class="text-muted fs-9">recent</span>
+                                                                                </div>
+                                                                                <p class="text-gray-700 m-0 mt-1"><?php echo htmlspecialchars($post['first_comment']); ?></p>
+                                                                            </div>
                                                                         </div>
-                                                                        <p class="text-gray-700 m-0 mt-1"><?php echo htmlspecialchars($post['first_comment']); ?></p>
+                                                                    <?php endif; ?>
+                                                                </div>
+                                                                <form class="dc-quick-comment-form">
+                                                                    <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>" />
+                                                                    <div class="d-flex align-items-center gap-2">
+                                                                        <img src="<?php echo !empty($ACCOUNT['avatar_md']) ? $ACCOUNT['avatar_md'] : '/Discourse/assets/images/anonymous.png'; ?>" class="h-30px w-30px rounded-circle" alt="You">
+                                                                        <input type="text" class="form-control form-control-sm rounded-pill px-4 fs-7 bg-white border border-gray-300" placeholder="Write a quick comment..." required />
+                                                                        <button type="submit" class="btn btn-sm rounded-pill px-4 fw-bold" style="background:#0b301f;color:#fff;">Post</button>
                                                                     </div>
-                                                                </div>
-                                                                <?php endif; ?>
+                                                                </form>
                                                             </div>
-                                                            <form class="dc-quick-comment-form">
-                                                                <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>" />
-                                                                <div class="d-flex align-items-center gap-2">
-                                                                    <img src="<?php echo !empty($ACCOUNT['avatar_md']) ? $ACCOUNT['avatar_md'] : '/Discourse/assets/images/anonymous.png'; ?>" class="h-30px w-30px rounded-circle" alt="You">
-                                                                    <input type="text" class="form-control form-control-sm rounded-pill px-4 fs-7 bg-white border border-gray-300" placeholder="Write a quick comment..." required />
-                                                                    <button type="submit" class="btn btn-sm rounded-pill px-4 fw-bold" style="background:#0b301f;color:#fff;">Post</button>
-                                                                </div>
-                                                            </form>
-                                                        </div>
-                                                    </div><!-- /content -->
+                                                        </div><!-- /content -->
 
+                                                    </div>
                                                 </div>
-                                            </div>
                                             <?php endforeach; ?>
                                         </div><!-- /#topicPostFeed -->
 

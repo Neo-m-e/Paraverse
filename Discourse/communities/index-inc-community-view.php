@@ -1,26 +1,23 @@
 <?php
-define('MBG', TRUE);
+if (!defined('MBG')) define('MBG', TRUE);
 include_once(dirname(__DIR__) . '/functions-new.php');
-$community_name = isset($_GET['c']) ? trim($_GET['c']) : 'FEU LIFE';
+$community_name = isset($_GET['c']) ? trim($_GET['c']) : 'FEU Tech';
 $META_TITLE = htmlspecialchars($community_name) . " - Discourse Community";
 
-// Load community record from DB for stats
-$comm_data = [];
-if ($EDITH) {
-    $esc_cn = $EDITH->real_escape_string($community_name);
-    $r = $EDITH->query("SELECT * FROM communities WHERE title='$esc_cn' LIMIT 1");
-    if ($r) $comm_data = $r->fetch_assoc() ?: [];
-}
-// Dynamic counts (always live from DB)
-$comm_member_count = 0;
-$comm_post_count   = 0;
-if ($EDITH) {
-    $esc_cn = $EDITH->real_escape_string($community_name);
-    $r = $EDITH->query("SELECT COUNT(*) as c FROM community_members WHERE community_title='$esc_cn'");
-    $comm_member_count = $r ? (int)$r->fetch_assoc()['c'] : 0;
-    $r = $EDITH->query("SELECT COUNT(*) as c FROM posts WHERE community='$esc_cn'");
-    $comm_post_count = $r ? (int)$r->fetch_assoc()['c'] : 0;
-}
+$comm_data = [
+  'title'  => $community_name,
+  'desc'   => 'Official hub for FEU Institute of Technology students — academics, projects, and campus life.',
+  'icon'   => 'bi-cpu',
+  'bg_class' => 'bg-light-success',
+  'text_class' => 'text-success',
+  'theme_color' => '#1A8B44',
+  'admin_id' => 'T202110294',
+  'category' => 'FEU TECH',
+  'custom_topics' => '',
+  'logo_url' => '',
+];
+$comm_member_count = 12300;
+$comm_post_count   = 842;
 $comm_desc         = $comm_data['desc'] ?? 'A community for FEU students.';
 $comm_icon         = $comm_data['icon'] ?? 'bi-people-fill';
 $comm_bg           = $comm_data['bg_class'] ?? 'bg-light-success';
@@ -32,74 +29,63 @@ $is_community_admin = $comm_admin_id && isset($identification) && $identificatio
 // Custom topics for this community
 $custom_topics_list = [];
 if (!empty($comm_data['custom_topics'])) {
-    $custom_topics_list = array_filter(array_map('trim', explode(',', $comm_data['custom_topics'])));
+  $custom_topics_list = array_filter(array_map('trim', explode(',', $comm_data['custom_topics'])));
 }
 
-// Top contributors: real users with most posts in this community
-$top_contributors = [];
-if ($EDITH) {
-    $esc_cn = $EDITH->real_escape_string($community_name);
-    $r = $EDITH->query(
-        "SELECT a.display_name, a.avatar_md, a.role, a.identification,
-                COUNT(p.id) as post_count,
-                COALESCE(SUM(p.upvotes), 0) as karma
-         FROM posts p
-         JOIN accounts a ON p.author_id = a.identification
-         WHERE p.community = '$esc_cn' AND p.is_anonymous = 0
-         GROUP BY p.author_id
-         ORDER BY post_count DESC, karma DESC
-         LIMIT 5"
-    );
-    if ($r) while ($row = $r->fetch_assoc()) $top_contributors[] = $row;
-}
+// Top contributors — hardcoded sample data muna.
+$top_contributors = [
+  ['display_name' => 'Ravi Joshi',     'avatar_md' => '', 'role' => 'Student', 'identification' => 'T202110294', 'post_count' => 18, 'karma' => 412],
+  ['display_name' => 'Marco Torres',   'avatar_md' => '', 'role' => 'Student', 'identification' => 'T202110100', 'post_count' => 12, 'karma' => 298],
+  ['display_name' => 'Catalina Smith', 'avatar_md' => '', 'role' => 'Student', 'identification' => 'T202110101', 'post_count' => 9,  'karma' => 201],
+];
 
 if (!function_exists('get_relative_time')) {
-    function get_relative_time($datetime) {
-        $time = strtotime($datetime);
-        if (!$time) return '1d ago';
-        $now  = time(); $diff = $now - $time;
-        if ($diff < 60) return 'Just now';
-        $diff = round($diff / 60);
-        if ($diff < 60) return $diff . 'm ago';
-        $diff = round($diff / 60);
-        if ($diff < 24) return $diff . 'h ago';
-        $diff = round($diff / 24);
-        if ($diff < 30) return $diff . 'd ago';
-        return date('F j, Y', $time);
-    }
+  function get_relative_time($datetime)
+  {
+    $time = strtotime($datetime);
+    if (!$time) return '1d ago';
+    $now  = time();
+    $diff = $now - $time;
+    if ($diff < 60) return 'Just now';
+    $diff = round($diff / 60);
+    if ($diff < 60) return $diff . 'm ago';
+    $diff = round($diff / 60);
+    if ($diff < 24) return $diff . 'h ago';
+    $diff = round($diff / 24);
+    if ($diff < 30) return $diff . 'd ago';
+    return date('F j, Y', $time);
+  }
 }
 
-// Load community posts from DB
-$db_posts = [];
-if ($EDITH) {
-    $stmt = $EDITH->prepare(
-        "SELECT p.*, a.display_name, a.avatar_md
-         FROM posts p
-         JOIN accounts a ON p.author_id = a.identification
-         WHERE p.community = ?
-         ORDER BY p.is_announcement DESC, p.created_at DESC LIMIT 20"
-    );
-    if ($stmt) {
-        $stmt->bind_param("s", $community_name);
-        $stmt->execute();
-        $res = $stmt->get_result();
-        while ($row = $res->fetch_assoc()) {
-            $stmt_cc = $EDITH->prepare("SELECT COUNT(*) as cc FROM comments WHERE post_id = ?");
-            $stmt_cc->bind_param("i", $row['id']);
-            $stmt_cc->execute();
-            $row['comments_count'] = $stmt_cc->get_result()->fetch_assoc()['cc'] ?? 0;
-            $stmt_cc->close();
-            $stmt_fc = $EDITH->prepare("SELECT body FROM comments WHERE post_id = ? ORDER BY created_at ASC LIMIT 1");
-            $stmt_fc->bind_param("i", $row['id']);
-            $stmt_fc->execute();
-            $fc = $stmt_fc->get_result()->fetch_assoc();
-            $row['first_comment'] = $fc['body'] ?? '';
-            $stmt_fc->close();
-            $db_posts[] = $row;
-        }
-        $stmt->close();
-    }
-}
+// Community posts — hardcoded sample data muna.
+$db_posts = [
+  [
+    'id' => 1,
+    'title' => 'The silent revolution in edge AI — why on-device inference is changing everything',
+    'topic' => 'TECHNOLOGY',
+    'upvotes' => 214,
+    'is_announcement' => 1,
+    'is_anonymous' => 0,
+    'display_name' => 'Ravi Joshi',
+    'avatar_md' => '',
+    'created_at' => date('Y-m-d H:i:s', strtotime('-3 hours')),
+    'comments_count' => 3,
+    'first_comment' => 'Hallway is always too noisy for group discussions, booking a room is definitely worth it!',
+  ],
+  [
+    'id' => 6,
+    'title' => 'FEU Tech library study rooms — worth booking or just use the hallway?',
+    'topic' => 'ACADEMICS',
+    'upvotes' => 67,
+    'is_announcement' => 0,
+    'is_anonymous' => 0,
+    'display_name' => 'Catalina Smith',
+    'avatar_md' => '',
+    'created_at' => date('Y-m-d H:i:s', strtotime('-5 days')),
+    'comments_count' => 1,
+    'first_comment' => '',
+  ],
+];
 ?>
 
 
@@ -138,7 +124,7 @@ if ($EDITH) {
       background-color: <?php echo htmlspecialchars($comm_theme_color); ?>;
       position: relative;
       overflow: visible;
-      border-bottom: 3px solid rgba(255,255,255,0.25);
+      border-bottom: 3px solid rgba(255, 255, 255, 0.25);
     }
 
     .community-banner-glow {
@@ -205,7 +191,7 @@ if ($EDITH) {
                     <div class="flex-shrink-0">
                       <div class="w-100px h-100px w-lg-120px h-lg-120px d-flex align-items-center justify-content-center community-logo-container shadow rounded-3 fs-1" style="<?php echo !empty($comm_data['logo_url']) ? 'background-image: url(\'' . htmlspecialchars($comm_data['logo_url']) . '\'); background-size: cover; background-position: center;' : 'background-color: #ffffff !important;'; ?>">
                         <?php if (empty($comm_data['logo_url'])) { ?>
-                        <i class="bi <?php echo htmlspecialchars($comm_icon); ?> fs-2hx" style="color: <?php echo htmlspecialchars($comm_theme_color); ?> !important;"></i>
+                          <i class="bi <?php echo htmlspecialchars($comm_icon); ?> fs-2hx" style="color: <?php echo htmlspecialchars($comm_theme_color); ?> !important;"></i>
                         <?php } ?>
                       </div>
                     </div>
@@ -230,43 +216,47 @@ if ($EDITH) {
                     <?php $is_member = IS_COMMUNITY_MEMBER($community_name, $identification); ?>
                     <div class="flex-shrink-0 ms-auto d-flex align-items-center gap-3">
                       <?php if ($is_community_admin) { ?>
-                      <span class="badge d-flex align-items-center gap-1 px-3 py-2 fw-bold fs-8 rounded-pill"
-                            style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);">
-                        <i class="bi bi-shield-fill-check fs-8"></i> ADMIN
-                      </span>
-                      <div class="dropdown">
-                        <button class="btn btn-icon btn-active-color-primary btn-light-success btn-sm rounded-circle d-flex align-items-center justify-content-center" type="button" id="adminSettingsDropdown" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}' aria-expanded="false" style="width: 42px; height: 42px; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4);">
-                          <i class="bi bi-gear-fill fs-5 text-white"></i>
-                        </button>
-                        <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 p-2 min-w-200px" aria-labelledby="adminSettingsDropdown">
-                          <li class="dropdown-header text-gray-800 fw-bold fs-7 px-4 py-2">Community Admin Settings</li>
-                          <li><hr class="dropdown-divider my-1"></li>
-                          <li>
-                            <a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7 d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#editCommunityModal">
-                              <i class="bi bi-pencil-square fs-6"></i>Edit Community
-                            </a>
-                          </li>
-                          <li>
-                            <a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7 d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
-                              <i class="bi bi-megaphone fs-6"></i>Add Announcement
-                            </a>
-                          </li>
-                          <li><hr class="dropdown-divider my-1"></li>
-                          <li>
-                            <a class="dropdown-item rounded-2 py-2 px-4 text-danger text-hover-white bg-hover-danger fs-7 d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#deleteCommunityModal">
-                              <i class="bi bi-trash3 fs-6"></i>Delete Community
-                            </a>
-                          </li>
-                        </ul>
-                      </div>
+                        <span class="badge d-flex align-items-center gap-1 px-3 py-2 fw-bold fs-8 rounded-pill"
+                          style="background:rgba(255,255,255,0.2);color:#fff;border:1px solid rgba(255,255,255,0.4);">
+                          <i class="bi bi-shield-fill-check fs-8"></i> ADMIN
+                        </span>
+                        <div class="dropdown">
+                          <button class="btn btn-icon btn-active-color-primary btn-light-success btn-sm rounded-circle d-flex align-items-center justify-content-center" type="button" id="adminSettingsDropdown" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}' aria-expanded="false" style="width: 42px; height: 42px; background: rgba(255,255,255,0.2); color: #fff; border: 1px solid rgba(255,255,255,0.4);">
+                            <i class="bi bi-gear-fill fs-5 text-white"></i>
+                          </button>
+                          <ul class="dropdown-menu dropdown-menu-end shadow-lg border-0 rounded-3 p-2 min-w-200px" aria-labelledby="adminSettingsDropdown">
+                            <li class="dropdown-header text-gray-800 fw-bold fs-7 px-4 py-2">Community Admin Settings</li>
+                            <li>
+                              <hr class="dropdown-divider my-1">
+                            </li>
+                            <li>
+                              <a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7 d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#editCommunityModal">
+                                <i class="bi bi-pencil-square fs-6"></i>Edit Community
+                              </a>
+                            </li>
+                            <li>
+                              <a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7 d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#addAnnouncementModal">
+                                <i class="bi bi-megaphone fs-6"></i>Add Announcement
+                              </a>
+                            </li>
+                            <li>
+                              <hr class="dropdown-divider my-1">
+                            </li>
+                            <li>
+                              <a class="dropdown-item rounded-2 py-2 px-4 text-danger text-hover-white bg-hover-danger fs-7 d-flex align-items-center gap-2" href="#" data-bs-toggle="modal" data-bs-target="#deleteCommunityModal">
+                                <i class="bi bi-trash3 fs-6"></i>Delete Community
+                              </a>
+                            </li>
+                          </ul>
+                        </div>
                       <?php } ?>
                       <button id="comm-join-btn"
                         class="btn fw-bolder px-8 py-3 d-flex align-items-center gap-2 rounded-pill"
                         data-comm="<?php echo htmlspecialchars($community_name); ?>"
                         data-joined="<?php echo $is_member ? '1' : '0'; ?>"
                         style="<?php echo $is_member
-                            ? 'background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.7);'
-                            : 'background:#fff;color:#0b301f;border:2px solid #fff;'; ?>">
+                                  ? 'background:transparent;color:#fff;border:2px solid rgba(255,255,255,0.7);'
+                                  : 'background:#fff;color:#0b301f;border:2px solid #fff;'; ?>">
                         <i class="bi <?php echo $is_member ? 'bi-check-lg' : 'bi-plus-lg'; ?> fs-6" style="<?php echo $is_member ? 'color:#fff;' : 'color:#0b301f;'; ?>"></i>
                         <span><?php echo $is_member ? 'JOINED' : 'JOIN COMMUNITY'; ?></span>
                       </button>
@@ -291,40 +281,33 @@ if ($EDITH) {
                       </div>
 
                       <?php
-                      // Fetch top 2 posts in this community for the Highlights section
-                      $highlight_posts = [];
-                      if ($EDITH) {
-                          $esc_cn = $EDITH->real_escape_string($community_name);
-                          $h_res = $EDITH->query(
-                              "SELECT p.id, p.title, p.topic, p.upvotes,
-                                      (SELECT COUNT(*) FROM comments c WHERE c.post_id=p.id) AS cc
-                               FROM posts p WHERE p.community='$esc_cn' AND p.is_highlighted=1
-                               ORDER BY p.upvotes DESC LIMIT 2"
-                          );
-                          if ($h_res) while ($hr = $h_res->fetch_assoc()) $highlight_posts[] = $hr;
-                      }
+                      // Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
+                      $highlight_posts = [
+                        ['id' => 1, 'title' => 'The silent revolution in edge AI — why on-device inference is changing everything', 'topic' => 'TECHNOLOGY', 'upvotes' => 214, 'cc' => 3],
+                        ['id' => 6, 'title' => 'FEU Tech library study rooms — worth booking or just use the hallway?', 'topic' => 'ACADEMICS', 'upvotes' => 67, 'cc' => 1],
+                      ];
                       if (!empty($highlight_posts)) { ?>
-                      <div class="row g-4 mb-5">
-                        <?php foreach ($highlight_posts as $hp) {
+                        <div class="row g-4 mb-5">
+                          <?php foreach ($highlight_posts as $hp) {
                             $hpBadge = getCategoryBadgeStyle($hp['topic'] ?? 'GENERAL');
-                        ?>
-                        <div class="col-6">
-                          <a href="/Discourse/posts/index.php?id=<?php echo $hp['id']; ?>&back=community&community=<?php echo urlencode($community_name); ?>" class="card border-0 shadow-sm rounded-3 h-100 text-decoration-none d-block" style="transition: box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.12)'" onmouseout="this.style.boxShadow=''">
-                            <div class="card-body p-5">
-                              <h5 class="fw-bolder text-gray-900 fs-6 mb-2 lh-sm"><?php echo htmlspecialchars(mb_substr($hp['title'], 0, 55)) . (mb_strlen($hp['title']) > 55 ? '…' : ''); ?></h5>
-                              <div class="d-flex align-items-center gap-3 mb-4">
-                                <span class="text-muted fs-8"><?php echo $hp['upvotes']; ?> votes</span>
-                                <span class="text-muted fs-8">·</span>
-                                <span class="text-muted fs-8"><?php echo $hp['cc']; ?> Comments</span>
-                              </div>
-                              <span class="badge <?php echo $hpBadge['class']; ?> rounded-pill px-4 py-2 fs-8 fw-bold">
-                                <i class="bi <?php echo $hpBadge['icon']; ?> me-1"></i><?php echo htmlspecialchars(strtoupper($hp['topic'] ?? 'GENERAL')); ?>
-                              </span>
+                          ?>
+                            <div class="col-6">
+                              <a href="/Discourse/posts/index.php?id=<?php echo $hp['id']; ?>&back=community&community=<?php echo urlencode($community_name); ?>" class="card border-0 shadow-sm rounded-3 h-100 text-decoration-none d-block" style="transition: box-shadow 0.2s;" onmouseover="this.style.boxShadow='0 4px 20px rgba(0,0,0,0.12)'" onmouseout="this.style.boxShadow=''">
+                                <div class="card-body p-5">
+                                  <h5 class="fw-bolder text-gray-900 fs-6 mb-2 lh-sm"><?php echo htmlspecialchars(mb_substr($hp['title'], 0, 55)) . (mb_strlen($hp['title']) > 55 ? '…' : ''); ?></h5>
+                                  <div class="d-flex align-items-center gap-3 mb-4">
+                                    <span class="text-muted fs-8"><?php echo $hp['upvotes']; ?> votes</span>
+                                    <span class="text-muted fs-8">·</span>
+                                    <span class="text-muted fs-8"><?php echo $hp['cc']; ?> Comments</span>
+                                  </div>
+                                  <span class="badge <?php echo $hpBadge['class']; ?> rounded-pill px-4 py-2 fs-8 fw-bold">
+                                    <i class="bi <?php echo $hpBadge['icon']; ?> me-1"></i><?php echo htmlspecialchars(strtoupper($hp['topic'] ?? 'GENERAL')); ?>
+                                  </span>
+                                </div>
+                              </a>
                             </div>
-                          </a>
+                          <?php } ?>
                         </div>
-                        <?php } ?>
-                      </div>
                       <?php } ?>
 
                       <!-- Separator -->
@@ -363,39 +346,39 @@ if ($EDITH) {
                           All Topics
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 p-2 fs-7 min-w-150px" aria-labelledby="topicsDropdown">
-                           <?php
-                           // Show custom topics first, then fallback to seed defaults or GENERAL
-                           $display_topics = !empty($custom_topics_list) ? $custom_topics_list : [];
-                           if (empty($display_topics)) {
-                               $seed_defaults = [
-                                   "FEU LIFE" => ["FEULife", "CampusLife", "Enrollment", "Events"],
-                                   "FEU ALABANG LIFE" => ["AlabangLife", "CampusLife", "Enrollment", "Events"],
-                                   "Freshies" => ["Freshies", "Advice", "General"],
-                                   "Enrollment" => ["Enrollment", "Diliman", "Requirements"],
-                                   "Cosplaying" => ["Cosplay", "Anime", "Gaming", "Events"],
-                                   "FEU TECH DEV" => ["Development", "Programming", "WebDev", "Projects"],
-                                   "Food Trip Around TECH" => ["Food", "Restaurants", "TechArea"],
-                                   "Thesis Advice" => ["Thesis", "Advice", "Research", "Defense"],
-                                   "Alabang Innovators" => ["Startups", "Innovation", "Tech"],
-                                   "Diliman Artists" => ["Art", "Creative", "Design"],
-                                   "Tech Support" => ["TechSupport", "IT", "Help"],
-                                   "Study Group" => ["Study", "Groups", "Academics"]
-                               ];
-                               $title_key = str_replace(' ', '', strtolower($community_name));
-                               foreach ($seed_defaults as $s_title => $s_topics) {
-                                   if (str_replace(' ', '', strtolower($s_title)) === $title_key) {
-                                       $display_topics = $s_topics;
-                                       break;
-                                   }
-                               }
-                               if (empty($display_topics)) {
-                                   $display_topics = ["GENERAL"];
-                               }
-                           }
-                           foreach ($display_topics as $dt) { ?>
-                           <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7"
-                                  href="/Discourse/topics/index.php?t=<?php echo urlencode(strtoupper($dt)); ?>"><?php echo htmlspecialchars($dt); ?></a></li>
-                           <?php } ?>
+                          <?php
+                          // Show custom topics first, then fallback to seed defaults or GENERAL
+                          $display_topics = !empty($custom_topics_list) ? $custom_topics_list : [];
+                          if (empty($display_topics)) {
+                            $seed_defaults = [
+                              "FEU LIFE" => ["FEULife", "CampusLife", "Enrollment", "Events"],
+                              "FEU ALABANG LIFE" => ["AlabangLife", "CampusLife", "Enrollment", "Events"],
+                              "Freshies" => ["Freshies", "Advice", "General"],
+                              "Enrollment" => ["Enrollment", "Diliman", "Requirements"],
+                              "Cosplaying" => ["Cosplay", "Anime", "Gaming", "Events"],
+                              "FEU TECH DEV" => ["Development", "Programming", "WebDev", "Projects"],
+                              "Food Trip Around TECH" => ["Food", "Restaurants", "TechArea"],
+                              "Thesis Advice" => ["Thesis", "Advice", "Research", "Defense"],
+                              "Alabang Innovators" => ["Startups", "Innovation", "Tech"],
+                              "Diliman Artists" => ["Art", "Creative", "Design"],
+                              "Tech Support" => ["TechSupport", "IT", "Help"],
+                              "Study Group" => ["Study", "Groups", "Academics"]
+                            ];
+                            $title_key = str_replace(' ', '', strtolower($community_name));
+                            foreach ($seed_defaults as $s_title => $s_topics) {
+                              if (str_replace(' ', '', strtolower($s_title)) === $title_key) {
+                                $display_topics = $s_topics;
+                                break;
+                              }
+                            }
+                            if (empty($display_topics)) {
+                              $display_topics = ["GENERAL"];
+                            }
+                          }
+                          foreach ($display_topics as $dt) { ?>
+                            <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7"
+                                href="/Discourse/topics/index.php?t=<?php echo urlencode(strtoupper($dt)); ?>"><?php echo htmlspecialchars($dt); ?></a></li>
+                          <?php } ?>
                         </ul>
                       </div>
                     </div>
@@ -403,26 +386,26 @@ if ($EDITH) {
                     <!-- Feed -->
                     <?php
                     // Map DB posts; show empty state when none
-                    $posts = array_map(function($r) {
-                        $isAnon = ($r['is_anonymous'] == 1);
-                        return [
-                            "id"             => $r['id'],
-                            "author_id"      => $r['author_id'],
-                            "author"         => $isAnon ? 'Anonymous' : ($r['display_name'] ?? 'User'),
-                            "is_anonymous"   => $isAnon,
-                            "avatar"         => $isAnon ? '/Discourse/assets/images/anonymous.png' : ($r['avatar_md'] ?? '/Discourse/assets/images/anonymous.png'),
-                            "time"           => get_relative_time($r['created_at']),
-                            "tag"            => $r['topic'] ?? 'GENERAL',
-                            "tags"           => $r['tags'] ?? '',
-                            "title"          => $r['title'],
-                            "body"           => $r['body'],
-                            "votes"          => $r['upvotes'] ?? 0,
-                            "comments_count" => $r['comments_count'] ?? 0,
-                            "first_comment"  => $r['first_comment'] ?? '',
-                            "is_announcement"=> $r['is_announcement'] ?? 0,
-                            "is_highlighted" => $r['is_highlighted'] ?? 0,
-                            "image_url"      => $r['image_url'] ?? null,
-                        ];
+                    $posts = array_map(function ($r) {
+                      $isAnon = ($r['is_anonymous'] == 1);
+                      return [
+                        "id"             => $r['id'],
+                        "author_id"      => $r['author_id'],
+                        "author"         => $isAnon ? 'Anonymous' : ($r['display_name'] ?? 'User'),
+                        "is_anonymous"   => $isAnon,
+                        "avatar"         => $isAnon ? '/Discourse/assets/images/anonymous.png' : ($r['avatar_md'] ?? '/Discourse/assets/images/anonymous.png'),
+                        "time"           => get_relative_time($r['created_at']),
+                        "tag"            => $r['topic'] ?? 'GENERAL',
+                        "tags"           => $r['tags'] ?? '',
+                        "title"          => $r['title'],
+                        "body"           => $r['body'],
+                        "votes"          => $r['upvotes'] ?? 0,
+                        "comments_count" => $r['comments_count'] ?? 0,
+                        "first_comment"  => $r['first_comment'] ?? '',
+                        "is_announcement" => $r['is_announcement'] ?? 0,
+                        "is_highlighted" => $r['is_highlighted'] ?? 0,
+                        "image_url"      => $r['image_url'] ?? null,
+                      ];
                     }, $db_posts);
 
                     if (empty($posts)) { ?>
@@ -445,19 +428,19 @@ if ($EDITH) {
                       $c_commentCount = $post['comments_count'] ?? 0;
                     ?>
                       <!-- ── Post Card ── -->
-                      <?php 
+                      <?php
                       $c_highlighted = ($post['is_highlighted'] == 1);
                       $card_classes = 'card border-0 shadow mb-5';
                       if (!empty($post['is_announcement'])) {
-                          $card_classes .= ' post-card-announcement border-start border-4 border-success';
+                        $card_classes .= ' post-card-announcement border-start border-4 border-success';
                       } elseif ($c_highlighted) {
-                          $card_classes .= ' post-card-highlighted border-start border-4 border-warning';
+                        $card_classes .= ' post-card-highlighted border-start border-4 border-warning';
                       }
                       $card_style = '';
                       if (!empty($post['is_announcement'])) {
-                          $card_style = 'background: #f4faf6;';
+                        $card_style = 'background: #f4faf6;';
                       } elseif ($c_highlighted) {
-                          $card_style = 'background: #fffdf5;';
+                        $card_style = 'background: #fffdf5;';
                       }
                       ?>
                       <div class="<?php echo $card_classes; ?>" data-dc="post-card" data-post-id="<?php echo $post['id']; ?>" style="<?php echo $card_style; ?>">
@@ -466,9 +449,9 @@ if ($EDITH) {
                           <?php
                           $vote_bg = '#e8ede9';
                           if (!empty($post['is_announcement'])) {
-                              $vote_bg = '#e2f0e7';
+                            $vote_bg = '#e2f0e7';
                           } elseif ($c_highlighted) {
-                              $vote_bg = '#fff8e1';
+                            $vote_bg = '#fff8e1';
                           }
                           ?>
                           <!-- Vote Column -->
@@ -492,19 +475,19 @@ if ($EDITH) {
                                   <div class="d-flex align-items-center gap-2">
                                     <a href="/Discourse/communities/index.php?c=<?php echo urlencode($community_name); ?>" class="d-flex align-items-center gap-2 text-decoration-none">
                                       <div class="d-flex align-items-center justify-content-center rounded-2 <?php echo $c_commDetails['bg_class']; ?>"
-                                           style="width: 24px; height: 24px;">
+                                        style="width: 24px; height: 24px;">
                                         <i class="bi <?php echo $c_commDetails['icon']; ?> fs-8 <?php echo $c_commDetails['text_class']; ?>"></i>
                                       </div>
                                       <span class="fw-bold text-gray-800 text-hover-primary fs-7">c/<?php echo htmlspecialchars($community_name); ?></span>
                                     </a>
                                     <?php if (!empty($post['is_announcement'])) { ?>
-                                    <span class="badge badge-light-success d-flex align-items-center gap-1 px-3 py-1 fw-bolder fs-8 rounded-pill">
-                                      <i class="bi bi-megaphone-fill fs-9 text-success"></i> ANNOUNCEMENT
-                                    </span>
+                                      <span class="badge badge-light-success d-flex align-items-center gap-1 px-3 py-1 fw-bolder fs-8 rounded-pill">
+                                        <i class="bi bi-megaphone-fill fs-9 text-success"></i> ANNOUNCEMENT
+                                      </span>
                                     <?php } elseif ($c_highlighted) { ?>
-                                    <span class="badge badge-light-warning d-flex align-items-center gap-1 px-3 py-1 fw-bolder fs-8 rounded-pill text-warning" style="background-color: rgba(255, 193, 7, 0.15); color: #b58105 !important;">
-                                      <i class="bi bi-star-fill fs-9 text-warning"></i> HIGHLIGHTED
-                                    </span>
+                                      <span class="badge badge-light-warning d-flex align-items-center gap-1 px-3 py-1 fw-bolder fs-8 rounded-pill text-warning" style="background-color: rgba(255, 193, 7, 0.15); color: #b58105 !important;">
+                                        <i class="bi bi-star-fill fs-9 text-warning"></i> HIGHLIGHTED
+                                      </span>
                                     <?php } ?>
                                   </div>
                                   <button class="btn btn-sm dc-post-report" data-bs-toggle="modal" data-bs-target="#modalReportPost">
@@ -528,9 +511,9 @@ if ($EDITH) {
                               <div class="col-12 mb-2">
                                 <div class="d-flex flex-column gap-2 text-start">
                                   <div class="d-flex flex-wrap align-items-center gap-1">
-                                    <?php 
+                                    <?php
                                     $is_post_announcement = !empty($post['is_announcement']);
-                                    echo renderTopicBadge($is_post_announcement ? 'ANNOUNCEMENT' : $post['tag']); 
+                                    echo renderTopicBadge($is_post_announcement ? 'ANNOUNCEMENT' : $post['tag']);
                                     ?>
                                   </div>
                                   <a href="/Discourse/posts/index.php?id=<?php echo $post['id']; ?>&back=community&community=<?php echo urlencode($community_name); ?>" class="text-gray-800 text-hover-primary fs-5 fw-bold dc-post-title-link">
@@ -541,16 +524,17 @@ if ($EDITH) {
                                     <a href="#" class="dc-see-more-link fw-semibold cursor-pointer d-none" onclick="dcToggleBody(event, this)">See More</a>
                                   </div>
                                   <?php if (!empty($post['image_url'])): ?>
-                                  <div class="mt-4 mb-2">
+                                    <div class="mt-4 mb-2">
                                       <img src="<?php echo htmlspecialchars($post['image_url']); ?>" alt="Post image" class="img-fluid rounded shadow-sm" style="max-height: 350px; width: auto; object-fit: cover;">
-                                  </div>
+                                    </div>
                                   <?php endif; ?>
                                   <?php if (!$is_post_announcement): ?>
-                                  <?php $c_htags = renderHashtagBadges($post['tags'] ?? ''); if ($c_htags): ?>
-                                  <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
-                                    <?php echo $c_htags; ?>
-                                  </div>
-                                  <?php endif; ?>
+                                    <?php $c_htags = renderHashtagBadges($post['tags'] ?? '');
+                                    if ($c_htags): ?>
+                                      <div class="d-flex flex-wrap align-items-center gap-1 mt-1">
+                                        <?php echo $c_htags; ?>
+                                      </div>
+                                    <?php endif; ?>
                                   <?php endif; ?>
                                 </div>
                               </div>
@@ -563,20 +547,20 @@ if ($EDITH) {
                                 <button type="button" class="btn btn-sm dc-post-comment"><i class="bi bi-chat me-1"></i> <?php echo $c_commentCount; ?> Comment<?php echo $c_commentCount == 1 ? '' : 's'; ?></button>
                                 <button type="button" class="btn btn-sm dc-post-share"><i class="bi bi-share me-1"></i> Share</button>
                                 <button type="button" class="btn btn-sm dc-post-save"
-                                        data-on="<?php echo $c_saved ? '1' : '0'; ?>">
+                                  data-on="<?php echo $c_saved ? '1' : '0'; ?>">
                                   <i class="bi <?php echo $c_saved ? 'bi-bookmark-fill' : 'bi-bookmark'; ?> me-1"></i>
                                   <?php echo $c_saved ? 'Saved' : 'Save'; ?>
                                 </button>
-                                <?php if ($is_community_admin) { 
+                                <?php if ($is_community_admin) {
                                   $c_highlighted = ($post['is_highlighted'] == 1);
                                 ?>
-                                <button type="button" class="btn btn-sm dc-post-highlight text-warning"
-                                        data-post-id="<?php echo $post['id']; ?>"
-                                        data-highlighted="<?php echo $c_highlighted ? '1' : '0'; ?>"
-                                        style="<?php echo $c_highlighted ? 'background:rgba(255,193,7,.12);color:#b58105;border-color:#ffc107;' : ''; ?>">
-                                  <i class="bi <?php echo $c_highlighted ? 'bi-star-fill' : 'bi-star'; ?> me-1"></i>
-                                  <?php echo $c_highlighted ? 'Highlighted' : 'Highlight'; ?>
-                                </button>
+                                  <button type="button" class="btn btn-sm dc-post-highlight text-warning"
+                                    data-post-id="<?php echo $post['id']; ?>"
+                                    data-highlighted="<?php echo $c_highlighted ? '1' : '0'; ?>"
+                                    style="<?php echo $c_highlighted ? 'background:rgba(255,193,7,.12);color:#b58105;border-color:#ffc107;' : ''; ?>">
+                                    <i class="bi <?php echo $c_highlighted ? 'bi-star-fill' : 'bi-star'; ?> me-1"></i>
+                                    <?php echo $c_highlighted ? 'Highlighted' : 'Highlight'; ?>
+                                  </button>
                                 <?php } ?>
                               </div>
                             </div>
@@ -585,12 +569,12 @@ if ($EDITH) {
                             <div class="dc-quick-comment-drawer border-top border-gray-200 mt-4 pt-4 px-5" style="display: none; background-color: #fcfdfc;">
                               <div class="dc-quick-comments-list mb-4 d-flex flex-column gap-3" style="max-height: 180px; overflow-y: auto;">
                                 <?php if (!empty($post['first_comment'])): ?>
-                                <div class="d-flex align-items-start gap-2 fs-7">
-                                  <img src="https://ui-avatars.com/api/?name=User&background=f3f4f6&color=d97706&rounded=true" class="h-25px w-25px rounded-circle" alt="User">
-                                  <div class="bg-light p-2 rounded-3 flex-grow-1 text-start">
-                                    <p class="text-gray-700 m-0"><?php echo htmlspecialchars($post['first_comment']); ?></p>
+                                  <div class="d-flex align-items-start gap-2 fs-7">
+                                    <img src="https://ui-avatars.com/api/?name=User&background=f3f4f6&color=d97706&rounded=true" class="h-25px w-25px rounded-circle" alt="User">
+                                    <div class="bg-light p-2 rounded-3 flex-grow-1 text-start">
+                                      <p class="text-gray-700 m-0"><?php echo htmlspecialchars($post['first_comment']); ?></p>
+                                    </div>
                                   </div>
-                                </div>
                                 <?php endif; ?>
                               </div>
                               <form class="dc-quick-comment-form">
@@ -716,27 +700,26 @@ if ($EDITH) {
                       <div class="card-body p-4">
                         <h6 class="fs-6 fw-bold text-gray-800 mb-4">Discover other communities</h6>
                         <div class="d-flex flex-column gap-2">
-                        <?php
-                        // Show 3 other communities from DB, excluding current
-                        $disc_comm = [];
-                        if ($EDITH) {
-                            $esc_cur = $EDITH->real_escape_string($community_name);
-                            $dc_res = $EDITH->query("SELECT title, members, bg_class, icon, text_class FROM communities WHERE title != '$esc_cur' ORDER BY members DESC LIMIT 3");
-                            if ($dc_res) while ($dc = $dc_res->fetch_assoc()) $disc_comm[] = $dc;
-                        }
-                        foreach ($disc_comm as $dc) { ?>
-                          <a href="/Discourse/communities/index.php?c=<?php echo urlencode($dc['title']); ?>" class="d-flex align-items-center gap-3 p-2 rounded-3 text-decoration-none" style="transition:background 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
-                            <div class="d-flex align-items-center justify-content-center rounded-2 flex-shrink-0 <?php echo $dc['bg_class']; ?>"
-                              style="width:42px;height:42px;">
-                              <i class="bi <?php echo $dc['icon']; ?> <?php echo $dc['text_class']; ?>" style="font-size:1.1rem;"></i>
-                            </div>
-                            <div class="d-flex flex-column flex-grow-1">
-                              <span class="fs-7 fw-bold text-gray-800"><?php echo htmlspecialchars($dc['title']); ?></span>
-                              <span class="fs-9 text-muted"><i class="bi bi-people-fill me-1"></i><?php echo number_format($dc['members']); ?></span>
-                            </div>
-                            <i class="bi bi-arrow-right text-muted fs-7"></i>
-                          </a>
-                        <?php } ?>
+                          <?php
+                          // Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
+                          $disc_comm = [
+                            ['title' => 'FEU Life',    'members' => 4800, 'bg_class' => 'bg-light-danger',  'icon' => 'bi-heart-fill',        'text_class' => 'text-danger'],
+                            ['title' => 'Freshies',    'members' => 3100, 'bg_class' => 'bg-light-primary', 'icon' => 'bi-people-fill',       'text_class' => 'text-primary'],
+                            ['title' => 'CultureHub',  'members' => 2750, 'bg_class' => 'bg-light-info',    'icon' => 'bi-music-note-beamed', 'text_class' => 'text-info'],
+                          ];
+                          foreach ($disc_comm as $dc) { ?>
+                            <a href="/Discourse/communities/index.php?c=<?php echo urlencode($dc['title']); ?>" class="d-flex align-items-center gap-3 p-2 rounded-3 text-decoration-none" style="transition:background 0.2s;" onmouseover="this.style.background='#f8fafc'" onmouseout="this.style.background='transparent'">
+                              <div class="d-flex align-items-center justify-content-center rounded-2 flex-shrink-0 <?php echo $dc['bg_class']; ?>"
+                                style="width:42px;height:42px;">
+                                <i class="bi <?php echo $dc['icon']; ?> <?php echo $dc['text_class']; ?>" style="font-size:1.1rem;"></i>
+                              </div>
+                              <div class="d-flex flex-column flex-grow-1">
+                                <span class="fs-7 fw-bold text-gray-800"><?php echo htmlspecialchars($dc['title']); ?></span>
+                                <span class="fs-9 text-muted"><i class="bi bi-people-fill me-1"></i><?php echo number_format($dc['members']); ?></span>
+                              </div>
+                              <i class="bi bi-arrow-right text-muted fs-7"></i>
+                            </a>
+                          <?php } ?>
                         </div>
                       </div>
                     </div>
@@ -748,217 +731,211 @@ if ($EDITH) {
                 <?php include(dirname(__DIR__) . "/partials/_discourse-modals.php"); ?>
 
                 <?php if ($is_community_admin) { ?>
-                <!-- Edit Community Modal -->
-                <div class="modal fade" id="editCommunityModal" tabindex="-1" aria-hidden="true">
+                  <!-- Edit Community Modal -->
+                  <div class="modal fade" id="editCommunityModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered mw-600px">
-                        <div class="modal-content border-0 shadow">
-                            <div class="modal-header border-0 p-0 rounded-top" style="background-color: <?php echo htmlspecialchars($comm_theme_color); ?>; transition: background-color 0.3s ease;">
-                                <h2 class="fw-bolder text-white px-8 py-6 m-0 w-100 d-flex align-items-center gap-2">
-                                    <i class="bi bi-pencil-square"></i> Edit Community Settings
-                                </h2>
-                                <button type="button" class="btn btn-sm btn-icon btn-active-color-primary position-absolute end-0 top-0 mt-4 me-4" data-bs-dismiss="modal">
-                                    <i class="bi bi-x-lg fs-4 text-white"></i>
-                                </button>
-                            </div>
-                            <div class="modal-body px-8 py-8">
-                                <form id="edit-community-form" enctype="multipart/form-data">
-                                    <input type="hidden" id="edit-comm-title" name="title" value="<?php echo htmlspecialchars($community_name); ?>" />
-                                    
-                                    <div class="fv-row mb-6">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Community Name</label>
-                                        <input type="text" class="form-control form-control-solid bg-light text-muted" value="<?php echo htmlspecialchars($community_name); ?>" readonly />
-                                        <span class="fs-9 text-muted mt-1 d-block">Community name cannot be modified to preserve links.</span>
-                                    </div>
-                                    
-                                    <div class="fv-row mb-6">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Description</label>
-                                        <textarea id="edit-comm-desc" name="desc" class="form-control form-control-solid bg-light" rows="4" required><?php echo htmlspecialchars($comm_desc); ?></textarea>
-                                    </div>
-                                    
-                                    <div class="row mb-6">
-                                        <div class="col-6">
-                                            <label class="fs-6 fw-bold mb-2 text-dark">Category</label>
-                                            <select id="edit-comm-cat" name="category" class="form-select form-select-solid bg-light" required>
-                                                <option value="FEU TECH" <?php echo ($comm_data['category'] ?? '') === 'FEU TECH' ? 'selected' : ''; ?>>FEU TECH</option>
-                                                <option value="FEU ALABANG" <?php echo ($comm_data['category'] ?? '') === 'FEU ALABANG' ? 'selected' : ''; ?>>FEU ALABANG</option>
-                                                <option value="FEU DILIMAN" <?php echo ($comm_data['category'] ?? '') === 'FEU DILIMAN' ? 'selected' : ''; ?>>FEU DILIMAN</option>
-                                                <option value="my-communities" <?php echo ($comm_data['category'] ?? '') === 'my-communities' ? 'selected' : ''; ?>>My Communities</option>
-                                            </select>
-                                        </div>
-                                        <div class="col-6">
-                                            <label class="fs-6 fw-bold mb-2 text-dark">Community Icon</label>
-                                            <select id="edit-comm-icon" name="icon" class="form-select form-select-solid bg-light" required>
-                                                <option value="bi-people-fill" <?php echo $comm_icon === 'bi-people-fill' ? 'selected' : ''; ?>>People / General</option>
-                                                <option value="bi-heart-fill" <?php echo $comm_icon === 'bi-heart-fill' ? 'selected' : ''; ?>>Life / Health</option>
-                                                <option value="bi-cup-hot-fill" <?php echo $comm_icon === 'bi-cup-hot-fill' ? 'selected' : ''; ?>>Food / Cafe</option>
-                                                <option value="bi-palette-fill" <?php echo $comm_icon === 'bi-palette-fill' ? 'selected' : ''; ?>>Art / Creative</option>
-                                                <option value="bi-journal-bookmark-fill" <?php echo $comm_icon === 'bi-journal-bookmark-fill' ? 'selected' : ''; ?>>Academics / Library</option>
-                                                <option value="bi-lightbulb-fill" <?php echo $comm_icon === 'bi-lightbulb-fill' ? 'selected' : ''; ?>>Startup / Ideas</option>
-                                                <option value="bi-building-fill" <?php echo $comm_icon === 'bi-building-fill' ? 'selected' : ''; ?>>Campus / Buildings</option>
-                                                <option value="bi-cpu-fill" <?php echo $comm_icon === 'bi-cpu-fill' ? 'selected' : ''; ?>>Dev / Tech</option>
-                                                <option value="bi-mortarboard-fill" <?php echo $comm_icon === 'bi-mortarboard-fill' ? 'selected' : ''; ?>>Graduation</option>
-                                                <option value="bi-trophy-fill" <?php echo $comm_icon === 'bi-trophy-fill' ? 'selected' : ''; ?>>Sports / Gaming</option>
-                                                <option value="bi-music-note-beamed" <?php echo $comm_icon === 'bi-music-note-beamed' ? 'selected' : ''; ?>>Music / Ent.</option>
-                                                <option value="bi-exclamation-circle" <?php echo $comm_icon === 'bi-exclamation-circle' ? 'selected' : ''; ?>>Support / Issues</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="fv-row mb-6">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Theme Color</label>
-                                        <div class="d-flex align-items-center gap-3 edit-theme-color-picker flex-wrap">
-                                            <?php 
-                                            $colors = ['#1A8B44', '#0b5ed7', '#6610f2', '#d63384', '#dc3545', '#6c757d', '#212529', '#198754', '#0dcaf0', '#20c997'];
-                                            foreach ($colors as $c) {
-                                                $isActive = ($comm_theme_color === $c);
-                                            ?>
-                                            <div class="w-30px h-30px rounded-circle cursor-pointer border border-2 border-white shadow-sm edit-theme-color-btn <?php echo $isActive ? 'active' : ''; ?>" style="background-color: <?php echo $c; ?>;" data-color="<?php echo $c; ?>"></div>
-                                            <?php } ?>
-                                            <input type="color" id="edit-comm-theme-color-custom" class="form-control form-control-solid p-0 border-0 cursor-pointer rounded-circle" style="width: 30px; height: 30px;" value="<?php echo htmlspecialchars($comm_theme_color); ?>" title="Choose custom color" />
-                                            <input type="hidden" id="edit-comm-color" name="theme_color" value="<?php echo htmlspecialchars($comm_theme_color); ?>" />
-                                        </div>
-                                    </div>
-
-                                    <div class="fv-row mb-6">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Community Logo / Photo</label>
-                                        <input type="file" id="edit-comm-logo" name="logo" class="form-control form-control-solid bg-light" accept="image/*" />
-                                    </div>
-
-                                    <div class="fv-row mb-6">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Assign New Admin (Transfer Ownership)</label>
-                                        <select id="edit-comm-new-admin" name="new_admin_id" class="form-select form-select-solid bg-light">
-                                            <option value="">-- Keep current admin --</option>
-                                            <?php 
-                                            if ($EDITH) {
-                                                $esc_title = $EDITH->real_escape_string($community_name);
-                                                $members_res = $EDITH->query(
-                                                    "SELECT cm.identification, a.display_name 
-                                                     FROM community_members cm
-                                                     JOIN accounts a ON cm.identification = a.identification
-                                                     WHERE cm.community_title = '$esc_title' AND cm.identification != '$identification'"
-                                                );
-                                                if ($members_res) {
-                                                    while ($member_row = $members_res->fetch_assoc()) {
-                                                        echo '<option value="' . htmlspecialchars($member_row['identification']) . '">' . htmlspecialchars($member_row['display_name']) . ' (' . htmlspecialchars($member_row['identification']) . ')</option>';
-                                                    }
-                                                }
-                                            }
-                                            ?>
-                                        </select>
-                                        <span class="fs-9 text-muted mt-1 d-block">Warning: Assigning a new admin will transfer ownership. You will become a regular member.</span>
-                                    </div>
-                                    
-                                    <div class="fv-row mb-8">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Custom Topics (comma-separated)</label>
-                                        <input type="text" id="edit-comm-topics" name="custom_topics" class="form-control form-control-solid bg-light" value="<?php echo htmlspecialchars($comm_data['custom_topics'] ?? ''); ?>" placeholder="E.g. Technology, Academics, Gaming" />
-                                        <span class="fs-9 text-muted mt-1 d-block">These will appear in the filter dropdown. Leave empty to use default topics.</span>
-                                    </div>
-                                    
-                                    <div class="d-flex flex-stack gap-4">
-                                        <button type="button" class="btn btn-light-secondary flex-grow-1 fw-bold bg-white" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-warning flex-grow-1 text-white fw-bolder">SAVE CHANGES</button>
-                                    </div>
-                                </form>
-                            </div>
+                      <div class="modal-content border-0 shadow">
+                        <div class="modal-header border-0 p-0 rounded-top" style="background-color: <?php echo htmlspecialchars($comm_theme_color); ?>; transition: background-color 0.3s ease;">
+                          <h2 class="fw-bolder text-white px-8 py-6 m-0 w-100 d-flex align-items-center gap-2">
+                            <i class="bi bi-pencil-square"></i> Edit Community Settings
+                          </h2>
+                          <button type="button" class="btn btn-sm btn-icon btn-active-color-primary position-absolute end-0 top-0 mt-4 me-4" data-bs-dismiss="modal">
+                            <i class="bi bi-x-lg fs-4 text-white"></i>
+                          </button>
                         </div>
-                    </div>
-                </div>
+                        <div class="modal-body px-8 py-8">
+                          <form id="edit-community-form" enctype="multipart/form-data">
+                            <input type="hidden" id="edit-comm-title" name="title" value="<?php echo htmlspecialchars($community_name); ?>" />
 
-                <!-- Add Announcement Modal -->
-                <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-hidden="true">
+                            <div class="fv-row mb-6">
+                              <label class="fs-6 fw-bold mb-2 text-dark">Community Name</label>
+                              <input type="text" class="form-control form-control-solid bg-light text-muted" value="<?php echo htmlspecialchars($community_name); ?>" readonly />
+                              <span class="fs-9 text-muted mt-1 d-block">Community name cannot be modified to preserve links.</span>
+                            </div>
+
+                            <div class="fv-row mb-6">
+                              <label class="fs-6 fw-bold mb-2 text-dark">Description</label>
+                              <textarea id="edit-comm-desc" name="desc" class="form-control form-control-solid bg-light" rows="4" required><?php echo htmlspecialchars($comm_desc); ?></textarea>
+                            </div>
+
+                            <div class="row mb-6">
+                              <div class="col-6">
+                                <label class="fs-6 fw-bold mb-2 text-dark">Category</label>
+                                <select id="edit-comm-cat" name="category" class="form-select form-select-solid bg-light" required>
+                                  <option value="FEU TECH" <?php echo ($comm_data['category'] ?? '') === 'FEU TECH' ? 'selected' : ''; ?>>FEU TECH</option>
+                                  <option value="FEU ALABANG" <?php echo ($comm_data['category'] ?? '') === 'FEU ALABANG' ? 'selected' : ''; ?>>FEU ALABANG</option>
+                                  <option value="FEU DILIMAN" <?php echo ($comm_data['category'] ?? '') === 'FEU DILIMAN' ? 'selected' : ''; ?>>FEU DILIMAN</option>
+                                  <option value="my-communities" <?php echo ($comm_data['category'] ?? '') === 'my-communities' ? 'selected' : ''; ?>>My Communities</option>
+                                </select>
+                              </div>
+                              <div class="col-6">
+                                <label class="fs-6 fw-bold mb-2 text-dark">Community Icon</label>
+                                <select id="edit-comm-icon" name="icon" class="form-select form-select-solid bg-light" required>
+                                  <option value="bi-people-fill" <?php echo $comm_icon === 'bi-people-fill' ? 'selected' : ''; ?>>People / General</option>
+                                  <option value="bi-heart-fill" <?php echo $comm_icon === 'bi-heart-fill' ? 'selected' : ''; ?>>Life / Health</option>
+                                  <option value="bi-cup-hot-fill" <?php echo $comm_icon === 'bi-cup-hot-fill' ? 'selected' : ''; ?>>Food / Cafe</option>
+                                  <option value="bi-palette-fill" <?php echo $comm_icon === 'bi-palette-fill' ? 'selected' : ''; ?>>Art / Creative</option>
+                                  <option value="bi-journal-bookmark-fill" <?php echo $comm_icon === 'bi-journal-bookmark-fill' ? 'selected' : ''; ?>>Academics / Library</option>
+                                  <option value="bi-lightbulb-fill" <?php echo $comm_icon === 'bi-lightbulb-fill' ? 'selected' : ''; ?>>Startup / Ideas</option>
+                                  <option value="bi-building-fill" <?php echo $comm_icon === 'bi-building-fill' ? 'selected' : ''; ?>>Campus / Buildings</option>
+                                  <option value="bi-cpu-fill" <?php echo $comm_icon === 'bi-cpu-fill' ? 'selected' : ''; ?>>Dev / Tech</option>
+                                  <option value="bi-mortarboard-fill" <?php echo $comm_icon === 'bi-mortarboard-fill' ? 'selected' : ''; ?>>Graduation</option>
+                                  <option value="bi-trophy-fill" <?php echo $comm_icon === 'bi-trophy-fill' ? 'selected' : ''; ?>>Sports / Gaming</option>
+                                  <option value="bi-music-note-beamed" <?php echo $comm_icon === 'bi-music-note-beamed' ? 'selected' : ''; ?>>Music / Ent.</option>
+                                  <option value="bi-exclamation-circle" <?php echo $comm_icon === 'bi-exclamation-circle' ? 'selected' : ''; ?>>Support / Issues</option>
+                                </select>
+                              </div>
+                            </div>
+
+                            <div class="fv-row mb-6">
+                              <label class="fs-6 fw-bold mb-2 text-dark">Theme Color</label>
+                              <div class="d-flex align-items-center gap-3 edit-theme-color-picker flex-wrap">
+                                <?php
+                                $colors = ['#1A8B44', '#0b5ed7', '#6610f2', '#d63384', '#dc3545', '#6c757d', '#212529', '#198754', '#0dcaf0', '#20c997'];
+                                foreach ($colors as $c) {
+                                  $isActive = ($comm_theme_color === $c);
+                                ?>
+                                  <div class="w-30px h-30px rounded-circle cursor-pointer border border-2 border-white shadow-sm edit-theme-color-btn <?php echo $isActive ? 'active' : ''; ?>" style="background-color: <?php echo $c; ?>;" data-color="<?php echo $c; ?>"></div>
+                                <?php } ?>
+                                <input type="color" id="edit-comm-theme-color-custom" class="form-control form-control-solid p-0 border-0 cursor-pointer rounded-circle" style="width: 30px; height: 30px;" value="<?php echo htmlspecialchars($comm_theme_color); ?>" title="Choose custom color" />
+                                <input type="hidden" id="edit-comm-color" name="theme_color" value="<?php echo htmlspecialchars($comm_theme_color); ?>" />
+                              </div>
+                            </div>
+
+                            <div class="fv-row mb-6">
+                              <label class="fs-6 fw-bold mb-2 text-dark">Community Logo / Photo</label>
+                              <input type="file" id="edit-comm-logo" name="logo" class="form-control form-control-solid bg-light" accept="image/*" />
+                            </div>
+
+                            <div class="fv-row mb-6">
+                              <label class="fs-6 fw-bold mb-2 text-dark">Assign New Admin (Transfer Ownership)</label>
+                              <select id="edit-comm-new-admin" name="new_admin_id" class="form-select form-select-solid bg-light">
+                                <option value="">-- Keep current admin --</option>
+                                <?php
+                                // Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
+                                $sample_members = [
+                                  ['identification' => 'T202110100', 'display_name' => 'Marco Torres'],
+                                  ['identification' => 'T202110101', 'display_name' => 'Catalina Smith'],
+                                ];
+                                foreach ($sample_members as $member_row) {
+                                  echo '<option value="' . htmlspecialchars($member_row['identification']) . '">' . htmlspecialchars($member_row['display_name']) . ' (' . htmlspecialchars($member_row['identification']) . ')</option>';
+                                }
+                                ?>
+                              </select>
+                              <span class="fs-9 text-muted mt-1 d-block">Warning: Assigning a new admin will transfer ownership. You will become a regular member.</span>
+                            </div>
+
+                            <div class="fv-row mb-8">
+                              <label class="fs-6 fw-bold mb-2 text-dark">Custom Topics (comma-separated)</label>
+                              <input type="text" id="edit-comm-topics" name="custom_topics" class="form-control form-control-solid bg-light" value="<?php echo htmlspecialchars($comm_data['custom_topics'] ?? ''); ?>" placeholder="E.g. Technology, Academics, Gaming" />
+                              <span class="fs-9 text-muted mt-1 d-block">These will appear in the filter dropdown. Leave empty to use default topics.</span>
+                            </div>
+
+                            <div class="d-flex flex-stack gap-4">
+                              <button type="button" class="btn btn-light-secondary flex-grow-1 fw-bold bg-white" data-bs-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-warning flex-grow-1 text-white fw-bolder">SAVE CHANGES</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Add Announcement Modal -->
+                  <div class="modal fade" id="addAnnouncementModal" tabindex="-1" aria-hidden="true">
                     <div class="modal-dialog modal-dialog-centered mw-600px">
-                        <div class="modal-content border-0 shadow">
-                            <div class="modal-header border-0 p-0 rounded-top" style="background-color: <?php echo htmlspecialchars($comm_theme_color); ?>;">
-                                <h2 class="fw-bolder text-white px-8 py-6 m-0 w-100 d-flex align-items-center gap-2">
-                                    <i class="bi bi-megaphone-fill"></i> Post Announcement
-                                </h2>
-                                <button type="button" class="btn btn-sm btn-icon btn-active-color-primary position-absolute end-0 top-0 mt-4 me-4" data-bs-dismiss="modal">
-                                    <i class="bi bi-x-lg fs-4 text-white"></i>
-                                </button>
-                            </div>
-                            <div class="modal-body px-8 py-8">
-                                <form id="add-announcement-form">
-                                    <input type="hidden" name="community" value="<?php echo htmlspecialchars($community_name); ?>" />
-                                    
-                                    <div class="fv-row mb-6">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Announcement Title</label>
-                                        <input type="text" name="title" class="form-control form-control-solid bg-light" placeholder="E.g. Schedule for Midterm Examinations" required />
-                                    </div>
-                                    
-                                    <div class="fv-row mb-6">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Content</label>
-                                        <textarea name="body" class="form-control form-control-solid bg-light" rows="6" placeholder="Write details about the announcement..." required></textarea>
-                                    </div>
-                                    
-                                    <div class="row mb-8">
-                                        <div class="col-6">
-                                            <label class="fs-6 fw-bold mb-2 text-dark">Topic</label>
-                                            <select name="topic" class="form-select form-select-solid bg-light" required>
-                                                <?php
-                                                $ann_topics = !empty($custom_topics_list) ? $custom_topics_list : ['GENERAL', 'FEU', 'ACADEMICS', 'NEWS', 'TECHNOLOGY', 'LIFESTYLE'];
-                                                foreach ($ann_topics as $t) {
-                                                ?>
-                                                <option value="<?php echo htmlspecialchars(strtoupper($t)); ?>"><?php echo htmlspecialchars($t); ?></option>
-                                                <?php } ?>
-                                            </select>
-                                        </div>
-                                        <div class="col-6">
-                                            <label class="fs-6 fw-bold mb-2 text-dark">Tags</label>
-                                            <div class="d-flex flex-wrap align-items-center gap-2 form-control form-control-solid bg-light border p-2" id="ann-tag-wrap" onclick="document.getElementById('ann-tag-input').focus()" style="min-height: 42px; cursor: text;">
-                                                <input type="text" id="ann-tag-input" class="border-0 bg-transparent flex-grow-1" placeholder="Type tag & press Enter..." style="outline: none; min-width: 100px; font-size: 13px;">
-                                            </div>
-                                            <input type="hidden" name="tags" id="ann-tags-hidden" value="">
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="d-flex flex-stack gap-4">
-                                        <button type="button" class="btn btn-light-secondary flex-grow-1 fw-bold bg-white" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-success flex-grow-1 text-white fw-bolder" style="background-color: <?php echo htmlspecialchars($comm_theme_color); ?>; border-color: <?php echo htmlspecialchars($comm_theme_color); ?>;">POST ANNOUNCEMENT</button>
-                                    </div>
-                                </form>
-                            </div>
+                      <div class="modal-content border-0 shadow">
+                        <div class="modal-header border-0 p-0 rounded-top" style="background-color: <?php echo htmlspecialchars($comm_theme_color); ?>;">
+                          <h2 class="fw-bolder text-white px-8 py-6 m-0 w-100 d-flex align-items-center gap-2">
+                            <i class="bi bi-megaphone-fill"></i> Post Announcement
+                          </h2>
+                          <button type="button" class="btn btn-sm btn-icon btn-active-color-primary position-absolute end-0 top-0 mt-4 me-4" data-bs-dismiss="modal">
+                            <i class="bi bi-x-lg fs-4 text-white"></i>
+                          </button>
                         </div>
-                    </div>
-                </div>
+                        <div class="modal-body px-8 py-8">
+                          <form id="add-announcement-form">
+                            <input type="hidden" name="community" value="<?php echo htmlspecialchars($community_name); ?>" />
 
-                <!-- Delete Community Modal -->
-                <div class="modal fade" id="deleteCommunityModal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered mw-500px">
-                        <div class="modal-content border-0 shadow">
-                            <div class="modal-header border-0 pb-0 justify-content-end" style="position: absolute; right: 0; z-index: 10;">
-                                <button type="button" class="btn btn-sm btn-icon btn-active-color-danger mt-2 me-2" data-bs-dismiss="modal">
-                                    <i class="bi bi-x-lg fs-4 text-gray-500"></i>
-                                </button>
+                            <div class="fv-row mb-6">
+                              <label class="fs-6 fw-bold mb-2 text-dark">Announcement Title</label>
+                              <input type="text" name="title" class="form-control form-control-solid bg-light" placeholder="E.g. Schedule for Midterm Examinations" required />
                             </div>
-                            <div class="modal-body px-8 py-10 text-center">
-                                <div class="mb-6">
-                                    <div class="w-70px h-70px rounded-circle bg-light-danger d-flex align-items-center justify-content-center mx-auto mb-4">
-                                        <i class="bi bi-exclamation-triangle-fill fs-1 text-danger"></i>
-                                    </div>
-                                    <h2 class="fw-bolder text-gray-900 mb-2">Delete Community</h2>
-                                    <p class="text-muted fs-6 mb-6">
-                                        This action is <strong>permanent</strong> and cannot be undone.<br>
-                                        It will permanently delete the community <strong><?php echo htmlspecialchars($community_name); ?></strong>, along with all posts, comments, memberships, and tags.
-                                    </p>
+
+                            <div class="fv-row mb-6">
+                              <label class="fs-6 fw-bold mb-2 text-dark">Content</label>
+                              <textarea name="body" class="form-control form-control-solid bg-light" rows="6" placeholder="Write details about the announcement..." required></textarea>
+                            </div>
+
+                            <div class="row mb-8">
+                              <div class="col-6">
+                                <label class="fs-6 fw-bold mb-2 text-dark">Topic</label>
+                                <select name="topic" class="form-select form-select-solid bg-light" required>
+                                  <?php
+                                  $ann_topics = !empty($custom_topics_list) ? $custom_topics_list : ['GENERAL', 'FEU', 'ACADEMICS', 'NEWS', 'TECHNOLOGY', 'LIFESTYLE'];
+                                  foreach ($ann_topics as $t) {
+                                  ?>
+                                    <option value="<?php echo htmlspecialchars(strtoupper($t)); ?>"><?php echo htmlspecialchars($t); ?></option>
+                                  <?php } ?>
+                                </select>
+                              </div>
+                              <div class="col-6">
+                                <label class="fs-6 fw-bold mb-2 text-dark">Tags</label>
+                                <div class="d-flex flex-wrap align-items-center gap-2 form-control form-control-solid bg-light border p-2" id="ann-tag-wrap" onclick="document.getElementById('ann-tag-input').focus()" style="min-height: 42px; cursor: text;">
+                                  <input type="text" id="ann-tag-input" class="border-0 bg-transparent flex-grow-1" placeholder="Type tag & press Enter..." style="outline: none; min-width: 100px; font-size: 13px;">
                                 </div>
-                                
-                                <form id="delete-community-form">
-                                    <input type="hidden" name="title" value="<?php echo htmlspecialchars($community_name); ?>" />
-                                    
-                                    <div class="fv-row mb-8 text-start">
-                                        <label class="fs-7 fw-bold mb-2 text-gray-700">Type <strong><?php echo htmlspecialchars($community_name); ?></strong> to confirm:</label>
-                                        <input type="text" id="delete-confirm-name" class="form-control form-control-solid bg-light" placeholder="Type name here" required />
-                                    </div>
-                                    
-                                    <div class="d-flex gap-4">
-                                        <button type="button" class="btn btn-light-secondary flex-grow-1 fw-bold bg-white" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-danger flex-grow-1 fw-bolder">DELETE PERMANENTLY</button>
-                                    </div>
-                                </form>
+                                <input type="hidden" name="tags" id="ann-tags-hidden" value="">
+                              </div>
                             </div>
+
+                            <div class="d-flex flex-stack gap-4">
+                              <button type="button" class="btn btn-light-secondary flex-grow-1 fw-bold bg-white" data-bs-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-success flex-grow-1 text-white fw-bolder" style="background-color: <?php echo htmlspecialchars($comm_theme_color); ?>; border-color: <?php echo htmlspecialchars($comm_theme_color); ?>;">POST ANNOUNCEMENT</button>
+                            </div>
+                          </form>
                         </div>
+                      </div>
                     </div>
-                </div>
+                  </div>
+
+                  <!-- Delete Community Modal -->
+                  <div class="modal fade" id="deleteCommunityModal" tabindex="-1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered mw-500px">
+                      <div class="modal-content border-0 shadow">
+                        <div class="modal-header border-0 pb-0 justify-content-end" style="position: absolute; right: 0; z-index: 10;">
+                          <button type="button" class="btn btn-sm btn-icon btn-active-color-danger mt-2 me-2" data-bs-dismiss="modal">
+                            <i class="bi bi-x-lg fs-4 text-gray-500"></i>
+                          </button>
+                        </div>
+                        <div class="modal-body px-8 py-10 text-center">
+                          <div class="mb-6">
+                            <div class="w-70px h-70px rounded-circle bg-light-danger d-flex align-items-center justify-content-center mx-auto mb-4">
+                              <i class="bi bi-exclamation-triangle-fill fs-1 text-danger"></i>
+                            </div>
+                            <h2 class="fw-bolder text-gray-900 mb-2">Delete Community</h2>
+                            <p class="text-muted fs-6 mb-6">
+                              This action is <strong>permanent</strong> and cannot be undone.<br>
+                              It will permanently delete the community <strong><?php echo htmlspecialchars($community_name); ?></strong>, along with all posts, comments, memberships, and tags.
+                            </p>
+                          </div>
+
+                          <form id="delete-community-form">
+                            <input type="hidden" name="title" value="<?php echo htmlspecialchars($community_name); ?>" />
+
+                            <div class="fv-row mb-8 text-start">
+                              <label class="fs-7 fw-bold mb-2 text-gray-700">Type <strong><?php echo htmlspecialchars($community_name); ?></strong> to confirm:</label>
+                              <input type="text" id="delete-confirm-name" class="form-control form-control-solid bg-light" placeholder="Type name here" required />
+                            </div>
+
+                            <div class="d-flex gap-4">
+                              <button type="button" class="btn btn-light-secondary flex-grow-1 fw-bold bg-white" data-bs-dismiss="modal">Cancel</button>
+                              <button type="submit" class="btn btn-danger flex-grow-1 fw-bolder">DELETE PERMANENTLY</button>
+                            </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 <?php } ?>
 
               </div>
@@ -986,26 +963,37 @@ if ($EDITH) {
         const joined = btn.data('joined') == '1';
         const isAdmin = <?php echo ($is_community_admin) ? 'true' : 'false'; ?>;
         if (joined && isAdmin) {
-            alert('You cannot leave this community because you are the admin. Please assign a new admin first.');
-            return;
+          alert('You cannot leave this community because you are the admin. Please assign a new admin first.');
+          return;
         }
         btn.prop('disabled', true);
         $.ajax({
           url: '/Discourse/communities/index-ajax-join-community.php',
           method: 'POST',
-          data: { community_title: comm, action: joined ? 'leave' : 'join' },
+          data: {
+            community_title: comm,
+            action: joined ? 'leave' : 'join'
+          },
           dataType: 'json',
           success: function(res) {
             if (res.success) {
               const nowJoined = !joined;
               btn.data('joined', nowJoined ? '1' : '0');
               if (nowJoined) {
-                btn.css({'background':'transparent','color':'#fff','border':'2px solid rgba(255,255,255,0.7)'});
+                btn.css({
+                  'background': 'transparent',
+                  'color': '#fff',
+                  'border': '2px solid rgba(255,255,255,0.7)'
+                });
               } else {
-                btn.css({'background':'#fff','color':'#0b301f','border':'2px solid #fff'});
+                btn.css({
+                  'background': '#fff',
+                  'color': '#0b301f',
+                  'border': '2px solid #fff'
+                });
               }
               btn.find('i').attr('class', nowJoined ? 'bi bi-check-lg fs-6' : 'bi bi-plus-lg fs-6')
-                           .css('color', nowJoined ? '#fff' : '#0b301f');
+                .css('color', nowJoined ? '#fff' : '#0b301f');
               btn.find('span').text(nowJoined ? 'JOINED' : 'JOIN COMMUNITY');
               // Update member counts
               if (res.members_count !== undefined) {
@@ -1015,7 +1003,9 @@ if ($EDITH) {
               }
             }
           },
-          complete: function() { btn.prop('disabled', false); }
+          complete: function() {
+            btn.prop('disabled', false);
+          }
         });
       });
 
@@ -1157,9 +1147,9 @@ if ($EDITH) {
         const form = $(this);
         const submitBtn = form.find('button[type="submit"]');
         submitBtn.prop('disabled', true);
-        
+
         var formData = new FormData(this);
-        
+
         $.ajax({
           url: '/Discourse/communities/index-ajax-update-community.php',
           method: 'POST',
@@ -1191,7 +1181,7 @@ if ($EDITH) {
         const form = $(this);
         const submitBtn = form.find('button[type="submit"]');
         submitBtn.prop('disabled', true);
-        
+
         $.ajax({
           url: '/Discourse/posts/index-ajax-add-announcement.php',
           method: 'POST',
@@ -1221,15 +1211,15 @@ if ($EDITH) {
         const form = $(this);
         const confirmInput = $('#delete-confirm-name').val().trim();
         const actualName = form.find('input[name="title"]').val().trim();
-        
+
         if (confirmInput !== actualName) {
           alert('Please type the community name exactly as shown to confirm deletion.');
           return;
         }
-        
+
         const submitBtn = form.find('button[type="submit"]');
         submitBtn.prop('disabled', true);
-        
+
         $.ajax({
           url: '/Discourse/communities/index-ajax-delete-community.php',
           method: 'POST',
@@ -1253,58 +1243,61 @@ if ($EDITH) {
 
       // Announcement hashtag chips logic
       (function() {
-          const tagInput = $('#ann-tag-input');
-          const tagWrap = $('#ann-tag-wrap');
-          const tagsHidden = $('#ann-tags-hidden');
-          if (!tagInput.length || !tagWrap.length) return;
-          
-          let tags = [];
+        const tagInput = $('#ann-tag-input');
+        const tagWrap = $('#ann-tag-wrap');
+        const tagsHidden = $('#ann-tags-hidden');
+        if (!tagInput.length || !tagWrap.length) return;
 
-          tagInput.on('keydown', function(e) {
-              if ((e.key === 'Enter' || e.key === ',') && tagInput.val().trim()) {
-                  e.preventDefault();
-                  let val = tagInput.val().trim().replace(/,/g, '');
-                  if (val) {
-                      if (!val.startsWith('#')) {
-                          val = '#' + val;
-                      }
-                      if (!tags.includes(val)) {
-                          tags.push(val);
-                          renderTags();
-                      }
-                  }
-                  tagInput.val('');
-              }
-              if (e.key === 'Backspace' && !tagInput.val() && tags.length) {
-                  tags.pop();
-                  renderTags();
-              }
-          });
+        let tags = [];
 
-          function renderTags() {
-              tagWrap.find('.badge').remove();
-              tags.forEach(function(tag, i) {
-                  const badge = $('<span class="badge rounded-pill px-3 py-2 fs-8 d-inline-flex align-items-center gap-1"></span>')
-                      .css({'background-color': '#dce8df', 'color': '#3a5c45'})
-                      .text(tag);
-                  const closeBtn = $('<button type="button" class="btn-close btn-close-sm ms-1" style="font-size:9px; cursor: pointer;"></button>')
-                      .on('click', function(e) {
-                          e.stopPropagation();
-                          tags.splice(i, 1);
-                          renderTags();
-                      });
-                  badge.append(closeBtn);
-                  badge.insertBefore(tagInput);
-              });
-              tagsHidden.val(tags.join(','));
+        tagInput.on('keydown', function(e) {
+          if ((e.key === 'Enter' || e.key === ',') && tagInput.val().trim()) {
+            e.preventDefault();
+            let val = tagInput.val().trim().replace(/,/g, '');
+            if (val) {
+              if (!val.startsWith('#')) {
+                val = '#' + val;
+              }
+              if (!tags.includes(val)) {
+                tags.push(val);
+                renderTags();
+              }
+            }
+            tagInput.val('');
           }
+          if (e.key === 'Backspace' && !tagInput.val() && tags.length) {
+            tags.pop();
+            renderTags();
+          }
+        });
 
-          // Clear tags when modal is hidden or form reset
-          $('#addAnnouncementModal').on('hidden.bs.modal', function() {
-              tags = [];
-              renderTags();
-              tagInput.val('');
+        function renderTags() {
+          tagWrap.find('.badge').remove();
+          tags.forEach(function(tag, i) {
+            const badge = $('<span class="badge rounded-pill px-3 py-2 fs-8 d-inline-flex align-items-center gap-1"></span>')
+              .css({
+                'background-color': '#dce8df',
+                'color': '#3a5c45'
+              })
+              .text(tag);
+            const closeBtn = $('<button type="button" class="btn-close btn-close-sm ms-1" style="font-size:9px; cursor: pointer;"></button>')
+              .on('click', function(e) {
+                e.stopPropagation();
+                tags.splice(i, 1);
+                renderTags();
+              });
+            badge.append(closeBtn);
+            badge.insertBefore(tagInput);
           });
+          tagsHidden.val(tags.join(','));
+        }
+
+        // Clear tags when modal is hidden or form reset
+        $('#addAnnouncementModal').on('hidden.bs.modal', function() {
+          tags = [];
+          renderTags();
+          tagInput.val('');
+        });
       })();
 
       // Highlight Post AJAX
@@ -1314,11 +1307,14 @@ if ($EDITH) {
         const postId = btn.data('post-id');
         const highlighted = btn.data('highlighted') == '1';
         btn.prop('disabled', true);
-        
+
         $.ajax({
           url: '/Discourse/posts/index-ajax-highlight-post.php',
           method: 'POST',
-          data: { post_id: postId, action: highlighted ? 'unhighlight' : 'highlight' },
+          data: {
+            post_id: postId,
+            action: highlighted ? 'unhighlight' : 'highlight'
+          },
           dataType: 'json',
           success: function(res) {
             if (res.status === 'success') {
@@ -1354,11 +1350,11 @@ if ($EDITH) {
       // Check for URL status parameters on load
       const urlParams = new URLSearchParams(window.location.search);
       if (urlParams.get('status') === 'success') {
-          showFeedToast('Post created successfully!');
-          window.history.replaceState({}, document.title, window.location.pathname + (urlParams.get('c') ? '?c=' + encodeURIComponent(urlParams.get('c')) : ''));
+        showFeedToast('Post created successfully!');
+        window.history.replaceState({}, document.title, window.location.pathname + (urlParams.get('c') ? '?c=' + encodeURIComponent(urlParams.get('c')) : ''));
       } else if (urlParams.get('status') === 'error') {
-          alert('Failed to create post. Please try again.');
-          window.history.replaceState({}, document.title, window.location.pathname + (urlParams.get('c') ? '?c=' + encodeURIComponent(urlParams.get('c')) : ''));
+        alert('Failed to create post. Please try again.');
+        window.history.replaceState({}, document.title, window.location.pathname + (urlParams.get('c') ? '?c=' + encodeURIComponent(urlParams.get('c')) : ''));
       }
     });
 

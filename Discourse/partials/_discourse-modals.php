@@ -79,22 +79,11 @@ $m_id     = $identification ?? '';
 $m_avatar = !empty($ACCOUNT['avatar_md']) ? $ACCOUNT['avatar_md'] : '/Discourse/assets/images/anonymous.png';
 $m_role   = $ACCOUNT['role'] ?? 'Student';
 
-$m_karma    = 0;
-$m_posts    = 0;
-$m_comments = 0;
-$m_saved    = 0;
-if ($EDITH && $m_id) {
-    $eid = $EDITH->real_escape_string($m_id);
-    $r = $EDITH->query("SELECT COALESCE(SUM(upvotes),0) as k FROM posts WHERE author_id='$eid'");
-    $m_karma = $r ? (int)$r->fetch_assoc()['k'] : 0;
-    $r = $EDITH->query("SELECT COUNT(*) as c FROM posts WHERE author_id='$eid' AND is_anonymous=0");
-    $m_posts = $r ? (int)$r->fetch_assoc()['c'] : 0;
-    $r = $EDITH->query("SELECT COUNT(*) as c FROM comments WHERE author_id='$eid'");
-    $m_comments = $r ? (int)$r->fetch_assoc()['c'] : 0;
-    $r = $EDITH->query("SELECT COUNT(*) as c FROM saved_posts WHERE identification='$eid'");
-    $m_saved = $r ? (int)$r->fetch_assoc()['c'] : 0;
-}
-$m_karma_fmt = $m_karma >= 1000 ? round($m_karma/1000, 1).'k' : $m_karma;
+$m_karma    = 412;
+$m_posts    = 18;
+$m_comments = 42;
+$m_saved    = 3;
+$m_karma_fmt = $m_karma >= 1000 ? round($m_karma / 1000, 1) . 'k' : $m_karma;
 ?>
 <div class="dropdown-menu p-0 discourse-profile-dropdown" id="discourseProfileDropdown" aria-labelledby="discourseProfileAvatar">
 
@@ -210,11 +199,11 @@ $m_karma_fmt = $m_karma >= 1000 ? round($m_karma/1000, 1).'k' : $m_karma;
             <span class="discourse-report-option-icon discourse-report-icon-gray"><i class="bi bi-three-dots"></i></span>
             <span class="fs-7 fw-semibold text-gray-700">Others</span>
           </button>
-<textarea id="discourseReportOtherText"
-  class="form-control form-control-solid fs-7 mt-1"
-  rows="3"
-  placeholder="Please describe the issue…"
-  style="display:none;resize:none;"></textarea>
+          <textarea id="discourseReportOtherText"
+            class="form-control form-control-solid fs-7 mt-1"
+            rows="3"
+            placeholder="Please describe the issue…"
+            style="display:none;resize:none;"></textarea>
         </div>
       </div>
 

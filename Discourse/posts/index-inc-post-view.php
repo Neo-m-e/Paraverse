@@ -3,7 +3,8 @@ if (!defined('MBG')) define('MBG', TRUE);
 include_once(dirname(__DIR__) . '/functions-new.php');
 
 if (!function_exists('get_relative_time')) {
-    function get_relative_time($datetime) {
+    function get_relative_time($datetime)
+    {
         $time = strtotime($datetime);
         if (!$time) return '1d ago';
         $now = time();
@@ -19,7 +20,6 @@ if (!function_exists('get_relative_time')) {
     }
 }
 
-// Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
 $post      = null;
 $post_id   = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $comments  = [];
@@ -31,14 +31,14 @@ $loggedInName      = $ACCOUNT['display_name'] ?? 'User';
 $loggedInInitials  = implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $loggedInName)));
 
 if (!$db_post_loaded) {
-$META_TITLE = "View Post - Discourse";
-$showImage = isset($_GET['img']) && $_GET['img'] == '1';
-$showPoll = isset($_GET['poll']) && $_GET['poll'] == '1';
-$showAnon = isset($_GET['anon']) && $_GET['anon'] == '1';
-$showSample = isset($_GET['sample']) && $_GET['sample'] == '1';
-$can_edit = false;
-$authorAvatar = '';
-$authorProfileLink = 'javascript:void(0)';
+    $META_TITLE = "View Post - Discourse";
+    $showImage = isset($_GET['img']) && $_GET['img'] == '1';
+    $showPoll = isset($_GET['poll']) && $_GET['poll'] == '1';
+    $showAnon = isset($_GET['anon']) && $_GET['anon'] == '1';
+    $showSample = isset($_GET['sample']) && $_GET['sample'] == '1';
+    $can_edit = false;
+    $authorAvatar = '';
+    $authorProfileLink = 'javascript:void(0)';
 }
 
 $communityMeta = [
@@ -55,44 +55,80 @@ $samplePostsById = [
     1 => [
         'postTitle' => 'The silent revolution in edge AI — why on-device inference is changing everything',
         'postDesc'  => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.",
-        'authorName' => 'Ravi Joshi', 'authorInitials' => 'RJ',
+        'authorName' => 'Ravi Joshi',
+        'authorInitials' => 'RJ',
         'bannerMeta' => 'Technology • Posted by Ravi Joshi • 3h ago',
-        'tag' => 'TECHNOLOGY', 'community' => 'FEU Tech', 'showImage' => false, 'showPoll' => false, 'showAnon' => false, 'can_edit' => false,
+        'tag' => 'TECHNOLOGY',
+        'community' => 'FEU Tech',
+        'showImage' => false,
+        'showPoll' => false,
+        'showAnon' => false,
+        'can_edit' => false,
     ],
     2 => [
         'postTitle' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
         'postDesc'  => 'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.',
-        'authorName' => 'John Doe', 'authorInitials' => 'JD',
+        'authorName' => 'John Doe',
+        'authorInitials' => 'JD',
         'bannerMeta' => 'Entertainment • Posted by John Doe • 1d ago',
-        'tag' => 'ENTERTAINMENT', 'community' => 'FEU Tech', 'showImage' => false, 'showPoll' => false, 'showAnon' => false, 'can_edit' => false,
+        'tag' => 'ENTERTAINMENT',
+        'community' => 'FEU Tech',
+        'showImage' => false,
+        'showPoll' => false,
+        'showAnon' => false,
+        'can_edit' => false,
     ],
     3 => [
         'postTitle' => 'What if FEU had a no-grade-penalty mental health leave policy?',
         'postDesc'  => 'Just thinking — a lot of students I know failed a whole semester because they were dealing with severe anxiety during midterms. The university had no mechanism to help them — just a strict drop policy or failure. Other universities have mental health leaves where students can pause without academic penalty. Should FEU implement something similar?',
-        'authorName' => 'Anonymous', 'authorInitials' => 'A',
+        'authorName' => 'Anonymous',
+        'authorInitials' => 'A',
         'bannerMeta' => 'Issues • Posted anonymously • 1d ago',
-        'tag' => 'ISSUES', 'community' => 'FEU Tech', 'showImage' => false, 'showPoll' => false, 'showAnon' => true, 'can_edit' => false,
+        'tag' => 'ISSUES',
+        'community' => 'FEU Tech',
+        'showImage' => false,
+        'showPoll' => false,
+        'showAnon' => true,
+        'can_edit' => false,
     ],
     4 => [
         'postTitle' => 'Lorem ipsum dolor sit amet consectetur adipiscing elit.',
         'postDesc'  => 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.',
-        'authorName' => 'John Doe', 'authorInitials' => 'JD',
+        'authorName' => 'John Doe',
+        'authorInitials' => 'JD',
         'bannerMeta' => 'Entertainment • Posted by John Doe • 1d ago',
-        'tag' => 'ENTERTAINMENT', 'community' => 'FEU Tech', 'showImage' => false, 'showPoll' => false, 'showAnon' => false, 'can_edit' => false,
+        'tag' => 'ENTERTAINMENT',
+        'community' => 'FEU Tech',
+        'showImage' => false,
+        'showPoll' => false,
+        'showAnon' => false,
+        'can_edit' => false,
     ],
     5 => [
         'postTitle' => '📊 Poll: How do you actually study for finals? Be honest.',
         'postDesc'  => 'Curious how my fellow FEU Tech students survive finals season. Drop your honest answer below 👇',
-        'authorName' => 'Marco Torres', 'authorInitials' => 'MT',
+        'authorName' => 'Marco Torres',
+        'authorInitials' => 'MT',
         'bannerMeta' => 'FEU • Posted by Marco Torres • 4h ago',
-        'tag' => 'FEU', 'community' => 'FEU Life', 'showImage' => false, 'showPoll' => true, 'showAnon' => false, 'can_edit' => false,
+        'tag' => 'FEU',
+        'community' => 'FEU Life',
+        'showImage' => false,
+        'showPoll' => true,
+        'showAnon' => false,
+        'can_edit' => false,
     ],
     6 => [
         'postTitle' => 'FEU Tech library study rooms — worth booking or just use the hallway?',
         'postDesc'  => "Finally tried booking one of the new study rooms in the library. Honest review: the booking system is clunky, the AC is questionable, but the soundproofing is actually great. Worth it for group study if you plan ahead.<br><br>Not ideal for solo cramming though — the chairs are surprisingly uncomfortable for long sessions.",
-        'authorName' => 'Catalina Smith', 'authorInitials' => 'CS',
+        'authorName' => 'Catalina Smith',
+        'authorInitials' => 'CS',
         'bannerMeta' => 'ACADEMICS • Posted by Catalina Smith • 5d ago',
-        'tag' => 'ACADEMICS', 'community' => 'FEU Tech', 'showImage' => true, 'showPoll' => false, 'showAnon' => false, 'can_edit' => true,
+        'tag' => 'ACADEMICS',
+        'community' => 'FEU Tech',
+        'showImage' => true,
+        'showPoll' => false,
+        'showAnon' => false,
+        'can_edit' => true,
     ],
 ];
 
@@ -419,9 +455,9 @@ switch ($backParam) {
                                                 </div>
                                                 <h1 class="fw-bolder text-dark fs-2x mb-4"><?php echo $postTitle; ?></h1>
                                                 <?php if ($post && !empty($post['image_url'])): ?>
-                                                <div class="mt-2 mb-4">
-                                                    <img src="<?php echo htmlspecialchars($post['image_url']); ?>" alt="Post image" class="img-fluid rounded shadow-sm" style="max-height: 450px; width: auto; object-fit: cover;">
-                                                </div>
+                                                    <div class="mt-2 mb-4">
+                                                        <img src="<?php echo htmlspecialchars($post['image_url']); ?>" alt="Post image" class="img-fluid rounded shadow-sm" style="max-height: 450px; width: auto; object-fit: cover;">
+                                                    </div>
                                                 <?php endif; ?>
                                                 <div class="text-gray-800 fs-6 lh-lg mb-6">
                                                     <?php
@@ -475,14 +511,14 @@ switch ($backParam) {
                                                             <i class="bi bi-chat fs-7"></i> <span class="fw-bold fs-8" id="comment-count-text-btn"><?php echo $post ? count($comments) : ($showImage ? '1' : '3'); ?></span>
                                                         </button>
                                                         <button type="button" class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-3 py-2 rounded-pill">
-                                                             <i class="bi bi-share fs-7"></i> <span class="fw-bold fs-8">Share</span>
-                                                         </button>
+                                                            <i class="bi bi-share fs-7"></i> <span class="fw-bold fs-8">Share</span>
+                                                        </button>
                                                         <?php
-                                                         $is_saved = ($post && IS_POST_SAVED($post['id'], $identification));
-                                                         ?>
-                                                         <button type="button" class="btn btn-sm <?php echo $is_saved ? 'saved btn-light-primary' : 'btn-light-muted'; ?> vote-btn btn-save d-flex align-items-center gap-1 px-3 py-2 rounded-pill" id="save-post-btn">
-                                                             <i class="bi <?php echo $is_saved ? 'bi-bookmark-fill' : 'bi-bookmark'; ?> fs-7"></i> <span class="fw-bold fs-8"><?php echo $is_saved ? 'Saved' : 'Save'; ?></span>
-                                                         </button>
+                                                        $is_saved = ($post && IS_POST_SAVED($post['id'], $identification));
+                                                        ?>
+                                                        <button type="button" class="btn btn-sm <?php echo $is_saved ? 'saved btn-light-primary' : 'btn-light-muted'; ?> vote-btn btn-save d-flex align-items-center gap-1 px-3 py-2 rounded-pill" id="save-post-btn">
+                                                            <i class="bi <?php echo $is_saved ? 'bi-bookmark-fill' : 'bi-bookmark'; ?> fs-7"></i> <span class="fw-bold fs-8"><?php echo $is_saved ? 'Saved' : 'Save'; ?></span>
+                                                        </button>
                                                     </div>
                                                     <div class="d-flex align-items-center gap-1">
                                                         <?php if ($can_edit ?? $showImage) { ?>
@@ -490,9 +526,9 @@ switch ($backParam) {
                                                                 <i class="bi bi-pencil-square fs-7 text-primary"></i> <span class="fw-bold fs-8">Edit Post</span>
                                                             </a>
                                                             <?php if ($post) { ?>
-                                                            <button id="delete-post-btn" data-post-id="<?php echo $post['id']; ?>" class="btn btn-sm btn-light-danger d-flex align-items-center gap-1 px-3 py-2 rounded-pill">
-                                                                <i class="bi bi-trash fs-7 text-danger"></i> <span class="fw-bold fs-8">Delete Post</span>
-                                                            </button>
+                                                                <button id="delete-post-btn" data-post-id="<?php echo $post['id']; ?>" class="btn btn-sm btn-light-danger d-flex align-items-center gap-1 px-3 py-2 rounded-pill">
+                                                                    <i class="bi bi-trash fs-7 text-danger"></i> <span class="fw-bold fs-8">Delete Post</span>
+                                                                </button>
                                                             <?php } ?>
                                                         <?php } ?>
                                                         <button type="button" class="btn btn-sm btn-light-muted vote-btn text-danger dc-post-report d-flex align-items-center gap-1 px-3 py-2 rounded-pill"
@@ -523,7 +559,7 @@ switch ($backParam) {
                                                                     $topLevelComments[] = $comment;
                                                                 }
                                                             }
-                                                            
+
                                                             if (!empty($topLevelComments)) {
                                                                 foreach ($topLevelComments as $comment) {
                                                                     $isCommentAnon = ($comment['is_anonymous'] == 1);
@@ -532,136 +568,157 @@ switch ($backParam) {
                                                                     $cAvatar = $isCommentAnon ? '' : (!empty($comment['avatar_md']) ? $comment['avatar_md'] : '');
                                                                     $cBg = $isCommentAnon ? '#ea580c' : '#17c653';
                                                     ?>
-                                                    <div class="mb-4" data-cid="<?php echo $comment['id']; ?>">
-                                                        <div class="d-flex">
-                                                            <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
-                                                                <?php if ($cAvatar) { ?>
-                                                                    <img src="<?php echo htmlspecialchars($cAvatar); ?>" class="h-30px w-30px rounded-circle" alt="<?php echo htmlspecialchars($cName); ?>">
-                                                                <?php } else { ?>
-                                                                    <div class="symbol-label text-white fw-bold fs-7" style="background-color: <?php echo $cBg; ?> !important;"><?php echo htmlspecialchars($cInitials ?: 'U'); ?></div>
-                                                                <?php } ?>
-                                                            </div>
-                                                            <div class="flex-grow-1">
-                                                                <div class="d-flex align-items-center gap-2 mb-1">
-                                                                    <span class="fw-bolder text-dark fs-7"><?php echo htmlspecialchars($cName); ?></span>
-                                                                    <?php if ($isCommentAnon) { ?>
-                                                                        <span class="badge ms-1 rounded-pill" style="font-size:9px;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;"><i class="bi bi-incognito me-1" style="font-size:8px;color:inherit !important;"></i>Anonymous</span>
-                                                                    <?php } ?>
-                                                                    <span class="text-muted fs-9"><?php echo get_relative_time($comment['created_at']); ?></span>
-                                                                </div>
-                                                                <p class="text-gray-800 fs-7 mb-2"><?php echo htmlspecialchars($comment['body']); ?></p>
-                                                                <div class="d-flex align-items-center gap-1 mt-2">
-                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">0</span></button>
-                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
-                                                                    <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"
-                                                                        data-author="<?php echo htmlspecialchars($cName); ?>"
-                                                                        data-comment-id="<?php echo $comment['id']; ?>">
-                                                                        <i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span>
-                                                                    </button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <!-- Inline reply thread area -->
-                                                        <div class="reply-thread-area ps-5 mt-2" id="thread-<?php echo $comment['id']; ?>">
-                                                            <?php
-                                                            if (isset($repliesByParent[$comment['id']])) {
-                                                                foreach ($repliesByParent[$comment['id']] as $reply) {
-                                                                    $isReplyAnon = ($reply['is_anonymous'] == 1);
-                                                                    $rName = $isReplyAnon ? 'Anonymous' : ($reply['author_name'] ?? 'User');
-                                                                    $rInitials = $isReplyAnon ? 'A' : implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $rName)));
-                                                                    $rAvatar = $isReplyAnon ? '' : (!empty($reply['avatar_md']) ? $reply['avatar_md'] : '');
-                                                                    $rBg = $isReplyAnon ? '#ea580c' : '#17c653';
-                                                                    $replyingToName = $cName;
-                                                            ?>
-                                                            <div class="mb-3 pb-2 border-start border-2 ps-3" style="border-color:#d1fae5!important;">
-                                                                <div class="d-flex gap-3">
-                                                                    <div class="flex-shrink-0">
-                                                                        <?php if ($rAvatar) { ?>
-                                                                            <img src="<?php echo htmlspecialchars($rAvatar); ?>" class="rounded-circle" style="width: 28px; height: 28px; object-fit: cover;" alt="<?php echo htmlspecialchars($rName); ?>">
-                                                                        <?php } else { ?>
-                                                                            <div class="symbol-label text-white fw-bold fs-8 rounded-circle d-flex align-items-center justify-content-center" style="width:28px;height:28px;background:<?php echo $rBg; ?>;"><?php echo htmlspecialchars($rInitials); ?></div>
-                                                                        <?php } ?>
-                                                                    </div>
-                                                                    <div class="flex-grow-1">
-                                                                        <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
-                                                                            <span class="fw-bolder text-dark fs-7"><?php echo htmlspecialchars($rName); ?></span>
-                                                                            <span class="text-muted fs-9 me-1">replying to</span><span class="fw-bold text-success fs-9">@<?php echo htmlspecialchars($replyingToName); ?></span>
-                                                                            <?php if ($isReplyAnon) { ?>
-                                                                                <span class="badge ms-1 rounded-pill" style="font-size:9px;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;"><i class="bi bi-incognito me-1" style="font-size:8px;color:inherit !important;"></i>Anonymous</span>
-                                                                            <?php } ?>
-                                                                            <span class="text-muted fs-9"><?php echo get_relative_time($reply['created_at']); ?></span>
+                                                                    <div class="mb-4" data-cid="<?php echo $comment['id']; ?>">
+                                                                        <div class="d-flex">
+                                                                            <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
+                                                                                <?php if ($cAvatar) { ?>
+                                                                                    <img src="<?php echo htmlspecialchars($cAvatar); ?>" class="h-30px w-30px rounded-circle" alt="<?php echo htmlspecialchars($cName); ?>">
+                                                                                <?php } else { ?>
+                                                                                    <div class="symbol-label text-white fw-bold fs-7" style="background-color: <?php echo $cBg; ?> !important;"><?php echo htmlspecialchars($cInitials ?: 'U'); ?></div>
+                                                                                <?php } ?>
+                                                                            </div>
+                                                                            <div class="flex-grow-1">
+                                                                                <div class="d-flex align-items-center gap-2 mb-1">
+                                                                                    <span class="fw-bolder text-dark fs-7"><?php echo htmlspecialchars($cName); ?></span>
+                                                                                    <?php if ($isCommentAnon) { ?>
+                                                                                        <span class="badge ms-1 rounded-pill" style="font-size:9px;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;"><i class="bi bi-incognito me-1" style="font-size:8px;color:inherit !important;"></i>Anonymous</span>
+                                                                                    <?php } ?>
+                                                                                    <span class="text-muted fs-9"><?php echo get_relative_time($comment['created_at']); ?></span>
+                                                                                </div>
+                                                                                <p class="text-gray-800 fs-7 mb-2"><?php echo htmlspecialchars($comment['body']); ?></p>
+                                                                                <div class="d-flex align-items-center gap-1 mt-2">
+                                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                                    <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"
+                                                                                        data-author="<?php echo htmlspecialchars($cName); ?>"
+                                                                                        data-comment-id="<?php echo $comment['id']; ?>">
+                                                                                        <i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span>
+                                                                                    </button>
+                                                                                </div>
+                                                                            </div>
                                                                         </div>
-                                                                        <p class="text-gray-800 fs-7 mb-2"><?php echo htmlspecialchars($reply['body']); ?></p>
-                                                                        <div class="d-flex align-items-center gap-1 mt-1">
-                                                                            <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">0</span></button>
-                                                                            <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
-                                                                            <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"
-                                                                                data-author="<?php echo htmlspecialchars($rName); ?>"
-                                                                                data-comment-id="<?php echo $comment['id']; ?>">
-                                                                                <i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span>
-                                                                            </button>
+                                                                        <!-- Inline reply thread area -->
+                                                                        <div class="reply-thread-area ps-5 mt-2" id="thread-<?php echo $comment['id']; ?>">
+                                                                            <?php
+                                                                            if (isset($repliesByParent[$comment['id']])) {
+                                                                                foreach ($repliesByParent[$comment['id']] as $reply) {
+                                                                                    $isReplyAnon = ($reply['is_anonymous'] == 1);
+                                                                                    $rName = $isReplyAnon ? 'Anonymous' : ($reply['author_name'] ?? 'User');
+                                                                                    $rInitials = $isReplyAnon ? 'A' : implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $rName)));
+                                                                                    $rAvatar = $isReplyAnon ? '' : (!empty($reply['avatar_md']) ? $reply['avatar_md'] : '');
+                                                                                    $rBg = $isReplyAnon ? '#ea580c' : '#17c653';
+                                                                                    $replyingToName = $cName;
+                                                                            ?>
+                                                                                    <div class="mb-3 pb-2 border-start border-2 ps-3" style="border-color:#d1fae5!important;">
+                                                                                        <div class="d-flex gap-3">
+                                                                                            <div class="flex-shrink-0">
+                                                                                                <?php if ($rAvatar) { ?>
+                                                                                                    <img src="<?php echo htmlspecialchars($rAvatar); ?>" class="rounded-circle" style="width: 28px; height: 28px; object-fit: cover;" alt="<?php echo htmlspecialchars($rName); ?>">
+                                                                                                <?php } else { ?>
+                                                                                                    <div class="symbol-label text-white fw-bold fs-8 rounded-circle d-flex align-items-center justify-content-center" style="width:28px;height:28px;background:<?php echo $rBg; ?>;"><?php echo htmlspecialchars($rInitials); ?></div>
+                                                                                                <?php } ?>
+                                                                                            </div>
+                                                                                            <div class="flex-grow-1">
+                                                                                                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                                                                                    <span class="fw-bolder text-dark fs-7"><?php echo htmlspecialchars($rName); ?></span>
+                                                                                                    <span class="text-muted fs-9 me-1">replying to</span><span class="fw-bold text-success fs-9">@<?php echo htmlspecialchars($replyingToName); ?></span>
+                                                                                                    <?php if ($isReplyAnon) { ?>
+                                                                                                        <span class="badge ms-1 rounded-pill" style="font-size:9px;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;"><i class="bi bi-incognito me-1" style="font-size:8px;color:inherit !important;"></i>Anonymous</span>
+                                                                                                    <?php } ?>
+                                                                                                    <span class="text-muted fs-9"><?php echo get_relative_time($reply['created_at']); ?></span>
+                                                                                                </div>
+                                                                                                <p class="text-gray-800 fs-7 mb-2"><?php echo htmlspecialchars($reply['body']); ?></p>
+                                                                                                <div class="d-flex align-items-center gap-1 mt-1">
+                                                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                                                    <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"
+                                                                                                        data-author="<?php echo htmlspecialchars($rName); ?>"
+                                                                                                        data-comment-id="<?php echo $comment['id']; ?>">
+                                                                                                        <i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span>
+                                                                                                    </button>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                            <?php
+                                                                                }
+                                                                            }
+                                                                            ?>
                                                                         </div>
+                                                                        <!-- Inline reply composer (hidden by default) -->
+                                                                        <div class="reply-composer ps-5 mt-2" id="composer-<?php echo $comment['id']; ?>" style="display:none;"></div>
                                                                     </div>
-                                                                </div>
-                                                            </div>
-                                                            <?php
-                                                                }
-                                                            }
-                                                            ?>
-                                                        </div>
-                                                        <!-- Inline reply composer (hidden by default) -->
-                                                        <div class="reply-composer ps-5 mt-2" id="composer-<?php echo $comment['id']; ?>" style="display:none;"></div>
-                                                    </div>
-                                                    <?php 
+                                                                <?php
                                                                 }
                                                             } else {
-                                                    ?>
-                                                        <div class="text-muted fs-7 py-4 text-center" id="no-comments-msg">No comments yet. Be the first to start the conversation!</div>
-                                                    <?php
+                                                                ?>
+                                                                <div class="text-muted fs-7 py-4 text-center" id="no-comments-msg">No comments yet. Be the first to start the conversation!</div>
+                                                            <?php
                                                             }
-                                                        } else { 
-                                                    ?>
-                                                        <div class="text-muted fs-7 py-4 text-center" id="no-comments-msg">No comments yet. Be the first to start the conversation!</div>
-                                                    <?php } ?>
+                                                        } else {
+                                                            ?>
+                                                            <div class="text-muted fs-7 py-4 text-center" id="no-comments-msg">No comments yet. Be the first to start the conversation!</div>
+                                                        <?php } ?>
                                                     <?php } else { ?>
-                                                    <!-- Comment Thread 1 -->
-                                                    <div class="mb-2">
-                                                        <div class="d-flex">
-                                                            <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
-                                                                <div class="symbol-label bg-success text-white fw-bold fs-7">SK</div>
-                                                            </div>
-                                                            <div class="flex-grow-1">
-                                                                <div class="d-flex align-items-center justify-content-between mb-1">
-                                                                    <div class="d-flex align-items-center gap-2">
-                                                                        <span class="fw-bolder text-dark fs-7">Sofia Karim</span>
-                                                                        <span class="text-muted fs-9"><?php echo $showImage ? '4d ago' : '2h ago'; ?></span>
+                                                        <!-- Comment Thread 1 -->
+                                                        <div class="mb-2">
+                                                            <div class="d-flex">
+                                                                <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
+                                                                    <div class="symbol-label bg-success text-white fw-bold fs-7">SK</div>
+                                                                </div>
+                                                                <div class="flex-grow-1">
+                                                                    <div class="d-flex align-items-center justify-content-between mb-1">
+                                                                        <div class="d-flex align-items-center gap-2">
+                                                                            <span class="fw-bolder text-dark fs-7">Sofia Karim</span>
+                                                                            <span class="text-muted fs-9"><?php echo $showImage ? '4d ago' : '2h ago'; ?></span>
+                                                                        </div>
+                                                                    </div>
+                                                                    <p class="text-gray-800 fs-7 mb-2">
+                                                                        <?php
+                                                                        if ($showImage) echo 'The booking system needs a serious UX overhaul. I gave up twice before figuring it out.';
+                                                                        elseif ($showPoll) echo 'I cram every single time and somehow still pass. Do not recommend the stress though.';
+                                                                        elseif ($showAnon) echo 'Absolutely agree. Most other schools already have this. FEU is way behind on mental health support.';
+                                                                        elseif ($showSample) echo 'Interesting perspective. I think this could be applied to other areas as well.';
+                                                                        else echo 'Really insightful take! The latency improvements alone justify the switch.';
+                                                                        ?>
+                                                                    </p>
+                                                                    <div class="d-flex align-items-center gap-1 mt-2">
+                                                                        <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9"><?php echo $showImage ? '6' : '12'; ?></span></button>
+                                                                        <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                        <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
                                                                     </div>
                                                                 </div>
-                                                                <p class="text-gray-800 fs-7 mb-2">
-                                                                    <?php
-                                                                    if ($showImage) echo 'The booking system needs a serious UX overhaul. I gave up twice before figuring it out.';
-                                                                    elseif ($showPoll) echo 'I cram every single time and somehow still pass. Do not recommend the stress though.';
-                                                                    elseif ($showAnon) echo 'Absolutely agree. Most other schools already have this. FEU is way behind on mental health support.';
-                                                                    elseif ($showSample) echo 'Interesting perspective. I think this could be applied to other areas as well.';
-                                                                    else echo 'Really insightful take! The latency improvements alone justify the switch.';
-                                                                    ?>
-                                                                </p>
-                                                                <div class="d-flex align-items-center gap-1 mt-2">
-                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9"><?php echo $showImage ? '6' : '12'; ?></span></button>
-                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
-                                                                    <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
-                                                                </div>
                                                             </div>
+                                                            <?php if (!$showImage && !$showPoll && !$showAnon && !$showSample) { ?>
+                                                                <div class="comment-thread-line mt-3 mb-4">
+                                                                    <div class="d-flex">
+                                                                        <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
+                                                                            <div class="symbol-label bg-light text-muted fw-bold fs-7"><i class="ki-duotone ki-profile-circle"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i></div>
+                                                                        </div>
+                                                                        <div class="flex-grow-1">
+                                                                            <div class="d-flex align-items-center gap-2 mb-1"><span class="fw-bolder text-dark fs-7">Anonymous</span><span class="text-muted fs-9">1h ago</span></div>
+                                                                            <p class="text-gray-800 fs-7 mb-2">What about power consumption on mobile devices though? Battery drain is still a real concern for everyday users.</p>
+                                                                            <div class="d-flex align-items-center gap-1 mt-2">
+                                                                                <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">5</span></button>
+                                                                                <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                                <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            <?php } ?>
                                                         </div>
                                                         <?php if (!$showImage && !$showPoll && !$showAnon && !$showSample) { ?>
-                                                            <div class="comment-thread-line mt-3 mb-4">
+                                                            <div class="mb-2 mt-6">
                                                                 <div class="d-flex">
-                                                                    <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0"><div class="symbol-label bg-light text-muted fw-bold fs-7"><i class="ki-duotone ki-profile-circle"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i></div></div>
+                                                                    <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
+                                                                        <div class="symbol-label bg-success text-white fw-bold fs-7">MT</div>
+                                                                    </div>
                                                                     <div class="flex-grow-1">
-                                                                        <div class="d-flex align-items-center gap-2 mb-1"><span class="fw-bolder text-dark fs-7">Anonymous</span><span class="text-muted fs-9">1h ago</span></div>
-                                                                        <p class="text-gray-800 fs-7 mb-2">What about power consumption on mobile devices though? Battery drain is still a real concern for everyday users.</p>
+                                                                        <div class="d-flex align-items-center gap-2 mb-1"><span class="fw-bolder text-dark fs-7">Marco Torres</span><span class="text-muted fs-9">45m ago</span></div>
+                                                                        <p class="text-gray-800 fs-7 mb-2">The TPU integration in Apple Silicon is basically proof of concept already.</p>
                                                                         <div class="d-flex align-items-center gap-1 mt-2">
-                                                                            <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">5</span></button>
+                                                                            <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">8</span></button>
                                                                             <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
                                                                             <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
                                                                         </div>
@@ -669,39 +726,22 @@ switch ($backParam) {
                                                                 </div>
                                                             </div>
                                                         <?php } ?>
-                                                    </div>
-                                                    <?php if (!$showImage && !$showPoll && !$showAnon && !$showSample) { ?>
-                                                        <div class="mb-2 mt-6">
-                                                            <div class="d-flex">
-                                                                <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0"><div class="symbol-label bg-success text-white fw-bold fs-7">MT</div></div>
-                                                                <div class="flex-grow-1">
-                                                                    <div class="d-flex align-items-center gap-2 mb-1"><span class="fw-bolder text-dark fs-7">Marco Torres</span><span class="text-muted fs-9">45m ago</span></div>
-                                                                    <p class="text-gray-800 fs-7 mb-2">The TPU integration in Apple Silicon is basically proof of concept already.</p>
-                                                                    <div class="d-flex align-items-center gap-1 mt-2">
-                                                                        <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">8</span></button>
-                                                                        <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
-                                                                        <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    <?php } ?>
                                                     <?php } ?>
                                                 </div>
 
                                                 <!-- Write Comment -->
                                                 <div class="d-flex align-items-start mt-8" id="comment-composer">
                                                     <div class="symbol symbol-35px symbol-circle me-3 flex-shrink-0 mt-1" id="commenter-avatar">
-                                                        <?php 
+                                                        <?php
                                                         $hasRealAvatar = !empty($ACCOUNT['avatar_md']);
                                                         ?>
-                                                        <img src="<?php echo htmlspecialchars($ACCOUNT['avatar_md'] ?? ''); ?>" 
-                                                             alt="User Avatar" 
-                                                             id="commenter-img" 
-                                                             class="h-35px w-35px rounded-circle <?php echo $hasRealAvatar ? '' : 'd-none'; ?>">
-                                                        <div class="symbol-label text-white fw-bold fs-6 <?php echo $hasRealAvatar ? 'd-none' : ''; ?>" 
-                                                             id="commenter-initials" 
-                                                             style="background-color: #17c653 !important;"><?php echo htmlspecialchars($loggedInInitials); ?></div>
+                                                        <img src="<?php echo htmlspecialchars($ACCOUNT['avatar_md'] ?? ''); ?>"
+                                                            alt="User Avatar"
+                                                            id="commenter-img"
+                                                            class="h-35px w-35px rounded-circle <?php echo $hasRealAvatar ? '' : 'd-none'; ?>">
+                                                        <div class="symbol-label text-white fw-bold fs-6 <?php echo $hasRealAvatar ? 'd-none' : ''; ?>"
+                                                            id="commenter-initials"
+                                                            style="background-color: #17c653 !important;"><?php echo htmlspecialchars($loggedInInitials); ?></div>
                                                     </div>
                                                     <div class="comment-input-row flex-grow-1">
                                                         <div class="comment-input-wrapper">
@@ -802,8 +842,8 @@ switch ($backParam) {
                                                         data-target="<?php echo htmlspecialchars($follow_target); ?>"
                                                         data-following="<?php echo $is_following ? '1' : '0'; ?>"
                                                         style="<?php echo $is_following
-                                                            ? 'background:transparent;color:#1A8B44;border:2px solid #1A8B44;'
-                                                            : 'background:#1A8B44;color:#fff;border:2px solid #1A8B44;'; ?>">
+                                                                    ? 'background:transparent;color:#1A8B44;border:2px solid #1A8B44;'
+                                                                    : 'background:#1A8B44;color:#fff;border:2px solid #1A8B44;'; ?>">
                                                         <i class="bi <?php echo $is_following ? 'bi-check-lg' : 'bi-person-plus-fill'; ?> me-1"></i>
                                                         <?php echo $is_following ? 'Followed' : 'Follow'; ?>
                                                     </button>
@@ -820,32 +860,32 @@ switch ($backParam) {
                                             ['id' => 4, 'title' => 'Best note-taking apps for CS majors in 2026?', 'topic' => 'TECHNOLOGY', 'upvotes' => 67],
                                         ];
                                         if (!empty($related_posts)) { ?>
-                                        <div class="card sidebar-card mb-5">
-                                            <div class="card-header border-0 pt-5 pb-0 min-h-auto">
-                                                <h3 class="card-title text-gray-700 fs-8 fw-bold text-uppercase m-0">RELATED POSTS</h3>
-                                            </div>
-                                            <div class="card-body p-5">
-                                                <div class="d-flex flex-column gap-4">
-                                                    <?php foreach ($related_posts as $idx => $rp) {
-                                                        if ($idx > 0) echo '<div class="separator separator-dashed my-1"></div>';
-                                                    ?>
-                                                    <a href="/Discourse/posts/index.php?id=<?php echo $rp['id']; ?>" class="d-flex align-items-start gap-3 text-decoration-none">
-                                                        <div class="d-flex align-items-center gap-1 mt-1 text-success">
-                                                            <i class="ki-duotone ki-arrow-up fs-9"><span class="path1"></span><span class="path2"></span></i>
-                                                            <span class="vote-count-up"><?php echo $rp['upvotes']; ?></span>
-                                                        </div>
-                                                        <div>
-                                                            <h5 class="text-dark fw-bold fs-7 mb-1 text-hover-primary lh-sm"><?php echo htmlspecialchars(mb_substr($rp['title'], 0, 60)) . (mb_strlen($rp['title']) > 60 ? '…' : ''); ?></h5>
-                                                            <div class="d-flex align-items-center gap-2">
-                                                                <i class="ki-duotone ki-flash text-warning fs-10"><span class="path1"></span><span class="path2"></span></i>
-                                                                <span class="text-muted fs-9"><?php echo htmlspecialchars($rp['topic']); ?></span>
-                                                            </div>
-                                                        </div>
-                                                    </a>
-                                                    <?php } ?>
+                                            <div class="card sidebar-card mb-5">
+                                                <div class="card-header border-0 pt-5 pb-0 min-h-auto">
+                                                    <h3 class="card-title text-gray-700 fs-8 fw-bold text-uppercase m-0">RELATED POSTS</h3>
+                                                </div>
+                                                <div class="card-body p-5">
+                                                    <div class="d-flex flex-column gap-4">
+                                                        <?php foreach ($related_posts as $idx => $rp) {
+                                                            if ($idx > 0) echo '<div class="separator separator-dashed my-1"></div>';
+                                                        ?>
+                                                            <a href="/Discourse/posts/index.php?id=<?php echo $rp['id']; ?>" class="d-flex align-items-start gap-3 text-decoration-none">
+                                                                <div class="d-flex align-items-center gap-1 mt-1 text-success">
+                                                                    <i class="ki-duotone ki-arrow-up fs-9"><span class="path1"></span><span class="path2"></span></i>
+                                                                    <span class="vote-count-up"><?php echo $rp['upvotes']; ?></span>
+                                                                </div>
+                                                                <div>
+                                                                    <h5 class="text-dark fw-bold fs-7 mb-1 text-hover-primary lh-sm"><?php echo htmlspecialchars(mb_substr($rp['title'], 0, 60)) . (mb_strlen($rp['title']) > 60 ? '…' : ''); ?></h5>
+                                                                    <div class="d-flex align-items-center gap-2">
+                                                                        <i class="ki-duotone ki-flash text-warning fs-10"><span class="path1"></span><span class="path2"></span></i>
+                                                                        <span class="text-muted fs-9"><?php echo htmlspecialchars($rp['topic']); ?></span>
+                                                                    </div>
+                                                                </div>
+                                                            </a>
+                                                        <?php } ?>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
                                         <?php } ?>
 
                                         <!-- Community Rules -->
@@ -922,14 +962,14 @@ switch ($backParam) {
                 }
             });
 
-             // Comment button scroll to composer
-             $('#comment-count-text-btn').closest('button').on('click', function(e) {
-                 e.preventDefault();
-                 $('html, body').animate({
-                     scrollTop: $('#main-comment-input').offset().top - 150
-                 }, 300);
-                 $('#main-comment-input').focus();
-             });
+            // Comment button scroll to composer
+            $('#comment-count-text-btn').closest('button').on('click', function(e) {
+                e.preventDefault();
+                $('html, body').animate({
+                    scrollTop: $('#main-comment-input').offset().top - 150
+                }, 300);
+                $('#main-comment-input').focus();
+            });
 
             // Follow / Unfollow
             $('#follow-btn').on('click', function() {
@@ -940,22 +980,34 @@ switch ($backParam) {
                 $.ajax({
                     url: '/Discourse/profiles/index-ajax-follow.php',
                     method: 'POST',
-                    data: { target_id: target },
+                    data: {
+                        target_id: target
+                    },
                     dataType: 'json',
                     success: function(res) {
                         if (res.success) {
                             const nowFollowing = res.following;
                             btn.data('following', nowFollowing ? '1' : '0');
                             if (nowFollowing) {
-                                btn.css({'background':'transparent','color':'#1A8B44','border':'2px solid #1A8B44'});
+                                btn.css({
+                                    'background': 'transparent',
+                                    'color': '#1A8B44',
+                                    'border': '2px solid #1A8B44'
+                                });
                                 btn.html('<i class="bi bi-check-lg me-1"></i> Followed');
                             } else {
-                                btn.css({'background':'#1A8B44','color':'#fff','border':'2px solid #1A8B44'});
+                                btn.css({
+                                    'background': '#1A8B44',
+                                    'color': '#fff',
+                                    'border': '2px solid #1A8B44'
+                                });
                                 btn.html('<i class="bi bi-person-plus-fill me-1"></i> Follow');
                             }
                         }
                     },
-                    complete: function() { btn.prop('disabled', false); }
+                    complete: function() {
+                        btn.prop('disabled', false);
+                    }
                 });
             });
 
@@ -967,7 +1019,9 @@ switch ($backParam) {
                 $.ajax({
                     url: '/Discourse/posts/index-ajax-save-post.php',
                     method: 'POST',
-                    data: { post_id: postId },
+                    data: {
+                        post_id: postId
+                    },
                     dataType: 'json',
                     success: function(res) {
                         if (res.success) {
@@ -1020,9 +1074,9 @@ switch ($backParam) {
 
             // ── Reply System ────────────────────────────────────────────
             function buildCommentHtml(displayName, displayInitials, avatarBg, text, replyingTo) {
-                const replyTag = replyingTo
-                    ? `<span class="text-muted fs-9 me-1">replying to</span><span class="fw-bold text-success fs-9">@${replyingTo}</span>`
-                    : '';
+                const replyTag = replyingTo ?
+                    `<span class="text-muted fs-9 me-1">replying to</span><span class="fw-bold text-success fs-9">@${replyingTo}</span>` :
+                    '';
                 return `
                 <div class="d-flex gap-3">
                     <div class="flex-shrink-0">
@@ -1046,8 +1100,8 @@ switch ($backParam) {
 
             function buildInlineComposer(commentId, replyingToName) {
                 const initials = isAnonymous ? 'A' : realInitials;
-                const bg       = isAnonymous ? '#ea580c' : '#17c653';
-                const uid      = 'reply-anon-' + commentId;
+                const bg = isAnonymous ? '#ea580c' : '#17c653';
+                const uid = 'reply-anon-' + commentId;
                 const imgHideClass = (isAnonymous || !realAvatar) ? 'd-none' : '';
                 const initialsHideClass = (!isAnonymous && realAvatar) ? 'd-none' : '';
                 return `
@@ -1080,12 +1134,12 @@ switch ($backParam) {
             }
 
             $(document).on('change', '.reply-anon-checkbox', function() {
-                const composer  = $(this).closest('.inline-composer');
-                const wrapper   = $(this).closest('.reply-anon-toggle');
+                const composer = $(this).closest('.inline-composer');
+                const wrapper = $(this).closest('.reply-anon-toggle');
                 const initialsEl = composer.find('.reply-composer-avatar');
-                const imgEl      = composer.find('.reply-composer-img');
-                const label     = wrapper.find('.anon-label');
-                const isAnon    = $(this).is(':checked');
+                const imgEl = composer.find('.reply-composer-img');
+                const label = wrapper.find('.anon-label');
+                const isAnon = $(this).is(':checked');
                 composer.attr('data-reply-anon', isAnon ? '1' : '0');
                 if (isAnon) {
                     wrapper.addClass('is-anon');
@@ -1113,12 +1167,12 @@ switch ($backParam) {
                 // Find the parent comment block and its IDs
                 const commentBlock = btn.closest('.mb-4, .mb-3, .d-flex.gap-3').closest('[id^=""], .mb-4');
                 const composerTarget = btn.closest('.mb-4');
-                const commentId = composerTarget.find('[id^="composer-"]').attr('id')?.replace('composer-', '')
-                                || composerTarget.attr('data-cid')
-                                || ('dyn-' + Date.now());
-                const authorName = btn.closest('.flex-grow-1').find('.fw-bolder.text-dark.fs-7').first().text().trim()
-                                || btn.closest('.d-flex').find('.fw-bolder.text-dark.fs-7').first().text().trim()
-                                || 'User';
+                const commentId = composerTarget.find('[id^="composer-"]').attr('id')?.replace('composer-', '') ||
+                    composerTarget.attr('data-cid') ||
+                    ('dyn-' + Date.now());
+                const authorName = btn.closest('.flex-grow-1').find('.fw-bolder.text-dark.fs-7').first().text().trim() ||
+                    btn.closest('.d-flex').find('.fw-bolder.text-dark.fs-7').first().text().trim() ||
+                    'User';
 
                 // Close any other open composers
                 $('.inline-composer').closest('.reply-composer').hide().empty();
@@ -1133,7 +1187,9 @@ switch ($backParam) {
                 composerSlot.html(buildInlineComposer(commentId, authorName)).show();
                 composerSlot.find('.reply-input').focus();
 
-                $('html, body').animate({ scrollTop: composerSlot.offset().top - 120 }, 250);
+                $('html, body').animate({
+                    scrollTop: composerSlot.offset().top - 120
+                }, 250);
             });
 
             // Cancel reply
@@ -1148,7 +1204,7 @@ switch ($backParam) {
                 const text = input.val().trim();
                 if (!text) return;
 
-                const replyingToName = composer.find('.text-success').text().replace('@','').trim();
+                const replyingToName = composer.find('.text-success').text().replace('@', '').trim();
                 // Read anon state from THIS composer's own toggle (not global)
                 const replyIsAnon = composer.find('.reply-anon-checkbox').is(':checked');
                 const parentId = composer.attr('data-for');
@@ -1181,9 +1237,9 @@ switch ($backParam) {
                 const displayName = replyIsAnon ? 'Anonymous' : realName;
                 const displayInitials = replyIsAnon ? 'A' : realInitials;
                 const avatarBg = replyIsAnon ? '#ea580c' : '#17c653';
-                const anonBadgeHtml = replyIsAnon
-                    ? `<span class="badge ms-1 rounded-pill" style="font-size:9px;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;"><i class="bi bi-incognito me-1" style="font-size:8px;color:inherit !important;"></i>Anonymous</span>`
-                    : '';
+                const anonBadgeHtml = replyIsAnon ?
+                    `<span class="badge ms-1 rounded-pill" style="font-size:9px;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;"><i class="bi bi-incognito me-1" style="font-size:8px;color:inherit !important;"></i>Anonymous</span>` :
+                    '';
 
                 const replyHtml = `<div class="mb-3 pb-2 border-start border-2 ps-3" style="border-color:#d1fae5!important;">${buildCommentHtml(displayName, displayInitials, avatarBg, text, anonBadgeHtml, replyingToName)}</div>`;
 
@@ -1231,29 +1287,40 @@ switch ($backParam) {
                     $.ajax({
                         url: '/Discourse/posts/index-ajax-add-comment.php',
                         method: 'POST',
-                        data: { post_id: postId, body: text, is_anonymous: isAnonymous ? 1 : 0 },
+                        data: {
+                            post_id: postId,
+                            body: text,
+                            is_anonymous: isAnonymous ? 1 : 0
+                        },
                         dataType: 'json',
                         success: function(res) {
-                            if (res.success) { window.location.reload(); }
-                            else { alert(res.message || 'Failed to post comment.'); }
+                            if (res.success) {
+                                window.location.reload();
+                            } else {
+                                alert(res.message || 'Failed to post comment.');
+                            }
                         },
-                        error: function() { alert('Error communicating with database.'); }
+                        error: function() {
+                            alert('Error communicating with database.');
+                        }
                     });
                     return;
                 }
                 const displayName = isAnonymous ? 'Anonymous' : realName;
                 const displayInitials = isAnonymous ? 'A' : realInitials;
                 const avatarBg = isAnonymous ? '#ea580c' : '#17c653';
-                const anonBadgeHtml = isAnonymous
-                    ? `<span class="badge ms-1 rounded-pill" style="font-size:9px;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;"><i class="bi bi-incognito me-1" style="font-size:8px;color:inherit !important;"></i>Anonymous</span>`
-                    : '';
+                const anonBadgeHtml = isAnonymous ?
+                    `<span class="badge ms-1 rounded-pill" style="font-size:9px;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;"><i class="bi bi-incognito me-1" style="font-size:8px;color:inherit !important;"></i>Anonymous</span>` :
+                    '';
                 const newBlockHtml = `<div class="mb-4">${buildCommentHtml(displayName, displayInitials, avatarBg, text, null)}<div class="reply-thread-area ps-5 mt-2"></div><div class="reply-composer ps-5 mt-1" style="display:none;"></div></div>`;
                 $('#comments-container').append(newBlockHtml);
                 input.val('');
                 commentCount++;
                 $('#comment-count-badge').text(commentCount);
                 $('#comment-count-text-btn').text(commentCount);
-                $('html, body').animate({ scrollTop: $('#comments-container').offset().top + $('#comments-container').height() - 200 }, 300);
+                $('html, body').animate({
+                    scrollTop: $('#comments-container').offset().top + $('#comments-container').height() - 200
+                }, 300);
             }
 
             $(document).on('click', '.discourse-poll-option', function(e) {
@@ -1272,7 +1339,9 @@ switch ($backParam) {
                     $.ajax({
                         url: '/Discourse/posts/index-ajax-delete-post.php',
                         method: 'POST',
-                        data: { id: postId },
+                        data: {
+                            id: postId
+                        },
                         dataType: 'json',
                         success: function(res) {
                             if (res.status === 'success') {

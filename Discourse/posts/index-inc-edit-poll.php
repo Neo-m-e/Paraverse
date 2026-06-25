@@ -2,7 +2,6 @@
 if (!defined('MBG')) define('MBG', TRUE);
 include(dirname(dirname(__DIR__)) . '/functions-new.php');
 
-// Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
 
 $META_TITLE = "Edit Poll";
 $META_DESC  = "Edit your existing poll.";
@@ -523,7 +522,9 @@ $META_DESC  = "Edit your existing poll.";
     </div>
   </div>
 
-  
-  <script>window.DC_EDITOR_ID = 'poll_context_editor';</script>
+
+  <script>
+    window.DC_EDITOR_ID = 'poll_context_editor';
+  </script>
   <script src="/Discourse/assets/js/dc-editor.js"></script>
 </body>

@@ -82,27 +82,14 @@ $META_TITLE = "Discourse - FEU Communities";
                 <!-- Cards Grid -->
                 <div class="row g-6 mb-10" id="communities-grid">
                     <?php
-                    $communities_list = [];
-                    if ($EDITH) {
-                        $res = $EDITH->query("SELECT * FROM communities ORDER BY id DESC");
-                        if ($res) {
-                            while ($row = $res->fetch_assoc()) {
-                                $communities_list[] = $row;
-                            }
-                        }
-                    }
-                    
-                    // Add session mock communities if any exist
-                    if (isset($_SESSION['mock_communities']) && is_array($_SESSION['mock_communities'])) {
-                        $existing_titles = array_column($communities_list, 'title');
-                        foreach ($_SESSION['mock_communities'] as $mc) {
-                            if (!in_array($mc['title'], $existing_titles)) {
-                                array_unshift($communities_list, $mc);
-                            }
-                        }
-                    }
+                    // Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
+                    $communities_list = [
+                        ['title' => 'FEU Tech',    'category' => 'FEU TECH',    'desc' => 'Official hub for FEU Institute of Technology students — academics, projects, and campus life.', 'members' => 12300, 'posts' => 842, 'logo_url' => '', 'icon' => 'bi-cpu', 'theme_color' => '#17c653', 'admin_id' => 'T202110294'],
+                        ['title' => 'FEU Life',    'category' => 'FEU ALABANG', 'desc' => 'Connect with fellow Tamaraws across all campuses — events, wellness, and student life.', 'members' => 4800, 'posts' => 311, 'logo_url' => '', 'icon' => 'bi-heart-fill', 'theme_color' => '#d63384', 'admin_id' => 'T202110001'],
+                        ['title' => 'CultureHub',  'category' => 'FEU DILIMAN', 'desc' => 'Music, art, and creative collaborations from the FEU community.', 'members' => 2750, 'posts' => 198, 'logo_url' => '', 'icon' => 'bi-music-note-beamed', 'theme_color' => '#0b5ed7', 'admin_id' => 'T202110002'],
+                        ['title' => 'Freshies',    'category' => 'FEU TECH',    'desc' => 'A space for incoming freshmen to ask questions and meet new friends.', 'members' => 3100, 'posts' => 145, 'logo_url' => '', 'icon' => 'bi-people-fill', 'theme_color' => '#1A8B44', 'admin_id' => 'T202110294'],
+                    ];
 
-                    // No fallback — show empty state if DB is empty
                     if (empty($communities_list)) { ?>
                       <div class="col-12 text-center py-10 text-muted">
                         <i class="bi bi-people fs-1 d-block mb-3 opacity-50"></i>
@@ -116,8 +103,8 @@ $META_TITLE = "Discourse - FEU Communities";
                         $comm_title = $community['title'];
                         $comm_members = $community['members'];
                         $comm_posts = $community['posts'];
-                        $is_joined = IS_COMMUNITY_MEMBER($comm_title, $identification);
-                        $is_admin = ($community['admin_id'] ?? '') === $identification;
+                        $is_joined = false;
+                        $is_admin = ($community['admin_id'] ?? '') === ($identification ?? '');
                     ?>
                     <div class="col-md-4 col-lg-3 community-item" 
                          data-category="<?php echo htmlspecialchars($comm_cat); ?>"
