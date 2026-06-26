@@ -1,13 +1,16 @@
 /* ── Post card hover ─────────────────────────────────────── */
 [data-dc="post-card"] {
+  /* no equivalent */
   transition: box-shadow 0.18s, transform 0.15s;
 }
 [data-dc="post-card"]:hover {
+  /* no equivalent */
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.11) !important;
   transform: translateY(-1px);
 }
 
 .badge-light-success:hover {
+  /* no equivalent */
   background-color: #0d5c3a !important;
   color: #fff !important;
   cursor: pointer;
@@ -16,17 +19,20 @@
 /* ── Vote button colors ──────────────────────────────────── */
 .dc-vote-up,
 .dc-vote-down {
+  /* no equivalent */
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.15s ease, background-color 0.15s ease !important;
 }
-.dc-vote-up:hover  { color: #2D6A4F !important; transform: scale(1.06) translateY(-1.5px) !important; }
-.dc-vote-down:hover { color: #c62828 !important; transform: scale(1.06) translateY(-1.5px) !important; }
+.dc-vote-up:hover  { /* no equivalent */  color: #2D6A4F !important; transform: scale(1.06) translateY(-1.5px) !important; }
+.dc-vote-down:hover { /* no equivalent */  color: #c62828 !important; transform: scale(1.06) translateY(-1.5px) !important; }
 .dc-vote-up:active,
 .dc-vote-down:active {
+  /* no equivalent */
   transform: scale(0.94) !important;
 }
 
 /* ── Poll option buttons ─────────────────────────────────── */
 .discourse-poll-option {
+  /* no equivalent */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -42,11 +48,13 @@
 }
 
 .discourse-poll-option:hover {
+  /* no equivalent */
   border-color: #2D6A4F;
   background: #f0faf5;
 }
 
 .discourse-poll-percentage {
+  /* no equivalent */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -54,17 +62,20 @@
 }
 
 .discourse-poll-options.show-results .discourse-poll-option {
+  /* no equivalent */
   background: linear-gradient(to right, #f0faf5 var(--target-width), #f5f6fa var(--target-width));
   border-color: #e4e6ef;
   pointer-events: none;
 }
 
 .discourse-poll-options.show-results .discourse-poll-option.selected {
+  /* no equivalent */
   border-color: #2D6A4F;
   background: linear-gradient(to right, #e2f5eb var(--target-width), #f5f6fa var(--target-width));
 }
 
 .discourse-poll-options.show-results .discourse-poll-percentage {
+  /* no equivalent */
   opacity: 1;
   visibility: visible;
 }
@@ -73,10 +84,12 @@
 [data-dc="post-card"] .flex-grow-1,
 [data-dc="post-card"] .d-flex.flex-column.gap-2,
 [data-dc="post-card"] .col-12 {
+  /* no equivalent */
   min-width: 0 !important;
 }
 
 [data-dc="post-card"] .fs-5.fw-bold {
+  /* no equivalent */
   display: block !important;
   white-space: nowrap !important;
   overflow: hidden !important;
@@ -85,6 +98,7 @@
 }
 
 .dc-body-clamp {
+  /* no equivalent */
   display: -webkit-box !important;
   -webkit-line-clamp: 3 !important;
   -webkit-box-orient: vertical !important;
@@ -92,12 +106,14 @@
 }
 
 .dc-body-clamp.dc-expanded {
+  /* no equivalent */
   display: block !important;
   -webkit-line-clamp: unset !important;
   overflow: visible !important;
 }
 
 .dc-see-more-link {
+  /* no equivalent */
   font-size: 0.8rem;
   color: #3a5c45 !important;
   text-decoration: none !important;
@@ -114,12 +130,14 @@
 .reply-btn i,
 #profile-follow-btn i,
 #follow-btn i {
+  /* no equivalent */
   color: currentColor !important;
 }
 
 /* ── Saved state: matching blue text, icon, and outline ── */
 .dc-post-save[data-on="1"],
 #save-post-btn.saved {
+  /* no equivalent */
   background-color: rgba(13, 110, 253, 0.12) !important;
   color: #0d6efd !important;
   border: 1px solid #0d6efd !important;
@@ -127,12 +145,14 @@
 
 .dc-post-save[data-on="1"] i,
 #save-post-btn.saved i {
+  /* no equivalent */
   color: #0d6efd !important; /* matching blue icon */
 }
 
 /* Ensure saved state hover retains its styling instead of turning white */
 .dc-post-save[data-on="1"]:hover,
 #save-post-btn.saved:hover {
+  /* no equivalent */
   background-color: rgba(13, 110, 253, 0.18) !important;
   color: #0d6efd !important;
   border: 1px solid #0d6efd !important;
@@ -140,23 +160,28 @@
 
 .dc-post-save[data-on="1"]:hover i,
 #save-post-btn.saved:hover i {
+  /* no equivalent */
   color: #0d6efd !important;
 }
 
 /* Ensure dynamic active voted states (success/danger) retain their colors on hover */
 .btn-light-success.text-success:hover {
+  /* no equivalent */
   background-color: rgba(23, 198, 83, 0.15) !important;
   color: #17c653 !important;
 }
 .btn-light-success.text-success:hover i {
+  /* no equivalent */
   color: #17c653 !important;
 }
 
 .btn-light-danger.text-danger:hover {
+  /* no equivalent */
   background-color: rgba(248, 40, 90, 0.15) !important;
   color: #f8285a !important;
 }
 .btn-light-danger.text-danger:hover i {
+  /* no equivalent */
   color: #f8285a !important;
 }
 
@@ -166,6 +191,7 @@
 .dc-post-save:not([data-on="1"]):not(.saved),
 .dc-post-report,
 .dc-post-highlight:not(.text-warning) {
+  /* no equivalent */
   background: transparent !important;
   color: #5e6278 !important;
   border: none !important;
@@ -175,6 +201,7 @@
 
 .vote-btn,
 .reply-btn {
+  /* no equivalent */
   transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.15s ease, background-color 0.15s ease !important;
 }
 
@@ -184,6 +211,7 @@
 .dc-post-save:not([data-on="1"]):not(.saved):hover,
 .dc-post-report:hover,
 .dc-post-highlight:hover {
+  /* no equivalent */
   background: rgba(0, 0, 0, 0.04) !important;
   color: #5e6278 !important;
   transform: scale(1.06) translateY(-1.5px) !important;
@@ -192,6 +220,7 @@
 /* Hover state for pill buttons (retain grey background instead of turning white/transparent) */
 .vote-btn:not(.saved):not(.vp-active-vote):not(.text-success):not(.text-danger):hover,
 .reply-btn:hover {
+  /* no equivalent */
   background-color: #eff2f5 !important;
   color: #3f4254 !important;
   transform: scale(1.06) translateY(-1.5px) !important;
@@ -204,6 +233,7 @@
 .vote-btn.saved:hover,
 .btn-light-success.text-success:hover,
 .btn-light-danger.text-danger:hover {
+  /* no equivalent */
   transform: scale(1.06) translateY(-1.5px) !important;
 }
 
@@ -211,23 +241,27 @@
 .dc-post-comment:hover i,
 .vote-btn:hover .bi-chat,
 .reply-btn:hover i {
+  /* no equivalent */
   animation: dc-comment-bounce 0.5s ease-in-out infinite alternate;
 }
 
 .dc-post-share:hover i,
 .vote-btn:hover .bi-share {
+  /* no equivalent */
   animation: dc-share-wiggle 0.5s ease-in-out;
 }
 
 .dc-post-save:hover i,
 .vote-btn:hover .bi-bookmark,
 .vote-btn:hover .bi-bookmark-fill {
+  /* no equivalent */
   transform: scale(1.2) !important;
   transition: transform 0.15s ease !important;
 }
 
 .dc-post-report:hover i,
 .vote-btn:hover .bi-flag {
+  /* no equivalent */
   animation: dc-report-shake 0.4s ease-in-out;
 }
 
@@ -237,6 +271,7 @@
 .dc-post-save:active,
 .dc-post-report:active,
 .dc-post-highlight:active {
+  /* no equivalent */
   background-color: rgba(0, 0, 0, 0.08) !important;
   color: #1e293b !important;
   transform: scale(0.94) !important;
@@ -244,6 +279,7 @@
 
 .vote-btn:not(.saved):not(.vp-active-vote):not(.text-success):not(.text-danger):active,
 .reply-btn:active {
+  /* no equivalent */
   background-color: #e4e6ef !important;
   color: #1e293b !important;
   transform: scale(0.94) !important;
@@ -251,21 +287,24 @@
 
 /* Keyframes for the micro-animations */
 @keyframes dc-comment-bounce {
-  0% { transform: translateY(0); }
-  100% { transform: translateY(-3px); }
+  /* no equivalent */
+  0% { /* no equivalent */  transform: translateY(0); }
+  100% { /* no equivalent */  transform: translateY(-3px); }
 }
 
 @keyframes dc-share-wiggle {
-  0% { transform: rotate(0deg); }
-  25% { transform: rotate(-12deg); }
-  75% { transform: rotate(12deg); }
-  100% { transform: rotate(0deg); }
+  /* no equivalent */
+  0% { /* no equivalent */  transform: rotate(0deg); }
+  25% { /* no equivalent */  transform: rotate(-12deg); }
+  75% { /* no equivalent */  transform: rotate(12deg); }
+  100% { /* no equivalent */  transform: rotate(0deg); }
 }
 
 @keyframes dc-report-shake {
-  0%, 100% { transform: translateX(0); }
-  25% { transform: translateX(-1.5px); }
-  75% { transform: translateX(1.5px); }
+  /* no equivalent */
+  0%, 100% { /* no equivalent */  transform: translateX(0); }
+  25% { /* no equivalent */  transform: translateX(-1.5px); }
+  75% { /* no equivalent */  transform: translateX(1.5px); }
 }
 
 /* ── Override framework's custom hover color rule that forces icons white ── */
@@ -289,11 +328,13 @@
 .btn.dc-vote-up:hover [class*="bi-"],
 .btn.dc-vote-down:hover i,
 .btn.dc-vote-down:hover [class*="bi-"] {
+  /* no equivalent */
   color: currentColor !important;
 }
 
 /* Code block wrapper and header */
 .dc-code-block-wrapper {
+  /* no equivalent */
   margin: 12px 0;
   border-radius: 8px;
   overflow: hidden;
@@ -302,6 +343,7 @@
 }
 
 .dc-code-block-header {
+  /* no equivalent */
   background: #11111b;
   color: #a6adc8;
   padding: 6px 14px;
@@ -317,16 +359,19 @@
 }
 
 .dc-code-block-header span {
+  /* no equivalent */
   letter-spacing: 0.08em;
 }
 
 .dc-code-block-wrapper .dc-code-block {
+  /* no equivalent */
   margin: 0;
   border-radius: 0 0 8px 8px;
 }
 
 /* Inline code styles */
 code.dc-inline-code {
+  /* no equivalent */
   background: #f0faf5;
   border-radius: 4px;
   padding: 2px 6px;
@@ -337,13 +382,13 @@ code.dc-inline-code {
 }
 
 /* Syntax Highlighting Colors */
-.hl-keyword { color: #cba6f7; font-weight: bold; }
-.hl-comment { color: #6c7086; font-style: italic; }
-.hl-string  { color: #a6e3a1; }
-.hl-number  { color: #fab387; }
-.hl-type    { color: #f9e2af; }
-.hl-function { color: #89b4fa; }
-.hl-operator { color: #89dceb; }
-.hl-preprocessor { color: #f38ba8; }
+.hl-keyword { /* no equivalent */  color: #cba6f7; font-weight: bold; }
+.hl-comment { /* no equivalent */  color: #6c7086; font-style: italic; }
+.hl-string  { /* no equivalent */  color: #a6e3a1; }
+.hl-number  { /* no equivalent */  color: #fab387; }
+.hl-type    { /* no equivalent */  color: #f9e2af; }
+.hl-function { /* no equivalent */  color: #89b4fa; }
+.hl-operator { /* no equivalent */  color: #89dceb; }
+.hl-preprocessor { /* no equivalent */  color: #f38ba8; }
 
 

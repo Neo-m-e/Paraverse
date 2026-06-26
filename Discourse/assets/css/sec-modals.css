@@ -2,6 +2,7 @@
    1. NOTIFICATIONS DROPDOWN
 ────────────────────────────────────────────────────────── */
 .discourse-notif-dropdown {
+  /* no equivalent */
   width: 340px;
   border: none !important;
   border-radius: 14px !important;
@@ -10,11 +11,13 @@
 }
 
 .discourse-notif-list {
+  /* no equivalent */
   max-height: 360px;
   overflow-y: auto;
 }
 
 .discourse-notif-dot {
+  /* no equivalent */
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -24,6 +27,7 @@
 }
 
 .discourse-notif-dot-read {
+  /* no equivalent */
   background: #d5d5d5;
 }
 
@@ -31,6 +35,7 @@
    2. PROFILE DROPDOWN
 ────────────────────────────────────────────────────────── */
 .discourse-profile-dropdown {
+  /* no equivalent */
   width: 280px;
   border: none !important;
   border-radius: 14px !important;
@@ -40,11 +45,13 @@
 }
 
 .discourse-profile-top {
+  /* no equivalent */
   background: linear-gradient(135deg, var(--dc-primary) 0%, #1f4e39 100%);
   border-radius: 14px 14px 0 0;
 }
 
 .discourse-profile-avatar-lg {
+  /* no equivalent */
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -54,6 +61,7 @@
 }
 
 .discourse-profile-verified {
+  /* no equivalent */
   display: inline-flex;
   align-items: center;
   font-size: 0.68rem;
@@ -68,6 +76,7 @@
 
 /* ── Community Rules card ────────────────────────────────── */
 .dc-rules-card {
+  /* no equivalent */
   background: #f0faf5;
   border: 1px solid #c8e6c9;
   border-radius: 12px;
@@ -78,10 +87,12 @@
    3. REPORT POST MODAL
 ────────────────────────────────────────────────────────── */
 .discourse-report-dialog {
+  /* no equivalent */
   max-width: 440px;
 }
 
 .discourse-report-content {
+  /* no equivalent */
   border: none !important;
   border-radius: 16px !important;
   overflow: hidden;
@@ -89,6 +100,7 @@
 }
 
 .discourse-report-option {
+  /* no equivalent */
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -103,16 +115,19 @@
 }
 
 .discourse-report-option:hover {
+  /* no equivalent */
   border-color: var(--dc-primary);
   background: #f0faf5;
 }
 
 .discourse-report-option-active {
+  /* no equivalent */
   border-color: var(--dc-primary) !important;
   background: #f0faf5 !important;
 }
 
 .discourse-report-option-icon {
+  /* no equivalent */
   width: 30px;
   height: 30px;
   border-radius: 8px;
@@ -124,15 +139,17 @@
 }
 
 .discourse-report-option-icon i {
+  /* no equivalent */
   color: currentColor !important;
 }
 
-.discourse-report-icon-red    { background: #fce4ec; color: #e53935; }
-.discourse-report-icon-purple { background: #ede7f6; color: #7b1fa2; }
-.discourse-report-icon-amber  { background: #fff8e1; color: #f57f17; }
-.discourse-report-icon-gray   { background: #f5f6fa; color: #7e8299; }
+.discourse-report-icon-red    { /* no equivalent */  background: #fce4ec; color: #e53935; }
+.discourse-report-icon-purple { /* no equivalent */  background: #ede7f6; color: #7b1fa2; }
+.discourse-report-icon-amber  { /* no equivalent */  background: #fff8e1; color: #f57f17; }
+.discourse-report-icon-gray   { /* no equivalent */  background: #f5f6fa; color: #7e8299; }
 
 .discourse-report-submit-btn {
+  /* no equivalent */
   flex: 1;
   background: var(--dc-primary);
   color: #fff;
@@ -150,10 +167,12 @@
 }
 
 .discourse-report-submit-btn:hover {
+  /* no equivalent */
   background: var(--dc-primary-dark);
 }
 
 .discourse-report-cancel-btn {
+  /* no equivalent */
   background: #f5f6fa;
   color: #5e6278;
   font-weight: 700;
@@ -166,5 +185,6 @@
 }
 
 .discourse-report-cancel-btn:hover {
+  /* no equivalent */
   background: #e4e6ef;
 }

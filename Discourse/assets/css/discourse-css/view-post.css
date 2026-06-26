@@ -1,36 +1,42 @@
-body { background-color: #ffffff; }
+body { /* no equivalent */  background-color: #ffffff; }
 
 .page-banner {
+  /* no equivalent */
     background-color: #0c3823;
     border-radius: 0;
 }
-.text-yellow { color: #f59e0b; }
+.text-yellow { /* no equivalent */  color: #f59e0b; }
 
 .btn-green {
+  /* no equivalent */
     background-color: #1e7145;
     color: white;
 }
-.btn-green:hover { background-color: #155d38; color: white; }
+.btn-green:hover { /* no equivalent */  background-color: #155d38; color: white; }
 
 .btn-outline-green {
+  /* no equivalent */
     border: 1px solid #1e7145;
     color: #1e7145;
     background: transparent;
 }
 .btn-outline-green:hover {
+  /* no equivalent */
     background-color: #1e7145;
     color: white;
 }
 
-.post-card { border: none; }
+.post-card { /* no equivalent */  border: none; }
 
 .sidebar-card {
+  /* no equivalent */
     border: 1px solid #e5e7eb;
     border-radius: 8px;
     box-shadow: none;
 }
 
 .tag-badge {
+  /* no equivalent */
     background-color: #e8f5e9;
     color: #166534;
     font-size: 11px;
@@ -39,6 +45,7 @@ body { background-color: #ffffff; }
 }
 
 .tag-badge-light {
+  /* no equivalent */
     background-color: #f3f4f6;
     color: #374151;
     font-size: 11px;
@@ -46,11 +53,12 @@ body { background-color: #ffffff; }
     padding: 4px 10px;
 }
 
-.comment-avatar { width: 30px; height: 30px; }
+.comment-avatar { /* no equivalent */  width: 30px; height: 30px; }
 
-.vote-count-up { color: #166534; font-weight: 700; font-size: 12px; }
+.vote-count-up { /* no equivalent */  color: #166534; font-weight: 700; font-size: 12px; }
 
 .rule-number {
+  /* no equivalent */
     color: #166534;
     font-weight: 700;
     font-size: 12px;
@@ -58,6 +66,7 @@ body { background-color: #ffffff; }
 }
 
 .comment-input-wrapper {
+  /* no equivalent */
     border: 1px solid #e5e7eb;
     border-radius: 4px;
     padding: 4px;
@@ -67,6 +76,7 @@ body { background-color: #ffffff; }
 }
 
 .comment-input {
+  /* no equivalent */
     border: none;
     background: transparent;
     flex-grow: 1;
@@ -74,24 +84,27 @@ body { background-color: #ffffff; }
     font-size: 13px;
 }
 
-.comment-input:focus { outline: none; }
+.comment-input:focus { /* no equivalent */  outline: none; }
 
 /* Threaded view styling */
 .comment-thread-line {
+  /* no equivalent */
     margin-left: 14px;
     padding-left: 1.5rem;
     border-left: 2px solid #e5e7eb;
     transition: border-color 0.15s ease;
 }
 .comment-thread-line:hover {
+  /* no equivalent */
     border-left-color: #d1d5db;
 }
 
-.vote-btn { transition: all 0.15s ease; cursor: pointer; color: #6b7280; background: transparent; }
-.vote-btn:hover { background-color: #f1f1f2 !important; color: #374151; }
+.vote-btn { /* no equivalent */  transition: all 0.15s ease; cursor: pointer; color: #6b7280; background: transparent; }
+.vote-btn:hover { /* no equivalent */  background-color: #f1f1f2 !important; color: #374151; }
 
 /* Poll option styles for detail view */
 .discourse-poll-option {
+  /* no equivalent */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -107,11 +120,13 @@ body { background-color: #ffffff; }
 }
 
 .discourse-poll-option:hover {
+  /* no equivalent */
   border-color: #1e7145;
   background: #f0faf5;
 }
 
 .discourse-poll-percentage {
+  /* no equivalent */
   opacity: 0;
   visibility: hidden;
   transition: opacity 0.3s ease, visibility 0.3s ease;
@@ -119,17 +134,20 @@ body { background-color: #ffffff; }
 }
 
 .discourse-poll-options.show-results .discourse-poll-option {
+  /* no equivalent */
   background: linear-gradient(to right, #f0faf5 var(--target-width), #f5f6fa var(--target-width));
   border-color: #e4e6ef;
   pointer-events: none;
 }
 
 .discourse-poll-options.show-results .discourse-poll-option.selected {
+  /* no equivalent */
   border-color: #1e7145;
   background: linear-gradient(to right, #e2f5eb var(--target-width), #f5f6fa var(--target-width));
 }
 
 .discourse-poll-options.show-results .discourse-poll-percentage {
+  /* no equivalent */
   opacity: 1;
   visibility: visible;
 }

@@ -1,10 +1,12 @@
 .discourse-hero-banner {
+  /* no equivalent */
   background-color: #0b3220 !important;
   overflow: visible !important;
 }
 
 /* ── Radial centre glow ──────────────────────────────────────── */
 .discourse-hero-center-glow {
+  /* no equivalent */
   background: radial-gradient(
     circle 350px at 50% 50%,
     rgba(245, 166, 35, 0.28) 0%,
@@ -15,11 +17,13 @@
 
 /* ── Inner container min-height ──────────────────────────────── */
 .discourse-hero-inner {
+  /* no equivalent */
   min-height: 220px;
 }
 
 /* ── Illustration frame ──────────────────────────────────────── */
 .discourse-hero-illustration-frame {
+  /* no equivalent */
   position: absolute;
   right: 25px;
   bottom: 0;
@@ -35,6 +39,7 @@
 
 /* ── Hero image ─────────────────────────────────────────────── */
 .discourse-hero-img-matched {
+  /* no equivalent */
   height: 110%;
   width: auto;
   object-fit: contain;
@@ -45,9 +50,11 @@
 
 /* ── CTA button hover ────────────────────────────────────────── */
 .discourse-hero-btn {
+  /* no equivalent */
   transition: background-color 0.15s ease, transform 0.15s ease, box-shadow 0.15s ease;
 }
 .discourse-hero-btn:hover {
+  /* no equivalent */
   background-color: #fbc501 !important;
   color: #000 !important;
   transform: translateY(-2px);
@@ -56,32 +63,41 @@
 
 /* ── Responsive overrides ────────────────────────────────────── */
 @media (max-width: 1199.98px) {
+  /* no equivalent */
   .discourse-hero-img-matched {
+  /* no equivalent */
     height: 126%;
   }
 }
 
 @media (max-width: 991.98px) {
+  /* no equivalent */
   .discourse-hero-illustration-frame {
+  /* no equivalent */
     width: 44%;
   }
   .discourse-hero-img-matched {
+  /* no equivalent */
     height: 120%;
   }
 }
 
 @media (max-width: 767.98px) {
+  /* no equivalent */
   .discourse-hero-banner {
+  /* no equivalent */
     overflow: hidden !important;
     margin-top: 0 !important;
   }
   .discourse-hero-subtitle {
+  /* no equivalent */
     margin-left: auto !important;
     margin-right: auto !important;
     max-width: 100% !important;
     text-align: center;
   }
   .discourse-hero-btn {
+  /* no equivalent */
     display: flex !important;
     margin: 0 auto !important;
   }

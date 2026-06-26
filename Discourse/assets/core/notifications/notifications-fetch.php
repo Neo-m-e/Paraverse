@@ -5,128 +5,96 @@ include($_SERVER['DOCUMENT_ROOT'] . "/Discourse/functions-new.php");
 
 DIRECT_ACCESS_BLOCKED();
 
+$html_output = '';
+
 if (!empty($identification)) {
-    $userId = sanitize($_POST['userId']);
-    $offset = sanitize($_POST['offset']);
+    $userId = isset($_POST['userId']) ? sanitize($_POST['userId']) : '';
+    $offset = isset($_POST['offset']) ? intval($_POST['offset']) : 0;
     $limit = 5;
 
-    $SQL = $EDITH->prepare("
-        SELECT * FROM notifications_content
-        WHERE identification = ? OR is_global = 1
-        ORDER BY created_at DESC
-        LIMIT ?, ?
-    ");
-    $SQL->bind_param("sii", $identification, $offset, $limit);
-    $SQL->execute();
-    $RECORD = $SQL->get_result();
+    // Hardcoded sample notifications matching post details
+    $sample_notifications = [
+        [
+            'id' => 101,
+            'message' => 'Ravi Joshi liked your post "The silent revolution in edge AI — why on-device inference is changing everything".',
+            'created_at' => date('Y-m-d H:i:s', strtotime('-15 minutes')),
+            'application' => 'Discourse',
+            'link' => '/Discourse/posts/index.php?id=1',
+            'image' => '/Discourse/assets/images/catalina.webp',
+            'seen' => false
+        ],
+        [
+            'id' => 102,
+            'message' => 'Sofia Karim left a comment on your post: "This is a game changer! On-device inference..."',
+            'created_at' => date('Y-m-d H:i:s', strtotime('-1 hour')),
+            'application' => 'Discourse',
+            'link' => '/Discourse/posts/index.php?id=1',
+            'image' => 'https://ui-avatars.com/api/?name=Sofia+Karim&background=f3f4f6&color=d97706&rounded=true',
+            'seen' => false
+        ],
+        [
+            'id' => 103,
+            'message' => 'You were mentioned in a new topic "Web Development Trends" by Marco Torres.',
+            'created_at' => date('Y-m-d H:i:s', strtotime('-1 day')),
+            'application' => 'Discourse',
+            'link' => '/Discourse/posts/index.php?id=5',
+            'image' => '/Discourse/assets/images/catalina.webp',
+            'seen' => true
+        ],
+        [
+            'id' => 104,
+            'message' => 'A new announcement has been posted in c/FEU TECH DEV: "Midterm Exam schedules and room assignments".',
+            'created_at' => date('Y-m-d H:i:s', strtotime('-2 days')),
+            'application' => 'Discourse',
+            'link' => '/Discourse/index.php',
+            'image' => '/Discourse/assets/images/Discourse-logo.png',
+            'seen' => true
+        ],
+        [
+            'id' => 105,
+            'message' => 'Your topic "No-grade-penalty mental health leave policy" has reached 10 upvotes.',
+            'created_at' => date('Y-m-d H:i:s', strtotime('-3 days')),
+            'application' => 'Discourse',
+            'link' => '/Discourse/posts/index.php?id=3',
+            'image' => '/Discourse/assets/images/anonymous.png',
+            'seen' => true
+        ]
+    ];
 
-    $html_output = '';
-    while ($ROW = $RECORD->fetch_assoc()) {
-        $isNotificationSeen = isNotificationSeen($ROW['id']);
-        $read_class = ($isNotificationSeen == false) ? "bg-light-primary" : "bg-hover-secondary";
-        $rounded = "rounded-circle";
-        $recipient_type = $ROW['recipient_type'];
+    // Filter notifications based on pagination offset
+    $slice = array_slice($sample_notifications, $offset, $limit);
+
+    foreach ($slice as $ROW) {
+        $read_class = ($ROW['seen'] == false) ? "bg-light-primary" : "bg-hover-secondary";
         $reaction = null;
-        $display = true;
+        $app = "<span class='text-primary fw-bolder'>{$ROW['application']}</span> · ";
+        $link = $ROW['link'];
+        $message = $ROW['message'];
+        $timestamp = date('F j, Y, g:i a', strtotime($ROW['created_at']));
+        $image = $ROW['image'];
 
-        switch ($ROW['application']) {
-
-            case "Eventually":
-                $app = "<span class='text-eventually fw-bolder'>Eventually</span> · ";
-                include("notifications-fetch-eventually.php");
-                break;
-
-            case "Briefcase":
-                $app = "<span class='text-briefcase fw-bolder'>Briefcase</span> · ";
-                include("notifications-fetch-briefcase.php");
-                break;
-
-            case "Credentials":
-                $app = "<span class='text-credentials fw-bolder'>Credentials</span> · ";
-                include("notifications-fetch-credentials.php");
-                break;
-
-            case "Guidance":
-                $app = "<span class='text-primary fw-bolder'>Guidance</span> · ";
-                include("notifications-fetch-guidance.php");
-                break;
-
-            default:
-                $app = "";
-                $link = "javascript:void(0)";
-                $message = $ROW['message'];
-                $timestamp = date('F j, Y, g:i a', strtotime($ROW['created_at']));
-                $image = "";
-        }
-
-        if (!empty($message)) {
-
-            $html_output .= "
-                    <a href='{$link}' class='notification-item col-12 border-top p-0' data-id='{$ROW['id']}'>
-                        <div class='{$read_class} px-8 py-5'>
-                            <div class='d-flex align-items-start'>
-                                <div class='d-block'>
-                                    <div class='w-40px h-40px bgi-no-repeat bgi-position-center bgi-size-cover bg-dark rounded position-relative' style='background-image: url(&quot;{$image}&quot;);'>
-                                        {$reaction}
-                                    </div>
-                                </div>
-                                <div class='ms-4'>
-                                    <p class='ellipsis-3 mb-1 text-gray-800'>{$message}</p>
-                                    <p class='mb-0 small'>
-                                        {$app}
-                                        <span class='text-gray-600'>{$timestamp}</span>
-                                    </p>
+        $html_output .= "
+                <a href='{$link}' class='notification-item col-12 border-top p-0' data-id='{$ROW['id']}'>
+                    <div class='{$read_class} px-8 py-5'>
+                        <div class='d-flex align-items-start'>
+                            <div class='d-block'>
+                                <div class='w-40px h-40px bgi-no-repeat bgi-position-center bgi-size-cover bg-dark rounded position-relative' style='background-image: url(&quot;{$image}&quot;);'>
+                                    {$reaction}
                                 </div>
                             </div>
+                            <div class='ms-4'>
+                                <p class='ellipsis-3 mb-1 text-gray-800'>{$message}</p>
+                                <p class='mb-0 small'>
+                                    {$app}
+                                    <span class='text-gray-600'>{$timestamp}</span>
+                                </p>
+                            </div>
                         </div>
-                    </a>
-                ";
-
-            // READ NOTIFICATION RECEIPT
-            if (!$isNotificationSeen) {
-                $READ = $EDITH->prepare("
-                    INSERT INTO notifications_engagement (notifications_id, identification) 
-                    VALUES (?, ?)
-                ");
-                $READ->bind_param("ss", $ROW['id'], $identification);
-                $READ->execute();
-                $READ->close();
-            }
-
-        }
+                    </div>
+                </a>
+            ";
     }
-
-    $SQL->close();
 }
-
 
 echo $html_output;
-
-
-
-function isNotificationSeen($id)
-{
-    global $EDITH;
-    global $identification;
-
-    $CHECK = $EDITH->prepare("SELECT 1 FROM notifications_engagement WHERE notifications_id = ? AND identification = ?");
-    $CHECK->bind_param("is", $id, $identification);
-    $CHECK->execute();
-    $CHECK->store_result();
-    $is_recorded = ($CHECK->num_rows > 0);
-    $CHECK->close();
-
-    return $is_recorded;
-}
-
-function getEventuallyPoster($EVENT)
-{
-    $directory = "/eventually/assets/media/uploads/";
-    $year = date("Y", strtotime($EVENT['created_at'])) . "/";
-    $image = str_replace("OR-", "SM-", $EVENT['image']);
-
-    return $directory . $year . $image;
-}
-
-
 ?>

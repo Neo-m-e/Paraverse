@@ -709,7 +709,7 @@ switch ($backParam) {
                                                             <?php } ?>
                                                         </div>
                                                         <?php if (!$showImage && !$showPoll && !$showAnon && !$showSample) { ?>
-                                                            <div class="mb-2 mt-6">
+                                                            <div class="mb-4">
                                                                 <div class="d-flex">
                                                                     <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
                                                                         <div class="symbol-label bg-success text-white fw-bold fs-7">MT</div>
@@ -974,75 +974,46 @@ switch ($backParam) {
             // Follow / Unfollow
             $('#follow-btn').on('click', function() {
                 const btn = $(this);
-                const target = btn.data('target');
                 const following = btn.data('following') == '1';
-                btn.prop('disabled', true);
-                $.ajax({
-                    url: '/Discourse/profiles/index-ajax-follow.php',
-                    method: 'POST',
-                    data: {
-                        target_id: target
-                    },
-                    dataType: 'json',
-                    success: function(res) {
-                        if (res.success) {
-                            const nowFollowing = res.following;
-                            btn.data('following', nowFollowing ? '1' : '0');
-                            if (nowFollowing) {
-                                btn.css({
-                                    'background': 'transparent',
-                                    'color': '#1A8B44',
-                                    'border': '2px solid #1A8B44'
-                                });
-                                btn.html('<i class="bi bi-check-lg me-1"></i> Followed');
-                            } else {
-                                btn.css({
-                                    'background': '#1A8B44',
-                                    'color': '#fff',
-                                    'border': '2px solid #1A8B44'
-                                });
-                                btn.html('<i class="bi bi-person-plus-fill me-1"></i> Follow');
-                            }
-                        }
-                    },
-                    complete: function() {
-                        btn.prop('disabled', false);
-                    }
-                });
+                const nowFollowing = !following;
+                btn.data('following', nowFollowing ? '1' : '0');
+                if (nowFollowing) {
+                    btn.css({
+                        'background': 'transparent',
+                        'color': '#1A8B44',
+                        'border': '2px solid #1A8B44'
+                    });
+                    btn.html('<i class="bi bi-check-lg me-1"></i> Followed');
+                } else {
+                    btn.css({
+                        'background': '#1A8B44',
+                        'color': '#fff',
+                        'border': '2px solid #1A8B44'
+                    });
+                    btn.html('<i class="bi bi-person-plus-fill me-1"></i> Follow');
+                }
             });
 
             $('#save-post-btn').on('click', function() {
                 const btn = $(this);
-                const postId = '<?php echo $post ? $post['id'] : 0; ?>';
-                if (!postId || postId == 0) return;
+                const saved = !btn.hasClass('saved');
+                if (saved) {
+                    btn.removeClass('btn-light-muted').addClass('saved btn-light-primary');
+                    btn.find('i').removeClass('bi-bookmark').addClass('bi-bookmark-fill');
+                    btn.find('span').text('Saved');
+                } else {
+                    btn.removeClass('saved btn-light-primary').addClass('btn-light-muted');
+                    btn.find('i').removeClass('bi-bookmark-fill').addClass('bi-bookmark');
+                    btn.find('span').text('Save');
+                }
 
-                $.ajax({
-                    url: '/Discourse/posts/index-ajax-save-post.php',
-                    method: 'POST',
-                    data: {
-                        post_id: postId
-                    },
-                    dataType: 'json',
-                    success: function(res) {
-                        if (res.success) {
-                            const saved = res.saved;
-                            if (saved) {
-                                btn.removeClass('btn-light-muted').addClass('saved btn-light-primary');
-                                btn.find('i').removeClass('bi-bookmark').addClass('bi-bookmark-fill');
-                                btn.find('span').text('Saved');
-                            } else {
-                                btn.removeClass('saved btn-light-primary').addClass('btn-light-muted');
-                                btn.find('i').removeClass('bi-bookmark-fill').addClass('bi-bookmark');
-                                btn.find('span').text('Save');
-                            }
-                        } else {
-                            alert(res.message || 'Error processing request.');
-                        }
-                    },
-                    error: function() {
-                        alert('Error communicating with database.');
-                    }
-                });
+                var toast = document.getElementById('dc-toast');
+                if (toast) {
+                    toast.querySelector('span').textContent = saved ? 'Saved!' : 'Unsaved!';
+                    toast.style.display = 'flex';
+                    clearTimeout(window._dcToast);
+                    window._dcToast = setTimeout(function () { toast.style.display = 'none'; }, 2200);
+                }
             });
 
             $(document).on('click', '.vote-btn:has(.bi-hand-thumbs-up), .vote-btn:has(.bi-hand-thumbs-down)', function(e) {
@@ -1209,31 +1180,6 @@ switch ($backParam) {
                 const replyIsAnon = composer.find('.reply-anon-checkbox').is(':checked');
                 const parentId = composer.attr('data-for');
 
-                if (postId > 0) {
-                    $.ajax({
-                        url: '/Discourse/posts/index-ajax-add-comment.php',
-                        method: 'POST',
-                        data: {
-                            post_id: postId,
-                            body: text,
-                            parent_id: parentId,
-                            is_anonymous: replyIsAnon ? 1 : 0
-                        },
-                        dataType: 'json',
-                        success: function(res) {
-                            if (res.success) {
-                                window.location.reload();
-                            } else {
-                                alert(res.message || 'Failed to post reply.');
-                            }
-                        },
-                        error: function() {
-                            alert('Error communicating with database.');
-                        }
-                    });
-                    return;
-                }
-
                 const displayName = replyIsAnon ? 'Anonymous' : realName;
                 const displayInitials = replyIsAnon ? 'A' : realInitials;
                 const avatarBg = replyIsAnon ? '#ea580c' : '#17c653';
@@ -1283,29 +1229,6 @@ switch ($backParam) {
                 const input = $('#main-comment-input');
                 const text = input.val().trim();
                 if (!text) return;
-                if (postId > 0) {
-                    $.ajax({
-                        url: '/Discourse/posts/index-ajax-add-comment.php',
-                        method: 'POST',
-                        data: {
-                            post_id: postId,
-                            body: text,
-                            is_anonymous: isAnonymous ? 1 : 0
-                        },
-                        dataType: 'json',
-                        success: function(res) {
-                            if (res.success) {
-                                window.location.reload();
-                            } else {
-                                alert(res.message || 'Failed to post comment.');
-                            }
-                        },
-                        error: function() {
-                            alert('Error communicating with database.');
-                        }
-                    });
-                    return;
-                }
                 const displayName = isAnonymous ? 'Anonymous' : realName;
                 const displayInitials = isAnonymous ? 'A' : realInitials;
                 const avatarBg = isAnonymous ? '#ea580c' : '#17c653';
@@ -1333,30 +1256,9 @@ switch ($backParam) {
 
             // Delete post handler
             $('#delete-post-btn').on('click', function() {
-                const postId = $(this).data('post-id');
                 if (confirm('Are you sure you want to permanently delete this post? This cannot be undone.')) {
-                    if (typeof KTApp !== 'undefined') KTApp.showPageLoading();
-                    $.ajax({
-                        url: '/Discourse/posts/index-ajax-delete-post.php',
-                        method: 'POST',
-                        data: {
-                            id: postId
-                        },
-                        dataType: 'json',
-                        success: function(res) {
-                            if (res.status === 'success') {
-                                alert(res.message);
-                                window.location.href = '/Discourse/index.php';
-                            } else {
-                                if (typeof KTApp !== 'undefined') KTApp.hidePageLoading();
-                                alert(res.message || 'Failed to delete post.');
-                            }
-                        },
-                        error: function() {
-                            if (typeof KTApp !== 'undefined') KTApp.hidePageLoading();
-                            alert('Error communicating with database.');
-                        }
-                    });
+                    alert('Post deleted successfully!');
+                    window.location.href = '/Discourse/index.php';
                 }
             });
         });

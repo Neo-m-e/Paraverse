@@ -1,4 +1,4 @@
-(function () {
+(function ($) {
   'use strict';
 
   function highlightCode(code, lang) {
@@ -113,24 +113,25 @@
   }
 
   function highlightAllCodeBlocks() {
-    document.querySelectorAll('.dc-code-block').forEach(function(block) {
-      if (block.getAttribute('contenteditable') === 'true') {
+    $('.dc-code-block').each(function() {
+      var $block = $(this);
+      if ($block.attr('contenteditable') === 'true') {
         return;
       }
-      if (block.dataset.highlighted === 'true') {
+      if ($block.attr('data-highlighted') === 'true') {
         return;
       }
-      var lang = block.getAttribute('data-language') || 'general';
-      var rawCode = block.textContent;
-      block.innerHTML = highlightCode(rawCode, lang);
-      block.dataset.highlighted = 'true';
+      var lang = $block.attr('data-language') || 'general';
+      var rawCode = $block.text();
+      $block.html(highlightCode(rawCode, lang));
+      $block.attr('data-highlighted', 'true');
     });
   }
 
   window.highlightCode = highlightCode;
   window.highlightAllCodeBlocks = highlightAllCodeBlocks;
 
-  document.addEventListener('DOMContentLoaded', function () {
+  $(document).ready(function () {
     highlightAllCodeBlocks();
 
     // Upvote / Downvote event delegation
@@ -192,13 +193,11 @@
       if (!container) return;
 
       $(container).find('.discourse-poll-option').removeClass('selected');
-      this.classList.add('selected');
-      container.classList.add('show-results');
+      $(this).addClass('selected');
+      $(container).addClass('show-results');
     });
 
   });
-})();
-
 
   // ── Post card: Comment / Share / Save ─────────────────────
   (function () {
@@ -206,37 +205,37 @@
 
     function showFeedToast(msg) {
       if (!feedToast) return;
-      feedToast.querySelector('span').textContent = msg;
-      feedToast.style.display = 'flex';
+      $(feedToast).find('span').text(msg);
+      $(feedToast).css('display', 'flex');
       clearTimeout(window._dcFeedToast);
-      window._dcFeedToast = setTimeout(function () { feedToast.style.display = 'none'; }, 2200);
+      window._dcFeedToast = setTimeout(function () { $(feedToast).css('display', 'none'); }, 2200);
     }
 
     // Comment — toggle quick comment drawer
     $(document).on('click', '.dc-post-comment', function (e) {
       e.preventDefault();
-      var card = this.closest('[data-dc="post-card"]');
-      var drawer = card ? card.querySelector('.dc-quick-comment-drawer') : null;
-      if (drawer) {
-        $(drawer).slideToggle(200);
-        var input = drawer.querySelector('input[type="text"]');
-        if (input) input.focus();
+      var $card = $(this).closest('[data-dc="post-card"]');
+      var $drawer = $card.find('.dc-quick-comment-drawer');
+      if ($drawer.length) {
+        $drawer.slideToggle(200);
+        var $input = $drawer.find('input[type="text"]');
+        if ($input.length) $input.focus();
       }
     });
 
     // Handle quick comment submission
     $(document).on('submit', '.dc-quick-comment-form', function(e) {
       e.preventDefault();
-      var form = this;
-      var input = form.querySelector('input[type="text"]');
-      var commentText = input.value.trim();
-      var postIdInput = form.querySelector('input[name="post_id"]');
-      var postId = postIdInput ? postIdInput.value : '';
+      var $form = $(this);
+      var $input = $form.find('input[type="text"]');
+      var commentText = $input.val().trim();
+      var $postIdInput = $form.find('input[name="post_id"]');
+      var postId = $postIdInput.length ? $postIdInput.val() : '';
       if (!commentText || !postId) return;
 
-      var card = form.closest('[data-dc="post-card"]');
-      var commentsList = card ? card.querySelector('.dc-quick-comments-list') : null;
-      var commentCountBtn = card ? card.querySelector('.dc-post-comment') : null;
+      var $card = $form.closest('[data-dc="post-card"]');
+      var $commentsList = $card.find('.dc-quick-comments-list');
+      var $commentCountBtn = $card.find('.dc-post-comment');
 
       function escapeHtml(text) {
         return text
@@ -247,105 +246,71 @@
           .replace(/'/g, "&#039;");
       }
 
-      $.ajax({
-        url: '/Discourse/posts/index-ajax-add-comment.php',
-        method: 'POST',
-        data: {
-          post_id: postId,
-          body: commentText
-        },
-        dataType: 'json',
-        success: function(response) {
-          if (response.success) {
-            var avatar = window.currentUser ? window.currentUser.avatar : '/Discourse/assets/images/anonymous.png';
-            var displayName = window.currentUser ? window.currentUser.displayName : 'You';
-            
-            var newCommentHtml = `
-              <div class="d-flex align-items-start gap-2 fs-7 animate__animated animate__fadeIn">
-                <img src="${avatar}" class="h-25px w-25px rounded-circle" alt="User avatar">
-                <div class="bg-light p-2 rounded-3 flex-grow-1">
-                  <div class="d-flex justify-content-between">
-                    <span class="fw-bold text-gray-800">${displayName}</span>
-                    <span class="text-muted fs-9">just now</span>
-                  </div>
-                  <p class="text-gray-700 m-0 mt-1">${escapeHtml(commentText)}</p>
-                </div>
-              </div>
-            `;
-            
-            if (commentsList) {
-              commentsList.insertAdjacentHTML('beforeend', newCommentHtml);
-              commentsList.scrollTop = commentsList.scrollHeight;
-            }
+      var avatar = window.currentUser ? window.currentUser.avatar : '/Discourse/assets/images/anonymous.png';
+      var displayName = window.currentUser ? window.currentUser.displayName : 'You';
+      
+      var newCommentHtml = `
+        <div class="d-flex align-items-start gap-2 fs-7 animate__animated animate__fadeIn">
+          <img src="${avatar}" class="h-25px w-25px rounded-circle" alt="User avatar">
+          <div class="bg-light p-2 rounded-3 flex-grow-1">
+            <div class="d-flex justify-content-between">
+              <span class="fw-bold text-gray-800">${displayName}</span>
+              <span class="text-muted fs-9">just now</span>
+            </div>
+            <p class="text-gray-700 m-0 mt-1">${escapeHtml(commentText)}</p>
+          </div>
+        </div>
+      `;
+      
+      if ($commentsList.length) {
+        $commentsList.append(newCommentHtml);
+        $commentsList.scrollTop($commentsList[0].scrollHeight);
+      }
 
-            input.value = '';
+      $input.val('');
 
-            if (commentCountBtn) {
-              var countText = commentCountBtn.textContent.replace(/Comments?/g, '').trim();
-              var count = parseInt(countText, 10) || 0;
-              count++;
-              commentCountBtn.innerHTML = '<i class="bi bi-chat me-1"></i> ' + count + (count === 1 ? ' Comment' : ' Comments');
-            }
+      if ($commentCountBtn.length) {
+        var countText = $commentCountBtn.text().replace(/Comments?/g, '').trim();
+        var count = parseInt(countText, 10) || 0;
+        count++;
+        $commentCountBtn.html('<i class="bi bi-chat me-1"></i> ' + count + (count === 1 ? ' Comment' : ' Comments'));
+      }
 
-            showFeedToast('Comment posted!');
-            if (typeof highlightAllCodeBlocks === 'function') {
-              highlightAllCodeBlocks();
-            }
-          } else {
-            alert(response.message || 'Failed to post comment.');
-          }
-        },
-        error: function() {
-          alert('Error communicating with database.');
-        }
-      });
+      showFeedToast('Comment posted!');
+      if (typeof highlightAllCodeBlocks === 'function') {
+        highlightAllCodeBlocks();
+      }
     });
 
     // Share — copy URL, brief blue highlight, toast
     $(document).on('click', '.dc-post-share', function (e) {
       e.preventDefault();
-      var btn = this;
-      var card = btn.closest('[data-dc="post-card"]');
-      var titleLink = card ? card.querySelector('a.dc-post-title-link') : null;
-      var url = titleLink && titleLink.href ? titleLink.href : window.location.href;
+      var $btn = $(this);
+      var $card = $btn.closest('[data-dc="post-card"]');
+      var $titleLink = $card.find('a.dc-post-title-link');
+      var url = $titleLink.length && $titleLink.attr('href') ? $titleLink.prop('href') : window.location.href;
       try { navigator.clipboard.writeText(url); } catch (err) {}
-      btn.style.color = '#0d6efd';
-      var self = this;
-      setTimeout(function () { self.style.color = ''; }, 2000);
+      $btn.css('color', '#0d6efd');
+      setTimeout(function () { $btn.css('color', ''); }, 2000);
       showFeedToast('Link copied!');
     });
 
     // Save — toggle bookmark state, toast on save
     $(document).on('click', '.dc-post-save', function(e) {
       e.preventDefault();
-      var btn = this;
-      var card = btn.closest('[data-dc="post-card"]');
-      if (!card) return;
-      var postId = card.getAttribute('data-post-id');
+      var $btn = $(this);
+      var $card = $btn.closest('[data-dc="post-card"]');
+      if (!$card.length) return;
+      var postId = $card.attr('data-post-id');
       if (!postId) return;
 
-      $.ajax({
-        url: '/Discourse/posts/index-ajax-save-post.php',
-        method: 'POST',
-        data: { post_id: postId },
-        dataType: 'json',
-        success: function(res) {
-          if (res.success) {
-            var saved = res.saved;
-            btn.dataset.on = saved ? '1' : '0';
-            btn.innerHTML = saved
-              ? '<i class="bi bi-bookmark-fill me-1"></i> Saved'
-              : '<i class="bi bi-bookmark me-1"></i> Save';
-            
-            showFeedToast(saved ? 'Post saved!' : 'Post unsaved!');
-          } else {
-            alert(res.message || 'Error processing request.');
-          }
-        },
-        error: function() {
-          alert('Error communicating with database.');
-        }
-      });
+      var saved = $btn.attr('data-on') !== '1';
+      $btn.attr('data-on', saved ? '1' : '0');
+      $btn.html(saved
+        ? '<i class="bi bi-bookmark-fill me-1"></i> Saved'
+        : '<i class="bi bi-bookmark me-1"></i> Save');
+      
+      showFeedToast(saved ? 'Post saved!' : 'Post unsaved!');
     });
 
     // Check for URL status parameters on load
@@ -361,26 +326,30 @@
 
   (function() {
     function initSeeMore() {
-      document.querySelectorAll('.dc-body-clamp').forEach(function(span) {
-        var link = span.nextElementSibling;
-        if (!link || !link.classList.contains('dc-see-more-link')) return;
+      $('.dc-body-clamp').each(function() {
+        var $span = $(this);
+        var $link = $span.next('.dc-see-more-link');
+        if (!$link.length) return;
         // Only show link if content overflows 3 lines
-        if (span.scrollHeight > span.clientHeight + 2) {
-          link.classList.remove('d-none');
+        if ($span[0].scrollHeight > $span[0].clientHeight + 2) {
+          $link.removeClass('d-none');
         }
       });
     }
     if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', initSeeMore);
+      $(document).on('DOMContentLoaded', initSeeMore);
     } else {
       initSeeMore();
     }
   })();
 
-  function dcToggleBody(e, link) {
+  window.dcToggleBody = function (e, link) {
     e.preventDefault();
-    var span = link.previousElementSibling;
-    if (!span) return;
-    var expanded = span.classList.toggle('dc-expanded');
-    link.textContent = expanded ? 'See Less' : 'See More';
-  }
+    var $link = $(link);
+    var $span = $link.prev('.dc-body-clamp');
+    if (!$span.length) return;
+    var expanded = $span.toggleClass('dc-expanded').hasClass('dc-expanded');
+    $link.text(expanded ? 'See Less' : 'See More');
+  };
+
+})(jQuery);

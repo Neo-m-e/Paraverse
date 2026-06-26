@@ -1,5 +1,6 @@
 /* ── Design tokens ──────────────────────────────────────── */
 :root {
+  /* no equivalent */
   --dc-primary: #2D6A4F;
   --dc-primary-dark: #1f4e39;
   --dc-accent: #F5A623;
@@ -10,11 +11,13 @@
 
 /* ── Page background ─────────────────────────────────────── */
 body {
+  /* no equivalent */
   background: var(--dc-bg) !important;
 }
 
 /* ── Dashboard wrapper ───────────────────────────────────── */
 .discourse-dashboard-layout {
+  /* no equivalent */
   display: grid;
   grid-template-columns: 1fr 340px;
   gap: 1.25rem;
@@ -23,25 +26,32 @@ body {
   padding-bottom: 2.5rem;
 }
 .discourse-sidebar-col {
+  /* no equivalent */
   min-width: 0; /* Hayaan lang siyang maging normal na column */
 }
 .discourse-feed-col {
+  /* no equivalent */
   min-width: 0;
 }
 
 .discourse-sidebar-col {
+  /* no equivalent */
   min-width: 0;
 }
 
 /* ── Responsive: collapse sidebar below tablet ───────────── */
 @media (max-width: 992px) {
+  /* no equivalent */
   .discourse-dashboard-layout {
+  /* no equivalent */
     grid-template-columns: 1fr;
   }
 }
 
 @media (max-width: 768px) {
+  /* no equivalent */
   .discourse-dashboard-layout {
+  /* no equivalent */
     gap: 0.85rem;
     padding-top: 0.5rem;
   }

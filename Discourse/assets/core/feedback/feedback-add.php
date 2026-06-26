@@ -5,15 +5,11 @@ include($_SERVER['DOCUMENT_ROOT'] . "/Discourse/functions-new.php");
 
 DIRECT_ACCESS_BLOCKED();
 
+header('Content-Type: application/json');
+
 if (!empty($identification)) {
-    $type = sanitize($_POST['type']);
-    $feedback = sanitize($_POST['description']);
-    $location = sanitize($_POST['location']);
-
-    $SQL = $EDITH->prepare("INSERT INTO feedback (type, feedback, identification, location) VALUES (?, ?, ?, ?)");
-    $SQL->bind_param("ssss", $type, $feedback, $identification, $location);
-    $SQL->execute();
-    $SQL->close();
+    echo json_encode(['status' => 'success']);
+} else {
+    echo json_encode(['status' => 'error', 'message' => 'Unauthorized']);
 }
-
 ?>

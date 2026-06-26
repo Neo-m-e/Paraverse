@@ -1,5 +1,5 @@
 <?php
-define('MBG', TRUE);
+if (!defined('MBG')) define('MBG', TRUE);
 include_once(dirname(__DIR__) . '/functions-new.php');
 
 $META_TITLE = "Discourse - FEU Communities";

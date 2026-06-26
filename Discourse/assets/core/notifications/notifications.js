@@ -90,30 +90,32 @@ let fetching = false;
 let noMoreData = false;
 let initialized = false;
 
-document.addEventListener("DOMContentLoaded", function() {
+$(document).ready(function() {
         
     generateSkeletonNotifications(6);
 
-    var menuElement = document.querySelector("#edith_notifications");
-    var menu = KTMenu.getInstance(menuElement);
-    
-    menu.on('kt.menu.dropdown.show', function() {
-        if (!initialized) {
-            fetchNotifications();
-            initialized = true;
+    var menuElement = $("#edith_notifications")[0];
+    if (menuElement) {
+        var menu = KTMenu.getInstance(menuElement);
+        if (menu) {
+            menu.on('kt.menu.dropdown.show', function() {
+                if (!initialized) {
+                    fetchNotifications();
+                    initialized = true;
+                }
+            });
         }
-    });
+    }
 
     // Infinite Scroll
     let debounceTimer;
     $('.notifications-body').on('scroll', function () {
+        var $body = $(this);
         clearTimeout(debounceTimer);
         debounceTimer = setTimeout(() => {
-            if ($(this).scrollTop() + $(this).innerHeight() >= this.scrollHeight - 1) {
+            if ($body.scrollTop() + $body.innerHeight() >= $body[0].scrollHeight - 1) {
                 fetchNotifications();
             }
         }, 100);
     });
-
-    
 });

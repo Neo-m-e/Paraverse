@@ -3,6 +3,7 @@
    1. NOTIFICATIONS DROPDOWN
 ────────────────────────────────────────────────────────── */
 .discourse-notif-dropdown {
+  /* no equivalent */
   width: 340px;
   border: none !important;
   border-radius: 14px !important;
@@ -11,6 +12,7 @@
 }
 
 .discourse-notif-header {
+  /* no equivalent */
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -19,12 +21,14 @@
 }
 
 .discourse-notif-title {
+  /* no equivalent */
   font-size: 0.813rem; /* fs-6 equivalent */
   font-weight: 700;
   color: #1a1a2e;
 }
 
 .discourse-notif-mark-all {
+  /* no equivalent */
   background: none;
   border: none;
   font-size: 0.75rem;
@@ -36,15 +40,18 @@
 }
 
 .discourse-notif-mark-all:hover {
+  /* no equivalent */
   color: var(--dc-primary-dark);
 }
 
 .discourse-notif-list {
+  /* no equivalent */
   max-height: 360px;
   overflow-y: auto;
 }
 
 .discourse-notif-item {
+  /* no equivalent */
   display: flex;
   align-items: flex-start;
   gap: 0.7rem;
@@ -54,18 +61,22 @@
 }
 
 .discourse-notif-item:last-child {
+  /* no equivalent */
   border-bottom: none;
 }
 
 .discourse-notif-item:hover {
+  /* no equivalent */
   background: #f5f6fa;
 }
 
 .discourse-notif-unread {
+  /* no equivalent */
   background: #f0faf5;
 }
 
 .discourse-notif-dot {
+  /* no equivalent */
   width: 10px;
   height: 10px;
   border-radius: 50%;
@@ -75,15 +86,18 @@
 }
 
 .discourse-notif-dot-read {
+  /* no equivalent */
   background: #d5d5d5;
 }
 
 .discourse-notif-body {
+  /* no equivalent */
   flex: 1;
   min-width: 0;
 }
 
 .discourse-notif-text {
+  /* no equivalent */
   font-size: 0.82rem;
   color: #3f4254;
   line-height: 1.4;
@@ -91,10 +105,12 @@
 }
 
 .discourse-notif-text strong {
+  /* no equivalent */
   color: #1a1a2e;
 }
 
 .discourse-notif-time {
+  /* no equivalent */
   font-size: 0.71rem;
   color: #a1a5b7;
 }
@@ -103,6 +119,7 @@
    2. PROFILE DROPDOWN
 ────────────────────────────────────────────────────────── */
 .discourse-profile-dropdown {
+  /* no equivalent */
   width: 280px;
   border: none !important;
   border-radius: 14px !important;
@@ -113,6 +130,7 @@
 
 /* Top section */
 .discourse-profile-top {
+  /* no equivalent */
   display: flex;
   align-items: center;
   gap: 0.85rem;
@@ -122,6 +140,7 @@
 }
 
 .discourse-profile-avatar-lg {
+  /* no equivalent */
   width: 52px;
   height: 52px;
   border-radius: 50%;
@@ -131,6 +150,7 @@
 }
 
 .discourse-profile-info {
+  /* no equivalent */
   display: flex;
   flex-direction: column;
   gap: 0.1rem;
@@ -139,6 +159,7 @@
 }
 
 .discourse-profile-name {
+  /* no equivalent */
   font-size: 0.92rem;
   font-weight: 800;
   color: #fff;
@@ -146,12 +167,14 @@
 }
 
 .discourse-profile-id {
+  /* no equivalent */
   font-size: 0.71rem;
   color: rgba(255,255,255,0.72);
   line-height: 1.3;
 }
 
 .discourse-profile-verified {
+  /* no equivalent */
   display: inline-flex;
   align-items: center;
   font-size: 0.68rem;
@@ -166,6 +189,7 @@
 
 /* Stats row */
 .discourse-profile-stats-row {
+  /* no equivalent */
   display: flex;
   align-items: center;
   justify-content: space-around;
@@ -174,6 +198,7 @@
 }
 
 .discourse-profile-stat {
+  /* no equivalent */
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -181,6 +206,7 @@
 }
 
 .discourse-profile-stat-val {
+  /* no equivalent */
   font-size: 1.05rem;
   font-weight: 800;
   color: #1a1a2e;
@@ -188,6 +214,7 @@
 }
 
 .discourse-profile-stat-label {
+  /* no equivalent */
   font-size: 0.62rem;
   font-weight: 700;
   letter-spacing: 0.05em;
@@ -197,15 +224,18 @@
 
 /* Sections */
 .discourse-profile-section {
+  /* no equivalent */
   padding: 0.5rem 0.5rem 0.25rem;
   border-bottom: 1px solid #f0f0f5;
 }
 
 .discourse-profile-section:last-of-type {
+  /* no equivalent */
   border-bottom: none;
 }
 
 .discourse-profile-section-label {
+  /* no equivalent */
   display: block;
   font-size: 0.65rem;
   font-weight: 800;
@@ -216,6 +246,7 @@
 }
 
 .discourse-profile-link {
+  /* no equivalent */
   display: flex;
   align-items: center;
   font-size: 0.83rem;
@@ -227,11 +258,13 @@
 }
 
 .discourse-profile-link:hover {
+  /* no equivalent */
   background: #f0faf5;
   color: var(--dc-primary);
 }
 
 .discourse-profile-link i {
+  /* no equivalent */
   color: #a1a5b7;
   font-size: 0.95rem;
   width: 20px;
@@ -240,15 +273,18 @@
 }
 
 .discourse-profile-link:hover i {
+  /* no equivalent */
   color: var(--dc-primary);
 }
 
 /* Log out */
 .discourse-profile-logout-wrap {
+  /* no equivalent */
   padding: 0.4rem 0.5rem 0.55rem;
 }
 
 .discourse-profile-logout {
+  /* no equivalent */
   display: flex;
   align-items: center;
   font-size: 0.83rem;
@@ -261,11 +297,13 @@
 }
 
 .discourse-profile-logout:hover {
+  /* no equivalent */
   background: #fce4ec;
   color: #c62828;
 }
 
 .discourse-profile-logout i {
+  /* no equivalent */
   font-size: 0.95rem;
 }
 
@@ -273,10 +311,12 @@
    3. REPORT POST MODAL
 ────────────────────────────────────────────────────────── */
 .discourse-report-dialog {
+  /* no equivalent */
   max-width: 440px;
 }
 
 .discourse-report-content {
+  /* no equivalent */
   border: none !important;
   border-radius: 16px !important;
   overflow: hidden;
@@ -284,21 +324,25 @@
 }
 
 .discourse-report-header {
+  /* no equivalent */
   border-bottom: 1px solid #f0f0f5 !important;
   padding: 1rem 1.25rem !important;
 }
 
 .discourse-report-title {
+  /* no equivalent */
   font-size: 1rem !important;
   font-weight: 800 !important;
   color: #1a1a2e !important;
 }
 
 .discourse-report-body {
+  /* no equivalent */
   padding: 1.1rem 1.25rem !important;
 }
 
 .discourse-report-subtitle {
+  /* no equivalent */
   font-size: 0.85rem;
   color: #7e8299;
   margin-bottom: 1rem;
@@ -306,12 +350,14 @@
 
 /* Option buttons */
 .discourse-report-options {
+  /* no equivalent */
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
 }
 
 .discourse-report-option {
+  /* no equivalent */
   display: flex;
   align-items: center;
   gap: 0.75rem;
@@ -326,16 +372,19 @@
 }
 
 .discourse-report-option:hover {
+  /* no equivalent */
   border-color: var(--dc-primary);
   background: #f0faf5;
 }
 
 .discourse-report-option-active {
+  /* no equivalent */
   border-color: var(--dc-primary) !important;
   background: #f0faf5 !important;
 }
 
 .discourse-report-option-icon {
+  /* no equivalent */
   width: 30px;
   height: 30px;
   border-radius: 8px;
@@ -346,12 +395,13 @@
   flex-shrink: 0;
 }
 
-.discourse-report-icon-red   { background: #fce4ec; color: #e53935; }
-.discourse-report-icon-purple { background: #ede7f6; color: #7b1fa2; }
-.discourse-report-icon-amber  { background: #fff8e1; color: #f57f17; }
-.discourse-report-icon-gray   { background: #f5f6fa; color: #7e8299; }
+.discourse-report-icon-red   { /* no equivalent */  background: #fce4ec; color: #e53935; }
+.discourse-report-icon-purple { /* no equivalent */  background: #ede7f6; color: #7b1fa2; }
+.discourse-report-icon-amber  { /* no equivalent */  background: #fff8e1; color: #f57f17; }
+.discourse-report-icon-gray   { /* no equivalent */  background: #f5f6fa; color: #7e8299; }
 
 .discourse-report-option-label {
+  /* no equivalent */
   font-size: 0.85rem;
   font-weight: 600;
   color: #3f4254;
@@ -359,6 +409,7 @@
 
 /* Footer */
 .discourse-report-footer {
+  /* no equivalent */
   display: flex;
   gap: 0.6rem;
   padding: 0.9rem 1.25rem !important;
@@ -366,6 +417,7 @@
 }
 
 .discourse-report-submit-btn {
+  /* no equivalent */
   flex: 1;
   background: var(--dc-primary);
   color: #fff;
@@ -383,10 +435,12 @@
 }
 
 .discourse-report-submit-btn:hover {
+  /* no equivalent */
   background: var(--dc-primary-dark);
 }
 
 .discourse-report-cancel-btn {
+  /* no equivalent */
   background: #f5f6fa;
   color: #5e6278;
   font-weight: 700;
@@ -399,10 +453,12 @@
 }
 
 .discourse-report-cancel-btn:hover {
+  /* no equivalent */
   background: #e4e6ef;
 }
 /* ── Community Rules card (used in Report modal) ────────────── */
 .dc-rules-card {
+  /* no equivalent */
   background: #f0faf5;
   border: 1px solid #c8e6c9;
   border-radius: 12px;
@@ -410,6 +466,7 @@
 }
 
 .dc-rules-title {
+  /* no equivalent */
   font-size: 13px; /* fs-6 */
   font-weight: 700;
   color: #2D6A4F;
@@ -417,6 +474,7 @@
 }
 
 .dc-rules-list {
+  /* no equivalent */
   list-style: none;
   padding: 0;
   margin: 0;
@@ -426,6 +484,7 @@
 }
 
 .dc-rules-list li {
+  /* no equivalent */
   font-size: 13px; /* fs-6 */
   color: #2D6A4F;
   display: flex;
@@ -434,6 +493,7 @@
 }
 
 .dc-rules-list li::before {
+  /* no equivalent */
   content: '✓';
   font-weight: 700;
   flex-shrink: 0;

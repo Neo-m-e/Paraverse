@@ -62,12 +62,14 @@ $db_posts = [
   [
     'id' => 1,
     'title' => 'The silent revolution in edge AI — why on-device inference is changing everything',
+    'body' => 'A decade optimizing for server-side compute, but the thermal envelope of modern SoCs has quietly crossed a threshold nobody was paying attention to. Here\'s why 2025 is the last year data centers dominate...',
     'topic' => 'TECHNOLOGY',
     'upvotes' => 214,
     'is_announcement' => 1,
     'is_anonymous' => 0,
     'display_name' => 'Ravi Joshi',
     'avatar_md' => '',
+    'author_id' => 'T202110294',
     'created_at' => date('Y-m-d H:i:s', strtotime('-3 hours')),
     'comments_count' => 3,
     'first_comment' => 'Hallway is always too noisy for group discussions, booking a room is definitely worth it!',
@@ -75,12 +77,14 @@ $db_posts = [
   [
     'id' => 6,
     'title' => 'FEU Tech library study rooms — worth booking or just use the hallway?',
+    'body' => 'Finally tried booking one of the new study rooms in the library. Honest review: the booking system is clunky, the AC is questionable, but the soundproofing is actually great.',
     'topic' => 'ACADEMICS',
     'upvotes' => 67,
     'is_announcement' => 0,
     'is_anonymous' => 0,
     'display_name' => 'Catalina Smith',
     'avatar_md' => '',
+    'author_id' => 'T202210202',
     'created_at' => date('Y-m-d H:i:s', strtotime('-5 days')),
     'comments_count' => 1,
     'first_comment' => '',
@@ -387,18 +391,18 @@ $db_posts = [
                     <?php
                     // Map DB posts; show empty state when none
                     $posts = array_map(function ($r) {
-                      $isAnon = ($r['is_anonymous'] == 1);
+                      $isAnon = (isset($r['is_anonymous']) && $r['is_anonymous'] == 1);
                       return [
-                        "id"             => $r['id'],
-                        "author_id"      => $r['author_id'],
+                        "id"             => $r['id'] ?? 0,
+                        "author_id"      => $r['author_id'] ?? '',
                         "author"         => $isAnon ? 'Anonymous' : ($r['display_name'] ?? 'User'),
                         "is_anonymous"   => $isAnon,
                         "avatar"         => $isAnon ? '/Discourse/assets/images/anonymous.png' : ($r['avatar_md'] ?? '/Discourse/assets/images/anonymous.png'),
-                        "time"           => get_relative_time($r['created_at']),
+                        "time"           => isset($r['created_at']) ? get_relative_time($r['created_at']) : '1d ago',
                         "tag"            => $r['topic'] ?? 'GENERAL',
                         "tags"           => $r['tags'] ?? '',
-                        "title"          => $r['title'],
-                        "body"           => $r['body'],
+                        "title"          => $r['title'] ?? '',
+                        "body"           => $r['body'] ?? '',
                         "votes"          => $r['upvotes'] ?? 0,
                         "comments_count" => $r['comments_count'] ?? 0,
                         "first_comment"  => $r['first_comment'] ?? '',

@@ -1,21 +1,22 @@
-.profile-tab { cursor: pointer; padding-bottom: 8px; border-bottom: 2px solid transparent; transition: all 0.2s ease; }
-.profile-tab:hover { color: #1e7145 !important; }
-.profile-tab.active { color: #1e7145 !important; border-bottom-color: #1e7145; }
-.activity-card { transition: background 0.15s ease; }
-.activity-card:hover { background-color: #fafafa; }
-.vote-btn { transition: all 0.15s ease; cursor: pointer; }
-.vote-btn:hover { background-color: #f1f1f2 !important; }
-.tag-badge { font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
-.avatar-circle { overflow: hidden; }
-.avatar-circle img { width: 100%; height: 100%; object-fit: cover; }
-.tab-pane { display: none; }
-.tab-pane.active { display: block; }
-.follow-btn { transition: all 0.2s ease; }
-.follow-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30, 113, 69, 0.3); }
-.community-card { transition: all 0.2s ease; cursor: pointer; }
-.community-card:hover { transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
+.profile-tab { /* no equivalent */  cursor: pointer; padding-bottom: 8px; border-bottom: 2px solid transparent; transition: all 0.2s ease; }
+.profile-tab:hover { /* no equivalent */  color: #1e7145 !important; }
+.profile-tab.active { /* no equivalent */  color: #1e7145 !important; border-bottom-color: #1e7145; }
+.activity-card { /* no equivalent */  transition: background 0.15s ease; }
+.activity-card:hover { /* no equivalent */  background-color: #fafafa; }
+.vote-btn { /* no equivalent */  transition: all 0.15s ease; cursor: pointer; }
+.vote-btn:hover { /* no equivalent */  background-color: #f1f1f2 !important; }
+.tag-badge { /* no equivalent */  font-size: 10px; font-weight: 700; letter-spacing: 0.5px; text-transform: uppercase; }
+.avatar-circle { /* no equivalent */  overflow: hidden; }
+.avatar-circle img { /* no equivalent */  width: 100%; height: 100%; object-fit: cover; }
+.tab-pane { /* no equivalent */  display: none; }
+.tab-pane.active { /* no equivalent */  display: block; }
+.follow-btn { /* no equivalent */  transition: all 0.2s ease; }
+.follow-btn:hover { /* no equivalent */  transform: translateY(-1px); box-shadow: 0 4px 12px rgba(30, 113, 69, 0.3); }
+.community-card { /* no equivalent */  transition: all 0.2s ease; cursor: pointer; }
+.community-card:hover { /* no equivalent */  transform: translateY(-2px); box-shadow: 0 4px 16px rgba(0,0,0,0.08); }
 
 .page-banner {
+  /* no equivalent */
     background-color: #0c3823;
     border-radius: 0;
 }
