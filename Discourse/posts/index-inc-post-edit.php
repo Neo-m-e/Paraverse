@@ -1,6 +1,7 @@
 <?php
 if (!defined('MBG')) define('MBG', TRUE);
-include_once(dirname(__DIR__) . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/Discourse/functions.discourse.php');
 
 $post_id = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $post = [

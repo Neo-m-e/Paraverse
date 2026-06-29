@@ -1,6 +1,7 @@
 <?php
 if (!defined('MBG')) define('MBG', TRUE);
-include_once(dirname(__DIR__) . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/Discourse/functions.discourse.php');
 
 if (isset($_GET['id']) && trim($_GET['id']) !== $identification) {
   header("Location: /Discourse/profiles/index.php?id=" . urlencode(trim($_GET['id'])));

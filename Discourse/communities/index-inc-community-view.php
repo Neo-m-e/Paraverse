@@ -1,6 +1,7 @@
 <?php
 if (!defined('MBG')) define('MBG', TRUE);
-include_once(dirname(__DIR__) . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/Discourse/functions.discourse.php');
 $community_name = isset($_GET['c']) ? trim($_GET['c']) : 'FEU Tech';
 $META_TITLE = htmlspecialchars($community_name) . " - Discourse Community";
 

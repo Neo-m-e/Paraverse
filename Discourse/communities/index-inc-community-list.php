@@ -1,6 +1,7 @@
 <?php
 if (!defined('MBG')) define('MBG', TRUE);
-include_once(dirname(__DIR__) . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/Discourse/functions.discourse.php');
 
 $META_TITLE = "Discourse - FEU Communities";
 ?>
@@ -74,9 +75,9 @@ $META_TITLE = "Discourse - FEU Communities";
                         <button class="filter-btn btn btn-outline btn-outline-dashed btn-outline-default text-muted bg-white px-6 py-3 fw-bold" data-filter="FEU DILIMAN">FEU DILIMAN</button>
                         <button class="filter-btn btn btn-outline btn-outline-dashed btn-outline-default text-muted bg-white px-6 py-3 fw-bold" data-filter="FEU TECH">FEU TECH</button>
                     </div>
-                    <button class="btn btn-warning d-flex align-items-center gap-2 fw-bolder text-white px-6 py-3" data-bs-toggle="modal" data-bs-target="#create_community_modal">
+                    <a href="create.php" class="btn btn-warning d-flex align-items-center gap-2 fw-bolder text-white px-6 py-3">
                         <i class="fas fa-plus text-white"></i> CREATE COMMUNITY
-                    </button>
+                    </a>
                 </div>
 
                 <!-- Cards Grid -->
@@ -152,101 +153,7 @@ $META_TITLE = "Discourse - FEU Communities";
                     <?php } ?>
                 </div>
 
-                <!-- Create Community Modal -->
-                <div class="modal fade" id="create_community_modal" tabindex="-1" aria-hidden="true">
-                    <div class="modal-dialog modal-dialog-centered mw-600px">
-                        <div class="modal-content">
-                            <div class="modal-header border-0 pb-0 justify-content-end" style="position: absolute; right: 0; z-index: 10;">
-                                <div class="btn btn-sm btn-icon btn-active-color-primary mt-2 me-2" data-bs-dismiss="modal">
-                                    <i class="fas fa-times fs-2 text-white"></i>
-                                </div>
-                            </div>
-                            <div class="modal-header border-0 p-0 mb-5 rounded-top modal-theme-header" style="background-color: #1A8B44; transition: background-color 0.3s ease;">
-                                <h2 class="fw-bolder text-white px-8 py-6 m-0 w-100">Create a community</h2>
-                            </div>
-                            <div class="modal-body px-8 pt-0 pb-8">
-                                <form class="form" action="#" id="create-community-form">
-                                    <div class="fv-row mb-6">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Community Name</label>
-                                        <input type="text" id="comm-name" class="form-control form-control-solid bg-light" placeholder="E.g FEU TECH" required />
-                                    </div>
-                                    <div class="fv-row mb-6">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Description</label>
-                                        <textarea id="comm-desc" class="form-control form-control-solid bg-light" rows="4" placeholder="Describe the purpose, topics, and audience of this community" required></textarea>
-                                    </div>
-                                    
-                                    <div class="row mb-6">
-                                        <div class="col-6">
-                                            <label class="fs-6 fw-bold mb-2 text-dark">Category</label>
-                                            <select id="comm-cat" class="form-select form-select-solid bg-light" data-control="select2" data-hide-search="true" required>
-                                                <option value=""></option>
-                                                <option value="FEU TECH">FEU TECH</option>
-                                                <option value="FEU ALABANG">FEU ALABANG</option>
-                                                <option value="FEU DILIMAN">FEU DILIMAN</option>
-                                            </select>
-                                        </div>
-                                         <div class="col-6">
-                                             <label class="fs-6 fw-bold mb-2 text-dark">Import Profile</label>
-                                             <input type="file" id="comm-logo" name="logo" class="form-control form-control-solid bg-light" accept="image/*" />
-                                         </div>
-                                    </div>
 
-                                    <div class="row mb-6">
-                                        <div class="col-12">
-                                            <label class="fs-6 fw-bold mb-2 text-dark">Community Icon (if no image)</label>
-                                            <select id="comm-icon" class="form-select form-select-solid bg-light" required>
-                                                <option value="bi-people-fill" selected>People / General</option>
-                                                <option value="bi-heart-fill">Life / Health</option>
-                                                <option value="bi-cup-hot-fill">Food / Cafe</option>
-                                                <option value="bi-palette-fill">Art / Creative</option>
-                                                <option value="bi-journal-bookmark-fill">Academics / Library</option>
-                                                <option value="bi-lightbulb-fill">Startup / Ideas</option>
-                                                <option value="bi-building-fill">Campus / Buildings</option>
-                                                <option value="bi-cpu-fill">Dev / Tech</option>
-                                                <option value="bi-mortarboard-fill">Graduation</option>
-                                                <option value="bi-trophy-fill">Sports / Gaming</option>
-                                                <option value="bi-music-note-beamed">Music / Ent.</option>
-                                                <option value="bi-exclamation-circle">Support / Issues</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="fv-row mb-6">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Theme Color</label>
-                                        <div class="d-flex align-items-center gap-3 theme-color-picker flex-wrap">
-                                            <div class="w-30px h-30px rounded-circle cursor-pointer border border-2 border-white shadow-sm theme-color-btn active" style="background-color: #1A8B44;" data-color="#1A8B44"></div>
-                                            <div class="w-30px h-30px rounded-circle cursor-pointer border border-2 border-white shadow-sm theme-color-btn" style="background-color: #0b5ed7;" data-color="#0b5ed7"></div>
-                                            <div class="w-30px h-30px rounded-circle cursor-pointer border border-2 border-white shadow-sm theme-color-btn" style="background-color: #6610f2;" data-color="#6610f2"></div>
-                                            <div class="w-30px h-30px rounded-circle cursor-pointer border border-2 border-white shadow-sm theme-color-btn" style="background-color: #d63384;" data-color="#d63384"></div>
-                                            <div class="w-30px h-30px rounded-circle cursor-pointer border border-2 border-white shadow-sm theme-color-btn" style="background-color: #dc3545;" data-color="#dc3545"></div>
-                                            <div class="w-30px h-30px rounded-circle cursor-pointer border border-2 border-white shadow-sm theme-color-btn" style="background-color: #6c757d;" data-color="#6c757d"></div>
-                                            <div class="w-30px h-30px rounded-circle cursor-pointer border border-2 border-white shadow-sm theme-color-btn" style="background-color: #212529;" data-color="#212529"></div>
-                                            <input type="color" id="comm-theme-color-custom" class="form-control form-control-solid p-0 border-0 cursor-pointer rounded-circle" style="width: 30px; height: 30px;" value="#1A8B44" title="Choose custom color" />
-                                        </div>
-                                    </div>
-                                    
-                                    <div class="fv-row mb-8">
-                                        <label class="fs-6 fw-bold mb-2 text-dark">Custom Topic Categories <span class="text-muted fw-normal fs-7">(optional)</span></label>
-                                        <div id="comm-topics-wrap" class="d-flex flex-wrap gap-2 mb-2" style="min-height:36px;"></div>
-                                        <div class="d-flex gap-2">
-                                            <input type="text" id="comm-topic-input" class="form-control form-control-solid bg-light flex-grow-1" placeholder="e.g. Gaming, Events, Projects…" />
-                                            <button type="button" id="comm-topic-add-btn" class="btn btn-light-success fw-bold px-4">
-                                                <i class="bi bi-plus-lg"></i> Add
-                                            </button>
-                                        </div>
-                                        <input type="hidden" id="comm-topics-hidden" name="custom_topics" value="" />
-                                        <div class="text-muted fs-8 mt-2">Type a category and click Add. These will appear as topic filters in your community.</div>
-                                    </div>
-                                    
-                                    <div class="d-flex flex-stack gap-4">
-                                        <button type="button" class="btn btn-outline btn-outline-default flex-grow-1 fw-bold bg-white" data-bs-dismiss="modal">Cancel</button>
-                                        <button type="submit" class="btn btn-warning flex-grow-1 text-white fw-bolder">CREATE COMMUNITY</button>
-                                    </div>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
 
               </div>
             </main>

@@ -1,6 +1,7 @@
 <?php
 if (!defined('MBG')) define('MBG', TRUE);
-include_once(dirname(__DIR__) . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/Discourse/functions.discourse.php');
 
 $db_communities = [
     ['title' => 'FEU Tech',         'logo_url' => '', 'icon' => 'bi-cpu',                 'theme_color' => '#17c653', 'custom_topics' => ''],

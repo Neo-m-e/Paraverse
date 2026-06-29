@@ -1,146 +1,19 @@
 <?php
+// Discourse-specific database connection and helper functions
+
 session_name('mbg');
 if (session_status() === PHP_SESSION_NONE) {
   session_start();
 }
 
-// ── MySQL Database Connection (XAMPP) ──
+// ── Database connection variables set to null for mock mode ──
 $DB_HOST = '127.0.0.1';
 $DB_USER = 'root';
 $DB_PASS = '';
 $DB_NAME = 'discourse';
 
-// Establish connection with silent fallback if database is not running/created yet
 $EDITH = null;
-try {
-    $conn = new mysqli($DB_HOST, $DB_USER, $DB_PASS, $DB_NAME);
-    if (!$conn->connect_error) {
-        $conn->set_charset('utf8mb4');
-        $EDITH = $conn;
-
-        // Auto-initialize normalized hashtag tables & indexes
-        $table_check = $EDITH->query("SHOW TABLES LIKE 'posts'");
-        if ($table_check && $table_check->num_rows > 0) {
-            $EDITH->query("CREATE TABLE IF NOT EXISTS `hashtags` (
-              `id` INT AUTO_INCREMENT PRIMARY KEY,
-              `name` VARCHAR(100) UNIQUE NOT NULL,
-              `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
-
-            $EDITH->query("CREATE TABLE IF NOT EXISTS `post_hashtags` (
-              `post_id` INT NOT NULL,
-              `hashtag_id` INT NOT NULL,
-              PRIMARY KEY (`post_id`, `hashtag_id`),
-              FOREIGN KEY (`post_id`) REFERENCES `posts` (`id`) ON DELETE CASCADE,
-              FOREIGN KEY (`hashtag_id`) REFERENCES `hashtags` (`id`) ON DELETE CASCADE
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
-
-            $EDITH->query("CREATE TABLE IF NOT EXISTS `followers` (
-              `id` INT AUTO_INCREMENT PRIMARY KEY,
-              `follower_id` VARCHAR(20) NOT NULL,
-              `following_id` VARCHAR(20) NOT NULL,
-              `created_at` TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-              UNIQUE KEY `follower_following` (`follower_id`, `following_id`),
-              FOREIGN KEY (`follower_id`) REFERENCES `accounts` (`identification`) ON DELETE CASCADE,
-              FOREIGN KEY (`following_id`) REFERENCES `accounts` (`identification`) ON DELETE CASCADE
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;");
-            
-            // Create indexes
-            $res = $EDITH->query("SHOW KEYS FROM `posts` WHERE Key_name = 'idx_posts_topic'");
-            if ($res && $res->num_rows === 0) {
-                $EDITH->query("ALTER TABLE `posts` ADD INDEX `idx_posts_topic` (`topic`)");
-            }
-            $res = $EDITH->query("SHOW KEYS FROM `posts` WHERE Key_name = 'idx_posts_community'");
-            if ($res && $res->num_rows === 0) {
-                $EDITH->query("ALTER TABLE `posts` ADD INDEX `idx_posts_community` (`community`)");
-            }
-            
-            // Ensure logo_url column exists in communities
-            $res_logo = $EDITH->query("SHOW COLUMNS FROM `communities` LIKE 'logo_url'");
-            if ($res_logo && $res_logo->num_rows === 0) {
-                $EDITH->query("ALTER TABLE `communities` ADD COLUMN `logo_url` VARCHAR(255) DEFAULT NULL");
-            }
-            
-            // Ensure is_announcement column exists in posts
-            $res_ann = $EDITH->query("SHOW COLUMNS FROM `posts` LIKE 'is_announcement'");
-            if ($res_ann && $res_ann->num_rows === 0) {
-                $EDITH->query("ALTER TABLE `posts` ADD COLUMN `is_announcement` TINYINT(4) NOT NULL DEFAULT 0");
-            }
-            
-            // Ensure is_highlighted column exists in posts
-            $res_hl = $EDITH->query("SHOW COLUMNS FROM `posts` LIKE 'is_highlighted'");
-            if ($res_hl && $res_hl->num_rows === 0) {
-                $EDITH->query("ALTER TABLE `posts` ADD COLUMN `is_highlighted` TINYINT(4) NOT NULL DEFAULT 0");
-            }
-            
-            // Ensure cover_md, program, campus, bio columns exist in accounts
-            $res_acct = $EDITH->query("SHOW COLUMNS FROM `accounts` LIKE 'cover_md'");
-            if ($res_acct && $res_acct->num_rows === 0) {
-                $EDITH->query("ALTER TABLE `accounts` ADD COLUMN `cover_md` VARCHAR(255) DEFAULT NULL");
-            }
-            $res_acct = $EDITH->query("SHOW COLUMNS FROM `accounts` LIKE 'program'");
-            if ($res_acct && $res_acct->num_rows === 0) {
-                $EDITH->query("ALTER TABLE `accounts` ADD COLUMN `program` VARCHAR(150) DEFAULT NULL");
-            }
-            $res_acct = $EDITH->query("SHOW COLUMNS FROM `accounts` LIKE 'campus'");
-            if ($res_acct && $res_acct->num_rows === 0) {
-                $EDITH->query("ALTER TABLE `accounts` ADD COLUMN `campus` VARCHAR(150) DEFAULT NULL");
-            }
-            $res_acct = $EDITH->query("SHOW COLUMNS FROM `accounts` LIKE 'bio'");
-            if ($res_acct && $res_acct->num_rows === 0) {
-                $EDITH->query("ALTER TABLE `accounts` ADD COLUMN `bio` TEXT DEFAULT NULL");
-            }
-            
-            // Automatic backfill migration
-            $res_count = $EDITH->query("SELECT COUNT(*) as cnt FROM `post_hashtags`");
-            if ($res_count) {
-                $row_count = $res_count->fetch_assoc();
-                if ($row_count['cnt'] == 0) {
-                    $posts_res = $EDITH->query("SELECT id, tags FROM posts WHERE tags IS NOT NULL AND tags != ''");
-                    if ($posts_res) {
-                        while ($post_row = $posts_res->fetch_assoc()) {
-                            $pid = $post_row['id'];
-                            $tags_raw = $post_row['tags'];
-                            $tags = preg_split('/[,•]+/', $tags_raw);
-                            foreach ($tags as $t) {
-                                $t = trim($t);
-                                if ($t === '') continue;
-                                $t_clean = strtolower($t);
-                                
-                                $stmt = $EDITH->prepare("INSERT IGNORE INTO hashtags (name) VALUES (?)");
-                                if ($stmt) {
-                                    $stmt->bind_param("s", $t_clean);
-                                    $stmt->execute();
-                                    $stmt->close();
-                                }
-                                
-                                $stmt = $EDITH->prepare("SELECT id FROM hashtags WHERE name = ?");
-                                if ($stmt) {
-                                    $stmt->bind_param("s", $t_clean);
-                                    $stmt->execute();
-                                    $hid_res = $stmt->get_result()->fetch_assoc();
-                                    $stmt->close();
-                                    
-                                    if ($hid_res) {
-                                        $hid = $hid_res['id'];
-                                        $stmt = $EDITH->prepare("INSERT IGNORE INTO post_hashtags (post_id, hashtag_id) VALUES (?, ?)");
-                                        if ($stmt) {
-                                            $stmt->bind_param("ii", $pid, $hid);
-                                            $stmt->execute();
-                                            $stmt->close();
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-} catch (Exception $e) {
-    // Database connection failed, fallback gracefully
-}
+$conn = null;
 
 // Compatibility variables
 $DB_SERVER   = $DB_HOST;
@@ -155,16 +28,17 @@ if (!isset($_SESSION['identification'])) {
 $identification = $_SESSION['identification'];
 
 // Helper Class for Sanitization (legacy compatibility)
-class Sanitizer {
-  public static function url($url) {
-    return filter_var($url, FILTER_SANITIZE_URL);
-  }
+if (!class_exists('Sanitizer')) {
+    class Sanitizer {
+      public static function url($url) {
+        return filter_var($url, FILTER_SANITIZE_URL);
+      }
+    }
 }
 
-// Clean sanitization function for SQL input
+// Clean sanitization function for SQL input (no-op since no SQL queries)
 if (!function_exists('sanitize')) {
     function sanitize($data) {
-        global $EDITH;
         if (is_array($data)) {
             foreach ($data as $key => $value) {
                 $data[$key] = sanitize($value);
@@ -172,12 +46,7 @@ if (!function_exists('sanitize')) {
             return $data;
         }
         if (is_string($data)) {
-            $data = trim($data);
-            if ($EDITH) {
-                return $EDITH->real_escape_string($data);
-            } else {
-                return addslashes($data);
-            }
+            return trim($data);
         }
         return $data;
     }
@@ -201,25 +70,9 @@ if (!function_exists('DIRECT_ACCESS_BLOCKED')) {
     }
 }
 
-// Get account details by identification
+// Get account details by identification (mock data only)
 if (!function_exists('GET_ACCOUNT_DETAILS')) {
     function GET_ACCOUNT_DETAILS($id) {
-      global $EDITH;
-      
-      // If we have a database connection, query it
-      if ($EDITH) {
-          $stmt = $EDITH->prepare("SELECT * FROM accounts WHERE identification = ?");
-          if ($stmt) {
-              $stmt->bind_param("s", $id);
-              $stmt->execute();
-              $result = $stmt->get_result()->fetch_assoc();
-              $stmt->close();
-              if ($result) {
-                  return $result;
-              }
-          }
-      }
-      
       // Fallback/Mock data (used when database is offline or user not found in DB)
       $id_clean = trim($id);
       if ($id_clean === 'T202210344') {
@@ -310,103 +163,6 @@ if (!function_exists('getLightColorStyle')) {
         }
         return "background-color: rgba($r, $g, $b, 0.1) !important; color: #$hex !important;";
     }
-}
-
-function HEAD_ESSENTIALS()
-{
-  global $META_TITLE;
-  global $META_DESC;
-  global $META_IMAGE;
-  global $identification;
-
-  $META_TITLE = empty($META_TITLE) ? "Educational Innovation and Technology Hub" : htmlspecialchars(
-    $META_TITLE,
-    ENT_NOQUOTES
-  );
-  $META_IMAGE = empty($META_IMAGE) ? "https://paraverse.feutech.edu.ph/assets/img/office.jpg" :
-    Sanitizer::url($META_IMAGE);
-  $META_LINK = "https://" . $_SERVER['HTTP_HOST'] . parse_url($_SERVER["REQUEST_URI"], PHP_URL_PATH);
-
-  $maintenance = isset($_SESSION['loggedins'])
-    ? "
-<script>
-  $(document).ready(function () {
-    var alertBox = $('<div class=\"alert bg-light-danger fw-semibold text-center fs-5 py-7 px-lg-20\"></div>')
-      .html(`
-                        <div class=\"app-container container-xxl\">
-                            Some features may be temporarily unavailable as we complete recent updates. 
-                            We are working to restore full functionality as quickly as possible. 
-                            If you encounter any errors or issues, 
-                            <a href='javascript:void(0);' id='reportLink' style='text-decoration:underline; color:blue;'>report here</a>. 
-                            Thank you for your patience! ❤️
-                        </div>
-                    `);
-
-    $('.app-wrapper').prepend(alertBox);
-
-    $(document).on('click', '#reportLink', function () {
-      $('#open-modal-feedback')[0].click();
-      $('[feedback=\"report\"]')[0].click();
-    });
-  });
-</script>
-" : null;
-
-  echo '
-<title>' . $META_TITLE . '</title>
-<meta charset="UTF-8" />
-
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="' . $META_DESC . '">
-
-<meta property="og:title" content="' . $META_TITLE . '" />
-<meta property="og:url" content="' . $META_LINK . '" />
-<meta property="og:image" content="' . $META_IMAGE . '" />
-<meta property="og:description" content="' . $META_DESC . '">
-<meta property="og:type" content="article" />
-<meta property="og:locale" content="en_US" />
-<meta property="og:site_name" content="Educational Innovation and Technology Hub" />
-
-<meta name="twitter:title" content="' . $META_TITLE . '">
-<meta name="twitter:description" content="' . $META_DESC . '">
-<meta name="twitter:image" content="' . $META_IMAGE . '">
-<meta name="twitter:card" content="summary_large_image">
-
-<link rel="icon" type="image/x-icon" href="/Discourse/assets/img/favicon.png">
-<link rel="manifest" href="/Discourse/assets/site.webmanifest?v=2">
-
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="apple-mobile-web-app-title" content="Paraverse">
-<link rel="apple-touch-icon" href="/Discourse/assets/img/logo/icon-paraverse-192.png">
-
-<link rel="stylesheet" href="/Discourse/assets/plugins/global/plugins.bundle.css">
-<link rel="stylesheet" href="/Discourse/assets/css/style.keenicons.css">
-<link rel="stylesheet" href="/Discourse/assets/css/style.bundle.v2.full.css?version=1.1028">
-
-<script src="/Discourse/assets/js/jquery.js"></script>
-
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link
-  href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&Libre+Franklin:wght@400;600;800&family=News+Cycle:wght@700&display=swap"
-  rel="stylesheet">
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-SR6Q4GLJJH"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag() { dataLayer.push(arguments); }
-  gtag(\'js\', new Date());
-                gtag(\'config\', \'G-SR6Q4GLJJH\');
-</script>
-
-<script>
-            // Frame-busting to prevent site from being loaded within a frame without permission (click-jacking)
-            if (window.top != window.self) {
-    // window.top.location.replace(window.self.location.href);
-  }
-</script>
-' . $maintenance;
 }
 
 if (!function_exists('sort_discourse_posts')) {
@@ -524,7 +280,7 @@ if (!function_exists('getCategoryBadgeStyle')) {
         } else {
           return ['class' => 'badge-light-secondary', 'icon' => 'bi-tag',               'icon_color' => 'text-secondary'];
         }
-}
+    }
   }
 }
 
@@ -589,7 +345,6 @@ if (!function_exists('getCommunityIconDetails')) {
   }
 }
 
-
 if (!function_exists('renderCategoryBadge')) {
     function renderCategoryBadge($category) {
         $badge = getCategoryBadgeStyle($category);
@@ -600,22 +355,9 @@ if (!function_exists('renderCategoryBadge')) {
 
 if (!function_exists('IS_COMMUNITY_MEMBER')) {
     function IS_COMMUNITY_MEMBER($community_title, $identification) {
-        global $EDITH;
-        if (!$EDITH) {
-            // Fallback: check session
-            if (isset($_SESSION['joined_communities']) && is_array($_SESSION['joined_communities'])) {
-                return in_array($community_title, $_SESSION['joined_communities']);
-            }
-            return false;
-        }
-        $stmt = $EDITH->prepare("SELECT 1 FROM community_members WHERE community_title = ? AND identification = ?");
-        if ($stmt) {
-            $stmt->bind_param("ss", $community_title, $identification);
-            $stmt->execute();
-            $stmt->store_result();
-            $is_member = ($stmt->num_rows > 0);
-            $stmt->close();
-            return $is_member;
+        // Fallback: check session
+        if (isset($_SESSION['joined_communities']) && is_array($_SESSION['joined_communities'])) {
+            return in_array($community_title, $_SESSION['joined_communities']);
         }
         return false;
     }
@@ -623,28 +365,13 @@ if (!function_exists('IS_COMMUNITY_MEMBER')) {
 
 if (!function_exists('IS_POST_SAVED')) {
     function IS_POST_SAVED($post_id, $identification) {
-        global $EDITH;
-        if (!$EDITH) {
-            // Fallback: check session
-            if (isset($_SESSION['saved_posts']) && is_array($_SESSION['saved_posts'])) {
-                return in_array($post_id, $_SESSION['saved_posts']);
-            }
-            return false;
-        }
-        $stmt = $EDITH->prepare("SELECT 1 FROM saved_posts WHERE post_id = ? AND identification = ?");
-        if ($stmt) {
-            $stmt->bind_param("is", $post_id, $identification);
-            $stmt->execute();
-            $stmt->store_result();
-            $is_saved = ($stmt->num_rows > 0);
-            $stmt->close();
-            return $is_saved;
+        // Fallback: check session
+        if (isset($_SESSION['saved_posts']) && is_array($_SESSION['saved_posts'])) {
+            return in_array($post_id, $_SESSION['saved_posts']);
         }
         return false;
     }
 }
-
-
 
 if (!function_exists('renderTopicBadge')) {
     function renderTopicBadge($topic) {
@@ -683,39 +410,8 @@ if (!function_exists('renderHashtagBadges')) {
 
 if (!function_exists('MIGRATE_POST_HASHTAGS')) {
     function MIGRATE_POST_HASHTAGS($post_id, $tags_raw) {
-        global $EDITH;
-        if (!$EDITH || empty($tags_raw)) return;
-        $tags = preg_split('/[,•]+/', $tags_raw);
-        foreach ($tags as $t) {
-            $t = trim($t);
-            if ($t === '') continue;
-            $t_clean = strtolower($t);
-            
-            $stmt = $EDITH->prepare("INSERT IGNORE INTO hashtags (name) VALUES (?)");
-            if ($stmt) {
-                $stmt->bind_param("s", $t_clean);
-                $stmt->execute();
-                $stmt->close();
-            }
-            
-            $stmt = $EDITH->prepare("SELECT id FROM hashtags WHERE name = ?");
-            if ($stmt) {
-                $stmt->bind_param("s", $t_clean);
-                $stmt->execute();
-                $hid_res = $stmt->get_result()->fetch_assoc();
-                $stmt->close();
-                
-                if ($hid_res) {
-                    $hid = $hid_res['id'];
-                    $stmt = $EDITH->prepare("INSERT IGNORE INTO post_hashtags (post_id, hashtag_id) VALUES (?, ?)");
-                    if ($stmt) {
-                        $stmt->bind_param("ii", $post_id, $hid);
-                        $stmt->execute();
-                        $stmt->close();
-                    }
-                }
-            }
-        }
+        // No-op / Hardcoded mode
+        return;
     }
 }
 
@@ -740,4 +436,3 @@ if (!function_exists('linkHashtags')) {
         );
     }
 }
-

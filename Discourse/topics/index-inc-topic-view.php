@@ -1,5 +1,6 @@
 <?php
-include_once(dirname(__DIR__) . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
+include_once($_SERVER['DOCUMENT_ROOT'] . '/Discourse/functions.discourse.php');
 
 // ── Topic config ────────────────────────────────────────────────────────────
 // In production, get this from $_GET['topic'] and validate it.
