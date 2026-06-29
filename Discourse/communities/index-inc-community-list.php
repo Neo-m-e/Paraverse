@@ -75,7 +75,7 @@ $META_TITLE = "Discourse - FEU Communities";
                         <button class="filter-btn btn btn-outline btn-outline-dashed btn-outline-default text-muted bg-white px-6 py-3 fw-bold" data-filter="FEU DILIMAN">FEU DILIMAN</button>
                         <button class="filter-btn btn btn-outline btn-outline-dashed btn-outline-default text-muted bg-white px-6 py-3 fw-bold" data-filter="FEU TECH">FEU TECH</button>
                     </div>
-                    <a href="create.php" class="btn btn-warning d-flex align-items-center gap-2 fw-bolder text-white px-6 py-3">
+                    <a href="createcommunity" class="btn btn-warning d-flex align-items-center gap-2 fw-bolder text-white px-6 py-3">
                         <i class="fas fa-plus text-white"></i> CREATE COMMUNITY
                     </a>
                 </div>
