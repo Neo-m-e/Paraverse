@@ -1,51 +1,49 @@
-<!-- ── Widget 1: Discourse Info Card ──────────────────────── -->
+<!-- ── Widget 1: Discourse Announcements Card ──────────────────────── -->
 <div class="card discourse-info-card mt-10 mb-4 border-0 position-relative overflow-hidden rounded-4 shadow-sm">
   <div class="discourse-widget-center-glow position-absolute w-100 h-100 top-0 start-0" style="pointer-events:none;z-index:0;"></div>
 
   <div class="card-body p-4 d-flex flex-column justify-content-between h-100 position-relative" style="z-index:1;">
 
     <div class="d-flex align-items-center gap-2 mb-2">
-      <img src="/Discourse/assets/images/Discourse-logo.png" alt="Discourse Logo" class="discourse-sidebar-logo" />
+      <i class="bi bi-megaphone-fill text-warning fs-3"></i>
+      <h6 class="text-white fw-bolder fs-6 mb-0 text-uppercase" style="letter-spacing:0.06em;">Discourse Announcements</h6>
     </div>
 
     <p class="text-white opacity-75 fs-7 fw-normal lh-base mb-3">
-      Ask questions, start debates, post anonymously. No prof. No judgment. Just FEU Tech students keeping it real.
+      Important updates and announcements from the Discourse administration team.
     </p>
 
     <div class="d-flex flex-column gap-1 border-top border-white-10 pt-2 flex-grow-1">
 
-      <a href="/Discourse/posts/index.php?poll=1"
-        class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded text-decoration-none">
-        <span class="fs-7 mt-1">📊</span>
+      <div class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded">
+        <span class="fs-7 mt-1">📢</span>
         <div class="d-flex flex-column">
           <span class="text-white fs-7 fw-semibold lh-sm text-line-clamp-2">
-            Poll: How do you actually study for finals?...
+            Scheduled Maintenance: Database updates tonight at 10 PM. Expect brief downtime.
           </span>
-          <span class="text-white opacity-50 fs-8">just posted</span>
+          <span class="text-white opacity-50 fs-8">Admin · 2 hours ago</span>
         </div>
-      </a>
+      </div>
 
-      <a href="/Discourse/posts/index.php"
-        class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded text-decoration-none">
-        <span class="fs-7 mt-1">🔵</span>
+      <div class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded">
+        <span class="fs-7 mt-1">🛡️</span>
         <div class="d-flex flex-column">
           <span class="text-white fs-7 fw-semibold lh-sm text-line-clamp-2">
-            The silent revolution in edge AI — why on-device inference is changing everything
+            New Feature: Anonymous posting is now fully operational in all sub-communities.
           </span>
-          <span class="text-white opacity-50 fs-8">3 comments · most active</span>
+          <span class="text-white opacity-50 fs-8">System · 1 day ago</span>
         </div>
-      </a>
+      </div>
 
-      <a href="/Discourse/posts/index.php?sample=1"
-        class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded text-decoration-none">
-        <span class="fs-7 mt-1">💡</span>
+      <div class="discourse-info-post-item d-flex align-items-start gap-2 p-2 rounded">
+        <span class="fs-7 mt-1">💬</span>
         <div class="d-flex flex-column">
           <span class="text-white fs-7 fw-semibold lh-sm text-line-clamp-2">
-            What if community governance used ranked-choice weighted by stake, not by account age?
+            Report issues or request new features using the Feedback link in the page footer.
           </span>
-          <span class="text-white opacity-50 fs-8">no replies yet</span>
+          <span class="text-white opacity-50 fs-8">Admin · 3 days ago</span>
         </div>
-      </a>
+      </div>
 
     </div>
   </div>

@@ -75,7 +75,7 @@ $META_TITLE = "Discourse - FEU Communities";
                         <button class="filter-btn btn btn-outline btn-outline-dashed btn-outline-default text-muted bg-white px-6 py-3 fw-bold" data-filter="FEU DILIMAN">FEU DILIMAN</button>
                         <button class="filter-btn btn btn-outline btn-outline-dashed btn-outline-default text-muted bg-white px-6 py-3 fw-bold" data-filter="FEU TECH">FEU TECH</button>
                     </div>
-                    <a href="createcommunity" class="btn btn-warning d-flex align-items-center gap-2 fw-bolder text-white px-6 py-3">
+                    <a href="create.php" class="btn btn-warning d-flex align-items-center gap-2 fw-bolder text-white px-6 py-3">
                         <i class="fas fa-plus text-white"></i> CREATE COMMUNITY
                     </a>
                 </div>
@@ -168,59 +168,7 @@ $META_TITLE = "Discourse - FEU Communities";
   <!-- Theme Color Picker Script -->
   <script>
     $(document).ready(function() {
-        // 0. Custom topic tags
-        var commTopics = [];
-
-        function renderTopicTags() {
-            var wrap = $('#comm-topics-wrap');
-            wrap.empty();
-            commTopics.forEach(function(t, i) {
-                wrap.append(
-                    $('<span class="badge bg-light-success text-success fw-bold px-3 py-2 d-inline-flex align-items-center gap-1" style="font-size:12px;"></span>')
-                    .text(t)
-                    .append($('<i class="bi bi-x ms-1" style="cursor:pointer;font-size:11px;"></i>').on('click', function() {
-                        commTopics.splice(i, 1);
-                        renderTopicTags();
-                    }))
-                );
-            });
-            $('#comm-topics-hidden').val(commTopics.join(','));
-        }
-
-        $('#comm-topic-add-btn').on('click', function() {
-            var val = $('#comm-topic-input').val().trim();
-            if (val && commTopics.length < 20 && !commTopics.includes(val)) {
-                commTopics.push(val.charAt(0).toUpperCase() + val.slice(1));
-                renderTopicTags();
-            }
-            $('#comm-topic-input').val('').focus();
-        });
-        $('#comm-topic-input').on('keypress', function(e) {
-            if (e.which === 13) { e.preventDefault(); $('#comm-topic-add-btn').click(); }
-        });
-
-        // Reset topics on modal close
-        $('#create_community_modal').on('hidden.bs.modal', function() {
-            commTopics = [];
-            renderTopicTags();
-        });
-
-        // 1. Handle theme color selection
-        $('.theme-color-btn').on('click', function() {
-            $('.theme-color-btn').removeClass('active');
-            $('#comm-theme-color-custom').removeClass('active');
-            $(this).addClass('active');
-            const selectedColor = $(this).attr('data-color');
-            $('.modal-theme-header').css('background-color', selectedColor);
-        });
-        $('#comm-theme-color-custom').on('input change', function() {
-            $('.theme-color-btn').removeClass('active');
-            $(this).addClass('active');
-            const selectedColor = $(this).val();
-            $('.modal-theme-header').css('background-color', selectedColor);
-        });
-
-        // 2. Filter and search functionality for cards
+        // 1. Filter and search functionality for cards
         function filterAndSearch() {
             const query = $('#communitySearch').val().toLowerCase();
             const activeFilter = $('.filter-btn.active').data('filter');
@@ -249,126 +197,6 @@ $META_TITLE = "Discourse - FEU Communities";
             $('.filter-btn').removeClass('active btn-success').css({'background-color': '', 'color': ''}).addClass('bg-white text-muted btn-outline btn-outline-dashed btn-outline-default');
             $(this).addClass('active btn-success').removeClass('bg-white text-muted btn-outline btn-outline-dashed btn-outline-default').css({'background-color': '#1A8B44', 'color': 'white'});
             filterAndSearch();
-        });
-
-        // 3. Add create community dynamic creation
-        $('#create-community-form').on('submit', function(e) {
-            e.preventDefault();
-            
-            const name = $('#comm-name').val();
-            const desc = $('#comm-desc').val();
-            let cat = $('#comm-cat').val();
-            if (!cat) cat = 'my-communities';
-            const activeColor = $('.theme-color-btn.active').length ? $('.theme-color-btn.active').attr('data-color') : ($('#comm-theme-color-custom').val() || '#1A8B44');
-            const selectedIcon = $('#comm-icon').val() || 'bi-people-fill';
-            
-            var formData = new FormData();
-            formData.append('name', name);
-            formData.append('desc', desc);
-            formData.append('School', cat);
-            formData.append('theme_color', activeColor);
-            formData.append('icon', selectedIcon);
-            formData.append('custom_topics', commTopics.join(','));
-            
-            var logoFile = $('#comm-logo')[0].files[0];
-            if (logoFile) {
-                formData.append('logo', logoFile);
-            }
-            
-            function hexToRgba(hex, opacity) {
-                hex = hex.replace('#', '');
-                let r, g, b;
-                if (hex.length === 3) {
-                    r = parseInt(hex.charAt(0) + hex.charAt(0), 16);
-                    g = parseInt(hex.charAt(1) + hex.charAt(1), 16);
-                    b = parseInt(hex.charAt(2) + hex.charAt(2), 16);
-                } else {
-                    r = parseInt(hex.substring(0, 2), 16);
-                    g = parseInt(hex.substring(2, 4), 16);
-                    b = parseInt(hex.substring(4, 6), 16);
-                }
-                return `rgba(${r}, ${g}, ${b}, ${opacity})`;
-            }
-            
-            $.ajax({
-                url: '/Discourse/communities/index-ajax-add-community.php',
-                type: 'POST',
-                data: formData,
-                processData: false,
-                contentType: false,
-                dataType: 'json',
-                success: function(response) {
-                    if (response.status === 'success') {
-                        const comm = response.community;
-                        let icon = comm.icon || 'bi-cpu';
-                        
-                        let logoStyles = '';
-                        let logoIconHtml = `<i class="bi ${icon} fs-2hx" style="color: ${comm.theme_color} !important;"></i>`;
-                        if (comm.logo_url) {
-                            logoStyles = `background-image: url('${comm.logo_url}'); background-size: cover; background-position: center;`;
-                            logoIconHtml = '';
-                        } else {
-                            logoStyles = `background-color: ${hexToRgba(comm.theme_color, 0.1)} !important; color: ${comm.theme_color} !important;`;
-                        }
-
-                         const newCard = `
-                         <div class="col-md-4 col-lg-3 community-item" data-category="${comm.category}" data-is-admin="1" style="display: none;">
-                             <div class="card h-100 shadow-sm border-0">
-                                 <div class="card-body p-6 text-center d-flex flex-column">
-                                     <div class="mb-4 d-flex justify-content-center">
-                                         <div class="w-60px h-60px rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="${logoStyles}">
-                                             ${logoIconHtml}
-                                         </div>
-                                     </div>
-                                    <h3 class="fs-6 fw-bolder mb-2 text-dark">
-                                        <a href="/Discourse/communities/index.php?c=${encodeURIComponent(comm.title)}" class="text-dark text-hover-success">${comm.title}</a>
-                                    </h3>
-                                    <p class="text-muted fs-8 mb-4 flex-grow-1">${comm.desc}</p>
-                                    <div class="d-flex justify-content-center gap-4 mb-4">
-                                        <div class="border border-dashed border-gray-300 rounded px-3 py-2 w-50">
-                                            <div class="fs-7 fw-bold text-dark d-flex align-items-center justify-content-center">
-                                                <i class="fas fa-user fs-8 me-1"></i> <span class="comm-members-val">${comm.members}</span>
-                                            </div>
-                                            <div class="fs-9 text-muted">Members</div>
-                                        </div>
-                                        <div class="border border-dashed border-gray-300 rounded px-3 py-2 w-50">
-                                            <div class="fs-7 fw-bold text-dark d-flex align-items-center justify-content-center">
-                                                <i class="fas fa-edit fs-8 me-1"></i> ${comm.posts}
-                                            </div>
-                                            <div class="fs-9 text-muted">Posts</div>
-                                        </div>
-                                    </div>
-                                     <button class="btn btn-sm w-100 d-flex align-items-center justify-content-center gap-2 dc-list-join-btn" 
-                                             data-comm-title="${comm.title}" 
-                                             style="background-color: #fbc501; color: white; border: none;">
-                                        <i class="fas fa-check text-white fs-8"></i> 
-                                        <span class="join-btn-text">JOINED</span>
-                                    </button>
-                                </div>
-                            </div>
-                        </div>`;
-                        
-                        $('#communities-grid').prepend(newCard);
-                        $('#communities-grid .community-item:first').fadeIn(400);
-                        
-                        $('#create_community_modal').modal('hide');
-                        $('#create-community-form')[0].reset();
-                        
-                        // Reset modal theme header color to default
-                        $('.modal-theme-header').css('background-color', '#1A8B44');
-                        $('.theme-color-btn').removeClass('active');
-                        $('.theme-color-btn[data-color="#1A8B44"]').addClass('active');
-
-                        // Switch to the 'All' or 'My Communities' tab to see it if filtered
-                        $('.filter-btn[data-filter="all"]').click();
-                    } else {
-                        alert('Error: ' + response.message);
-                    }
-                },
-                error: function() {
-                    alert('Error creating community. Please try again.');
-                }
-            });
         });
 
         // Handle Join Community button in the grid list
