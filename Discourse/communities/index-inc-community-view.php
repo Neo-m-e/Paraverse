@@ -58,39 +58,140 @@ if (!function_exists('get_relative_time')) {
   }
 }
 
-// Community posts — hardcoded sample data muna.
-$db_posts = [
-  [
-    'id' => 1,
-    'title' => 'The silent revolution in edge AI — why on-device inference is changing everything',
-    'body' => 'A decade optimizing for server-side compute, but the thermal envelope of modern SoCs has quietly crossed a threshold nobody was paying attention to. Here\'s why 2025 is the last year data centers dominate...',
-    'topic' => 'TECHNOLOGY',
-    'upvotes' => 214,
-    'is_announcement' => 1,
-    'is_anonymous' => 0,
-    'display_name' => 'Ravi Joshi',
-    'avatar_md' => '',
-    'author_id' => 'T202110294',
-    'created_at' => date('Y-m-d H:i:s', strtotime('-3 hours')),
-    'comments_count' => 3,
-    'first_comment' => 'Hallway is always too noisy for group discussions, booking a room is definitely worth it!',
+// Community posts map matching selected community
+$communityPostsMap = [
+  'FEU LIFE' => [
+    [
+      'id' => 5,
+      'title' => '📊 Poll: How do you actually study for finals? Be honest.',
+      'body' => 'Curious how my fellow FEU Tech students survive finals season. Drop your honest answer below 👇',
+      'topic' => 'FEU',
+      'upvotes' => 456,
+      'is_announcement' => 0,
+      'is_anonymous' => 0,
+      'display_name' => 'Marco Torres',
+      'avatar_md' => '',
+      'author_id' => 'T202110100',
+      'created_at' => date('Y-m-d H:i:s', strtotime('-4 hours')),
+      'comments_count' => 1,
+      'first_comment' => 'I cram the night before but always tell myself I\'ll start early next time 😂',
+    ],
+    [
+      'id' => 4,
+      'title' => 'Thoughts on the new student uniform compliance policy update?',
+      'body' => 'Honestly, the recent announcement about strict uniform compliance starting next Monday feels a bit sudden, especially for those who still haven\'t received their ordered uniforms from the bookstore.',
+      'topic' => 'FEU',
+      'upvotes' => 93,
+      'is_announcement' => 0,
+      'is_anonymous' => 0,
+      'display_name' => 'Patricia Lim',
+      'avatar_md' => '',
+      'author_id' => 'T202008123',
+      'created_at' => date('Y-m-d H:i:s', strtotime('-18 hours')),
+      'comments_count' => 1,
+      'first_comment' => 'They usually give a grace period of 2 weeks if you show your bookstore payment receipt.',
+    ]
   ],
-  [
-    'id' => 6,
-    'title' => 'FEU Tech library study rooms — worth booking or just use the hallway?',
-    'body' => 'Finally tried booking one of the new study rooms in the library. Honest review: the booking system is clunky, the AC is questionable, but the soundproofing is actually great.',
-    'topic' => 'ACADEMICS',
-    'upvotes' => 67,
-    'is_announcement' => 0,
-    'is_anonymous' => 0,
-    'display_name' => 'Catalina Smith',
-    'avatar_md' => '',
-    'author_id' => 'T202210202',
-    'created_at' => date('Y-m-d H:i:s', strtotime('-5 days')),
-    'comments_count' => 1,
-    'first_comment' => '',
+  'FRESHIES' => [
+    [
+      'id' => 2,
+      'title' => 'Any tips for incoming CS/IT freshmen this coming school year?',
+      'body' => 'I am an incoming computer science freshman at FEU Tech. Quite anxious about the coding classes since I have zero programming background. What languages should I start studying this vacation?',
+      'topic' => 'ACADEMICS',
+      'upvotes' => 142,
+      'is_announcement' => 0,
+      'is_anonymous' => 0,
+      'display_name' => 'Kyle Davidson',
+      'avatar_md' => '',
+      'author_id' => 'T202008123',
+      'created_at' => date('Y-m-d H:i:s', strtotime('-12 hours')),
+      'comments_count' => 1,
+      'first_comment' => 'Don\'t panic! Start with Python basics to learn logic.',
+    ],
+    [
+      'id' => 3,
+      'title' => 'What if FEU had a no-grade-penalty mental health leave policy?',
+      'body' => 'Just thinking — a lot of students I know failed a whole semester because they were dealing with severe anxiety during midterms. The university had no mechanism to help them.',
+      'topic' => 'ISSUES',
+      'upvotes' => 214,
+      'is_announcement' => 0,
+      'is_anonymous' => 1,
+      'display_name' => 'Anonymous',
+      'avatar_md' => '',
+      'author_id' => 'T202210202',
+      'created_at' => date('Y-m-d H:i:s', strtotime('-1 day')),
+      'comments_count' => 1,
+      'first_comment' => 'Mental health leaves with academic accommodations would be so helpful, especially during midterms.',
+    ]
   ],
+  'STUDY GROUP' => [
+    [
+      'id' => 7,
+      'title' => 'Calculus 2 study group session this Friday at the library',
+      'body' => 'Hey guys, preparing for the upcoming Calc 2 departmental exam. Will be booking a library room this Friday around 2 PM. Feel free to join if you want to solve sample problems together!',
+      'topic' => 'ACADEMICS',
+      'upvotes' => 42,
+      'is_announcement' => 0,
+      'is_anonymous' => 0,
+      'display_name' => 'Bea Flores',
+      'avatar_md' => '',
+      'author_id' => 'T202210344',
+      'created_at' => date('Y-m-d H:i:s', strtotime('-2 hours')),
+      'comments_count' => 2,
+      'first_comment' => 'Count me in! I really need help with trigonometric integration.',
+    ],
+    [
+      'id' => 8,
+      'title' => 'Thesis defense mock presentation slides',
+      'body' => 'Sharing some slide templates and checklists we prepared for our mock defense. Let me know if you need specific advice on query optimizations or panel presentations.',
+      'topic' => 'ACADEMICS',
+      'upvotes' => 89,
+      'is_announcement' => 0,
+      'is_anonymous' => 0,
+      'display_name' => 'Carlo Mendoza',
+      'avatar_md' => '',
+      'author_id' => 'T202110294',
+      'created_at' => date('Y-m-d H:i:s', strtotime('-1 day')),
+      'comments_count' => 5,
+      'first_comment' => 'This template is super clean, thank you for sharing!',
+    ]
+  ],
+  'FEU TECH' => [
+    [
+      'id' => 1,
+      'title' => 'The silent revolution in edge AI — why on-device inference is changing everything',
+      'body' => 'A decade optimizing for server-side compute, but the thermal envelope of modern SoCs has quietly crossed a threshold. Here\'s why 2025 is the last year data centers dominate.',
+      'topic' => 'TECHNOLOGY',
+      'upvotes' => 214,
+      'is_announcement' => 1,
+      'is_anonymous' => 0,
+      'display_name' => 'Ravi Joshi',
+      'avatar_md' => '',
+      'author_id' => 'T202110294',
+      'created_at' => date('Y-m-d H:i:s', strtotime('-3 hours')),
+      'comments_count' => 3,
+      'first_comment' => 'Hallway is always too noisy for group discussions, booking a room is definitely worth it!',
+    ],
+    [
+      'id' => 6,
+      'title' => 'FEU Tech library study rooms — worth booking or just use the hallway?',
+      'body' => 'Finally tried booking one of the new study rooms in the library. Honest review: the booking system is clunky, the AC is questionable, but the soundproofing is actually great.',
+      'topic' => 'ACADEMICS',
+      'upvotes' => 67,
+      'is_announcement' => 0,
+      'is_anonymous' => 0,
+      'display_name' => 'Catalina Smith',
+      'avatar_md' => '',
+      'author_id' => 'T202210202',
+      'created_at' => date('Y-m-d H:i:s', strtotime('-5 days')),
+      'comments_count' => 1,
+      'first_comment' => '',
+    ],
+  ]
 ];
+
+$selectedKey = strtoupper($community_name);
+$db_posts = isset($communityPostsMap[$selectedKey]) ? $communityPostsMap[$selectedKey] : $communityPostsMap['FEU TECH'];
 ?>
 
 
@@ -124,7 +225,6 @@ $db_posts = [
   <script src="/Discourse/assets/js/jquery.js"></script>
 
   <style>
-    /* Premium Community Banner design using dashboard green gradient system */
     .community-banner {
       background-color: <?php echo htmlspecialchars($comm_theme_color); ?>;
       position: relative;

@@ -29,26 +29,26 @@ $feed_posts = [
   ],
   [
     'id' => 2,
-    'title' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec.',
-    'body' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestib',
+    'title' => 'Any tips for incoming CS/IT freshmen this coming school year?',
+    'body' => 'I am an incoming computer science freshman at FEU Tech. Quite anxious about the coding classes since I have zero programming background. What languages should I start studying this vacation? And any specific tips on surviving the fast-paced schedule?',
     'author_id' => 'T202008123',
-    'display_name' => 'John Doe',
+    'display_name' => 'Kyle Davidson',
     'avatar_md' => '/Discourse/assets/images/catalina.webp',
     'community' => 'FEU TECH DEV',
-    'topic' => 'TECHNOLOGY',
-    'tags' => 'Technology',
-    'slug' => 'lorem-ipsum-dolor-sit-amet',
-    'upvotes' => 214,
+    'topic' => 'ACADEMICS',
+    'tags' => 'Academics',
+    'slug' => 'tips-incoming-cs-it-freshmen',
+    'upvotes' => 142,
     'downvotes' => 0,
     'comment_count' => 1,
     'is_anonymous' => 0,
     'is_poll' => 0,
-    'created_at' => date('Y-m-d H:i:s', strtotime('-1 day')),
+    'created_at' => date('Y-m-d H:i:s', strtotime('-12 hours')),
     'comments' => [
       [
         'author_name' => 'Marco Torres',
         'avatar_md' => 'https://ui-avatars.com/api/?name=Marco+Torres&background=e0f2fe&color=0369a1&rounded=true',
-        'body' => 'Totally agree with the points mentioned here. Looking forward to more updates.',
+        'body' => 'Don\'t panic! Start with Python basics to learn logic. The profs start from the very beginning anyway.',
         'created_at' => date('Y-m-d H:i:s', strtotime('-3 hours'))
       ]
     ]
@@ -81,26 +81,26 @@ $feed_posts = [
   ],
   [
     'id' => 4,
-    'title' => 'Lorem ipsum dolor sit amet consectetur adipiscing elit.',
-    'body' => ' Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam uma tempor.',
+    'title' => 'Thoughts on the new student uniform compliance policy update?',
+    'body' => 'Honestly, the recent announcement about strict uniform compliance starting next Monday feels a bit sudden, especially for those who still haven\'t received their ordered uniforms from the bookstore. Anyone else going to class in civilian attire or are they really going to bar us from entry?',
     'author_id' => 'T202008123',
-    'display_name' => 'John Doe',
+    'display_name' => 'Patricia Lim',
     'avatar_md' => '/Discourse/assets/images/catalina.webp',
-    'community' => 'FEU TECH DEV',
-    'topic' => 'TECHNOLOGY',
-    'tags' => 'Technology',
-    'slug' => 'lorem-ipsum-consectetur-adipiscing',
-    'upvotes' => 214,
+    'community' => 'Freshies',
+    'topic' => 'FEU',
+    'tags' => 'FEU',
+    'slug' => 'thoughts-student-uniform-compliance-policy',
+    'upvotes' => 93,
     'downvotes' => 0,
     'comment_count' => 1,
     'is_anonymous' => 0,
     'is_poll' => 0,
-    'created_at' => date('Y-m-d H:i:s', strtotime('-1 day')),
+    'created_at' => date('Y-m-d H:i:s', strtotime('-18 hours')),
     'comments' => [
       [
         'author_name' => 'Catalina Smith',
         'avatar_md' => '/Discourse/assets/images/catalina.webp',
-        'body' => 'Excellent writeup! Easy to follow and super insightful.',
+        'body' => 'They usually give a grace period of 2 weeks if you show your payment receipt from the bookstore.',
         'created_at' => date('Y-m-d H:i:s', strtotime('-1 hour'))
       ]
     ]

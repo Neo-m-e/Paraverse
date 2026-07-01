@@ -34,7 +34,6 @@ $META_TITLE = "Create a Community - Discourse";
     <link href="/Discourse/assets/css/discourse-css/create-post.css" rel="stylesheet" type="text/css" />
 
     <style>
-        /* Facebook-like cover photo placeholder & editor inside Metronic design */
         .cover-photo-preview-container {
             position: relative;
             width: 100%;
@@ -123,7 +122,6 @@ $META_TITLE = "Create a Community - Discourse";
                     <div class="d-flex flex-column flex-column-fluid">
                         <main>
 
-                            <!-- Banner matching Create Post page banner -->
                             <div class="page-banner w-100 py-10 mb-8">
                                 <div class="app-container container-xxl d-flex align-items-center justify-content-between">
                                     <div>
@@ -151,7 +149,6 @@ $META_TITLE = "Create a Community - Discourse";
                                                         <h3 class="fw-bolder text-dark fs-4 m-0">Community Details</h3>
                                                     </div>
 
-                                                    <!-- Cover Photo with Default Image & Live Edit (FB-like) -->
                                                     <div class="mb-6">
                                                         <label class="form-label fs-8 fw-bold text-gray-700 text-uppercase">Cover Photo *</label>
                                                         <div class="cover-photo-preview-container" id="cover-photo-preview">
@@ -164,13 +161,11 @@ $META_TITLE = "Create a Community - Discourse";
                                                         <input type="file" id="cover_input" accept="image/*" class="d-none" onchange="previewBannerImage(this)">
                                                     </div>
 
-                                                    <!-- Community Name -->
                                                     <div class="mb-6">
                                                         <label class="form-label fs-8 fw-bold text-gray-700 text-uppercase">COMMUNITY NAME *</label>
                                                         <input type="text" id="comm_name" class="form-control form-control-solid border" placeholder="E.g. FEU Tech Web Developers" required>
                                                     </div>
 
-                                                    <!-- School & Privacy selectors -->
                                                     <div class="row g-4 mb-6">
                                                         <div class="col-md-6">
                                                             <label class="form-label fs-8 fw-bold text-gray-700 text-uppercase">SCHOOL *</label>
@@ -190,7 +185,6 @@ $META_TITLE = "Create a Community - Discourse";
                                                         </div>
                                                     </div>
 
-                                                    <!-- Description -->
                                                     <div class="mb-0">
                                                         <label class="form-label fs-8 fw-bold text-gray-700 text-uppercase">DESCRIPTION *</label>
                                                         <textarea id="comm_desc" class="form-control form-control-solid border" rows="6" placeholder="Describe the purpose, topics, and guidelines of your community..." required></textarea>
@@ -200,15 +194,12 @@ $META_TITLE = "Create a Community - Discourse";
                                             </div>
                                         </div>
 
-                                        <!-- Sidebar -->
                                         <div class="col-lg-4">
 
-                                            <!-- Publish / Settings Card -->
                                             <div class="card card-publish mb-6 shadow-none">
                                                 <div class="card-body p-6">
                                                     <h5 class="fw-bolder text-dark mb-4 fs-5">Publish</h5>
                                                     
-                                                    <!-- Design Switch Option -->
                                                     <div class="mb-6">
                                                         <label class="form-label fs-9 fw-bold text-gray-600 text-uppercase d-block mb-2">Color Setup Version</label>
                                                         <select class="form-select form-select-sm form-select-solid border" id="design-toggle-select" onchange="toggleDesignVersion(this.value)">

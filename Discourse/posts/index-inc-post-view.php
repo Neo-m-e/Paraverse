@@ -49,13 +49,11 @@ $communityMeta = [
     'FEU Diliman' => ['members' => '2.7k',  'type' => 'Public Group'],
 ];
 
-// Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
-// Map of sample posts (matching main/sec-posts.php IDs) so each post link shows its own content
-// instead of every post falling through to the same default.
+
 $samplePostsById = [
     1 => [
         'postTitle' => 'The silent revolution in edge AI — why on-device inference is changing everything',
-        'postDesc'  => "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.",
+        'postDesc'  => "A decade optimizing for server-side compute, but the thermal envelope of modern SoCs has quietly crossed a threshold. Here's why 2025 is the last year data centers dominate.",
         'authorName' => 'Ravi Joshi',
         'authorInitials' => 'RJ',
         'bannerMeta' => 'Technology • Posted by Ravi Joshi • 3h ago',
@@ -67,12 +65,12 @@ $samplePostsById = [
         'can_edit' => false,
     ],
     2 => [
-        'postTitle' => 'Lorem ipsum dolor sit amet, consectetuer adipiscing elit.',
-        'postDesc'  => 'Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem.',
-        'authorName' => 'John Doe',
-        'authorInitials' => 'JD',
-        'bannerMeta' => 'Entertainment • Posted by John Doe • 1d ago',
-        'tag' => 'ENTERTAINMENT',
+        'postTitle' => 'Any tips for incoming CS/IT freshmen this coming school year?',
+        'postDesc'  => 'I am an incoming computer science freshman at FEU Tech. Quite anxious about the coding classes since I have zero programming background. What languages should I start studying this vacation? And any specific tips on surviving the fast-paced schedule?',
+        'authorName' => 'Kyle Davidson',
+        'authorInitials' => 'KD',
+        'bannerMeta' => 'Academics • Posted by Kyle Davidson • 12h ago',
+        'tag' => 'ACADEMICS',
         'community' => 'FEU Tech',
         'showImage' => false,
         'showPoll' => false,
@@ -93,12 +91,12 @@ $samplePostsById = [
         'can_edit' => false,
     ],
     4 => [
-        'postTitle' => 'Lorem ipsum dolor sit amet consectetur adipiscing elit.',
-        'postDesc'  => 'Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis.',
-        'authorName' => 'John Doe',
-        'authorInitials' => 'JD',
-        'bannerMeta' => 'Entertainment • Posted by John Doe • 1d ago',
-        'tag' => 'ENTERTAINMENT',
+        'postTitle' => 'Thoughts on the new student uniform compliance policy update?',
+        'postDesc'  => 'Honestly, the recent announcement about strict uniform compliance starting next Monday feels a bit sudden, especially for those who still haven\'t received their ordered uniforms from the bookstore. Anyone else going to class in civilian attire or are they really going to bar us from entry?',
+        'authorName' => 'Patricia Lim',
+        'authorInitials' => 'PL',
+        'bannerMeta' => 'FEU • Posted by Patricia Lim • 18h ago',
+        'tag' => 'FEU',
         'community' => 'FEU Tech',
         'showImage' => false,
         'showPoll' => false,
@@ -172,16 +170,16 @@ if (!$db_post_loaded && isset($samplePostsById[$post_id])) {
     $tag         = "ISSUES";
     $community   = "FEU Tech";
 } elseif (!$db_post_loaded && $showSample) {
-    $postTitle   = "Lorem ipsum dolor sit amet consectetur adipiscing elit.";
-    $postDesc    = "Lorem ipsum dolor sit amet consectetur adipiscing elit. Quisque faucibus ex sapien vitae pellentesque sem placerat. In id cursus mi pretium tellus duis convallis. Tempus leo eu aenean sed diam uma tempor. Pulvinar vivamus fringilla lacus nec metus bibendum egestas.";
-    $authorName  = "John Doe";
-    $authorInitials = "JD";
-    $bannerMeta  = "Entertainment • Posted by John Doe • 1d ago";
-    $tag         = "ENTERTAINMENT";
+    $postTitle   = "Tips for optimizing database queries in project assignments?";
+    $postDesc    = "Hi batchmates! I am building a PHP/MySQL system for our software engineering project and my queries are taking way too long to load. Any recommendations on indexes, query profiling, or structural improvements to speed things up?";
+    $authorName  = "Carlo Mendoza";
+    $authorInitials = "CM";
+    $bannerMeta  = "Technology • Posted by Carlo Mendoza • 1d ago";
+    $tag         = "TECHNOLOGY";
     $community   = "FEU Tech";
 } elseif (!$db_post_loaded) {
     $postTitle   = "The silent revolution in edge AI — why on-device inference is changing everything";
-    $postDesc    = "Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Donec quam felis, ultricies nec, pellentesque eu, pretium quis, sem. Nulla consequat massa quis enim. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo. Nullam dictum felis eu pede mollis pretium. Integer tincidunt. Cras dapibus. Vivamus elementum semper nisi. Aenean vulputate eleifend tellus. Aenean leo ligula, porttitor eu, consequat vitae, eleifend ac, enim. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet. Etiam ultricies nisi vel augue. Curabitur ullamcorper ultricies nisi. Nam eget dui. Etiam rhoncus. Maecenas tempus, tellus eget condimentum rhoncus, sem quam semper libero, sit amet adipiscing sem neque sed ipsum. Nam quam nunc, blandit vel, luctus pulvinar, hendrerit id, lorem. Maecenas nec odio et ante tincidunt tempus. Donec vitae sapien ut libero venenatis faucibus. Nullam quis ante. Etiam sit amet orci eget eros faucibus tincidunt. Duis leo. Sed fringilla mauris sit amet nibh. Donec sodales sagittis magna. Sed consequat, leo eget bibendum sodales, augue velit cursus nunc, quis gravida magna mi a libero. Fusce vulputate eleifend sapien. Vestibulum purus quam, scelerisque ut, mollis sed, nonummy id, metus. Nullam accumsan lorem in dui. Cras ultricies mi eu turpis hendrerit fringilla. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; In ac dui quis mi consectetuer lacinia. Nam pretium turpis et arcu. Duis arcu tortor, suscipit eget, imperdiet nec, imperdiet iaculis, ipsum. Sed aliquam ultrices mauris. Integer ante arcu, accumsan a, consectetuer eget, posuere ut, mauris. Praesent adipiscing. Phasellus ullamcorper ipsum rutrum nunc. Nunc nonummy metus. Vestib";
+    $postDesc    = "A decade optimizing for server-side compute, but the thermal envelope of modern SoCs has quietly crossed a threshold. Here's why 2025 is the last year data centers dominate. Local inference allows keeping user data secure, low-latency, and operational completely offline.";
     $authorName  = "Ravi Joshi";
     $authorInitials = "RJ";
     $bannerMeta  = "Technology • Posted by Ravi Joshi • 3h ago";
@@ -189,10 +187,8 @@ if (!$db_post_loaded && isset($samplePostsById[$post_id])) {
     $community   = "FEU Tech";
 }
 
-// $isAnon mirrors $showAnon — used for the anonymous badge/icon in the post header
 $isAnon = $showAnon;
 
-// ── Back URL: context-aware navigation ──────────────────────
 $backParam = $_GET['back'] ?? '';
 switch ($backParam) {
     case 'dashboard':
@@ -220,7 +216,6 @@ switch ($backParam) {
         $backLabel = 'Back to Profile';
         break;
     default:
-        // Default: go back to the community the post belongs to
         $backUrl   = '/Discourse/communities/index.php?c=' . urlencode($community ?? 'FEU LIFE');
         $backLabel = 'Back to Feed';
         break;
@@ -662,7 +657,7 @@ switch ($backParam) {
                                                         <?php } ?>
                                                     <?php } else { ?>
                                                         <!-- Comment Thread 1 -->
-                                                        <div class="mb-2">
+                                                        <div class="mb-4">
                                                             <div class="d-flex">
                                                                 <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
                                                                     <div class="symbol-label bg-success text-white fw-bold fs-7">SK</div>
@@ -690,24 +685,31 @@ switch ($backParam) {
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                            <?php if (!$showImage && !$showPoll && !$showAnon && !$showSample) { ?>
-                                                                <div class="comment-thread-line mt-3 mb-4">
-                                                                    <div class="d-flex">
-                                                                        <div class="symbol symbol-30px symbol-circle me-3 flex-shrink-0">
-                                                                            <div class="symbol-label bg-light text-muted fw-bold fs-7"><i class="ki-duotone ki-profile-circle"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i></div>
-                                                                        </div>
-                                                                        <div class="flex-grow-1">
-                                                                            <div class="d-flex align-items-center gap-2 mb-1"><span class="fw-bolder text-dark fs-7">Anonymous</span><span class="text-muted fs-9">1h ago</span></div>
-                                                                            <p class="text-gray-800 fs-7 mb-2">What about power consumption on mobile devices though? Battery drain is still a real concern for everyday users.</p>
-                                                                            <div class="d-flex align-items-center gap-1 mt-2">
-                                                                                <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">5</span></button>
-                                                                                <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
-                                                                                <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
+                                                            <div class="reply-thread-area ps-5 mt-2">
+                                                                <?php if (!$showImage && !$showPoll && !$showAnon && !$showSample) { ?>
+                                                                    <div class="mb-3 pb-2 border-start border-2 ps-3" style="border-color:#d1fae5!important;">
+                                                                        <div class="d-flex gap-3">
+                                                                            <div class="flex-shrink-0">
+                                                                                <div class="symbol-label bg-light text-muted fw-bold fs-7"><i class="ki-duotone ki-profile-circle"><span class="path1"></span><span class="path2"></span><span class="path3"></span></i></div>
+                                                                            </div>
+                                                                            <div class="flex-grow-1">
+                                                                                <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
+                                                                                    <span class="fw-bolder text-dark fs-7">Anonymous</span>
+                                                                                    <span class="text-muted fs-9 me-1">replying to</span><span class="fw-bold text-success fs-9">@Sofia Karim</span>
+                                                                                    <span class="text-muted fs-9">1h ago</span>
+                                                                                </div>
+                                                                                <p class="text-gray-800 fs-7 mb-2">What about power consumption on mobile devices though? Battery drain is still a real concern for everyday users.</p>
+                                                                                <div class="d-flex align-items-center gap-1 mt-2">
+                                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-up fs-9"></i> <span class="fw-bold fs-9">5</span></button>
+                                                                                    <button class="btn btn-sm btn-light-muted vote-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-hand-thumbs-down fs-9"></i> <span class="fw-bold fs-9">0</span></button>
+                                                                                    <button class="btn btn-sm btn-light-muted reply-btn d-flex align-items-center gap-1 px-2 py-1 rounded-pill"><i class="bi bi-chat fs-9"></i> <span class="fw-bold fs-9">Reply</span></button>
+                                                                                </div>
                                                                             </div>
                                                                         </div>
                                                                     </div>
-                                                                </div>
-                                                            <?php } ?>
+                                                                <?php } ?>
+                                                            </div>
+                                                            <div class="reply-composer ps-5 mt-2" style="display:none;"></div>
                                                         </div>
                                                         <?php if (!$showImage && !$showPoll && !$showAnon && !$showSample) { ?>
                                                             <div class="mb-4">
@@ -725,6 +727,8 @@ switch ($backParam) {
                                                                         </div>
                                                                     </div>
                                                                 </div>
+                                                                <div class="reply-thread-area ps-5 mt-2"></div>
+                                                                <div class="reply-composer ps-5 mt-2" style="display:none;"></div>
                                                             </div>
                                                         <?php } ?>
                                                     <?php } ?>
@@ -1044,11 +1048,11 @@ switch ($backParam) {
                 }
             });
 
-            // ── Reply System ────────────────────────────────────────────
-            function buildCommentHtml(displayName, displayInitials, avatarBg, text, replyingTo) {
-                const replyTag = replyingTo ?
-                    `<span class="text-muted fs-9 me-1">replying to</span><span class="fw-bold text-success fs-9">@${replyingTo}</span>` :
+            function buildCommentHtml(displayName, displayInitials, avatarBg, text, replyingToName, anonBadgeHtml) {
+                const replyTag = replyingToName ?
+                    `<span class="text-muted fs-9 me-1">replying to</span><span class="fw-bold text-success fs-9">@${replyingToName}</span>` :
                     '';
+                const anonBadge = anonBadgeHtml || '';
                 return `
                 <div class="d-flex gap-3">
                     <div class="flex-shrink-0">
@@ -1058,6 +1062,7 @@ switch ($backParam) {
                         <div class="d-flex align-items-center gap-2 mb-1 flex-wrap">
                             <span class="fw-bolder text-dark fs-7">${displayName}</span>
                             ${replyTag}
+                            ${anonBadge}
                             <span class="text-muted fs-9">Just now</span>
                         </div>
                         <p class="text-gray-800 fs-7 mb-2">${text}</p>
@@ -1188,7 +1193,7 @@ switch ($backParam) {
                     `<span class="badge ms-1 rounded-pill" style="font-size:9px;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;"><i class="bi bi-incognito me-1" style="font-size:8px;color:inherit !important;"></i>Anonymous</span>` :
                     '';
 
-                const replyHtml = `<div class="mb-3 pb-2 border-start border-2 ps-3" style="border-color:#d1fae5!important;">${buildCommentHtml(displayName, displayInitials, avatarBg, text, anonBadgeHtml, replyingToName)}</div>`;
+                const replyHtml = `<div class="mb-3 pb-2 border-start border-2 ps-3" style="border-color:#d1fae5!important;">${buildCommentHtml(displayName, displayInitials, avatarBg, text, replyingToName, anonBadgeHtml)}</div>`;
 
                 // Find or create thread area right above the composer
                 const composerSlot = composer.closest('.reply-composer');
