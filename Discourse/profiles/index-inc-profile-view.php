@@ -17,8 +17,8 @@ $karma         = 412;
 $joined_count  = 3;
 
 $my_posts = [
-  ['id' => 1, 'title' => 'The silent revolution in edge AI — why on-device inference is changing everything', 'body' => 'A decade optimizing for server-side compute, but the thermal envelope of modern SoCs has quietly crossed a threshold.', 'topic' => 'TECHNOLOGY', 'tags' => '', 'community' => 'FEU Tech', 'upvotes' => 214, 'downvotes' => 6, 'created_at' => date('Y-m-d H:i:s', strtotime('-3 hours')), 'is_announcement' => 1, 'image_url' => '', 'is_anonymous' => 0, 'comment_count' => 3],
-  ['id' => 6, 'title' => 'FEU Tech library study rooms — worth booking or just use the hallway?', 'body' => 'Finally tried booking one of the new study rooms in the library.', 'topic' => 'ACADEMICS', 'tags' => '', 'community' => 'FEU Tech', 'upvotes' => 67, 'downvotes' => 2, 'created_at' => date('Y-m-d H:i:s', strtotime('-5 days')), 'is_announcement' => 0, 'image_url' => '', 'is_anonymous' => 0, 'comment_count' => 1],
+  ['id' => 1, 'title' => 'The silent revolution in edge AI — why on-device inference is changing everything', 'body' => 'A decade optimizing for server-side compute, but the thermal envelope of modern SoCs has quietly crossed a threshold.', 'topic' => 'TECHNOLOGY', 'tags' => '', 'community' => 'FEU Tech', 'upvotes' => 214, 'downvotes' => 6, 'created_at' => date('Y-m-d H:i:s', strtotime('-3 hours')), 'is_announcement' => 1, 'image_url' => '', 'is_anonymous' => 0, 'comment_count' => 3, 'avatar_md' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150'],
+  ['id' => 6, 'title' => 'FEU Tech library study rooms — worth booking or just use the hallway?', 'body' => 'Finally tried booking one of the new study rooms in the library.', 'topic' => 'ACADEMICS', 'tags' => '', 'community' => 'FEU Tech', 'upvotes' => 67, 'downvotes' => 2, 'created_at' => date('Y-m-d H:i:s', strtotime('-5 days')), 'is_announcement' => 0, 'image_url' => '', 'is_anonymous' => 0, 'comment_count' => 1, 'avatar_md' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150'],
 ];
 
 $my_comments = [

@@ -70,17 +70,17 @@ if (!function_exists('DIRECT_ACCESS_BLOCKED')) {
     }
 }
 
-// Get account details by identification (mock data only)
+/* Account details */
 if (!function_exists('GET_ACCOUNT_DETAILS')) {
     function GET_ACCOUNT_DETAILS($id) {
-      // Fallback/Mock data (used when database is offline or user not found in DB)
+      /* Fallback mock */
       $id_clean = trim($id);
       if ($id_clean === 'T202210344') {
           return [
               'identification' => 'T202210344',
               'display_name' => 'Sofia Karim',
               'role' => 'student',
-              'avatar_md' => '/Discourse/assets/images/anonymous.png',
+              'avatar_md' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
               'email' => 'sofia@example.com'
           ];
       } elseif ($id_clean === 'T202102837') {
@@ -88,7 +88,7 @@ if (!function_exists('GET_ACCOUNT_DETAILS')) {
               'identification' => 'T202102837',
               'display_name' => 'Marco Torres',
               'role' => 'student',
-              'avatar_md' => '/Discourse/assets/images/catalina.webp',
+              'avatar_md' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
               'email' => 'marco@example.com'
           ];
       } elseif ($id_clean === 'T202210202') {
@@ -96,15 +96,23 @@ if (!function_exists('GET_ACCOUNT_DETAILS')) {
               'identification' => 'T202210202',
               'display_name' => 'Catalina Smith',
               'role' => 'student',
-              'avatar_md' => '/Discourse/assets/images/catalina.webp',
+              'avatar_md' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150',
               'email' => 'catalina@example.com'
+          ];
+      } elseif ($id_clean === 'T202110117') {
+          return [
+              'identification' => 'T202110117',
+              'display_name' => 'Marielle Basanes',
+              'role' => 'student',
+              'avatar_md' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
+              'email' => 'marielle@example.com'
           ];
       } else {
           return [
               'identification' => $id_clean,
               'display_name' => 'User ' . $id_clean,
               'role' => 'student',
-              'avatar_md' => '/Discourse/assets/images/anonymous.png',
+              'avatar_md' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
               'email' => ''
           ];
       }

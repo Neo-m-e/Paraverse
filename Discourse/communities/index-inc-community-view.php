@@ -33,11 +33,11 @@ if (!empty($comm_data['custom_topics'])) {
   $custom_topics_list = array_filter(array_map('trim', explode(',', $comm_data['custom_topics'])));
 }
 
-// Top contributors — hardcoded sample data muna.
+/* Top contributors */
 $top_contributors = [
-  ['display_name' => 'Ravi Joshi',     'avatar_md' => '', 'role' => 'Student', 'identification' => 'T202110294', 'post_count' => 18, 'karma' => 412],
-  ['display_name' => 'Marco Torres',   'avatar_md' => '', 'role' => 'Student', 'identification' => 'T202110100', 'post_count' => 12, 'karma' => 298],
-  ['display_name' => 'Catalina Smith', 'avatar_md' => '', 'role' => 'Student', 'identification' => 'T202110101', 'post_count' => 9,  'karma' => 201],
+  ['display_name' => 'Ravi Joshi',     'avatar_md' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150', 'role' => 'Student', 'identification' => 'T202110294', 'post_count' => 18, 'karma' => 412],
+  ['display_name' => 'Marco Torres',   'avatar_md' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150', 'role' => 'Student', 'identification' => 'T202110100', 'post_count' => 12, 'karma' => 298],
+  ['display_name' => 'Catalina Smith', 'avatar_md' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150', 'role' => 'Student', 'identification' => 'T202110101', 'post_count' => 9,  'karma' => 201],
 ];
 
 if (!function_exists('get_relative_time')) {
@@ -58,7 +58,7 @@ if (!function_exists('get_relative_time')) {
   }
 }
 
-// Community posts map matching selected community
+/* Community posts */
 $communityPostsMap = [
   'FEU LIFE' => [
     [
@@ -70,7 +70,7 @@ $communityPostsMap = [
       'is_announcement' => 0,
       'is_anonymous' => 0,
       'display_name' => 'Marco Torres',
-      'avatar_md' => '',
+      'avatar_md' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
       'author_id' => 'T202110100',
       'created_at' => date('Y-m-d H:i:s', strtotime('-4 hours')),
       'comments_count' => 1,
@@ -85,7 +85,7 @@ $communityPostsMap = [
       'is_announcement' => 0,
       'is_anonymous' => 0,
       'display_name' => 'Patricia Lim',
-      'avatar_md' => '',
+      'avatar_md' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
       'author_id' => 'T202008123',
       'created_at' => date('Y-m-d H:i:s', strtotime('-18 hours')),
       'comments_count' => 1,
@@ -102,7 +102,7 @@ $communityPostsMap = [
       'is_announcement' => 0,
       'is_anonymous' => 0,
       'display_name' => 'Kyle Davidson',
-      'avatar_md' => '',
+      'avatar_md' => 'https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150',
       'author_id' => 'T202008123',
       'created_at' => date('Y-m-d H:i:s', strtotime('-12 hours')),
       'comments_count' => 1,
@@ -117,7 +117,7 @@ $communityPostsMap = [
       'is_announcement' => 0,
       'is_anonymous' => 1,
       'display_name' => 'Anonymous',
-      'avatar_md' => '',
+      'avatar_md' => '/Discourse/assets/images/anonymous.png',
       'author_id' => 'T202210202',
       'created_at' => date('Y-m-d H:i:s', strtotime('-1 day')),
       'comments_count' => 1,
@@ -134,7 +134,7 @@ $communityPostsMap = [
       'is_announcement' => 0,
       'is_anonymous' => 0,
       'display_name' => 'Bea Flores',
-      'avatar_md' => '',
+      'avatar_md' => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
       'author_id' => 'T202210344',
       'created_at' => date('Y-m-d H:i:s', strtotime('-2 hours')),
       'comments_count' => 2,
@@ -149,7 +149,7 @@ $communityPostsMap = [
       'is_announcement' => 0,
       'is_anonymous' => 0,
       'display_name' => 'Carlo Mendoza',
-      'avatar_md' => '',
+      'avatar_md' => 'https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=150',
       'author_id' => 'T202110294',
       'created_at' => date('Y-m-d H:i:s', strtotime('-1 day')),
       'comments_count' => 5,
@@ -166,7 +166,7 @@ $communityPostsMap = [
       'is_announcement' => 1,
       'is_anonymous' => 0,
       'display_name' => 'Ravi Joshi',
-      'avatar_md' => '',
+      'avatar_md' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
       'author_id' => 'T202110294',
       'created_at' => date('Y-m-d H:i:s', strtotime('-3 hours')),
       'comments_count' => 3,
@@ -181,7 +181,7 @@ $communityPostsMap = [
       'is_announcement' => 0,
       'is_anonymous' => 0,
       'display_name' => 'Catalina Smith',
-      'avatar_md' => '',
+      'avatar_md' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150',
       'author_id' => 'T202210202',
       'created_at' => date('Y-m-d H:i:s', strtotime('-5 days')),
       'comments_count' => 1,
@@ -226,7 +226,7 @@ $db_posts = isset($communityPostsMap[$selectedKey]) ? $communityPostsMap[$select
 
   <style>
     .community-banner {
-      background-color: <?php echo htmlspecialchars($comm_theme_color); ?>;
+      background-color: #0c3823;
       position: relative;
       overflow: visible;
       border-bottom: 3px solid rgba(255, 255, 255, 0.25);
@@ -294,10 +294,15 @@ $db_posts = isset($communityPostsMap[$selectedKey]) ? $communityPostsMap[$select
                   <div class="d-flex align-items-center flex-wrap gap-6">
                     <!-- Community Logo -->
                     <div class="flex-shrink-0">
-                      <div class="w-100px h-100px w-lg-120px h-lg-120px d-flex align-items-center justify-content-center community-logo-container shadow rounded-3 fs-1" style="<?php echo !empty($comm_data['logo_url']) ? 'background-image: url(\'' . htmlspecialchars($comm_data['logo_url']) . '\'); background-size: cover; background-position: center;' : 'background-color: #ffffff !important;'; ?>">
-                        <?php if (empty($comm_data['logo_url'])) { ?>
-                          <i class="bi <?php echo htmlspecialchars($comm_icon); ?> fs-2hx" style="color: <?php echo htmlspecialchars($comm_theme_color); ?> !important;"></i>
-                        <?php } ?>
+                      <div class="w-100px h-100px w-lg-120px h-lg-120px d-flex align-items-center justify-content-center community-logo-container shadow rounded-circle fs-1 fw-bold text-white" style="background-color: #1e7145 !important;">
+                        <?php
+                        $words = explode(' ', $community_name);
+                        $comm_initials = '';
+                        foreach ($words as $w) {
+                            $comm_initials .= strtoupper(substr($w, 0, 1));
+                        }
+                        echo htmlspecialchars(substr($comm_initials, 0, 2));
+                        ?>
                       </div>
                     </div>
                     <!-- Community Info -->

@@ -20,7 +20,7 @@ $o_karma         = 298;
 $o_joined_count  = 2;
 
 $o_posts = [
-  ['id' => 2, 'title' => 'Any recommendations for a good laptop within a 35k budget?', 'body' => 'Need it mostly for basic coding (Python/Java) and office productivity. Hopefully something with decent battery life and at least 8GB of RAM.', 'topic' => 'TECHNOLOGY', 'tags' => '', 'community' => 'FEU Tech', 'upvotes' => 89, 'downvotes' => 3, 'created_at' => date('Y-m-d H:i:s', strtotime('-1 day')), 'is_announcement' => 0, 'image_url' => '', 'is_anonymous' => 0, 'comment_count' => 2],
+  ['id' => 2, 'title' => 'Any recommendations for a good laptop within a 35k budget?', 'body' => 'Need it mostly for basic coding (Python/Java) and office productivity. Hopefully something with decent battery life and at least 8GB of RAM.', 'topic' => 'TECHNOLOGY', 'tags' => '', 'community' => 'FEU Tech', 'upvotes' => 89, 'downvotes' => 3, 'created_at' => date('Y-m-d H:i:s', strtotime('-1 day')), 'is_announcement' => 0, 'image_url' => '', 'is_anonymous' => 0, 'comment_count' => 2, 'avatar_md' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150'],
 ];
 
 $o_comments = [

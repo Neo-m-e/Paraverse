@@ -30,85 +30,8 @@ $META_TITLE = "Create a Community - Discourse";
     <!-- jQuery -->
     <script src="/Discourse/assets/js/jquery.js"></script>
 
-    <!-- Discourse Styles copied from create post -->
+    <!-- Discourse Styles -->
     <link href="/Discourse/assets/css/discourse-css/create-post.css" rel="stylesheet" type="text/css" />
-
-    <style>
-        .cover-photo-preview-container {
-            position: relative;
-            width: 100%;
-            height: 180px;
-            border-radius: 6px;
-            background: linear-gradient(135deg, #1e7145 0%, #0c3823 100%);
-            background-size: cover;
-            background-position: center;
-            overflow: hidden;
-            border: 1px solid #e5e7eb;
-            transition: background 0.3s ease;
-        }
-        .cover-photo-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(0, 0, 0, 0.2);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .cover-photo-edit-badge {
-            background: rgba(255, 255, 255, 0.95);
-            color: #1e7145;
-            padding: 8px 14px;
-            border-radius: 6px;
-            font-size: 0.8rem;
-            font-weight: 700;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            cursor: pointer;
-            transition: all 0.2s ease;
-        }
-        .cover-photo-edit-badge:hover {
-            background: #ffffff;
-            transform: scale(1.03);
-        }
-        .theme-circle {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            cursor: pointer;
-            border: 3px solid #fff;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.15);
-            transition: transform 0.15s ease;
-        }
-        .theme-circle:hover {
-            transform: scale(1.1);
-        }
-        .theme-circle.active {
-            border-color: #333;
-            transform: scale(1.1);
-        }
-        .color-picker-input {
-            width: 40px;
-            height: 40px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            padding: 0;
-            background: none;
-        }
-        .color-picker-input::-webkit-color-swatch-wrapper {
-            padding: 0;
-        }
-        .color-picker-input::-webkit-color-swatch {
-            border: 2px solid #ffffff;
-            border-radius: 4px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-    </style>
 </head>
 
 <body id="kt_app_body" data-kt-app-page-loading-enabled="true" data-kt-app-page-loading="on"
@@ -122,7 +45,8 @@ $META_TITLE = "Create a Community - Discourse";
                     <div class="d-flex flex-column flex-column-fluid">
                         <main>
 
-                            <div class="page-banner w-100 py-10 mb-8">
+                            <!-- Banner -->
+                            <div class="page-banner w-100 py-10 mb-8" style="background-color: #0c3823;">
                                 <div class="app-container container-xxl d-flex align-items-center justify-content-between">
                                     <div>
                                         <span class="text-yellow fw-bold fs-8 text-uppercase tracking-wider mb-1 d-block">NEW COMMUNITY</span>
@@ -149,23 +73,13 @@ $META_TITLE = "Create a Community - Discourse";
                                                         <h3 class="fw-bolder text-dark fs-4 m-0">Community Details</h3>
                                                     </div>
 
-                                                    <div class="mb-6">
-                                                        <label class="form-label fs-8 fw-bold text-gray-700 text-uppercase">Cover Photo *</label>
-                                                        <div class="cover-photo-preview-container" id="cover-photo-preview">
-                                                            <div class="cover-photo-overlay">
-                                                                <div class="cover-photo-edit-badge" onclick="document.getElementById('cover_input').click()">
-                                                                    <i class="bi bi-camera-fill"></i> Change Cover Image
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                        <input type="file" id="cover_input" accept="image/*" class="d-none" onchange="previewBannerImage(this)">
-                                                    </div>
-
+                                                    <!-- Community Name -->
                                                     <div class="mb-6">
                                                         <label class="form-label fs-8 fw-bold text-gray-700 text-uppercase">COMMUNITY NAME *</label>
                                                         <input type="text" id="comm_name" class="form-control form-control-solid border" placeholder="E.g. FEU Tech Web Developers" required>
                                                     </div>
 
+                                                    <!-- School & Privacy selectors -->
                                                     <div class="row g-4 mb-6">
                                                         <div class="col-md-6">
                                                             <label class="form-label fs-8 fw-bold text-gray-700 text-uppercase">SCHOOL *</label>
@@ -185,6 +99,7 @@ $META_TITLE = "Create a Community - Discourse";
                                                         </div>
                                                     </div>
 
+                                                    <!-- Description -->
                                                     <div class="mb-0">
                                                         <label class="form-label fs-8 fw-bold text-gray-700 text-uppercase">DESCRIPTION *</label>
                                                         <textarea id="comm_desc" class="form-control form-control-solid border" rows="6" placeholder="Describe the purpose, topics, and guidelines of your community..." required></textarea>
@@ -194,53 +109,24 @@ $META_TITLE = "Create a Community - Discourse";
                                             </div>
                                         </div>
 
+                                        <!-- Sidebar -->
                                         <div class="col-lg-4">
 
+                                            <!-- Publish Card -->
                                             <div class="card card-publish mb-6 shadow-none">
                                                 <div class="card-body p-6">
                                                     <h5 class="fw-bolder text-dark mb-4 fs-5">Publish</h5>
                                                     
-                                                    <div class="mb-6">
-                                                        <label class="form-label fs-9 fw-bold text-gray-600 text-uppercase d-block mb-2">Color Setup Version</label>
-                                                        <select class="form-select form-select-sm form-select-solid border" id="design-toggle-select" onchange="toggleDesignVersion(this.value)">
-                                                            <option value="presets" selected>Design 1: Preset Circles</option>
-                                                            <option value="picker">Design 2: Custom Color Picker</option>
-                                                        </select>
-                                                    </div>
+                                                    <p class="text-muted fs-8 mb-6">Ready to launch? Your community will be created immediately with automatic initial letters as its avatar.</p>
 
-                                                    <!-- Design 1: Presets -->
-                                                    <div id="presets-panel" class="mb-6">
-                                                        <label class="form-label fs-9 fw-bold text-gray-600 text-uppercase d-block mb-3">Theme Color Preset</label>
-                                                        <div class="d-flex align-items-center gap-2 flex-wrap">
-                                                            <div class="theme-circle active" style="background-color: #1e7145;" data-color="#1e7145" onclick="selectPresetColor(this)"></div>
-                                                            <div class="theme-circle" style="background-color: #0b5ed7;" data-color="#0b5ed7" onclick="selectPresetColor(this)"></div>
-                                                            <div class="theme-circle" style="background-color: #6610f2;" data-color="#6610f2" onclick="selectPresetColor(this)"></div>
-                                                            <div class="theme-circle" style="background-color: #d63384;" data-color="#d63384" onclick="selectPresetColor(this)"></div>
-                                                            <div class="theme-circle" style="background-color: #dc3545;" data-color="#dc3545" onclick="selectPresetColor(this)"></div>
-                                                            <div class="theme-circle" style="background-color: #212529;" data-color="#212529" onclick="selectPresetColor(this)"></div>
-                                                        </div>
-                                                    </div>
-
-                                                    <!-- Design 2: Color Picker -->
-                                                    <div id="picker-panel" class="mb-6 d-none">
-                                                        <label class="form-label fs-9 fw-bold text-gray-600 text-uppercase d-block mb-2">Custom Theme Color</label>
-                                                        <div class="d-flex align-items-center gap-3">
-                                                            <input type="color" id="theme-color-picker" class="color-picker-input" value="#1e7145" oninput="pickerColorChanged(this.value)">
-                                                            <div>
-                                                                <span class="fs-7 fw-bold text-dark" id="color-hex-val">#1E7145</span>
-                                                                <span class="text-muted d-block" style="font-size: 10px;">Select custom shade</span>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-
-                                                    <button type="submit" class="btn w-100 btn-green mb-3 fw-bold" id="submit-btn">
+                                                    <button type="submit" class="btn w-100 btn-green mb-3 fw-bold">
                                                         <i class="bi bi-plus-lg me-1"></i> Create Community
                                                     </button>
                                                     <button type="button" class="btn w-100 btn-light bg-white border border-gray-300 text-dark fw-bold" onclick="window.location.href='/Discourse/communities/index.php'">Discard</button>
                                                 </div>
                                             </div>
 
-                                            <!-- Community Guidelines Card (mimics Tips card) -->
+                                            <!-- Community Guidelines Card -->
                                             <div class="card rules-card shadow-none">
                                                 <div class="card-body p-6">
                                                     <h5 class="fw-bolder text-dark mb-4 fs-5 d-flex align-items-center gap-2">
@@ -278,84 +164,6 @@ $META_TITLE = "Create a Community - Discourse";
     <?php include(dirname(__DIR__) . "/partials/_scrolltop.php"); ?>
 
     <script>
-        let currentThemeColor = '#1e7145';
-        let designMode = 'presets';
-
-        // Select cover photo file upload preview (FB banner)
-        function previewBannerImage(input) {
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#cover-photo-preview')
-                        .css('background-image', 'url(' + e.target.result + ')')
-                        .attr('data-has-custom-img', 'true');
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
-        }
-
-        // Switch between presets and color picker dynamically
-        function toggleDesignVersion(mode) {
-            designMode = mode;
-            if (mode === 'presets') {
-                $('#presets-panel').removeClass('d-none');
-                $('#picker-panel').addClass('d-none');
-            } else {
-                $('#picker-panel').removeClass('d-none');
-                $('#presets-panel').addClass('d-none');
-            }
-        }
-
-        // Live preview preset color select
-        function selectPresetColor(element) {
-            $('.theme-circle').removeClass('active');
-            $(element).addClass('active');
-
-            const color = $(element).attr('data-color');
-            updateActiveThemeColor(color);
-        }
-
-        // Live preview color picker change
-        function pickerColorChanged(color) {
-            $('#color-hex-val').text(color.toUpperCase());
-            updateActiveThemeColor(color);
-        }
-
-        // Utility to adjust theme color updates on page
-        function updateActiveThemeColor(color) {
-            currentThemeColor = color;
-            
-            // Update default background gradient of cover image if no custom image upload is active
-            if (!$('#cover-photo-preview').attr('data-has-custom-img')) {
-                $('#cover-photo-preview').css('background', `linear-gradient(135deg, ${color} 0%, ${adjustColorBrightness(color, -25)} 100%)`);
-            }
-
-            // Update submit button color
-            $('#submit-btn').css('background-color', color);
-            $('.cover-photo-edit-badge').css('color', color);
-        }
-
-        // Adjust color brightness helper (for gradient creation)
-        function adjustColorBrightness(hex, percent) {
-            let R = parseInt(hex.substring(1, 3), 16);
-            let G = parseInt(hex.substring(3, 5), 16);
-            let B = parseInt(hex.substring(5, 7), 16);
-
-            R = parseInt(R * (100 + percent) / 100);
-            G = parseInt(G * (100 + percent) / 100);
-            B = parseInt(B * (100 + percent) / 100);
-
-            R = (R < 255) ? R : 255;
-            G = (G < 255) ? G : 255;
-            B = (B < 255) ? B : 255;
-
-            const rHex = (R.toString(16).length === 1) ? "0" + R.toString(16) : R.toString(16);
-            const gHex = (G.toString(16).length === 1) ? "0" + G.toString(16) : G.toString(16);
-            const bHex = (B.toString(16).length === 1) ? "0" + B.toString(16) : B.toString(16);
-
-            return "#" + rHex + gHex + bHex;
-        }
-
         // Submit form
         function handleFormSubmit(event) {
             event.preventDefault();

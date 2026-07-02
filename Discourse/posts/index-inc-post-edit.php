@@ -12,12 +12,42 @@ $post = [
 ];
 
 $META_TITLE = "Edit Post - " . htmlspecialchars($post['title']);
-$META_DESC  = "Edit your existing post.";
+
+/* Initials */
+$name_parts = explode(' ', $ACCOUNT['display_name'] ?? 'Yourself');
+$initials = '';
+foreach ($name_parts as $part) {
+    $initials .= strtoupper(substr($part, 0, 1));
+}
+$initials = substr($initials, 0, 2);
+if (empty($initials)) {
+    $initials = 'Y';
+}
 ?>
 
 <head>
-  <?php HEAD_ESSENTIALS(); ?>
-  <link href="/Discourse/assets/css/dashboard.css" rel="stylesheet">
+  <title><?php echo $META_TITLE; ?></title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/x-icon" href="/Discourse/assets/img/favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap" rel="stylesheet">
+
+  <!-- Metronic Core CSS -->
+  <link rel="stylesheet" href="/Discourse/assets/plugins/global/plugins.bundle.css">
+  <link rel="stylesheet" href="/Discourse/assets/css/style.keenicons.css">
+  <link rel="stylesheet" href="/Discourse/assets/css/style.bundle.v2.full.css">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <link href="/Discourse/assets/css/sec-modals.css?v=1.0.1" rel="stylesheet">
+
+  <!-- jQuery -->
+  <script src="/Discourse/assets/js/jquery.js"></script>
+
+  <link href="/Discourse/assets/css/discourse-css/create-post.css" rel="stylesheet" type="text/css" />
   <link href="/Discourse/assets/css/dc-editor.css" rel="stylesheet">
 </head>
 
@@ -25,8 +55,6 @@ $META_DESC  = "Edit your existing post.";
   data-kt-app-page-loading-enabled="true"
   data-kt-app-page-loading="on"
   data-kt-app-layout="light-header"
-  data-kt-app-header-fixed="true"
-  data-kt-app-header-fixed-mobile="true"
   class="app-default">
 
   <?php include(dirname(__DIR__) . '/partials/_page-loader.php'); ?>
@@ -41,43 +69,43 @@ $META_DESC  = "Edit your existing post.";
           <div class="d-flex flex-column flex-column-fluid">
             <main>
 
-              <div style="background: linear-gradient(135deg, #0b3220 0%, #1a5c38 60%, #2D6A4F 100%); padding: 28px 0 22px;">
-                <div class="app-container container-xxl">
-                  <div class="d-flex align-items-start justify-content-between">
-                    <div>
-                      <i class="bi bi-pencil-square text-white opacity-75 fs-7"></i>
-                      <span class="text-white opacity-75 fs-8 fw-bold text-uppercase ls-1">Editing Post</span>
-                      <h2 class="text-white fs-2 fw-bolder mb-1">Edit Post</h2>
-                      <p class="text-white opacity-65 fs-6 mb-0">Make changes to your existing post.</p>
-                    </div>
-                    <a href="javascript:history.back();" class="btn btn-sm btn-light fw-bold mt-2">
-                      <i class="bi bi-arrow-left me-1"></i> Back
-                    </a>
+              <!-- Banner -->
+              <div class="page-banner w-100 py-10 mb-8">
+                <div class="app-container container-xxl d-flex align-items-center justify-content-between">
+                  <div>
+                    <span class="text-yellow fw-bold fs-8 text-uppercase tracking-wider mb-1 d-block">EDITING POST</span>
+                    <h1 class="text-white fw-bolder fs-2tx mb-2">Edit Post</h1>
+                    <p class="text-white text-opacity-75 fs-7 mb-0">Make changes to your existing post</p>
                   </div>
+                  <button class="btn btn-sm btn-outline btn-outline-white text-white border-white border-opacity-25 px-6" onclick="window.location.href='/Discourse/index.php'">Back</button>
                 </div>
               </div>
 
               <div id="kt_app_content" class="flex-column-fluid">
-                <div class="app-container container-xxl">
+                <div class="app-container container-xxl pb-10">
                   <form id="editPostForm" action="/Discourse/posts/index-ajax-update-post.php" method="POST" enctype="multipart/form-data">
                     <input type="hidden" name="post_id" value="<?php echo $post['id']; ?>">
                     <input type="hidden" name="body" id="body-hidden">
                     <input type="hidden" name="remove_image" id="remove-image-hidden" value="0">
-                    <div class="row g-5 align-items-start py-5">
+                    <div class="row g-6">
 
                       <div class="col-lg-8">
-                        <div class="card border-0 shadow-sm">
+                        <div class="card border border-gray-300 shadow-none rounded-2">
 
-                          <div class="card-header border-0 bg-light d-flex align-items-center gap-3 px-5" style="min-height: 60px;">
-                            <div class="d-flex align-items-center gap-3">
-                              <div class="bg-light-success rounded-2 p-2 d-flex align-items-center justify-content-center" style="width:32px;height:32px;background-color:#e8ede9 !important;">
-                                <i class="bi bi-pencil fs-6" style="color:#3a5c45"></i>
+                          <div class="card-body p-8">
+
+                            <div class="d-flex align-items-center justify-content-between mb-8">
+                              <div class="d-flex align-items-center gap-3">
+                                <div id="community-preview-icon" class="w-25px h-25px bg-light-success rounded d-flex align-items-center justify-content-center" style="background-color: rgba(23, 198, 83, 0.12) !important; color: #17c653 !important;">
+                                  <i class="bi bi-pencil-fill fs-7" style="color: #17c653 !important;"></i>
+                                </div>
+                                <h3 class="fw-bolder text-dark fs-4 m-0">Post Content</h3>
                               </div>
-                              <h5 class="mb-0 fw-bold fs-6 text-gray-800">Edit Post Content</h5>
+                              <div id="identity-badge" class="d-flex align-items-center gap-2 bg-light-success px-4 py-2 rounded" style="background-color: rgba(23, 198, 83, 0.12) !important; border: 1px solid rgba(23, 198, 83, 0.2) !important;">
+                                <div id="identity-avatar" class="w-15px h-15px bg-success rounded-circle text-white d-flex align-items-center justify-content-center fs-9" style="background-color: #17c653 !important; color: #fff !important;"><?php echo htmlspecialchars($initials); ?></div>
+                                <span id="identity-text" class="text-success fw-bold fs-8" style="color: #17c653 !important;">Posting as <?php echo htmlspecialchars($ACCOUNT['display_name'] ?? 'yourself'); ?></span>
+                              </div>
                             </div>
-                          </div>
-
-                          <div class="card-body p-5">
 
                             <div class="alert alert-warning d-flex align-items-center gap-2 mb-5">
                               <i class="bi bi-exclamation-triangle-fill text-warning flex-shrink-0"></i>
@@ -104,26 +132,6 @@ $META_DESC  = "Edit your existing post.";
                                 <button type="button" class="btn btn-sm btn-icon btn-light-success" style="background-color:#e8ede9;color:#3a5c45;" title="Strikethrough" onclick="fmt('strikeThrough')"><s>S</s></button>
                                 <button type="button" class="btn btn-sm btn-icon btn-light-success" style="background-color:#e8ede9;color:#3a5c45;" title="Superscript" onclick="fmt('superscript')">x<sup>2</sup></button>
                                 <button type="button" class="btn btn-sm btn-icon btn-light-success" style="background-color:#e8ede9;color:#3a5c45;" title="Paragraph" onclick="fmt('formatBlock','p')">¶T</button>
-                                <span class="dc-tb-sep"></span>
-                                <button type="button" class="btn btn-sm btn-icon btn-light-success" style="background-color:#e8ede9;color:#3a5c45;" title="Insert Link" onclick="openModal('modal-link')">
-                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                                  </svg>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-icon btn-light-success" style="background-color:#e8ede9;color:#3a5c45;" title="Insert Image" onclick="document.getElementById('replaceImageInput').click()">
-                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                                    <circle cx="8.5" cy="8.5" r="1.5" />
-                                    <polyline points="21 15 16 10 5 21" />
-                                  </svg>
-                                </button>
-                                <button type="button" class="btn btn-sm btn-icon btn-light-success" style="background-color:#e8ede9;color:#3a5c45;" title="Embed Video" onclick="openModal('modal-video')">
-                                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                    <circle cx="12" cy="12" r="10" />
-                                    <polygon points="10 8 16 12 10 16 10 8" />
-                                  </svg>
-                                </button>
                                 <span class="dc-tb-sep"></span>
                                 <button type="button" class="btn btn-sm btn-icon btn-light-success" style="background-color:#e8ede9;color:#3a5c45;" title="Ordered List" onclick="insertList('ol')">
                                   <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -186,47 +194,6 @@ $META_DESC  = "Edit your existing post.";
                               <div id="edit_body_editor" class="dc-editor-area" contenteditable="true"
                                 data-placeholder="Body text (optional)"
                                 style="height:300px !important;overflow-y:auto !important;border-bottom:1.5px solid #e4e6ef !important;border-radius:0 0 8px 8px !important;"><?php echo $post['body']; ?></div>
-
-                              <?php $has_img = !empty($post['image_url']); ?>
-                              <div class="dc-image-wrapper" id="imageWrapper" style="display: <?php echo $has_img ? 'block' : 'none'; ?>;">
-                                <img src="<?php echo htmlspecialchars($post['image_url'] ?? ''); ?>"
-                                  alt="Attached image" class="dc-img-inserted" id="attachedImage"
-                                  style="max-height:220px;width:100%;object-fit:cover;margin:0;">
-                                <div class="dc-image-overlay">
-                                  <button type="button" class="dc-image-action-btn dc-image-replace-btn"
-                                    onclick="document.getElementById('replaceImageInput').click()" title="Replace image">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                      <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                                      <polyline points="17 8 12 3 7 8" />
-                                      <line x1="12" y1="3" x2="12" y2="15" />
-                                    </svg>
-                                    Replace
-                                  </button>
-                                  <button type="button" class="dc-image-action-btn dc-image-remove-btn" onclick="removeImage()" title="Remove image">
-                                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                      <polyline points="3 6 5 6 21 6" />
-                                      <path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6" />
-                                      <path d="M10 11v6" />
-                                      <path d="M14 11v6" />
-                                      <path d="M9 6V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v2" />
-                                    </svg>
-                                    Remove
-                                  </button>
-                                </div>
-                              </div>
-
-                              <div class="dc-no-image-placeholder" id="noImagePlaceholder"
-                                style="display: <?php echo $has_img ? 'none' : 'block'; ?>;"
-                                onclick="document.getElementById('replaceImageInput').click()">
-                                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#c8e6c9" stroke-width="1.5" style="display:block;margin:0 auto 6px;">
-                                  <rect x="3" y="3" width="18" height="18" rx="2" />
-                                  <circle cx="8.5" cy="8.5" r="1.5" />
-                                  <polyline points="21 15 16 10 5 21" />
-                                </svg>
-                                Click to add an image
-                              </div>
-
-                              <input type="file" id="replaceImageInput" name="image" accept="image/*" class="d-none" onchange="replaceImage(event)">
                             </div>
                             <div class="mt-5">
                               <div class="p-1">
@@ -258,64 +225,46 @@ $META_DESC  = "Edit your existing post.";
                       </div>
                       <div class="col-lg-4">
 
-                        <div class="card border-0 shadow-sm mb-5">
-                          <div class="card-body p-5">
-                            <p class="fs-6 text-gray-600 mb-5">Your edits will be visible to everyone in the community.</p>
-                            <button class="btn btn-success w-100 fw-bold" onclick="savePost()">
-                              <i class="bi bi-check-lg me-1"></i> Save Changes
+                        <div class="card card-publish mb-6 shadow-none">
+                          <div class="card-body p-6">
+                            <h5 class="fw-bolder text-dark mb-3 fs-5">Publish Edits</h5>
+                            <p class="text-muted fs-8 mb-6">Your edits will be visible to everyone in the community.</p>
+                            <button class="btn w-100 btn-green mb-3 fw-bold" onclick="savePost()">
+                              <i class="bi bi-send me-1"></i> Save Changes
                             </button>
-                            <button class="btn btn-light w-100 fw-bold mt-3" onclick="history.back()">Cancel</button>
+                            <button class="btn w-100 btn-light bg-white border border-gray-300 text-dark fw-bold" onclick="history.back()">Cancel</button>
                           </div>
                         </div>
 
-                        <div class="card border border-danger mb-5" style="background:#fff5f5;">
-                          <div class="card-body p-4">
+                        <div class="card border border-danger mb-6 shadow-none" style="background:#fff5f5; border-radius: 8px;">
+                          <div class="card-body p-6">
                             <h6 class="text-uppercase fw-bold text-danger fs-8 mb-3 d-flex align-items-center gap-2">
                               <i class="bi bi-exclamation-triangle-fill"></i> Danger Zone
                             </h6>
-                            <p class="fs-7 text-muted mb-4">Permanently remove this post and all its comments. This cannot be undone.</p>
-                            <button class="btn btn-light-danger w-100 fw-bold" onclick="confirmDelete()">
+                            <p class="fs-8 text-muted mb-4">Permanently remove this post and all its comments. This cannot be undone.</p>
+                            <button class="btn btn-light-danger w-100 fw-bold fs-8" onclick="confirmDelete()">
                               <i class="bi bi-trash me-1"></i> Delete Post
                             </button>
                           </div>
                         </div>
 
-                        <div class="card border-0 shadow-sm mb-5">
-                          <div class="card-header border-0 bg-light d-flex align-items-center gap-3 px-5" style="min-height: 60px;">
-                            <div class="d-flex align-items-center gap-3">
-                              <div class="bg-light-success rounded-2 p-2 d-flex align-items-center justify-content-center" style="width:32px;height:32px;background-color:#e8ede9 !important;">
-                                <i class="bi bi-info-circle fs-6" style="color:#3a5c45;"></i>
+                        <div class="card rules-card shadow-none">
+                          <div class="card-body p-6">
+                            <h5 class="fw-bolder text-dark mb-4 fs-6">Edit Guidelines</h5>
+                            <div class="d-flex flex-column gap-3">
+                              <div class="d-flex align-items-center gap-2">
+                                <i class="ki-duotone ki-check fs-8"><span class="path1"></span><span class="path2"></span></i>
+                                <span class="text-dark fs-8">Keep your <strong>title</strong> clear and informative</span>
                               </div>
-                              <h5 class="mb-0 fw-bold fs-6 text-gray-800">Edit Guidelines</h5>
+                              <div class="d-flex align-items-center gap-2">
+                                <i class="ki-duotone ki-check fs-8"><span class="path1"></span><span class="path2"></span></i>
+                                <span class="text-dark fs-8">Substantial edits will be marked as edited</span>
+                              </div>
+                              <div class="d-flex align-items-center gap-2">
+                                <i class="ki-duotone ki-check fs-8"><span class="path1"></span><span class="path2"></span></i>
+                                <span class="text-dark fs-8">Verify information before updating</span>
+                              </div>
                             </div>
-                          </div>
-                          <div class="card-body p-5">
-                            <ul class="list-unstyled d-flex flex-column gap-3 mb-0">
-                              <li class="d-flex align-items-start gap-3 fs-7 text-gray-600">
-                                <span class="fw-bold flex-shrink-0" style="color:#3a5c45;">✓</span>
-                                <span>Keep your <strong>title</strong> clear and informative for better discoverability</span>
-                              </li>
-                              <li class="d-flex align-items-start gap-3 fs-7 text-gray-600">
-                                <span class="fw-bold flex-shrink-0" style="color:#3a5c45;">✓</span>
-                                <span>Substantial edits may be <strong>flagged</strong> to show the post was modified</span>
-                              </li>
-                              <li class="d-flex align-items-start gap-3 fs-7 text-gray-600">
-                                <span class="fw-bold flex-shrink-0" style="color:#3a5c45;">✓</span>
-                                <span>You can <strong>delete</strong> a post from the danger zone if needed</span>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-
-                        <div class="card border bg-light-success" style="background-color:#e8ede9;border-color:#c2d4c8 !important;">
-                          <div class="card-body p-5">
-                            <p class="fs-6 fw-bold mb-3" style="color:#3a5c45;">Community Rules</p>
-                            <ul class="list-unstyled d-flex flex-column gap-2 mb-0">
-                              <li class="d-flex align-items-start gap-2 fs-7 " style="color:#3a5c45;"><span class="fw-bold flex-shrink-0">✓</span>Be respectful and constructive</li>
-                              <li class="d-flex align-items-start gap-2 fs-7 " style="color:#3a5c45;"><span class="fw-bold flex-shrink-0">✓</span>No personal attacks or harassment</li>
-                              <li class="d-flex align-items-start gap-2 fs-7 " style="color:#3a5c45;"><span class="fw-bold flex-shrink-0">✓</span>Keep posts relevant to FEU Tech</li>
-                              <li class="d-flex align-items-start gap-2 fs-7 " style="color:#3a5c45;"><span class="fw-bold flex-shrink-0">✓</span>Verify information before sharing</li>
-                            </ul>
                           </div>
                         </div>
 
@@ -335,54 +284,7 @@ $META_DESC  = "Edit your existing post.";
 
   <?php include(dirname(__DIR__) . '/partials/_scrolltop.php'); ?>
 
-  <!-- Link Modal -->
-  <div class="modal fade" id="modal-link" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-4">
-        <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title fw-bold fs-5">Insert Link</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body pt-3">
-          <div class="mb-4">
-            <label class="form-label text-uppercase fw-bold text-gray-600 fs-8">Display Text</label>
-            <input type="text" class="form-control form-control-solid" id="link-text" placeholder="Link text...">
-          </div>
-          <div class="mb-2">
-            <label class="form-label text-uppercase fw-bold text-gray-600 fs-8">URL</label>
-            <input type="url" class="form-control form-control-solid" id="link-url" placeholder="https://...">
-          </div>
-        </div>
-        <div class="modal-footer border-0 pt-0 gap-2">
-          <button class="btn btn-light fw-bold" data-bs-dismiss="modal">Cancel</button>
-          <button class="btn btn-success fw-bold" onclick="insertLink()">Insert Link</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <!-- Video Modal -->
-  <div class="modal fade" id="modal-video" tabindex="-1" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered">
-      <div class="modal-content rounded-4">
-        <div class="modal-header border-0 pb-0">
-          <h5 class="modal-title fw-bold fs-5">Embed Video</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body pt-3">
-          <p class="fs-7 text-muted mb-4">Paste a YouTube or direct video URL below.</p>
-          <div class="mb-2">
-            <label class="form-label text-uppercase fw-bold text-gray-600 fs-8">Video URL</label>
-            <input type="url" class="form-control form-control-solid" id="video-url" placeholder="https://youtube.com/watch?v=...">
-          </div>
-        </div>
-        <div class="modal-footer border-0 pt-0 gap-2">
-          <button class="btn btn-light fw-bold" data-bs-dismiss="modal">Cancel</button>
-          <button class="btn btn-success fw-bold" onclick="insertVideo()">Embed Video</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
   <script>
@@ -409,31 +311,7 @@ $META_DESC  = "Edit your existing post.";
       document.getElementById('editPostForm').submit();
     };
 
-    window.removeImage = function() {
-      var wrapper = document.getElementById('imageWrapper');
-      var placeholder = document.getElementById('noImagePlaceholder');
-      var removeHidden = document.getElementById('remove-image-hidden');
-      if (wrapper) wrapper.style.display = 'none';
-      if (placeholder) placeholder.style.display = 'block';
-      if (removeHidden) removeHidden.value = '1';
-    };
 
-    window.replaceImage = function(event) {
-      var file = event.target.files[0];
-      if (!file) return;
-      var reader = new FileReader();
-      reader.onload = function(e) {
-        var img = document.getElementById('attachedImage');
-        if (img) img.src = e.target.result;
-        var wrapper = document.getElementById('imageWrapper');
-        var placeholder = document.getElementById('noImagePlaceholder');
-        var removeHidden = document.getElementById('remove-image-hidden');
-        if (wrapper) wrapper.style.display = 'block';
-        if (placeholder) placeholder.style.display = 'none';
-        if (removeHidden) removeHidden.value = '0';
-      };
-      reader.readAsDataURL(file);
-    };
 
     window.confirmDelete = function() {
       var postId = <?php echo $post['id']; ?>;

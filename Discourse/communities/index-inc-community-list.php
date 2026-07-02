@@ -83,7 +83,6 @@ $META_TITLE = "Discourse - FEU Communities";
                 <!-- Cards Grid -->
                 <div class="row g-6 mb-10" id="communities-grid">
                     <?php
-                    // Backend/DB fetch removed per supervisor revision — hardcoded sample data muna.
                     $communities_list = [
                         ['title' => 'FEU Tech',    'category' => 'FEU TECH',    'desc' => 'Official hub for FEU Institute of Technology students — academics, projects, and campus life.', 'members' => 12300, 'posts' => 842, 'logo_url' => '', 'icon' => 'bi-cpu', 'theme_color' => '#17c653', 'admin_id' => 'T202110294'],
                         ['title' => 'FEU Life',    'category' => 'FEU ALABANG', 'desc' => 'Connect with fellow Tamaraws across all campuses — events, wellness, and student life.', 'members' => 4800, 'posts' => 311, 'logo_url' => '', 'icon' => 'bi-heart-fill', 'theme_color' => '#d63384', 'admin_id' => 'T202110001'],
@@ -114,10 +113,16 @@ $META_TITLE = "Discourse - FEU Communities";
                         <div class="card h-100 shadow-sm border-0">
                             <div class="card-body p-6 text-center d-flex flex-column">
                                 <div class="mb-4 d-flex justify-content-center">
-                                    <div class="w-60px h-60px rounded-3 d-flex align-items-center justify-content-center shadow-sm" style="<?php echo !empty($community['logo_url']) ? 'background-image: url(\'' . htmlspecialchars($community['logo_url']) . '\'); background-size: cover; background-position: center;' : getLightColorStyle($community['theme_color']); ?>">
-                                        <?php if (empty($community['logo_url'])) { ?>
-                                        <i class="bi <?php echo htmlspecialchars($community['icon'] ?? 'bi-people-fill'); ?> fs-2hx" style="color: <?php echo htmlspecialchars($community['theme_color']); ?> !important;"></i>
-                                        <?php } ?>
+                                    <?php
+                                    $words = explode(' ', $comm_title);
+                                    $comm_initials = '';
+                                    foreach ($words as $w) {
+                                        $comm_initials .= strtoupper(substr($w, 0, 1));
+                                    }
+                                    $comm_initials = substr($comm_initials, 0, 2);
+                                    ?>
+                                    <div class="w-60px h-60px rounded-circle d-flex align-items-center justify-content-center shadow-sm fw-bolder fs-2 text-white" style="background-color: #1E7145;">
+                                        <?php echo htmlspecialchars($comm_initials); ?>
                                     </div>
                                 </div>
                                 <h3 class="fs-6 fw-bolder mb-2 text-dark">

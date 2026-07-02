@@ -7,7 +7,7 @@ $feed_posts = [
     'body' => ' A decade optimizing for server-side compute, but the thermal envelope of modern SoCs has quietly crossed a threshold nobody was paying attention to. Here\'s why 2025 is the last year data centers dominate...',
     'author_id' => 'T202110294',
     'display_name' => 'Ravi Joshi',
-    'avatar_md' => '/Discourse/assets/images/catalina.webp',
+    'avatar_md' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
     'community' => 'FEU TECH DEV',
     'topic' => 'TECHNOLOGY',
     'tags' => 'Technology',
@@ -21,7 +21,7 @@ $feed_posts = [
     'comments' => [
       [
         'author_name' => 'Sofia Karim',
-        'avatar_md' => 'https://ui-avatars.com/api/?name=Sofia+Karim&background=f3f4f6&color=d97706&rounded=true',
+        'avatar_md' => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
         'body' => 'This is a game changer! On-device inference keeps user data private and offline.',
         'created_at' => date('Y-m-d H:i:s', strtotime('-2 hours'))
       ]
@@ -33,7 +33,7 @@ $feed_posts = [
     'body' => 'I am an incoming computer science freshman at FEU Tech. Quite anxious about the coding classes since I have zero programming background. What languages should I start studying this vacation? And any specific tips on surviving the fast-paced schedule?',
     'author_id' => 'T202008123',
     'display_name' => 'Kyle Davidson',
-    'avatar_md' => '/Discourse/assets/images/catalina.webp',
+    'avatar_md' => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150',
     'community' => 'FEU TECH DEV',
     'topic' => 'ACADEMICS',
     'tags' => 'Academics',
@@ -47,7 +47,7 @@ $feed_posts = [
     'comments' => [
       [
         'author_name' => 'Marco Torres',
-        'avatar_md' => 'https://ui-avatars.com/api/?name=Marco+Torres&background=e0f2fe&color=0369a1&rounded=true',
+        'avatar_md' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
         'body' => 'Don\'t panic! Start with Python basics to learn logic. The profs start from the very beginning anyway.',
         'created_at' => date('Y-m-d H:i:s', strtotime('-3 hours'))
       ]
@@ -73,7 +73,7 @@ $feed_posts = [
     'comments' => [
       [
         'author_name' => 'Ravi Joshi',
-        'avatar_md' => '/Discourse/assets/images/catalina.webp',
+        'avatar_md' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
         'body' => 'Mental health leaves with academic accommodations would be so helpful, especially during midterms.',
         'created_at' => date('Y-m-d H:i:s', strtotime('-5 hours'))
       ]
@@ -85,7 +85,7 @@ $feed_posts = [
     'body' => 'Honestly, the recent announcement about strict uniform compliance starting next Monday feels a bit sudden, especially for those who still haven\'t received their ordered uniforms from the bookstore. Anyone else going to class in civilian attire or are they really going to bar us from entry?',
     'author_id' => 'T202008123',
     'display_name' => 'Patricia Lim',
-    'avatar_md' => '/Discourse/assets/images/catalina.webp',
+    'avatar_md' => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150',
     'community' => 'Freshies',
     'topic' => 'FEU',
     'tags' => 'FEU',
@@ -99,7 +99,7 @@ $feed_posts = [
     'comments' => [
       [
         'author_name' => 'Catalina Smith',
-        'avatar_md' => '/Discourse/assets/images/catalina.webp',
+        'avatar_md' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150',
         'body' => 'They usually give a grace period of 2 weeks if you show your payment receipt from the bookstore.',
         'created_at' => date('Y-m-d H:i:s', strtotime('-1 hour'))
       ]
@@ -111,7 +111,7 @@ $feed_posts = [
     'body' => 'Curious how my fellow FEU Tech students survive finals season. Drop your honest answer below 👇',
     'author_id' => 'T202102837',
     'display_name' => 'Marco Torres',
-    'avatar_md' => '/Discourse/assets/images/catalina.webp',
+    'avatar_md' => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
     'community' => 'FEU LIFE',
     'topic' => 'FEU',
     'tags' => 'FEU',
@@ -132,7 +132,7 @@ $feed_posts = [
     'comments' => [
       [
         'author_name' => 'Catalina Smith',
-        'avatar_md' => '/Discourse/assets/images/catalina.webp',
+        'avatar_md' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150',
         'body' => 'I cram the night before but always tell myself I\'ll start early next time 😂',
         'created_at' => date('Y-m-d H:i:s', strtotime('-4 hours'))
       ]
@@ -144,7 +144,7 @@ $feed_posts = [
     'body' => ' Finally tried booking one of the new study rooms in the library. Honest review: the booking system is clunky, the AC is questionable, but the...',
     'author_id' => 'T202210202',
     'display_name' => 'Catalina Smith',
-    'avatar_md' => '/Discourse/assets/images/catalina.webp',
+    'avatar_md' => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150',
     'community' => 'FEU TECH DEV',
     'topic' => 'TECHNOLOGY',
     'tags' => 'Technology',
@@ -158,7 +158,7 @@ $feed_posts = [
     'comments' => [
       [
         'author_name' => 'Ravi Joshi',
-        'avatar_md' => '/Discourse/assets/images/catalina.webp',
+        'avatar_md' => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
         'body' => 'Hallway is always too noisy for group discussions, booking a room is definitely worth it!',
         'created_at' => date('Y-m-d H:i:s', strtotime('-30 minutes'))
       ]

@@ -25,7 +25,7 @@ $post      = null;
 $post_id   = isset($_GET['id']) ? intval($_GET['id']) : 0;
 $comments  = [];
 
-// ── Static sample vars (no DB lookup) ──────────────────────
+/* Sample configuration */
 $db_post_loaded = false;
 
 $loggedInName      = $ACCOUNT['display_name'] ?? 'User';
@@ -184,8 +184,20 @@ if (!$db_post_loaded && isset($samplePostsById[$post_id])) {
     $authorInitials = "RJ";
     $bannerMeta  = "Technology • Posted by Ravi Joshi • 3h ago";
     $tag         = "TECHNOLOGY";
-    $community   = "FEU Tech";
 }
+
+$user_avatars = [
+    'Sofia Karim'      => 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150',
+    'Marco Torres'     => 'https://images.unsplash.com/photo-1535713875002-d1d0cf377fde?w=150',
+    'Catalina Smith'   => 'https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=150',
+    'Marielle Basanes' => 'https://images.unsplash.com/photo-1544005313-94ddf0286df2?w=150',
+    'Ravi Joshi'       => 'https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150',
+    'Kyle Davidson'    => 'https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?w=150',
+    'Patricia Lim'     => 'https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150',
+    'Carlo Mendoza'    => 'https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=150',
+    'Bea Flores'       => 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150',
+];
+$authorAvatar = isset($user_avatars[$authorName]) ? $user_avatars[$authorName] : '';
 
 $isAnon = $showAnon;
 
@@ -406,8 +418,8 @@ switch ($backParam) {
                                                         <div class="symbol symbol-35px symbol-circle">
                                                             <?php if ($isAnon) { ?>
                                                                 <div class="symbol-label text-white fw-bold fs-6" style="background-color: #ea580c !important;">A</div>
-                                                            <?php } elseif (!empty($dbAvatar)) { ?>
-                                                                <img src="<?php echo htmlspecialchars($dbAvatar); ?>" alt="Author Avatar" class="h-35px w-35px rounded-circle" style="object-fit:cover;">
+                                                            <?php } elseif (!empty($authorAvatar)) { ?>
+                                                                <img src="<?php echo htmlspecialchars($authorAvatar); ?>" alt="Author Avatar" class="h-35px w-35px rounded-circle" style="object-fit:cover;">
                                                             <?php } else { ?>
                                                                 <div class="symbol-label text-white fw-bold fs-6" style="background-color: #17c653 !important;"><?php echo htmlspecialchars($authorInitials); ?></div>
                                                             <?php } ?>
@@ -561,7 +573,7 @@ switch ($backParam) {
                                                                     $isCommentAnon = ($comment['is_anonymous'] == 1);
                                                                     $cName = $isCommentAnon ? 'Anonymous' : ($comment['author_name'] ?? 'User');
                                                                     $cInitials = $isCommentAnon ? 'A' : implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $cName)));
-                                                                    $cAvatar = $isCommentAnon ? '' : (!empty($comment['avatar_md']) ? $comment['avatar_md'] : '');
+                                                                    $cAvatar = $isCommentAnon ? '' : ($user_avatars[$cName] ?? (!empty($comment['avatar_md']) ? $comment['avatar_md'] : ''));
                                                                     $cBg = $isCommentAnon ? '#ea580c' : '#17c653';
                                                     ?>
                                                                     <div class="mb-4" data-cid="<?php echo $comment['id']; ?>">
@@ -601,7 +613,7 @@ switch ($backParam) {
                                                                                     $isReplyAnon = ($reply['is_anonymous'] == 1);
                                                                                     $rName = $isReplyAnon ? 'Anonymous' : ($reply['author_name'] ?? 'User');
                                                                                     $rInitials = $isReplyAnon ? 'A' : implode('', array_map(fn($w) => $w[0] ?? '', explode(' ', $rName)));
-                                                                                    $rAvatar = $isReplyAnon ? '' : (!empty($reply['avatar_md']) ? $reply['avatar_md'] : '');
+                                                                                    $rAvatar = $isReplyAnon ? '' : ($user_avatars[$rName] ?? (!empty($reply['avatar_md']) ? $reply['avatar_md'] : ''));
                                                                                     $rBg = $isReplyAnon ? '#ea580c' : '#17c653';
                                                                                     $replyingToName = $cName;
                                                                             ?>

@@ -52,13 +52,13 @@ foreach ($db_communities as $comm) {
     $community_topics_map[$title] = $topics;
 }
 
-// Read default selected community from query parameter
+/* Default community */
 $default_community = isset($_GET['c']) ? trim($_GET['c']) : '';
 
 
 $META_TITLE = "Create a Post - Discourse";
 
-// Generate initials for the current logged-in user
+/* Initials */
 $name_parts = explode(' ', $ACCOUNT['display_name'] ?? 'Yourself');
 $initials = '';
 foreach ($name_parts as $part) {
@@ -199,17 +199,6 @@ if (empty($initials)) {
                                                     </div>
 
                                                     <div class="mb-6">
-                                                        <label class="form-label fs-8 fw-bold text-gray-700 text-uppercase">Cover Photo (Optional)</label>
-                                                        <div class="d-flex align-items-center gap-3">
-                                                            <input type="file" name="image" id="cover_photo_input" class="form-control form-control-solid border" accept="image/*" style="display:none;" onchange="previewCoverPhoto(this)">
-                                                            <button type="button" class="btn btn-light bg-white border border-gray-300 text-dark fw-bold" onclick="document.getElementById('cover_photo_input').click()">
-                                                                <i class="bi bi-image me-1"></i> Choose Image
-                                                            </button>
-                                                            <span id="cover-photo-filename" class="text-muted fs-8">No file chosen</span>
-                                                        </div>
-                                                    </div>
-
-                                                    <div class="mb-6">
                                                         <label class="form-label fs-8 fw-bold text-gray-700 text-uppercase">TAGS</label>
                                                         <div class="d-flex flex-wrap align-items-center gap-2 form-control form-control-solid border p-2" id="tag-wrap" onclick="document.getElementById('tag-input').focus()" style="min-height: 45px; cursor: text;">
                                                             <input type="text" id="tag-input" class="border-0 bg-transparent flex-grow-1" placeholder="Type a tag and press Enter..." style="outline: none; min-width: 150px; font-size: 13px;">
@@ -227,26 +216,6 @@ if (empty($initials)) {
                                                             <button type="button" class="btn btn-sm btn-icon btn-light-success" title="Strikethrough" onclick="fmt('strikeThrough')"><s>S</s></button>
                                                             <button type="button" class="btn btn-sm btn-icon btn-light-success" title="Superscript" onclick="fmt('superscript')">x<sup>2</sup></button>
                                                             <button type="button" class="btn btn-sm btn-icon btn-light-success" title="Paragraph" onclick="fmt('formatBlock','p')">¶T</button>
-                                                            <span class="dc-tb-sep"></span>
-                                                            <button type="button" class="btn btn-sm btn-icon btn-light-success" title="Insert Link" onclick="openModal('modal-link')">
-                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                                                    <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71" />
-                                                                    <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71" />
-                                                                </svg>
-                                                            </button>
-                                                            <button type="button" class="btn btn-sm btn-icon btn-light-success" title="Insert Image" onclick="openModal('modal-image')">
-                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                                                    <rect x="3" y="3" width="18" height="18" rx="2" />
-                                                                    <circle cx="8.5" cy="8.5" r="1.5" />
-                                                                    <polyline points="21 15 16 10 5 21" />
-                                                                </svg>
-                                                            </button>
-                                                            <button type="button" class="btn btn-sm btn-icon btn-light-success" title="Embed Video" onclick="openModal('modal-video')">
-                                                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-                                                                    <circle cx="12" cy="12" r="10" />
-                                                                    <polygon points="10 8 16 12 10 16 10 8" />
-                                                                </svg>
-                                                            </button>
                                                             <span class="dc-tb-sep"></span>
                                                             <button type="button" class="btn btn-sm btn-icon btn-light-success" title="Ordered List" onclick="insertList('ol')">
                                                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -738,14 +707,7 @@ if (empty($initials)) {
                 });
             })();
 
-            window.previewCoverPhoto = function(input) {
-                var filenameSpan = document.getElementById('cover-photo-filename');
-                if (input.files && input.files[0]) {
-                    filenameSpan.textContent = input.files[0].name;
-                } else {
-                    filenameSpan.textContent = "No file chosen";
-                }
-            };
+
 
             window.submitPost = function() {
                 var titleInput = document.getElementById('post_title');
