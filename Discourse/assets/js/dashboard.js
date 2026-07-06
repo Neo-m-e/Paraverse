@@ -7,6 +7,68 @@
       new bootstrap.Tooltip(this);
     });
 
+    // ── Search & Topic Filters ──
+    var selectedTopic = 'all';
+    var searchQuery = '';
+
+    function filterPosts() {
+      $('.tab-pane').each(function () {
+        var tabPane = $(this);
+        var visibleCount = 0;
+        var cards = tabPane.find('[data-dc="post-card"]');
+        
+        cards.each(function () {
+          var card = $(this);
+          var title = card.find('.dc-post-title-link').text().toLowerCase();
+          var body = card.find('.dc-body-clamp').text().toLowerCase();
+          var community = card.find('a[href*="communities/index.php"]').text().toLowerCase();
+          var author = card.find('a[href*="profiles/index.php"]').text().toLowerCase();
+          var topicText = card.find('a[href*="/Discourse/topics/index.php"]').text().toLowerCase().trim();
+          
+          var queryMatch = title.includes(searchQuery) || 
+                           body.includes(searchQuery) || 
+                           community.includes(searchQuery) || 
+                           author.includes(searchQuery);
+                           
+          var topicMatch = (selectedTopic === 'all') || (topicText === selectedTopic);
+          
+          if (queryMatch && topicMatch) {
+            card.show();
+            visibleCount++;
+          } else {
+            card.hide();
+          }
+        });
+        
+        var noMatchMsg = tabPane.find('.dc-no-match-message');
+        if (visibleCount === 0 && cards.length > 0) {
+          if (noMatchMsg.length === 0) {
+            tabPane.append('<div class="dc-no-match-message text-center text-muted py-10"><i class="bi bi-search fs-1 d-block mb-3 opacity-50"></i><p class="fs-6 fw-bold mb-1">No matches found</p><p class="fs-7">Try checking your spelling or selecting a different topic.</p></div>');
+          } else {
+            noMatchMsg.show();
+          }
+        } else {
+          noMatchMsg.hide();
+        }
+      });
+    }
+
+    $('#discourse-search-input').on('input', function () {
+      searchQuery = $(this).val().toLowerCase().trim();
+      filterPosts();
+    });
+
+    $('.dropdown-item[data-topic]').on('click', function (e) {
+      e.preventDefault();
+      var btn = $(this);
+      $('.dropdown-item[data-topic]').removeClass('active');
+      btn.addClass('active');
+      selectedTopic = btn.attr('data-topic');
+      var btnText = btn.text().trim();
+      $('#topicsDropdown').text(btnText);
+      filterPosts();
+    });
+
     console.log('[Discourse] Dashboard initialized.');
   });
 })(jQuery);

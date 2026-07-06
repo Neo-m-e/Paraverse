@@ -63,7 +63,6 @@ $META_TITLE = "Dashboard · Discourse";
   <script src="assets/js/dashboard.js"></script>
   <script src="assets/js/sec-hero.js"></script>
   <script src="assets/js/sec-sidebar.js"></script>
-  <script src="assets/js/sec-search-filter.js"></script>
   <script src="assets/js/sec-posts.js?v=1.0.5"></script>
   <script src="assets/js/sec-modals.js"></script>
 </body>

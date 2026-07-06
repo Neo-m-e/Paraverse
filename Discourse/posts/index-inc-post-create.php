@@ -12,44 +12,14 @@ $db_communities = [
 ];
 
 // Build community to topics map
-$community_topics_map = [
-    "" => ["Technology", "Culture", "Gaming", "FEU", "Ideas", "Creative", "Science", "News", "AI", "Academics", "Lifestyle", "Entertainment", "Music", "Politics", "Issues", "Sports", "Others"]
-];
+$global_topics = ["Technology", "Culture", "Gaming", "FEU", "Ideas", "Creative", "Science", "News", "AI", "Academics", "Lifestyle", "Entertainment", "Music", "Politics", "Issues", "Sports"];
 
-$seed_defaults = [
-    "FEU LIFE" => ["FEULife", "CampusLife", "Enrollment", "Events"],
-    "FEU ALABANG LIFE" => ["AlabangLife", "CampusLife", "Enrollment", "Events"],
-    "Freshies" => ["Freshies", "Advice", "General"],
-    "Enrollment" => ["Enrollment", "Diliman", "Requirements"],
-    "Cosplaying" => ["Cosplay", "Anime", "Gaming", "Events"],
-    "FEU TECH DEV" => ["Development", "Programming", "WebDev", "Projects"],
-    "Food Trip Around TECH" => ["Food", "Restaurants", "TechArea"],
-    "Thesis Advice" => ["Thesis", "Advice", "Research", "Defense"],
-    "Alabang Innovators" => ["Startups", "Innovation", "Tech"],
-    "Diliman Artists" => ["Art", "Creative", "Design"],
-    "Tech Support" => ["TechSupport", "IT", "Help"],
-    "Study Group" => ["Study", "Groups", "Academics"]
+$community_topics_map = [
+    "" => $global_topics
 ];
 
 foreach ($db_communities as $comm) {
-    $title = $comm['title'];
-    $title_key = str_replace(' ', '', strtolower($title));
-
-    // If community has custom topics, use ONLY those
-    if (!empty($comm['custom_topics'])) {
-        $topics = array_filter(array_map('trim', explode(',', $comm['custom_topics'])));
-        $topics = array_values($topics);
-    } else {
-        // Fall back to seed defaults or general
-        $topics = ["GENERAL"];
-        foreach ($seed_defaults as $s_title => $s_topics) {
-            if (str_replace(' ', '', strtolower($s_title)) === $title_key) {
-                $topics = $s_topics;
-                break;
-            }
-        }
-    }
-    $community_topics_map[$title] = $topics;
+    $community_topics_map[$comm['title']] = $global_topics;
 }
 
 /* Default community */

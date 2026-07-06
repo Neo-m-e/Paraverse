@@ -456,39 +456,23 @@ $db_posts = isset($communityPostsMap[$selectedKey]) ? $communityPostsMap[$select
                           All Topics
                         </button>
                         <ul class="dropdown-menu dropdown-menu-end shadow border-0 rounded-3 p-2 fs-7 min-w-150px" aria-labelledby="topicsDropdown">
-                          <?php
-                          // Show custom topics first, then fallback to seed defaults or GENERAL
-                          $display_topics = !empty($custom_topics_list) ? $custom_topics_list : [];
-                          if (empty($display_topics)) {
-                            $seed_defaults = [
-                              "FEU LIFE" => ["FEULife", "CampusLife", "Enrollment", "Events"],
-                              "FEU ALABANG LIFE" => ["AlabangLife", "CampusLife", "Enrollment", "Events"],
-                              "Freshies" => ["Freshies", "Advice", "General"],
-                              "Enrollment" => ["Enrollment", "Diliman", "Requirements"],
-                              "Cosplaying" => ["Cosplay", "Anime", "Gaming", "Events"],
-                              "FEU TECH DEV" => ["Development", "Programming", "WebDev", "Projects"],
-                              "Food Trip Around TECH" => ["Food", "Restaurants", "TechArea"],
-                              "Thesis Advice" => ["Thesis", "Advice", "Research", "Defense"],
-                              "Alabang Innovators" => ["Startups", "Innovation", "Tech"],
-                              "Diliman Artists" => ["Art", "Creative", "Design"],
-                              "Tech Support" => ["TechSupport", "IT", "Help"],
-                              "Study Group" => ["Study", "Groups", "Academics"]
-                            ];
-                            $title_key = str_replace(' ', '', strtolower($community_name));
-                            foreach ($seed_defaults as $s_title => $s_topics) {
-                              if (str_replace(' ', '', strtolower($s_title)) === $title_key) {
-                                $display_topics = $s_topics;
-                                break;
-                              }
-                            }
-                            if (empty($display_topics)) {
-                              $display_topics = ["GENERAL"];
-                            }
-                          }
-                          foreach ($display_topics as $dt) { ?>
-                            <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7"
-                                href="/Discourse/topics/index.php?t=<?php echo urlencode(strtoupper($dt)); ?>"><?php echo htmlspecialchars($dt); ?></a></li>
-                          <?php } ?>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7 active" href="#" data-topic="all">All Topics</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="technology">Technology</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="culture">Culture</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="gaming">Gaming</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="feu">FEU</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="ideas">Ideas</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="creative">Creative</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="science">Science</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="news">News</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="ai">AI</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="academics">Academics</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="lifestyle">Lifestyle</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="entertainment">Entertainment</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="music">Music</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="politics">Politics</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="issues">Issues</a></li>
+                          <li><a class="dropdown-item rounded-2 py-2 px-4 text-gray-700 text-hover-success bg-hover-light-success fs-7" href="#" data-topic="sports">Sports</a></li>
                         </ul>
                       </div>
                     </div>
@@ -1153,19 +1137,58 @@ $db_posts = isset($communityPostsMap[$selectedKey]) ? $communityPostsMap[$select
         }
       });
 
-      // 2. Real-time Search Filtering
-      $('.search-input-v2').on('keyup', function() {
-        const searchTerm = $(this).val().toLowerCase();
-        $('[data-dc="post-card"]').each(function() {
-          const title = $(this).find('.dc-post-title-link').text().toLowerCase();
-          const content = $(this).find('.dc-body-clamp').text().toLowerCase();
+      // 2. Real-time Search & Topic Filtering
+      var selectedTopic = 'all';
+      var searchQuery = '';
 
-          if (title.includes(searchTerm) || content.includes(searchTerm)) {
-            $(this).show();
+      function filterCommunityPosts() {
+        var visibleCount = 0;
+        var cards = $('[data-dc="post-card"]');
+        
+        cards.each(function () {
+          var card = $(this);
+          var title = card.find('.dc-post-title-link').text().toLowerCase();
+          var body = card.find('.dc-body-clamp').text().toLowerCase();
+          var topicText = card.find('a[href*="/Discourse/topics/index.php"]').text().toLowerCase().trim();
+          
+          var queryMatch = title.includes(searchQuery) || body.includes(searchQuery);
+          var topicMatch = (selectedTopic === 'all') || (topicText === selectedTopic);
+          
+          if (queryMatch && topicMatch) {
+            card.show();
+            visibleCount++;
           } else {
-            $(this).hide();
+            card.hide();
           }
         });
+        
+        var tabPane = $('.tab-content');
+        var noMatchMsg = tabPane.find('.dc-no-match-message');
+        if (visibleCount === 0 && cards.length > 0) {
+          if (noMatchMsg.length === 0) {
+            tabPane.append('<div class="dc-no-match-message text-center text-muted py-10"><i class="bi bi-search fs-1 d-block mb-3 opacity-50"></i><p class="fs-6 fw-bold mb-1">No matches found</p><p class="fs-7">Try checking your spelling or selecting a different topic.</p></div>');
+          } else {
+            noMatchMsg.show();
+          }
+        } else {
+          noMatchMsg.hide();
+        }
+      }
+
+      $('.search-input-v2').on('input keyup', function() {
+        searchQuery = $(this).val().toLowerCase().trim();
+        filterCommunityPosts();
+      });
+
+      $(document).on('click', '.dropdown-item[data-topic]', function (e) {
+        e.preventDefault();
+        var btn = $(this);
+        $('.dropdown-item[data-topic]').removeClass('active');
+        btn.addClass('active');
+        selectedTopic = btn.attr('data-topic');
+        var btnText = btn.text().trim();
+        $('#topicsDropdown').text(btnText);
+        filterCommunityPosts();
       });
 
       // 3. Filter Tabs (Visual Only)
