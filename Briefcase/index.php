@@ -3,8 +3,6 @@
 define('MBG', TRUE);
 include($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
 
-//IS_LOGGED_IN($_SERVER['REQUEST_URI']);
-
 $META_TITLE = "Briefcase";
 ?>
 

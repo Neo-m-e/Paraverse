@@ -3,8 +3,6 @@ define('MBG', TRUE);
 include($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
 include_once($_SERVER['DOCUMENT_ROOT'] . '/Discourse/functions.discourse.php');
 
-//IS_LOGGED_IN($_SERVER['REQUEST_URI']);
-
 $META_TITLE = "Dashboard · Discourse";
 ?>
 <!DOCTYPE html>

@@ -15,7 +15,7 @@
                 <div class="podium-avatar-box">
                     <div class="avatar-photo-wrap avatar-photo-wrap--silver">
                         <!-- Replace src with actual photo URL. Initials show if image fails to load. -->
-                        <img src="" alt="Janine C. Miguel" class="avatar-real-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                        <img src="arcadia/assets/imagescatalina.webp" alt="Janine C. Miguel" class="avatar-real-photo" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
                         <span class="avatar-initials-fallback" style="display:flex;">JM</span>
                     </div>
                     <div class="rank-badge-mini">2</div>

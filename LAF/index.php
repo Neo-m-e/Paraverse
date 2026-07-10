@@ -2,8 +2,6 @@
 define('MBG', TRUE);
 include($_SERVER['DOCUMENT_ROOT'] . '/LAF/functions-new.php');
 
-//IS_LOGGED_IN($_SERVER['REQUEST_URI']);
-
 $META_TITLE = "Lost and Found · FEU Tech";
 $META_DESC = "Official Lost and Found portal of FEU Tech.";
 ?>
