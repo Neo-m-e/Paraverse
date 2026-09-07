@@ -112,86 +112,6 @@ $exams = [
             ]
         ]
     ],
-
-    'EDITH-2603-6471-8565-B7D1' => [
-        'title' => 'IT0083 - Game Design 1',
-        'items' => 25,
-        'time_limit' => 90,
-        'results' => [
-            [
-                'name' => 'Carlo Bautista',
-                'student_no' => '202210184',
-                'course' => 'BSITBA',
-                'email' => 'cbautista@fit.edu.ph',
-                'date_taken' => '2026-04-02',
-                'score' => 19
-            ],
-            [
-                'name' => 'Denise Ramos',
-                'student_no' => '202210298',
-                'course' => 'BSITBA',
-                'email' => 'dramos@fit.edu.ph',
-                'date_taken' => '2026-04-02',
-                'score' => 23
-            ],
-            [
-                'name' => 'Miguel Torres',
-                'student_no' => '202210315',
-                'course' => 'BSCS',
-                'email' => 'mtorres@fit.edu.ph',
-                'date_taken' => '2026-04-03',
-                'score' => 21
-            ],
-            [
-                'name' => 'Josh Manuel',
-                'student_no' => '202210341',
-                'course' => 'BSCS',
-                'email' => 'jmanuel@fit.edu.ph',
-                'date_taken' => '2026-04-03',
-                'score' => 17
-            ]
-        ]
-    ],
-
-    'EDITH-2603-8820-8612-9E4A' => [
-        'title' => 'IT0017 - Discrete Mathematics with Automata',
-        'items' => 12,
-        'time_limit' => 60,
-        'results' => [
-            [
-                'name' => 'Ana Marie Villanueva',
-                'student_no' => '202210292',
-                'course' => 'BSITBA',
-                'email' => 'avillanueva@fit.edu.ph',
-                'date_taken' => '2026-03-25',
-                'score' => 7
-            ],
-            [
-                'name' => 'Denise Ramos',
-                'student_no' => '202210298',
-                'course' => 'BSITBA',
-                'email' => 'dramos@fit.edu.ph',
-                'date_taken' => '2026-03-25',
-                'score' => 11
-            ],
-            [
-                'name' => 'Sophia Del Rosario',
-                'student_no' => '202210327',
-                'course' => 'BSITWMA',
-                'email' => 'sdelrosario@fit.edu.ph',
-                'date_taken' => '2026-03-26',
-                'score' => 9
-            ],
-            [
-                'name' => 'Josh Manuel',
-                'student_no' => '202210341',
-                'course' => 'BSCS',
-                'email' => 'jmanuel@fit.edu.ph',
-                'date_taken' => '2026-03-26',
-                'score' => 8
-            ]
-        ]
-    ]
 ];
 
 $examId = isset($_GET['exam_id'])
@@ -312,11 +232,11 @@ if ($exam !== null) {
 
                                             <div class="d-flex flex-column pe-0 pe-sm-10">
                                                 <h4 class="fw-semibold">
-                                                    Exam not found
+                                                    Exam not yet available
                                                 </h4>
 
                                                 <span>
-                                                    The selected exam ID does not exist.
+                                                    The selected exam is not yet available. Please check back later or contact the administrator for more information.
                                                 </span>
                                             </div>
                                         </div>

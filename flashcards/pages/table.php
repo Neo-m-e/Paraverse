@@ -1,53 +1,64 @@
 <div class="app-container container-xxl py-10 py-lg-15">
 
     <div class="d-flex flex-column flex-lg-row justify-content-between align-items-lg-end gap-7 mb-10">
+
         <div>
-            <h1 class="text-gray-900 fw-bold fs-2 mb-3">My library</h1>
+            <h1 class="text-gray-900 fw-bold fs-2 mb-3">
+                My library
+            </h1>
 
             <p class="text-gray-600 fw-normal fs-7 mb-5">
                 Manage your flashcards, follow your progress, and check your practice and exam performance.
             </p>
 
-            <ul class="nav nav-pills nav-pills-custom bg-gray-200 rounded p-1">
-                <li class="nav-item">
-                    <a
-                        href="/flashcards/"
-                        class="nav-link btn btn-sm btn-color-gray-600 btn-active-color-gray-900 btn-active-bg-white fw-semibold">
-                        Flashcards
-                    </a>
-                </li>
+            <div class="overflow-auto">
+                <ul class="nav nav-pills flex-nowrap d-inline-flex bg-gray-200 rounded p-1">
 
-                <li class="nav-item">
-                    <a
-                        href="/flashcards/learning-progress/"
-                        class="nav-link btn btn-sm btn-color-gray-600 btn-active-color-gray-900 btn-active-bg-white fw-semibold">
-                        Learning Progress
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a
+                            href="/flashcards/"
+                            class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
+                            onclick="KTApp.showPageLoading()">
+                            Flashcards
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a
-                        href="/flashcards/practice-test/"
-                        class="nav-link btn btn-sm btn-color-gray-600 btn-active-color-gray-900 btn-active-bg-white fw-semibold">
-                        Practice Test
-                    </a>
-                </li>
+                    <li class="nav-item">
+                        <a
+                            href="/flashcards/learning-progress/"
+                            class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
+                            onclick="KTApp.showPageLoading()">
+                            Learning Progress
+                        </a>
+                    </li>
 
-                <li class="nav-item">
-                    <a
-                        href="/flashcards/exams/"
-                        class="nav-link active btn btn-sm btn-color-gray-600 btn-active-color-gray-900 btn-active-bg-white fw-semibold">
-                        Exam Results
-                    </a>
-                </li>
-            </ul>
+                    <li class="nav-item">
+                        <a
+                            href="/flashcards/practice-test/"
+                            class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
+                            onclick="KTApp.showPageLoading()">
+                            Practice Test
+                        </a>
+                    </li>
+
+                    <li class="nav-item">
+                        <a
+                            href="/flashcards/exams/"
+                            class="nav-link active bg-white text-gray-900 shadow-sm text-nowrap fw-semibold px-5 py-3"
+                            aria-current="page">
+                            Exam Results
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
         </div>
-
         <div class="d-flex flex-wrap gap-3">
             <a
                 href="/flashcards/import/"
                 class="btn btn-sm btn-primary"
                 onclick="KTApp.showPageLoading()">
+
                 Import
 
                 <i class="ki-duotone ki-file-down fs-5 ms-1">
@@ -61,6 +72,7 @@
                 class="btn btn-sm btn-primary"
                 data-bs-toggle="modal"
                 data-bs-target="#kt_modal_create_exam">
+
                 Create Exam
 
                 <i class="ki-duotone ki-plus-square fs-5 ms-1">
@@ -74,6 +86,7 @@
                 href="/flashcards/create/"
                 class="btn btn-sm btn-primary"
                 onclick="KTApp.showPageLoading()">
+
                 Create Flashcards
 
                 <i class="ki-duotone ki-plus-square fs-5 ms-1">
@@ -84,6 +97,7 @@
             </a>
         </div>
     </div>
+
     <div class="card card-flush shadow-none">
         <div class="card-body p-0">
             <div class="table-responsive">
