@@ -383,12 +383,30 @@
             </div>
         </div>
     </div>
-    <button
-    type="button"
-    class="btn btn-primary"
-    data-bs-toggle="modal"
-    data-bs-target="#kt_modal_similar_card">
-    Check Similar Card
-</button>
+    <div class="card card-flush shadow-none">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-4 mb-0">
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-end mt-5">
+        <button
+            type="button"
+            class="btn btn-sm btn-light-primary"
+            data-bs-toggle="modal"
+            data-bs-target="#kt_modal_similar_card">
+
+            <i class="ki-duotone ki-magnifier fs-5">
+                <span class="path1"></span>
+                <span class="path2"></span>
+            </i>
+
+            Check Similar Cards
+        </button>
+    </div>
+
     <script src="/flashcards/assets/js/flashcards.js"></script>
 </div>

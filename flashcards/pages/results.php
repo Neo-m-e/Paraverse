@@ -19,7 +19,7 @@ $exams = [
                 'student_no' => '202210292',
                 'course' => 'BSITBA',
                 'email' => 'avillanueva@fit.edu.ph',
-                'date_taken' => '2026-03-14',
+                'date_taken' => '2026-09-08',
                 'score' => 14
             ],
             [
@@ -27,7 +27,7 @@ $exams = [
                 'student_no' => '202210184',
                 'course' => 'BSITBA',
                 'email' => 'cbautista@fit.edu.ph',
-                'date_taken' => '2026-03-14',
+                'date_taken' => '2026-09-08',
                 'score' => 11
             ],
             [
@@ -35,7 +35,7 @@ $exams = [
                 'student_no' => '202210298',
                 'course' => 'BSITBA',
                 'email' => 'dramos@fit.edu.ph',
-                'date_taken' => '2026-03-15',
+                'date_taken' => '2026-09-08',
                 'score' => 15
             ],
             [
@@ -43,7 +43,7 @@ $exams = [
                 'student_no' => '202210315',
                 'course' => 'BSCS',
                 'email' => 'mtorres@fit.edu.ph',
-                'date_taken' => '2026-03-15',
+                'date_taken' => '2026-09-08',
                 'score' => 10
             ],
             [
@@ -51,7 +51,7 @@ $exams = [
                 'student_no' => '202210327',
                 'course' => 'BSITWMA',
                 'email' => 'sdelrosario@fit.edu.ph',
-                'date_taken' => '2026-03-15',
+                'date_taken' => '2026-09-08',
                 'score' => 8
             ],
             [
@@ -59,7 +59,7 @@ $exams = [
                 'student_no' => '202210341',
                 'course' => 'BSCS',
                 'email' => 'jmanuel@fit.edu.ph',
-                'date_taken' => '2026-03-16',
+                'date_taken' => '2026-09-08',
                 'score' => 12
             ]
         ]
@@ -75,7 +75,7 @@ $exams = [
                 'student_no' => '202210292',
                 'course' => 'BSITBA',
                 'email' => 'avillanueva@fit.edu.ph',
-                'date_taken' => '2026-03-18',
+                'date_taken' => '2026-09-08',
                 'score' => 8
             ],
             [
@@ -83,7 +83,7 @@ $exams = [
                 'student_no' => '202210184',
                 'course' => 'BSITBA',
                 'email' => 'cbautista@fit.edu.ph',
-                'date_taken' => '2026-03-18',
+                'date_taken' => '2026-09-08',
                 'score' => 10
             ],
             [
@@ -91,7 +91,7 @@ $exams = [
                 'student_no' => '202210298',
                 'course' => 'BSITBA',
                 'email' => 'dramos@fit.edu.ph',
-                'date_taken' => '2026-03-19',
+                'date_taken' => '2026-09-08',
                 'score' => 9
             ],
             [
@@ -99,7 +99,7 @@ $exams = [
                 'student_no' => '202210315',
                 'course' => 'BSCS',
                 'email' => 'mtorres@fit.edu.ph',
-                'date_taken' => '2026-03-19',
+                'date_taken' => '2026-09-08',
                 'score' => 6
             ],
             [
@@ -107,7 +107,7 @@ $exams = [
                 'student_no' => '202210327',
                 'course' => 'BSITWMA',
                 'email' => 'sdelrosario@fit.edu.ph',
-                'date_taken' => '2026-03-20',
+                'date_taken' => '2026-09-08',
                 'score' => 7
             ]
         ]
@@ -413,7 +413,7 @@ if ($exam !== null) {
                                                                     </td>
 
                                                                     <td class="text-gray-600 fs-7">
-                                                                        <?= resultEscape($result['date_taken']) ?>
+                                                                        <?= resultEscape(date('F d, Y', strtotime($result['date_taken']))) ?>
                                                                     </td>
 
                                                                     <td class="text-end text-gray-600 fs-7">
