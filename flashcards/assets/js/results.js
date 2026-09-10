@@ -1,47 +1,37 @@
 "use strict";
 
-document.addEventListener("DOMContentLoaded", function () {
-    var searchInput = document.getElementById("student-results-search");
-
-    var studentRows = Array.prototype.slice.call(
-        document.querySelectorAll("[data-student-result-row]")
+$(document).ready(function () {
+    var resultsTableElement = $(
+        "#kt_student_results_datatable"
     );
 
-    var emptyRow = document.getElementById("student-results-empty");
-    var countLabel = document.getElementById("student-results-count");
-
-    if (!searchInput || studentRows.length === 0) {
+    if (!resultsTableElement.length) {
         return;
     }
 
-    searchInput.addEventListener("input", function () {
-        var keyword = searchInput.value
-            .trim()
-            .toLowerCase();
+    var studentResultsDataTable;
 
-        var visibleCount = 0;
+    if (
+        $.fn.DataTable.isDataTable(
+            "#kt_student_results_datatable"
+        )
+    ) {
+        studentResultsDataTable =
+            resultsTableElement.DataTable();
+    } else {
+        studentResultsDataTable =
+            resultsTableElement.DataTable();
+    }
 
-        studentRows.forEach(function (row) {
-            var rowContent = row.textContent.toLowerCase();
-            var isMatched = rowContent.includes(keyword);
+    $("#kt_student_results_datatable_filter")
+        .addClass("d-none");
 
-            row.classList.toggle("d-none", !isMatched);
-
-            if (isMatched) {
-                visibleCount++;
-            }
-        });
-
-        emptyRow.classList.toggle(
-            "d-none",
-            visibleCount !== 0
-        );
-
-        countLabel.textContent =
-            "Showing " +
-            visibleCount +
-            " of " +
-            studentRows.length +
-            " results";
-    });
+    $("#kt_student_results_datatable_search").on(
+        "keyup",
+        function () {
+            studentResultsDataTable
+                .search(this.value)
+                .draw();
+        }
+    );
 });

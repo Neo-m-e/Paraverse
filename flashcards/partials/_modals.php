@@ -537,7 +537,6 @@
         </form>
     </div>
 </div>
-<!-- check similar card -->
 <div
     class="modal fade"
     id="kt_modal_similar_card"
@@ -564,11 +563,11 @@
                     </span>
 
                     <span class="text-gray-600 fw-semibold fs-8">
-                        Choose the question and answer you want to save.
+                        Compare your draft with the existing card before saving.
                     </span>
                 </div>
 
-                <span class="badge badge-light-warning me-3">
+                <span class="badge badge-warning rounded-pill px-5 py-2 me-3">
                     81% Match
                 </span>
 
@@ -583,53 +582,51 @@
                         <span class="path2"></span>
                     </i>
                 </button>
+
             </div>
+
             <div class="modal-body p-0">
 
-                <div class="d-flex flex-wrap align-items-center gap-2 border-bottom px-5 py-3">
-
-                    <span class="text-gray-500 fw-semibold fs-8 text-uppercase">
-                        Course
-                    </span>
-
-                    <span class="badge badge-light-primary">
-                        IT0017
-                    </span>
-
-                    <span class="text-gray-900 fw-semibold fs-8">
-                        Discrete Mathematics
-                    </span>
-                </div>
                 <div class="table-responsive">
                     <table class="table table-row-bordered align-middle gy-4 gs-5 mb-0">
 
                         <thead>
                             <tr class="fw-bold text-gray-500 fs-8 text-uppercase bg-light">
-                                <th class="min-w-100px">
+
+                                <th class="min-w-125px">
                                     Field
                                 </th>
 
                                 <th class="min-w-300px">
                                     <div class="d-flex align-items-center">
-                                        <i class="ki-duotone ki-edit fs-6 text-primary me-2">
+
+                                        <i class="ki-duotone ki-folder fs-3 text-primary me-3">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
                                         </i>
 
-                                        Your Draft
+                                        <span class="text-primary">
+                                            Your Draft
+                                        </span>
+
                                     </div>
                                 </th>
 
                                 <th class="min-w-300px">
                                     <div class="d-flex align-items-center">
-                                        <i class="ki-duotone ki-folder fs-6 text-success me-2">
+
+                                        <i class="ki-duotone ki-folder fs-3 text-success me-3">
                                             <span class="path1"></span>
                                             <span class="path2"></span>
                                         </i>
 
-                                        Existing
+                                        <span class="text-success">
+                                            Existing
+                                        </span>
+
                                     </div>
                                 </th>
+
                             </tr>
                         </thead>
 
@@ -638,82 +635,148 @@
                             <tr>
                                 <td>
                                     <span class="text-gray-900 fw-bold fs-8">
+                                        Course Details
+                                    </span>
+                                </td>
+
+                                <td>
+                                    <div class="d-flex align-items-start">
+
+                                        <i class="ki-duotone ki-book-open fs-3 text-primary me-3">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+
+                                        <div class="d-flex flex-column">
+
+                                            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+
+                                                <span class="badge badge-light-primary">
+                                                    IT0017
+                                                </span>
+
+                                                <span class="text-gray-900 fw-semibold fs-8">
+                                                    Discrete Mathematics
+                                                </span>
+
+                                            </div>
+
+                                            <div class="d-flex flex-wrap align-items-center gap-2">
+
+                                                <span class="text-gray-500 fw-semibold fs-8">
+                                                    Modules:
+                                                </span>
+
+                                                <span class="badge badge-light">
+                                                    Mathematical Logic
+                                                </span>
+
+                                                <span class="badge badge-light">
+                                                    Relations
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-flex align-items-start">
+
+                                        <i class="ki-duotone ki-book-open fs-3 text-success me-3">
+                                            <span class="path1"></span>
+                                            <span class="path2"></span>
+                                            <span class="path3"></span>
+                                            <span class="path4"></span>
+                                        </i>
+
+                                        <div class="d-flex flex-column">
+
+                                            <div class="d-flex flex-wrap align-items-center gap-2 mb-2">
+
+                                                <span class="badge badge-light-primary">
+                                                    IT0017
+                                                </span>
+
+                                                <span class="text-gray-900 fw-semibold fs-8">
+                                                    Discrete Mathematics
+                                                </span>
+
+                                            </div>
+
+                                            <div class="d-flex flex-wrap align-items-center gap-2">
+
+                                                <span class="text-gray-500 fw-semibold fs-8">
+                                                    Modules:
+                                                </span>
+
+                                                <span class="badge badge-light">
+                                                    Mathematical Logic
+                                                </span>
+
+                                                <span class="badge badge-light">
+                                                    Relations
+                                                </span>
+
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+                                </td>
+
+                            </tr>
+                            <tr>
+                                <td>
+                                    <span class="text-gray-900 fw-bold fs-8">
                                         Question
                                     </span>
                                 </td>
 
-                                <td
-                                    class="bg-light-success"
-                                    data-card-choice-cell="question">
+                                <td>
+                                    <div class="text-gray-800 fw-semibold fs-8">
+                                        Which
 
-                                    <label
-                                        class="d-flex align-items-start w-100 cursor-pointer"
-                                        for="kt_question_draft">
-
-                                        <input
-                                            type="radio"
-                                            class="form-check-input me-3 mt-1"
-                                            name="question_source"
-                                            id="kt_question_draft"
-                                            value="draft"
-                                            data-content="Which three properties must a relation satisfy to be classified as an equivalence relation?"
-                                            checked>
-
-                                        <span class="text-gray-800 fw-semibold fs-8">
-                                            Which
-
-                                            <span class="badge badge-light-success">
-                                                three properties
-                                            </span>
-
-                                            must a
-
-                                            <span class="badge badge-light-warning">
-                                                relation
-                                            </span>
-
-                                            satisfy to be classified as an
-
-                                            <span class="badge badge-light-primary">
-                                                equivalence relation
-                                            </span>?
+                                        <span class="badge badge-light-success">
+                                            three properties
                                         </span>
-                                    </label>
+
+                                        must a
+
+                                        <span class="badge badge-light-warning">
+                                            relation
+                                        </span>
+
+                                        satisfy to be classified as an
+
+                                        <span class="badge badge-light-primary">
+                                            equivalence relation
+                                        </span>?
+                                    </div>
                                 </td>
-                                <td data-card-choice-cell="question">
+                                <td>
+                                    <div class="text-gray-800 fw-semibold fs-8">
+                                        A
 
-                                    <label
-                                        class="d-flex align-items-start w-100 cursor-pointer"
-                                        for="kt_question_existing">
-
-                                        <input
-                                            type="radio"
-                                            class="form-check-input me-3 mt-1"
-                                            name="question_source"
-                                            id="kt_question_existing"
-                                            value="existing"
-                                            data-content="A relation on a set must satisfy which three properties to qualify as an equivalence relation?">
-
-                                        <span class="text-gray-600 fw-semibold fs-8">
-                                            A
-
-                                            <span class="badge badge-light-warning">
-                                                relation
-                                            </span>
-
-                                            on a set must satisfy which
-
-                                            <span class="badge badge-light-success">
-                                                three properties
-                                            </span>
-
-                                            to qualify as an
-
-                                            <span class="badge badge-light-primary">
-                                                equivalence relation
-                                            </span>?
+                                        <span class="badge badge-light-warning">
+                                            relation
                                         </span>
-                                    </label>
+
+                                        on a set must satisfy which
+
+                                        <span class="badge badge-light-success">
+                                            three properties
+                                        </span>
+
+                                        to qualify as an
+
+                                        <span class="badge badge-light-primary">
+                                            equivalence relation
+                                        </span>?
+                                    </div>
                                 </td>
 
                             </tr>
@@ -723,101 +786,57 @@
                                         Answer / Choices
                                     </span>
                                 </td>
+                                <td>
+                                    <div class="text-gray-800 fw-semibold fs-8">
 
-                                <td data-card-choice-cell="answer">
+                                        <span class="badge badge-light-info">
+                                            Reflexivity
+                                        </span>,
 
-                                    <label
-                                        class="d-flex align-items-start w-100 cursor-pointer"
-                                        for="kt_answer_draft">
-
-                                        <input
-                                            type="radio"
-                                            class="form-check-input me-3 mt-1"
-                                            name="answer_source"
-                                            id="kt_answer_draft"
-                                            value="draft"
-                                            data-content="Reflexivity, symmetry, and transitivity.">
-
-                                        <span class="text-gray-600 fw-semibold fs-8">
-                                            <span class="badge badge-light-info">
-                                                Reflexivity
-                                            </span>,
-
-                                            <span class="badge badge-light-info">
-                                                symmetry
-                                            </span>
-
-                                            and
-
-                                            <span class="badge badge-light-info">
-                                                transitivity
-                                            </span>.
+                                        <span class="badge badge-light-danger">
+                                            symmetry
                                         </span>
-                                    </label>
+
+                                        and
+
+                                        <span class="badge badge-light-success">
+                                            transitivity
+                                        </span>.
+
+                                    </div>
                                 </td>
-                                <td
-                                    class="bg-light-success"
-                                    data-card-choice-cell="answer">
 
-                                    <label
-                                        class="d-flex align-items-start w-100 cursor-pointer"
-                                        for="kt_answer_existing">
+                                <td>
+                                    <div class="text-gray-800 fw-semibold fs-8">
 
-                                        <input
-                                            type="radio"
-                                            class="form-check-input me-3 mt-1"
-                                            name="answer_source"
-                                            id="kt_answer_existing"
-                                            value="existing"
-                                            data-content="Reflexive, symmetric, and transitive properties."
-                                            checked>
+                                        <span class="badge badge-light-info">
+                                            Reflexive
+                                        </span>,
 
-                                        <span class="text-gray-900 fw-semibold fs-8">
-                                            <span class="badge badge-light-info">
-                                                Reflexive
-                                            </span>,
-
-                                            <span class="badge badge-light-info">
-                                                symmetric
-                                            </span>
-
-                                            and
-
-                                            <span class="badge badge-light-info">
-                                                transitive
-                                            </span>
-
-                                            properties.
+                                        <span class="badge badge-light-danger">
+                                            symmetric
                                         </span>
-                                    </label>
+
+                                        and
+
+                                        <span class="badge badge-light-success">
+                                            transitive
+                                        </span>
+
+                                        properties.
+
+                                    </div>
                                 </td>
 
                             </tr>
 
                         </tbody>
+
                     </table>
                 </div>
-                <input
-                    type="hidden"
-                    id="kt_merged_question"
-                    name="merged_question">
-
-                <input
-                    type="hidden"
-                    id="kt_merged_answer"
-                    name="merged_answer">
-
-                <input
-                    type="hidden"
-                    id="kt_question_source"
-                    name="question_source_value">
-
-                <input
-                    type="hidden"
-                    id="kt_answer_source"
-                    name="answer_source_value">
 
             </div>
+
             <div class="modal-footer justify-content-between py-4">
 
                 <div class="text-gray-500 fw-semibold fs-8">
@@ -829,39 +848,31 @@
                 </div>
 
                 <div class="d-flex gap-3">
-                    <button
-                        type="button"
-                        class="btn btn-sm btn-light"
-                        data-bs-dismiss="modal">
+
+                    <a
+                        href="#discard-draft"
+                        class="btn btn-sm btn-light">
 
                         <i class="ki-duotone ki-cross fs-5">
                             <span class="path1"></span>
                             <span class="path2"></span>
                         </i>
 
-                        Cancel
-                    </button>
+                        Discard Draft
+                    </a>
 
-                    <button
-                        type="button"
-                        id="kt_save_merged_card"
+                    <a
+                        href="#save-anyway"
                         class="btn btn-sm btn-primary">
 
-                        <span class="indicator-label">
-                            <i class="ki-duotone ki-save-2 fs-5">
-                                <span class="path1"></span>
-                                <span class="path2"></span>
-                            </i>
+                        <i class="ki-duotone ki-save-2 fs-5">
+                            <span class="path1"></span>
+                            <span class="path2"></span>
+                        </i>
 
-                            Save Merged Card
-                        </span>
+                        Save Anyway
+                    </a>
 
-                        <span class="indicator-progress">
-                            Saving...
-
-                            <span class="spinner-border spinner-border-sm align-middle ms-2"></span>
-                        </span>
-                    </button>
                 </div>
 
             </div>

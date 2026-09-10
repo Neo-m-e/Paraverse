@@ -1,6 +1,7 @@
 <?php
 
 define('MBG', TRUE);
+
 include($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
 
 // IS_LOGGED_IN($_SERVER['REQUEST_URI']);
@@ -8,117 +9,187 @@ include($_SERVER['DOCUMENT_ROOT'] . '/functions-new.php');
 $META_TITLE = 'Student Results';
 $META_DESC = 'View exam scores and student performance.';
 
-$exams = [
+$students = [
+    [
+        'name' => 'Ana Marie Villanueva',
+        'student_no' => '202210292',
+        'course' => 'BSITBA',
+        'email' => 'avillanueva@fit.edu.ph'
+    ],
+    [
+        'name' => 'Carlo Bautista',
+        'student_no' => '202210184',
+        'course' => 'BSITBA',
+        'email' => 'cbautista@fit.edu.ph'
+    ],
+    [
+        'name' => 'Denise Ramos',
+        'student_no' => '202210298',
+        'course' => 'BSITBA',
+        'email' => 'dramos@fit.edu.ph'
+    ],
+    [
+        'name' => 'Miguel Torres',
+        'student_no' => '202210315',
+        'course' => 'BSCS',
+        'email' => 'mtorres@fit.edu.ph'
+    ],
+    [
+        'name' => 'Sophia Del Rosario',
+        'student_no' => '202210327',
+        'course' => 'BSITWMA',
+        'email' => 'sdelrosario@fit.edu.ph'
+    ],
+    [
+        'name' => 'Josh Manuel',
+        'student_no' => '202210341',
+        'course' => 'BSCS',
+        'email' => 'jmanuel@fit.edu.ph'
+    ],
+    [
+        'name' => 'Gabriel Tristan Olayon',
+        'student_no' => '202210356',
+        'course' => 'BSITAGD',
+        'email' => 'golayon@fit.edu.ph'
+    ],
+    [
+        'name' => 'Jehosaphat Figuera',
+        'student_no' => '202210372',
+        'course' => 'BSITWMA',
+        'email' => 'jfiguera@fit.edu.ph'
+    ],
+    [
+        'name' => 'Timothy Alec Gonda',
+        'student_no' => '202210389',
+        'course' => 'BSITAGD',
+        'email' => 'tgonda@fit.edu.ph'
+    ],
+    [
+        'name' => 'Vien Rykel Mendiola',
+        'student_no' => '202210403',
+        'course' => 'BSCS',
+        'email' => 'vmendiola@fit.edu.ph'
+    ],
+    [
+        'name' => 'Cristina Alarcon',
+        'student_no' => '202210417',
+        'course' => 'BSCE',
+        'email' => 'calarcon@fit.edu.ph'
+    ],
+    [
+        'name' => 'Maxeene Alyssa Gamas',
+        'student_no' => '202210429',
+        'course' => 'BSITBA',
+        'email' => 'mgamas@fit.edu.ph'
+    ]
+];
+
+
+$examDefinitions = [
     'EDITH-2601-3009-4138-57EC' => [
         'title' => 'GED0007 - Art Appreciation',
         'items' => 15,
         'time_limit' => 60,
-        'results' => [
-            [
-                'name' => 'Ana Marie Villanueva',
-                'student_no' => '202210292',
-                'course' => 'BSITBA',
-                'email' => 'avillanueva@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 14
-            ],
-            [
-                'name' => 'Carlo Bautista',
-                'student_no' => '202210184',
-                'course' => 'BSITBA',
-                'email' => 'cbautista@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 11
-            ],
-            [
-                'name' => 'Denise Ramos',
-                'student_no' => '202210298',
-                'course' => 'BSITBA',
-                'email' => 'dramos@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 15
-            ],
-            [
-                'name' => 'Miguel Torres',
-                'student_no' => '202210315',
-                'course' => 'BSCS',
-                'email' => 'mtorres@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 10
-            ],
-            [
-                'name' => 'Sophia Del Rosario',
-                'student_no' => '202210327',
-                'course' => 'BSITWMA',
-                'email' => 'sdelrosario@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 8
-            ],
-            [
-                'name' => 'Josh Manuel',
-                'student_no' => '202210341',
-                'course' => 'BSCS',
-                'email' => 'jmanuel@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 12
-            ]
-        ]
+        'status' => 'Active',
+        'scores' => [14, 11, 15, 10, 8, 12, 13, 9, 14, 11, 7, 12]
     ],
 
     'EDITH-2602-1187-9924-3A6F' => [
         'title' => 'GED0027 - Mathematics in Modern World',
         'items' => 10,
         'time_limit' => 45,
-        'results' => [
-            [
-                'name' => 'Ana Marie Villanueva',
-                'student_no' => '202210292',
-                'course' => 'BSITBA',
-                'email' => 'avillanueva@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 8
-            ],
-            [
-                'name' => 'Carlo Bautista',
-                'student_no' => '202210184',
-                'course' => 'BSITBA',
-                'email' => 'cbautista@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 10
-            ],
-            [
-                'name' => 'Denise Ramos',
-                'student_no' => '202210298',
-                'course' => 'BSITBA',
-                'email' => 'dramos@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 9
-            ],
-            [
-                'name' => 'Miguel Torres',
-                'student_no' => '202210315',
-                'course' => 'BSCS',
-                'email' => 'mtorres@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 6
-            ],
-            [
-                'name' => 'Sophia Del Rosario',
-                'student_no' => '202210327',
-                'course' => 'BSITWMA',
-                'email' => 'sdelrosario@fit.edu.ph',
-                'date_taken' => '2026-09-08',
-                'score' => 7
-            ]
-        ]
+        'status' => 'Ongoing',
+        'scores' => [8, 10, 9, 6, 7, 8, 5, 9, 7, 10, 6, 8]
     ],
+
+    'EDITH-2603-6471-8565-B7D1' => [
+        'title' => 'IT0083 - Game Design 1',
+        'items' => 25,
+        'time_limit' => 90,
+        'status' => 'Upcoming',
+        'scores' => []
+    ],
+
+    'EDITH-2603-8820-8612-9E4A' => [
+        'title' => 'IT0017 - Discrete Mathematics with Automata',
+        'items' => 12,
+        'time_limit' => 60,
+        'status' => 'Upcoming',
+        'scores' => []
+    ],
+
+    'EDITH-2604-1259-7741-3B8D' => [
+        'title' => 'CCS0001 - Introduction to Computing',
+        'items' => 20,
+        'time_limit' => 60,
+        'status' => 'Active',
+        'scores' => [17, 18, 19, 14, 16, 20, 15, 18, 13, 17, 16, 19]
+    ],
+
+    'EDITH-2604-2398-6512-4C7E' => [
+        'title' => 'CCS0003 - Computer Programming 1',
+        'items' => 30,
+        'time_limit' => 90,
+        'status' => 'Active',
+        'scores' => [25, 27, 29, 21, 24, 28, 23, 26, 20, 25, 22, 27]
+    ],
+
+    'EDITH-2605-3417-5283-5D6F' => [
+        'title' => 'CCS0005 - Computer Programming 2',
+        'items' => 25,
+        'time_limit' => 90,
+        'status' => 'Ongoing',
+        'scores' => [20, 22, 24, 17, 19, 23, 18, 21, 16, 20, 19, 22]
+    ],
+
+    'EDITH-2605-4576-4394-6E5A' => [
+        'title' => 'CCS0007 - Data Structures',
+        'items' => 40,
+        'time_limit' => 120,
+        'status' => 'Ongoing',
+        'scores' => [32, 35, 38, 27, 30, 36, 29, 34, 25, 33, 28, 37]
+    ],
+
+    'EDITH-2606-5634-3175-7F4B' => [
+        'title' => 'CCS0101 - Web Design',
+        'items' => 20,
+        'time_limit' => 60,
+        'status' => 'Active',
+        'scores' => [17, 19, 20, 14, 16, 18, 15, 19, 13, 17, 16, 18]
+    ],
+
+    'EDITH-2606-6782-2956-8A3C' => [
+        'title' => 'CCS0102 - Web Development',
+        'items' => 35,
+        'time_limit' => 100,
+        'status' => 'Upcoming',
+        'scores' => []
+    ],
+
+    'EDITH-2607-7841-1737-9B2D' => [
+        'title' => 'GED0019 - Readings in Philippine History',
+        'items' => 15,
+        'time_limit' => 60,
+        'status' => 'Active',
+        'scores' => [12, 14, 15, 10, 11, 13, 9, 14, 8, 12, 10, 13]
+    ],
+
+    'EDITH-2607-8963-9518-1C4E' => [
+        'title' => 'GED0009 - Ethics',
+        'items' => 20,
+        'time_limit' => 60,
+        'status' => 'Ongoing',
+        'scores' => [16, 18, 19, 13, 15, 17, 14, 18, 12, 16, 15, 19]
+    ]
 ];
 
+
+
 $examId = isset($_GET['exam_id'])
-    ? trim($_GET['exam_id'])
+    ? trim((string) $_GET['exam_id'])
     : '';
 
-$exam = $exams[$examId] ?? null;
+$exam = $examDefinitions[$examId] ?? null;
 
 if ($exam === null) {
     http_response_code(404);
@@ -127,12 +198,20 @@ if ($exam === null) {
 
 function resultEscape($value)
 {
-    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+    return htmlspecialchars(
+        (string) $value,
+        ENT_QUOTES,
+        'UTF-8'
+    );
 }
 
 function getStudentInitials($name)
 {
-    $words = preg_split('/\s+/', trim($name));
+    $words = preg_split(
+        '/\s+/',
+        trim((string) $name)
+    );
+
     $initials = '';
 
     foreach (array_slice($words, 0, 2) as $word) {
@@ -142,20 +221,65 @@ function getStudentInitials($name)
     return strtoupper($initials);
 }
 
+function formatResultDate($date)
+{
+    $timestamp = strtotime($date);
+
+    if ($timestamp === false) {
+        return '';
+    }
+
+    return date('F d, Y', $timestamp);
+}
+
+function getExamStatusClass($status)
+{
+    if ($status === 'Active') {
+        return 'badge-light-success';
+    }
+
+    if ($status === 'Ongoing') {
+        return 'badge-light-primary';
+    }
+
+    return 'badge-light-warning';
+}
+
+
+$results = [];
 $totalTakers = 0;
 $averageScore = 0;
 $highestScore = 0;
 
-if ($exam !== null) {
+$isUpcoming = (
+    $exam !== null &&
+    $exam['status'] === 'Upcoming'
+);
+
+if ($exam !== null && !$isUpcoming) {
+    foreach ($students as $index => $student) {
+        if (!isset($exam['scores'][$index])) {
+            continue;
+        }
+
+        $results[] = array_merge(
+            $student,
+            [
+                'date_taken' => '2026-09-08',
+                'score' => $exam['scores'][$index]
+            ]
+        );
+    }
+
     $percentages = [];
 
-    foreach ($exam['results'] as $result) {
+    foreach ($results as $result) {
         $percentages[] = round(
             ($result['score'] / $exam['items']) * 100
         );
     }
 
-    $totalTakers = count($percentages);
+    $totalTakers = count($results);
 
     if ($totalTakers > 0) {
         $averageScore = round(
@@ -174,6 +298,11 @@ if ($exam !== null) {
 
 <head>
     <?php HEAD_ESSENTIALS(); ?>
+
+    <link
+        href="/assets/plugins/custom/datatables/datatables.bundle.css"
+        rel="stylesheet"
+        type="text/css">
 </head>
 
 <body
@@ -203,12 +332,13 @@ if ($exam !== null) {
                                     class="app-container container-xxl py-8 py-lg-10">
 
                                     <ul class="breadcrumb breadcrumb-separatorless fw-semibold fs-7 mb-8">
+
                                         <li class="breadcrumb-item text-muted">
                                             <a
                                                 href="/flashcards/"
                                                 class="text-muted text-hover-primary"
                                                 onclick="KTApp.showPageLoading()">
-                                                Exams / Quiz
+                                                Exam Results
                                             </a>
                                         </li>
 
@@ -219,36 +349,51 @@ if ($exam !== null) {
                                         <li class="breadcrumb-item text-gray-900">
                                             Student Results
                                         </li>
+
                                     </ul>
 
                                     <?php if ($exam === null): ?>
 
-                                        <div class="alert alert-dismissible bg-light-danger d-flex flex-column flex-sm-row p-5">
-                                            <i class="ki-duotone ki-information-5 fs-2hx text-danger me-4 mb-5 mb-sm-0">
+                                        <div class="alert bg-light-danger d-flex p-5">
+
+                                            <i class="ki-duotone ki-information-5 fs-2hx text-danger me-4">
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                                 <span class="path3"></span>
                                             </i>
 
-                                            <div class="d-flex flex-column pe-0 pe-sm-10">
-                                                <h4 class="fw-semibold">
-                                                    Exam not yet available
+                                            <div class="d-flex flex-column">
+                                                <h4 class="text-danger fw-bold mb-1">
+                                                    Exam not found
                                                 </h4>
 
-                                                <span>
-                                                    The selected exam is not yet available. Please check back later or contact the administrator for more information.
+                                                <span class="text-gray-700 fw-semibold">
+                                                    The selected exam does not exist.
                                                 </span>
                                             </div>
+
                                         </div>
 
                                     <?php else: ?>
 
                                         <div class="mb-7">
-                                            <h1 class="text-gray-900 fw-bold fs-2 mb-3">
-                                                <?= resultEscape($exam['title']) ?>
-                                            </h1>
+
+                                            <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
+
+                                                <h1 class="text-gray-900 fw-bold fs-2 mb-0">
+                                                    <?= resultEscape($exam['title']) ?>
+                                                </h1>
+
+                                                <span class="badge <?= resultEscape(
+                                                                        getExamStatusClass($exam['status'])
+                                                                    ) ?>">
+                                                    <?= resultEscape($exam['status']) ?>
+                                                </span>
+
+                                            </div>
 
                                             <div class="d-flex flex-wrap align-items-center gap-3 text-gray-500 fs-7">
+
                                                 <span>
                                                     <?= resultEscape($examId) ?>
                                                 </span>
@@ -264,196 +409,290 @@ if ($exam !== null) {
                                                 <span>
                                                     <?= (int) $exam['time_limit'] ?> min Limit
                                                 </span>
+
                                             </div>
+
                                         </div>
 
-                                        <div class="row g-5 mb-7">
-                                            <div class="col-md-4">
-                                                <div class="card card-bordered h-100">
-                                                    <div class="card-body py-5">
-                                                        <div class="text-gray-500 fw-semibold fs-7 mb-1">
-                                                            Average Score
-                                                        </div>
+                                        <?php if ($isUpcoming): ?>
 
-                                                        <div class="text-gray-900 fw-bold fs-2">
-                                                            <?= resultEscape(number_format($averageScore, 1)) ?>%
-                                                        </div>
+                                            <div class="card card-bordered">
+                                                <div class="card-body d-flex flex-column align-items-center justify-content-center text-center py-15">
+
+                                                    <span class="symbol symbol-75px mb-5">
+                                                        <span class="symbol-label bg-light-warning">
+
+                                                            <i class="ki-duotone ki-time fs-2x text-warning">
+                                                                <span class="path1"></span>
+                                                                <span class="path2"></span>
+                                                            </i>
+
+                                                        </span>
+                                                    </span>
+
+                                                    <h3 class="text-gray-900 fw-bold mb-2">
+                                                        Results not yet available
+                                                    </h3>
+
+                                                    <div class="text-gray-500 fw-semibold fs-7 mw-500px">
+                                                        This exam is upcoming. Student results will appear here after the exam begins and students submit their answers.
                                                     </div>
+
                                                 </div>
                                             </div>
 
-                                            <div class="col-md-4">
-                                                <div class="card card-bordered h-100">
-                                                    <div class="card-body py-5">
-                                                        <div class="text-gray-500 fw-semibold fs-7 mb-1">
-                                                            Total Takers
-                                                        </div>
+                                        <?php else: ?>
 
-                                                        <div class="text-gray-900 fw-bold fs-2">
-                                                            <?= $totalTakers ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            <div class="row g-5 mb-7">
 
-                                            <div class="col-md-4">
-                                                <div class="card card-bordered h-100">
-                                                    <div class="card-body py-5">
-                                                        <div class="text-gray-500 fw-semibold fs-7 mb-1">
-                                                            Highest Score
-                                                        </div>
+                                                <div class="col-md-4">
+                                                    <div class="card card-bordered h-100">
+                                                        <div class="card-body py-5">
 
-                                                        <div class="text-gray-900 fw-bold fs-2">
-                                                            <?= $highestScore ?>%
+                                                            <div class="text-gray-500 fw-semibold fs-7 mb-1">
+                                                                Average Score
+                                                            </div>
+
+                                                            <div class="text-gray-900 fw-bold fs-2">
+                                                                <?= resultEscape(
+                                                                    number_format($averageScore, 1)
+                                                                ) ?>%
+                                                            </div>
+
                                                         </div>
                                                     </div>
                                                 </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="card card-bordered h-100">
+                                                        <div class="card-body py-5">
+
+                                                            <div class="text-gray-500 fw-semibold fs-7 mb-1">
+                                                                Total Takers
+                                                            </div>
+
+                                                            <div class="text-gray-900 fw-bold fs-2">
+                                                                <?= $totalTakers ?>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="col-md-4">
+                                                    <div class="card card-bordered h-100">
+                                                        <div class="card-body py-5">
+
+                                                            <div class="text-gray-500 fw-semibold fs-7 mb-1">
+                                                                Highest Score
+                                                            </div>
+
+                                                            <div class="text-gray-900 fw-bold fs-2">
+                                                                <?= $highestScore ?>%
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                             </div>
-                                        </div>
 
-                                        <div class="d-flex align-items-center position-relative mb-5">
-                                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
-                                                <span class="path1"></span>
-                                                <span class="path2"></span>
-                                            </i>
+                                            <div class="card card-bordered">
 
-                                            <input
-                                                id="student-results-search"
-                                                type="text"
-                                                class="form-control form-control-solid w-250px ps-12"
-                                                placeholder="Search student name...">
-                                        </div>
+                                                <div class="card-header border-0 pt-6">
 
-                                        <div class="card card-bordered">
-                                            <div class="card-body p-0">
-                                                <div class="table-responsive">
-                                                    <table
-                                                        id="student-results-table"
-                                                        class="table table-row-bordered table-row-gray-100 align-middle gs-0 gy-4 mb-0">
+                                                    <div class="card-title">
+                                                        <div class="d-flex align-items-center position-relative">
 
-                                                        <thead>
-                                                            <tr class="fw-bold text-gray-500 fs-8 text-uppercase bg-light">
-                                                                <th class="ps-6 min-w-300px">
-                                                                    Student
-                                                                </th>
+                                                            <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
+                                                                <span class="path1"></span>
+                                                                <span class="path2"></span>
+                                                            </i>
 
-                                                                <th class="min-w-150px">
-                                                                    Date Taken
-                                                                </th>
+                                                            <input
+                                                                id="kt_student_results_datatable_search"
+                                                                type="text"
+                                                                class="form-control form-control-solid w-250px ps-12"
+                                                                placeholder="Search students">
 
-                                                                <th class="min-w-125px text-end">
-                                                                    Raw Score
-                                                                </th>
+                                                        </div>
+                                                    </div>
 
-                                                                <th class="pe-6 min-w-100px text-end">
-                                                                    Score
-                                                                </th>
-                                                            </tr>
-                                                        </thead>
+                                                    <div class="card-toolbar">
+                                                        <div class="d-flex flex-wrap gap-3">
 
-                                                        <tbody>
-                                                            <?php
+                                                            <a
+                                                                href="#add-record"
+                                                                class="btn btn-sm btn-primary">
 
-                                                            $avatarColors = [
-                                                                'success',
-                                                                'primary',
-                                                                'info',
-                                                                'warning',
-                                                                'danger'
-                                                            ];
+                                                                <i class="ki-duotone ki-plus fs-3"></i>
 
-                                                            ?>
+                                                                Add Record
+                                                            </a>
 
-                                                            <?php foreach ($exam['results'] as $index => $result): ?>
+                                                            <a
+                                                                href="#filter"
+                                                                class="btn btn-sm btn-light-primary">
+
+                                                                <i class="ki-duotone ki-filter fs-3">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                </i>
+
+                                                                Filter
+                                                            </a>
+
+                                                            <a
+                                                                href="#export"
+                                                                class="btn btn-sm btn-light-primary">
+
+                                                                <i class="ki-duotone ki-exit-up fs-3">
+                                                                    <span class="path1"></span>
+                                                                    <span class="path2"></span>
+                                                                </i>
+
+                                                                Export
+                                                            </a>
+
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+                                                <div class="card-body pt-0">
+
+                                                    <div class="table-responsive">
+                                                        <table
+                                                            id="kt_student_results_datatable"
+                                                            class="table table-row-bordered gy-5 align-middle w-100">
+
+                                                            <thead>
+                                                                <tr class="fw-semibold fs-6 text-muted">
+
+                                                                    <th>
+                                                                        Student
+                                                                    </th>
+
+                                                                    <th>
+                                                                        Date Taken
+                                                                    </th>
+
+                                                                    <th class="text-end">
+                                                                        Raw Score
+                                                                    </th>
+
+                                                                    <th class="text-end">
+                                                                        Score
+                                                                    </th>
+
+                                                                </tr>
+                                                            </thead>
+
+                                                            <tbody>
 
                                                                 <?php
 
-                                                                $percentage = round(
-                                                                    ($result['score'] / $exam['items']) * 100
-                                                                );
-
-                                                                if ($percentage >= 80) {
-                                                                    $scoreColor = 'success';
-                                                                } elseif ($percentage >= 70) {
-                                                                    $scoreColor = 'warning';
-                                                                } else {
-                                                                    $scoreColor = 'danger';
-                                                                }
-
-                                                                $avatarColor = $avatarColors[$index % count($avatarColors)];
+                                                                $avatarColors = [
+                                                                    'success',
+                                                                    'primary',
+                                                                    'info',
+                                                                    'warning',
+                                                                    'danger'
+                                                                ];
 
                                                                 ?>
 
-                                                                <tr data-student-result-row>
-                                                                    <td class="ps-6">
-                                                                        <div class="d-flex align-items-center">
-                                                                            <div class="symbol symbol-35px symbol-circle me-4">
-                                                                                <span
-                                                                                    class="symbol-label bg-light-<?= $avatarColor ?> text-<?= $avatarColor ?> fw-bold">
-                                                                                    <?= resultEscape(
-                                                                                        getStudentInitials($result['name'])
-                                                                                    ) ?>
-                                                                                </span>
-                                                                            </div>
+                                                                <?php foreach ($results as $index => $result): ?>
 
-                                                                            <div>
-                                                                                <div class="text-gray-900 fw-semibold fs-7">
-                                                                                    <?= resultEscape($result['name']) ?>
+                                                                    <?php
+
+                                                                    $percentage = round(
+                                                                        ($result['score'] / $exam['items']) * 100
+                                                                    );
+
+                                                                    if ($percentage >= 80) {
+                                                                        $scoreColor = 'success';
+                                                                    } elseif ($percentage >= 70) {
+                                                                        $scoreColor = 'warning';
+                                                                    } else {
+                                                                        $scoreColor = 'danger';
+                                                                    }
+
+                                                                    $avatarColor = $avatarColors[$index % count($avatarColors)];
+
+                                                                    ?>
+
+                                                                    <tr>
+                                                                        <td>
+                                                                            <div class="d-flex align-items-center">
+
+                                                                                <div class="symbol symbol-35px symbol-circle me-4">
+                                                                                    <span class="symbol-label bg-light-<?= $avatarColor ?> text-<?= $avatarColor ?> fw-bold">
+
+                                                                                        <?= resultEscape(
+                                                                                            getStudentInitials($result['name'])
+                                                                                        ) ?>
+
+                                                                                    </span>
                                                                                 </div>
 
-                                                                                <div class="text-gray-500 fs-8">
-                                                                                    <?= resultEscape($result['student_no']) ?>
-                                                                                    |
-                                                                                    <?= resultEscape($result['course']) ?>
-                                                                                    |
-                                                                                    <?= resultEscape($result['email']) ?>
+                                                                                <div>
+                                                                                    <div class="text-gray-900 fw-semibold fs-7">
+                                                                                        <?= resultEscape($result['name']) ?>
+                                                                                    </div>
+
+                                                                                    <div class="text-gray-500 fs-8">
+                                                                                        <?= resultEscape($result['student_no']) ?>
+                                                                                        |
+                                                                                        <?= resultEscape($result['course']) ?>
+                                                                                        |
+                                                                                        <?= resultEscape($result['email']) ?>
+                                                                                    </div>
                                                                                 </div>
+
                                                                             </div>
-                                                                        </div>
-                                                                    </td>
+                                                                        </td>
 
-                                                                    <td class="text-gray-600 fs-7">
-                                                                        <?= resultEscape(date('F d, Y', strtotime($result['date_taken']))) ?>
-                                                                    </td>
+                                                                        <td
+                                                                            data-order="<?= resultEscape($result['date_taken']) ?>"
+                                                                            class="text-gray-600 fs-7">
 
-                                                                    <td class="text-end text-gray-600 fs-7">
-                                                                        <?= (int) $result['score'] ?>/<?= (int) $exam['items'] ?>
-                                                                    </td>
+                                                                            <?= resultEscape(
+                                                                                formatResultDate($result['date_taken'])
+                                                                            ) ?>
 
-                                                                    <td class="pe-6 text-end">
-                                                                        <span class="text-<?= $scoreColor ?> fw-bold fs-7">
-                                                                            <?= $percentage ?>%
-                                                                        </span>
-                                                                    </td>
-                                                                </tr>
+                                                                        </td>
 
-                                                            <?php endforeach; ?>
+                                                                        <td
+                                                                            data-order="<?= (int) $result['score'] ?>"
+                                                                            class="text-end text-gray-600 fs-7">
 
-                                                            <tr
-                                                                id="student-results-empty"
-                                                                class="d-none">
+                                                                            <?= (int) $result['score'] ?>/<?= (int) $exam['items'] ?>
 
-                                                                <td
-                                                                    colspan="4"
-                                                                    class="text-center text-gray-500 py-10">
-                                                                    No matching students found.
-                                                                </td>
-                                                            </tr>
-                                                        </tbody>
-                                                    </table>
+                                                                        </td>
+
+                                                                        <td
+                                                                            data-order="<?= $percentage ?>"
+                                                                            class="text-end">
+
+                                                                            <span class="text-<?= $scoreColor ?> fw-bold fs-7">
+                                                                                <?= $percentage ?>%
+                                                                            </span>
+
+                                                                        </td>
+                                                                    </tr>
+
+                                                                <?php endforeach; ?>
+
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+
                                                 </div>
-                                            </div>
-                                        </div>
 
-                                        <div class="d-flex flex-stack flex-wrap pt-7">
-                                            <div
-                                                id="student-results-count"
-                                                class="text-gray-500 fs-7">
-
-                                                Showing <?= $totalTakers ?> of
-                                                <?= $totalTakers ?> results
                                             </div>
-                                        </div>
+
+                                        <?php endif; ?>
 
                                     <?php endif; ?>
 
@@ -471,7 +710,9 @@ if ($exam !== null) {
 
     <?php include($_SERVER['DOCUMENT_ROOT'] . '/flashcards/partials/_scrolltop.php'); ?>
 
-    <?php if ($exam !== null): ?>
+    <script src="/assets/plugins/custom/datatables/datatables.bundle.js"></script>
+
+    <?php if ($exam !== null && !$isUpcoming): ?>
         <script src="/flashcards/assets/js/results.js"></script>
     <?php endif; ?>
 
