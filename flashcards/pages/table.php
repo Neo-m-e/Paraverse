@@ -122,65 +122,108 @@ function tableEscape($value)
 
 ?>
 
-<div class="app-container container-xxl py-10 py-lg-15">
+<div class="py-10 py-lg-15">
 
-    <div class="mb-10">
-        <h1 class="text-gray-900 fw-bold fs-2 mb-3">
-            My library
-        </h1>
+    <!--begin::Page header-->
+    <div class="d-flex flex-wrap flex-stack gap-5 mb-5">
 
-        <p class="text-gray-600 fw-normal fs-7 mb-5">
-            Manage your flashcards, follow your progress, and check your practice and exam performance.
-        </p>
+        <!--begin::Page title-->
+        <div>
+            <h1 class="text-gray-900 fw-bold fs-2 mb-3">
+                My library
+            </h1>
 
-        <div class="overflow-auto">
-            <ul class="nav nav-pills flex-nowrap d-inline-flex bg-gray-200 rounded p-1">
-
-                <li class="nav-item">
-                    <a
-                        href="/flashcards/"
-                        class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
-                        onclick="KTApp.showPageLoading()">
-                        Flashcards
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a
-                        href="/flashcards/learning-progress/"
-                        class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
-                        onclick="KTApp.showPageLoading()">
-                        Learning Progress
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a
-                        href="/flashcards/practice-test/"
-                        class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
-                        onclick="KTApp.showPageLoading()">
-                        Practice Test
-                    </a>
-                </li>
-
-                <li class="nav-item">
-                    <a
-                        href="/flashcards/exams/"
-                        class="nav-link active bg-white text-gray-900 shadow-sm text-nowrap fw-semibold px-5 py-3"
-                        aria-current="page">
-                        Exam Results
-                    </a>
-                </li>
-
-            </ul>
+            <p class="text-gray-600 fw-normal fs-7 mb-0">
+                Manage your flashcards, follow your progress, and check your practice and exam performance.
+            </p>
         </div>
-    </div>
+        <!--end::Page title-->
 
+        <!--begin::Global actions-->
+        <div class="d-flex flex-wrap gap-3">
+
+            <a
+                href="/flashcards/import/"
+                class="btn btn-sm btn-primary"
+                onclick="KTApp.showPageLoading()">
+
+                <i class="ki-duotone ki-file-up fs-5">
+                    <span class="path1"></span>
+                    <span class="path2"></span>
+                </i>
+
+                Import Cards
+            </a>
+
+            <a
+                href="/flashcards/create/"
+                class="btn btn-sm btn-primary"
+                onclick="KTApp.showPageLoading()">
+
+                <i class="ki-duotone ki-plus fs-4"></i>
+
+                Create Flashcards
+            </a>
+
+        </div>
+        <!--end::Global actions-->
+
+    </div>
+    <!--end::Page header-->
+
+    <!--begin::Navigation-->
+    <div class="overflow-auto mb-10">
+        <ul class="nav nav-pills flex-nowrap d-inline-flex bg-gray-200 rounded p-1">
+
+            <li class="nav-item">
+                <a
+                    href="/flashcards/"
+                    class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
+                    onclick="KTApp.showPageLoading()">
+                    Flashcards
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a
+                    href="/flashcards/learning-progress/"
+                    class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
+                    onclick="KTApp.showPageLoading()">
+                    Learning Progress
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a
+                    href="/flashcards/practice-test/"
+                    class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
+                    onclick="KTApp.showPageLoading()">
+                    Practice Test
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a
+                    href="/flashcards/exams/"
+                    class="nav-link active bg-white text-gray-900 shadow-sm text-nowrap fw-semibold px-5 py-3"
+                    aria-current="page">
+                    Exam Results
+                </a>
+            </li>
+
+        </ul>
+    </div>
+    <!--end::Navigation-->
+
+    <!--begin::Exam card-->
     <div class="card card-bordered">
 
+        <!--begin::Card header-->
         <div class="card-header border-0 pt-6">
 
+            <!--begin::Card title-->
             <div class="card-title">
+
                 <div class="d-flex align-items-center position-relative">
 
                     <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
@@ -195,93 +238,75 @@ function tableEscape($value)
                         placeholder="Search exams">
 
                 </div>
-            </div>
 
+            </div>
+            <!--end::Card title-->
+
+            <!--begin::Card toolbar-->
             <div class="card-toolbar">
-                <div class="d-flex flex-wrap gap-3">
 
-                    <a
-                        href="/flashcards/import/"
-                        class="btn btn-sm btn-primary"
-                        onclick="KTApp.showPageLoading()">
+                <button
+                    type="button"
+                    class="btn btn-sm btn-primary"
+                    data-bs-toggle="modal"
+                    data-bs-target="#kt_modal_create_exam">
 
-                        <i class="ki-duotone ki-file-up fs-5">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                        </i>
+                    <i class="ki-duotone ki-plus-square fs-5">
+                        <span class="path1"></span>
+                        <span class="path2"></span>
+                        <span class="path3"></span>
+                    </i>
 
-                        Import Cards
-                    </a>
+                    Create Exam
+                </button>
 
-                    <button
-                        type="button"
-                        class="btn btn-sm btn-primary"
-                        data-bs-toggle="modal"
-                        data-bs-target="#kt_modal_create_exam">
-
-                        <i class="ki-duotone ki-plus-square fs-5">
-                            <span class="path1"></span>
-                            <span class="path2"></span>
-                            <span class="path3"></span>
-                        </i>
-
-                        Create Exam
-                    </button>
-
-                    <a
-                        href="/flashcards/create/"
-                        class="btn btn-sm btn-primary"
-                        onclick="KTApp.showPageLoading()">
-
-                        <i class="ki-duotone ki-plus fs-4"></i>
-
-                        Create Flashcards
-                    </a>
-
-                </div>
             </div>
-        </div>
+            <!--end::Card toolbar-->
 
+        </div>
+        <!--end::Card header-->
+
+        <!--begin::Card body-->
         <div class="card-body pt-0">
 
+            <!--begin::Table responsive-->
             <div class="table-responsive">
+
+                <!--begin::Table-->
                 <table
                     id="kt_exam_datatable"
                     class="table table-row-bordered gy-5 align-middle w-100">
+
+                    <!--begin::Table head-->
                     <thead>
                         <tr class="fw-semibold fs-6 text-muted">
 
-                            <th>
-                                Exam ID
-                            </th>
+                            <th>Exam ID</th>
 
-                            <th>
-                                Title &amp; Modules
-                            </th>
+                            <th>Title &amp; Modules</th>
 
-                            <th>
-                                Created
-                            </th>
+                            <th>Created</th>
 
-                            <th>
-                                Status
-                            </th>
+                            <th>Status</th>
 
-                            <th class="text-end">
-                                Actions
-                            </th>
+                            <th class="text-end">Actions</th>
 
                         </tr>
                     </thead>
+                    <!--end::Table head-->
+
+                    <!--begin::Table body-->
                     <tbody>
 
                         <?php foreach ($examRows as $exam): ?>
 
                             <tr>
+
                                 <td>
                                     <div class="d-flex align-items-center">
 
-                                        <span class="text-gray-600 fw-semibold fs-7"> <?= tableEscape($exam['exam_id']) ?>
+                                        <span class="text-gray-600 fw-semibold fs-7">
+                                            <?= tableEscape($exam['exam_id']) ?>
                                         </span>
 
                                         <button
@@ -296,12 +321,14 @@ function tableEscape($value)
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                             </i>
+
                                         </button>
 
                                     </div>
                                 </td>
 
                                 <td>
+
                                     <div class="text-gray-900 fw-bold fs-6 mb-2">
                                         <?= tableEscape($exam['title']) ?>
                                     </div>
@@ -317,9 +344,11 @@ function tableEscape($value)
                                         <?php endforeach; ?>
 
                                     </div>
+
                                 </td>
 
                                 <td>
+
                                     <div class="text-gray-700 fw-semibold fs-7">
                                         <?= (int) $exam['items'] ?> items
                                     </div>
@@ -327,6 +356,7 @@ function tableEscape($value)
                                     <div class="text-gray-500 fs-8">
                                         <?= tableEscape($exam['created']) ?>
                                     </div>
+
                                 </td>
 
                                 <td>
@@ -336,6 +366,7 @@ function tableEscape($value)
                                 </td>
 
                                 <td class="text-end">
+
                                     <a
                                         href="/flashcards/pages/results.php?exam_id=<?= urlencode($exam['exam_id']) ?>"
                                         class="btn btn-sm btn-light-primary text-nowrap"
@@ -348,20 +379,31 @@ function tableEscape($value)
                                         </i>
 
                                         View Student Results
+
                                     </a>
+
                                 </td>
+
                             </tr>
 
                         <?php endforeach; ?>
 
                     </tbody>
+                    <!--end::Table body-->
+
                 </table>
+                <!--end::Table-->
+
             </div>
+            <!--end::Table responsive-->
 
         </div>
+        <!--end::Card body-->
 
     </div>
+    <!--end::Exam card-->
 
+    <!--begin::Temporary similar-card modal trigger-->
     <div class="d-flex justify-content-end mt-5">
 
         <a
@@ -375,8 +417,12 @@ function tableEscape($value)
             </i>
 
             Check Similar Cards
+
         </a>
 
     </div>
+    <!--end::Temporary similar-card modal trigger-->
+
     <script src="/flashcards/assets/js/flashcards.js"></script>
+
 </div>
