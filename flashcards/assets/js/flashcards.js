@@ -3,55 +3,39 @@
 $(document).ready(function () {
     var examTableElement = $("#kt_exam_datatable");
 
-    if (examTableElement.length) {
-        var examDataTable =
-            $.fn.DataTable.isDataTable(
-                "#kt_exam_datatable"
-            )
-                ? examTableElement.DataTable()
-                : examTableElement.DataTable();
-
-        $("#kt_exam_datatable_filter")
-            .addClass("d-none");
-
-        $("#kt_exam_datatable_search").on(
-            "keyup",
-            function () {
-                examDataTable
-                    .search(this.value)
-                    .draw();
-            }
-        );
-
-        examDataTable.on(
-            "draw",
-            function () {
-                initializeExamTooltips();
-            }
-        );
+    if (examTableElement.length === 0) {
+        return;
     }
 
-    function initializeExamTooltips() {
-        document
-            .querySelectorAll(
-                '[data-bs-toggle="tooltip"]'
-            )
-            .forEach(function (element) {
-                bootstrap.Tooltip.getOrCreateInstance(
-                    element
-                );
-            });
-    }
+    var examDataTable = examTableElement.DataTable();
+
+    $("#kt_exam_datatable_filter").addClass("d-none");
+
+    $("#kt_exam_datatable_search").on("keyup", function () {
+        examDataTable.search(this.value).draw();
+    });
+
+    var initializeExamTooltips = function () {
+        var tooltipElements = document.querySelectorAll(
+            '[data-bs-toggle="tooltip"]'
+        );
+
+        tooltipElements.forEach(function (tooltipElement) {
+            bootstrap.Tooltip.getOrCreateInstance(tooltipElement);
+        });
+    };
 
     initializeExamTooltips();
+
+    examDataTable.on("draw", function () {
+        initializeExamTooltips();
+    });
 
     $(document).on(
         "click",
         '[data-action="copy-exam-id"]',
         function () {
-            var examId = String(
-                $(this).data("exam-id")
-            );
+            var examId = String($(this).data("exam-id"));
 
             if (!navigator.clipboard) {
                 toastr.error(
@@ -64,9 +48,7 @@ $(document).ready(function () {
             navigator.clipboard
                 .writeText(examId)
                 .then(function () {
-                    toastr.success(
-                        "Exam ID copied."
-                    );
+                    toastr.success("Exam ID copied.");
                 })
                 .catch(function () {
                     toastr.error(

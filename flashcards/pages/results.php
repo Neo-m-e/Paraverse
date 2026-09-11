@@ -90,7 +90,7 @@ $examDefinitions = [
         'title' => 'GED0007 - Art Appreciation',
         'items' => 15,
         'time_limit' => 60,
-        'status' => 'Active',
+        'status' => 'Completed',
         'scores' => [14, 11, 15, 10, 8, 12, 13, 9, 14, 11, 7, 12]
     ],
 
@@ -98,7 +98,7 @@ $examDefinitions = [
         'title' => 'GED0027 - Mathematics in Modern World',
         'items' => 10,
         'time_limit' => 45,
-        'status' => 'Ongoing',
+        'status' => 'In Progress',
         'scores' => [8, 10, 9, 6, 7, 8, 5, 9, 7, 10, 6, 8]
     ],
 
@@ -122,7 +122,7 @@ $examDefinitions = [
         'title' => 'CCS0001 - Introduction to Computing',
         'items' => 20,
         'time_limit' => 60,
-        'status' => 'Active',
+        'status' => 'Completed',
         'scores' => [17, 18, 19, 14, 16, 20, 15, 18, 13, 17, 16, 19]
     ],
 
@@ -130,7 +130,7 @@ $examDefinitions = [
         'title' => 'CCS0003 - Computer Programming 1',
         'items' => 30,
         'time_limit' => 90,
-        'status' => 'Active',
+        'status' => 'Completed',
         'scores' => [25, 27, 29, 21, 24, 28, 23, 26, 20, 25, 22, 27]
     ],
 
@@ -138,7 +138,7 @@ $examDefinitions = [
         'title' => 'CCS0005 - Computer Programming 2',
         'items' => 25,
         'time_limit' => 90,
-        'status' => 'Ongoing',
+        'status' => 'In Progress',
         'scores' => [20, 22, 24, 17, 19, 23, 18, 21, 16, 20, 19, 22]
     ],
 
@@ -146,7 +146,7 @@ $examDefinitions = [
         'title' => 'CCS0007 - Data Structures',
         'items' => 40,
         'time_limit' => 120,
-        'status' => 'Ongoing',
+        'status' => 'In Progress',
         'scores' => [32, 35, 38, 27, 30, 36, 29, 34, 25, 33, 28, 37]
     ],
 
@@ -154,7 +154,7 @@ $examDefinitions = [
         'title' => 'CCS0101 - Web Design',
         'items' => 20,
         'time_limit' => 60,
-        'status' => 'Active',
+        'status' => 'Completed',
         'scores' => [17, 19, 20, 14, 16, 18, 15, 19, 13, 17, 16, 18]
     ],
 
@@ -162,7 +162,7 @@ $examDefinitions = [
         'title' => 'CCS0102 - Web Development',
         'items' => 35,
         'time_limit' => 100,
-        'status' => 'Upcoming',
+        'status' => 'Cancelled',
         'scores' => []
     ],
 
@@ -170,7 +170,7 @@ $examDefinitions = [
         'title' => 'GED0019 - Readings in Philippine History',
         'items' => 15,
         'time_limit' => 60,
-        'status' => 'Active',
+        'status' => 'Completed',
         'scores' => [12, 14, 15, 10, 11, 13, 9, 14, 8, 12, 10, 13]
     ],
 
@@ -178,7 +178,7 @@ $examDefinitions = [
         'title' => 'GED0009 - Ethics',
         'items' => 20,
         'time_limit' => 60,
-        'status' => 'Ongoing',
+        'status' => 'In Progress',
         'scores' => [16, 18, 19, 13, 15, 17, 14, 18, 12, 16, 15, 19]
     ]
 ];
@@ -194,15 +194,6 @@ $exam = $examDefinitions[$examId] ?? null;
 if ($exam === null) {
     http_response_code(404);
     $META_TITLE = 'Exam Not Found';
-}
-
-function resultEscape($value)
-{
-    return htmlspecialchars(
-        (string) $value,
-        ENT_QUOTES,
-        'UTF-8'
-    );
 }
 
 function getStudentInitials($name)
@@ -221,31 +212,6 @@ function getStudentInitials($name)
     return strtoupper($initials);
 }
 
-function formatResultDate($date)
-{
-    $timestamp = strtotime($date);
-
-    if ($timestamp === false) {
-        return '';
-    }
-
-    return date('F d, Y', $timestamp);
-}
-
-function getExamStatusClass($status)
-{
-    if ($status === 'Active') {
-        return 'badge-light-success';
-    }
-
-    if ($status === 'Ongoing') {
-        return 'badge-light-primary';
-    }
-
-    return 'badge-light-warning';
-}
-
-
 $results = [];
 $totalTakers = 0;
 $averageScore = 0;
@@ -257,6 +223,21 @@ $isUpcoming = (
 );
 
 if ($exam !== null && !$isUpcoming) {
+    $resultStatuses = [
+        'Completed',
+        'Completed',
+        'Pending',
+        'Completed',
+        'No Response',
+        'Completed',
+        'Pending',
+        'Completed',
+        'Completed',
+        'No Response',
+        'Completed',
+        'Pending'
+    ];
+
     foreach ($students as $index => $student) {
         if (!isset($exam['scores'][$index])) {
             continue;
@@ -265,8 +246,13 @@ if ($exam !== null && !$isUpcoming) {
         $results[] = array_merge(
             $student,
             [
-                'date_taken' => '2026-09-08',
-                'score' => $exam['scores'][$index]
+                'date_taken' => $resultStatuses[$index] === 'No Response'
+                    ? null
+                    : '2026-09-08',
+                'score' => $resultStatuses[$index] === 'No Response'
+                    ? null
+                    : $exam['scores'][$index],
+                'result_status' => $resultStatuses[$index]
             ]
         );
     }
@@ -274,12 +260,16 @@ if ($exam !== null && !$isUpcoming) {
     $percentages = [];
 
     foreach ($results as $result) {
+        if ($result['result_status'] === 'No Response') {
+            continue;
+        }
+
         $percentages[] = round(
             ($result['score'] / $exam['items']) * 100
         );
     }
 
-    $totalTakers = count($results);
+    $totalTakers = count($percentages);
 
     if ($totalTakers > 0) {
         $averageScore = round(
@@ -381,13 +371,29 @@ if ($exam !== null && !$isUpcoming) {
                                             <div class="d-flex flex-wrap align-items-center gap-3 mb-3">
 
                                                 <h1 class="text-gray-900 fw-bold fs-2 mb-0">
-                                                    <?= resultEscape($exam['title']) ?>
+                                                    <?= htmlspecialchars($exam['title'], ENT_QUOTES, 'UTF-8') ?>
                                                 </h1>
 
-                                                <span class="badge <?= resultEscape(
-                                                                        getExamStatusClass($exam['status'])
-                                                                    ) ?>">
-                                                    <?= resultEscape($exam['status']) ?>
+                                                <?php
+                                                switch ($exam['status']) {
+                                                    case 'Completed':
+                                                        $examStatusClass = 'badge-light-success';
+                                                        break;
+                                                    case 'In Progress':
+                                                        $examStatusClass = 'badge-light-primary';
+                                                        break;
+                                                    case 'Cancelled':
+                                                        $examStatusClass = 'badge-light-danger';
+                                                        break;
+                                                    case 'Upcoming':
+                                                    default:
+                                                        $examStatusClass = 'badge-light-warning';
+                                                        break;
+                                                }
+                                                ?>
+
+                                                <span class="badge <?= htmlspecialchars($examStatusClass, ENT_QUOTES, 'UTF-8') ?>">
+                                                    <?= htmlspecialchars($exam['status'], ENT_QUOTES, 'UTF-8') ?>
                                                 </span>
 
                                             </div>
@@ -395,7 +401,7 @@ if ($exam !== null && !$isUpcoming) {
                                             <div class="d-flex flex-wrap align-items-center gap-3 text-gray-500 fs-7">
 
                                                 <span>
-                                                    <?= resultEscape($examId) ?>
+                                                    <?= htmlspecialchars($examId, ENT_QUOTES, 'UTF-8') ?>
                                                 </span>
 
                                                 <span class="bullet bg-gray-400 w-4px h-4px"></span>
@@ -454,9 +460,7 @@ if ($exam !== null && !$isUpcoming) {
                                                             </div>
 
                                                             <div class="text-gray-900 fw-bold fs-2">
-                                                                <?= resultEscape(
-                                                                    number_format($averageScore, 1)
-                                                                ) ?>%
+                                                                <?= htmlspecialchars(number_format($averageScore, 1), ENT_QUOTES, 'UTF-8') ?>%
                                                             </div>
 
                                                         </div>
@@ -522,17 +526,8 @@ if ($exam !== null && !$isUpcoming) {
                                                         <div class="d-flex flex-wrap gap-3">
 
                                                             <a
-                                                                href="#add-record"
-                                                                class="btn btn-sm btn-primary">
-
-                                                                <i class="ki-duotone ki-plus fs-3"></i>
-
-                                                                Add Record
-                                                            </a>
-
-                                                            <a
                                                                 href="#filter"
-                                                                class="btn btn-sm btn-light-primary">
+                                                                class="btn btn-sm btn-light-info">
 
                                                                 <i class="ki-duotone ki-filter fs-3">
                                                                     <span class="path1"></span>
@@ -554,34 +549,51 @@ if ($exam !== null && !$isUpcoming) {
                                                                 Export
                                                             </a>
 
+                                                            <a
+                                                                href="#add-record"
+                                                                class="btn btn-sm btn-primary">
+
+                                                                <i class="ki-duotone ki-plus fs-3"></i>
+
+                                                                Add Record
+                                                            </a>
+
                                                         </div>
                                                     </div>
 
                                                 </div>
-                                                <div class="card-body pt-0">
+                                                <div class="card-body pt-0 pb-6">
 
                                                     <div class="table-responsive">
                                                         <table
                                                             id="kt_student_results_datatable"
-                                                            class="table table-row-bordered gy-5 align-middle w-100">
+                                                            class="table table-row-bordered gy-7 align-middle w-100">
 
                                                             <thead>
                                                                 <tr class="fw-semibold fs-6 text-muted">
 
-                                                                    <th>
+                                                                    <th class="ps-0">
                                                                         Student
                                                                     </th>
 
-                                                                    <th>
+                                                                    <th class="text-nowrap">
                                                                         Date Taken
                                                                     </th>
 
-                                                                    <th class="text-end">
+                                                                    <th class="text-nowrap">
                                                                         Raw Score
                                                                     </th>
 
-                                                                    <th class="text-end">
+                                                                    <th>
                                                                         Score
+                                                                    </th>
+
+                                                                    <th class="text-nowrap">
+                                                                        Status
+                                                                    </th>
+
+                                                                    <th>
+                                                                        Actions
                                                                     </th>
 
                                                                 </tr>
@@ -605,47 +617,64 @@ if ($exam !== null && !$isUpcoming) {
 
                                                                     <?php
 
-                                                                    $percentage = round(
-                                                                        ($result['score'] / $exam['items']) * 100
-                                                                    );
+                                                                    $hasResponse = $result['result_status'] !== 'No Response';
+                                                                    $percentage = null;
+                                                                    $scoreColor = 'muted';
 
-                                                                    if ($percentage >= 80) {
-                                                                        $scoreColor = 'success';
-                                                                    } elseif ($percentage >= 70) {
-                                                                        $scoreColor = 'warning';
-                                                                    } else {
-                                                                        $scoreColor = 'danger';
+                                                                    if ($hasResponse) {
+                                                                        $percentage = round(
+                                                                            ($result['score'] / $exam['items']) * 100
+                                                                        );
+
+                                                                        if ($percentage >= 80) {
+                                                                            $scoreColor = 'success';
+                                                                        } elseif ($percentage >= 70) {
+                                                                            $scoreColor = 'warning';
+                                                                        } else {
+                                                                            $scoreColor = 'danger';
+                                                                        }
                                                                     }
 
                                                                     $avatarColor = $avatarColors[$index % count($avatarColors)];
 
+                                                                    switch ($result['result_status']) {
+                                                                        case 'Completed':
+                                                                            $resultStatusClass = 'badge-light-success';
+                                                                            break;
+                                                                        case 'Pending':
+                                                                            $resultStatusClass = 'badge-light-warning';
+                                                                            break;
+                                                                        case 'No Response':
+                                                                        default:
+                                                                            $resultStatusClass = 'badge-light-danger';
+                                                                            break;
+                                                                    }
+
                                                                     ?>
 
                                                                     <tr>
-                                                                        <td>
+                                                                        <td class="ps-0">
                                                                             <div class="d-flex align-items-center">
 
-                                                                                <div class="symbol symbol-35px symbol-circle me-4">
+                                                                                <div class="symbol symbol-40px symbol-circle me-4">
                                                                                     <span class="symbol-label bg-light-<?= $avatarColor ?> text-<?= $avatarColor ?> fw-bold">
 
-                                                                                        <?= resultEscape(
-                                                                                            getStudentInitials($result['name'])
-                                                                                        ) ?>
+                                                                                        <?= htmlspecialchars(getStudentInitials($result['name']), ENT_QUOTES, 'UTF-8') ?>
 
                                                                                     </span>
                                                                                 </div>
 
                                                                                 <div>
-                                                                                    <div class="text-gray-900 fw-semibold fs-7">
-                                                                                        <?= resultEscape($result['name']) ?>
+                                                                                    <div class="text-gray-900 fw-bold fs-6 mb-1">
+                                                                                        <?= htmlspecialchars($result['name'], ENT_QUOTES, 'UTF-8') ?>
                                                                                     </div>
 
-                                                                                    <div class="text-gray-500 fs-8">
-                                                                                        <?= resultEscape($result['student_no']) ?>
+                                                                                    <div class="text-gray-500 fw-semibold fs-7 text-nowrap">
+                                                                                        <?= htmlspecialchars($result['student_no'], ENT_QUOTES, 'UTF-8') ?>
                                                                                         |
-                                                                                        <?= resultEscape($result['course']) ?>
+                                                                                        <?= htmlspecialchars($result['course'], ENT_QUOTES, 'UTF-8') ?>
                                                                                         |
-                                                                                        <?= resultEscape($result['email']) ?>
+                                                                                        <?= htmlspecialchars($result['email'], ENT_QUOTES, 'UTF-8') ?>
                                                                                     </div>
                                                                                 </div>
 
@@ -653,31 +682,53 @@ if ($exam !== null && !$isUpcoming) {
                                                                         </td>
 
                                                                         <td
-                                                                            data-order="<?= resultEscape($result['date_taken']) ?>"
-                                                                            class="text-gray-600 fs-7">
+                                                                            data-order="<?= $hasResponse ? htmlspecialchars($result['date_taken'], ENT_QUOTES, 'UTF-8') : '' ?>"
+                                                                            class="text-gray-600 fw-semibold text-nowrap">
 
-                                                                            <?= resultEscape(
-                                                                                formatResultDate($result['date_taken'])
-                                                                            ) ?>
+                                                                            <?= $hasResponse ? date('F d, Y', strtotime($result['date_taken'])) : '&mdash;' ?>
 
                                                                         </td>
 
                                                                         <td
-                                                                            data-order="<?= (int) $result['score'] ?>"
-                                                                            class="text-end text-gray-600 fs-7">
+                                                                            data-order="<?= $hasResponse ? (int) $result['score'] : -1 ?>"
+                                                                            class="text-gray-600 fw-semibold text-nowrap">
 
-                                                                            <?= (int) $result['score'] ?>/<?= (int) $exam['items'] ?>
+                                                                            <?= $hasResponse ? (int) $result['score'] . '/' . (int) $exam['items'] : '&mdash;' ?>
 
                                                                         </td>
 
                                                                         <td
-                                                                            data-order="<?= $percentage ?>"
-                                                                            class="text-end">
+                                                                            data-order="<?= $hasResponse ? $percentage : -1 ?>"
+                                                                            class="text-start">
 
-                                                                            <span class="text-<?= $scoreColor ?> fw-bold fs-7">
-                                                                                <?= $percentage ?>%
+                                                                            <span class="text-<?= $scoreColor ?> fw-bold fs-6">
+                                                                                <?= $hasResponse ? $percentage . '%' : '&mdash;' ?>
                                                                             </span>
 
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <span class="badge <?= htmlspecialchars($resultStatusClass, ENT_QUOTES, 'UTF-8') ?>">
+                                                                                <?= htmlspecialchars($result['result_status'], ENT_QUOTES, 'UTF-8') ?>
+                                                                            </span>
+                                                                        </td>
+
+                                                                        <td>
+                                                                            <?php if ($hasResponse): ?>
+                                                                                <a
+                                                                                    href="/flashcards/pages/review.php?exam_id=<?= urlencode($examId) ?>&amp;student_no=<?= urlencode($result['student_no']) ?>"
+                                                                                    class="btn btn-sm btn-light-primary text-nowrap"
+                                                                                    onclick="KTApp.showPageLoading()">
+                                                                                    <i class="ki-duotone ki-eye fs-5">
+                                                                                        <span class="path1"></span>
+                                                                                        <span class="path2"></span>
+                                                                                        <span class="path3"></span>
+                                                                                    </i>
+                                                                                    Review Exam
+                                                                                </a>
+                                                                            <?php else: ?>
+                                                                                <span class="text-muted">&mdash;</span>
+                                                                            <?php endif; ?>
                                                                         </td>
                                                                     </tr>
 

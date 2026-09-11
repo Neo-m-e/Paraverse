@@ -7,8 +7,7 @@ $examRows = [
         'modules' => ['Painting', 'Photography', 'Music and Dance'],
         'items' => 15,
         'created' => 'September 08, 2026',
-        'status' => 'Active',
-        'status_class' => 'badge-light-success'
+        'status' => 'Completed'
     ],
     [
         'exam_id' => 'EDITH-2602-1187-9924-3A6F',
@@ -16,8 +15,7 @@ $examRows = [
         'modules' => ['Logic', 'Problem Solving and Reasoning'],
         'items' => 10,
         'created' => 'September 08, 2026',
-        'status' => 'Ongoing',
-        'status_class' => 'badge-light-primary'
+        'status' => 'In Progress'
     ],
     [
         'exam_id' => 'EDITH-2603-6471-8565-B7D1',
@@ -25,8 +23,7 @@ $examRows = [
         'modules' => ['Sprite Effects', 'Input and Collisions', 'Save and Load'],
         'items' => 25,
         'created' => 'September 08, 2026',
-        'status' => 'Upcoming',
-        'status_class' => 'badge-light-warning'
+        'status' => 'Upcoming'
     ],
     [
         'exam_id' => 'EDITH-2603-8820-8612-9E4A',
@@ -34,8 +31,7 @@ $examRows = [
         'modules' => ['Mathematical Logic', 'Formal Proofs', 'Relations'],
         'items' => 12,
         'created' => 'September 08, 2026',
-        'status' => 'Upcoming',
-        'status_class' => 'badge-light-warning'
+        'status' => 'Upcoming'
     ],
     [
         'exam_id' => 'EDITH-2604-1259-7741-3B8D',
@@ -43,8 +39,7 @@ $examRows = [
         'modules' => ['Computer Fundamentals', 'Information Systems'],
         'items' => 20,
         'created' => 'September 08, 2026',
-        'status' => 'Active',
-        'status_class' => 'badge-light-success'
+        'status' => 'Completed'
     ],
     [
         'exam_id' => 'EDITH-2604-2398-6512-4C7E',
@@ -52,8 +47,7 @@ $examRows = [
         'modules' => ['Variables', 'Conditions', 'Loops'],
         'items' => 30,
         'created' => 'September 08, 2026',
-        'status' => 'Active',
-        'status_class' => 'badge-light-success'
+        'status' => 'Completed'
     ],
     [
         'exam_id' => 'EDITH-2605-3417-5283-5D6F',
@@ -61,8 +55,7 @@ $examRows = [
         'modules' => ['Functions', 'Arrays', 'Objects'],
         'items' => 25,
         'created' => 'September 08, 2026',
-        'status' => 'Ongoing',
-        'status_class' => 'badge-light-primary'
+        'status' => 'In Progress'
     ],
     [
         'exam_id' => 'EDITH-2605-4576-4394-6E5A',
@@ -70,8 +63,7 @@ $examRows = [
         'modules' => ['Linked Lists', 'Stacks', 'Queues'],
         'items' => 40,
         'created' => 'September 08, 2026',
-        'status' => 'Ongoing',
-        'status_class' => 'badge-light-primary'
+        'status' => 'In Progress'
     ],
     [
         'exam_id' => 'EDITH-2606-5634-3175-7F4B',
@@ -79,8 +71,7 @@ $examRows = [
         'modules' => ['HTML', 'CSS', 'Bootstrap'],
         'items' => 20,
         'created' => 'September 08, 2026',
-        'status' => 'Active',
-        'status_class' => 'badge-light-success'
+        'status' => 'Completed'
     ],
     [
         'exam_id' => 'EDITH-2606-6782-2956-8A3C',
@@ -88,8 +79,7 @@ $examRows = [
         'modules' => ['JavaScript', 'PHP', 'MySQL'],
         'items' => 35,
         'created' => 'September 08, 2026',
-        'status' => 'Upcoming',
-        'status_class' => 'badge-light-warning'
+        'status' => 'Cancelled'
     ],
     [
         'exam_id' => 'EDITH-2607-7841-1737-9B2D',
@@ -97,8 +87,7 @@ $examRows = [
         'modules' => ['Primary Sources', 'Historical Analysis'],
         'items' => 15,
         'created' => 'September 08, 2026',
-        'status' => 'Active',
-        'status_class' => 'badge-light-success'
+        'status' => 'Completed'
     ],
     [
         'exam_id' => 'EDITH-2607-8963-9518-1C4E',
@@ -106,28 +95,15 @@ $examRows = [
         'modules' => ['Moral Reasoning', 'Ethical Theories'],
         'items' => 20,
         'created' => 'September 08, 2026',
-        'status' => 'Ongoing',
-        'status_class' => 'badge-light-primary'
+        'status' => 'In Progress'
     ]
 ];
-
-function tableEscape($value)
-{
-    return htmlspecialchars(
-        (string) $value,
-        ENT_QUOTES,
-        'UTF-8'
-    );
-}
 
 ?>
 
 <div class="py-10 py-lg-15">
 
-    <!--begin::Page header-->
     <div class="d-flex flex-wrap flex-stack gap-5 mb-5">
-
-        <!--begin::Page title-->
         <div>
             <h1 class="text-gray-900 fw-bold fs-2 mb-3">
                 My library
@@ -137,21 +113,16 @@ function tableEscape($value)
                 Manage your flashcards, follow your progress, and check your practice and exam performance.
             </p>
         </div>
-        <!--end::Page title-->
 
-        <!--begin::Global actions-->
         <div class="d-flex flex-wrap gap-3">
-
             <a
                 href="/flashcards/import/"
                 class="btn btn-sm btn-primary"
                 onclick="KTApp.showPageLoading()">
-
                 <i class="ki-duotone ki-file-up fs-5">
                     <span class="path1"></span>
                     <span class="path2"></span>
                 </i>
-
                 Import Cards
             </a>
 
@@ -159,71 +130,59 @@ function tableEscape($value)
                 href="/flashcards/create/"
                 class="btn btn-sm btn-primary"
                 onclick="KTApp.showPageLoading()">
-
                 <i class="ki-duotone ki-plus fs-4"></i>
-
                 Create Flashcards
             </a>
-
         </div>
-        <!--end::Global actions-->
-
     </div>
-    <!--end::Page header-->
 
-    <!--begin::Navigation-->
     <div class="overflow-auto mb-10">
-        <ul class="nav nav-pills flex-nowrap d-inline-flex bg-gray-200 rounded p-1">
+            <ul class="nav nav-pills flex-nowrap d-inline-flex bg-gray-200 rounded p-1">
 
-            <li class="nav-item">
-                <a
-                    href="/flashcards/"
-                    class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
-                    onclick="KTApp.showPageLoading()">
-                    Flashcards
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a
+                        href="/flashcards/"
+                        class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
+                        onclick="KTApp.showPageLoading()">
+                        Flashcards
+                    </a>
+                </li>
 
-            <li class="nav-item">
-                <a
-                    href="/flashcards/learning-progress/"
-                    class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
-                    onclick="KTApp.showPageLoading()">
-                    Learning Progress
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a
+                        href="/flashcards/learning-progress/"
+                        class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
+                        onclick="KTApp.showPageLoading()">
+                        Learning Progress
+                    </a>
+                </li>
 
-            <li class="nav-item">
-                <a
-                    href="/flashcards/practice-test/"
-                    class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
-                    onclick="KTApp.showPageLoading()">
-                    Practice Test
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a
+                        href="/flashcards/practice-test/"
+                        class="nav-link text-nowrap text-gray-600 fw-semibold px-5 py-3"
+                        onclick="KTApp.showPageLoading()">
+                        Practice Test
+                    </a>
+                </li>
 
-            <li class="nav-item">
-                <a
-                    href="/flashcards/exams/"
-                    class="nav-link active bg-white text-gray-900 shadow-sm text-nowrap fw-semibold px-5 py-3"
-                    aria-current="page">
-                    Exam Results
-                </a>
-            </li>
+                <li class="nav-item">
+                    <a
+                        href="/flashcards/exams/"
+                        class="nav-link active bg-white text-gray-900 shadow-sm text-nowrap fw-semibold px-5 py-3"
+                        aria-current="page">
+                        Exam Results
+                    </a>
+                </li>
 
-        </ul>
+            </ul>
     </div>
-    <!--end::Navigation-->
 
-    <!--begin::Exam card-->
     <div class="card card-bordered">
 
-        <!--begin::Card header-->
         <div class="card-header border-0 pt-6">
 
-            <!--begin::Card title-->
             <div class="card-title">
-
                 <div class="d-flex align-items-center position-relative">
 
                     <i class="ki-duotone ki-magnifier fs-3 position-absolute ms-4">
@@ -238,82 +197,71 @@ function tableEscape($value)
                         placeholder="Search exams">
 
                 </div>
-
             </div>
-            <!--end::Card title-->
 
-            <!--begin::Card toolbar-->
             <div class="card-toolbar">
-
                 <button
                     type="button"
                     class="btn btn-sm btn-primary"
                     data-bs-toggle="modal"
                     data-bs-target="#kt_modal_create_exam">
-
                     <i class="ki-duotone ki-plus-square fs-5">
                         <span class="path1"></span>
                         <span class="path2"></span>
                         <span class="path3"></span>
                     </i>
-
                     Create Exam
                 </button>
-
             </div>
-            <!--end::Card toolbar-->
-
         </div>
-        <!--end::Card header-->
 
-        <!--begin::Card body-->
         <div class="card-body pt-0">
 
-            <!--begin::Table responsive-->
             <div class="table-responsive">
-
-                <!--begin::Table-->
                 <table
                     id="kt_exam_datatable"
                     class="table table-row-bordered gy-5 align-middle w-100">
-
-                    <!--begin::Table head-->
                     <thead>
                         <tr class="fw-semibold fs-6 text-muted">
 
-                            <th>Exam ID</th>
+                            <th>
+                                Exam ID
+                            </th>
 
-                            <th>Title &amp; Modules</th>
+                            <th>
+                                Course Details
+                            </th>
 
-                            <th>Created</th>
+                            <th>
+                                Exam Details
+                            </th>
 
-                            <th>Status</th>
+                            <th>
+                                Status
+                            </th>
 
-                            <th class="text-end">Actions</th>
+                            <th class="text-end">
+                                Actions
+                            </th>
 
                         </tr>
                     </thead>
-                    <!--end::Table head-->
-
-                    <!--begin::Table body-->
                     <tbody>
 
                         <?php foreach ($examRows as $exam): ?>
 
                             <tr>
-
                                 <td>
                                     <div class="d-flex align-items-center">
 
-                                        <span class="text-gray-600 fw-semibold fs-7">
-                                            <?= tableEscape($exam['exam_id']) ?>
+                                        <span class="text-gray-600 fw-semibold fs-7"> <?= htmlspecialchars($exam['exam_id'], ENT_QUOTES, 'UTF-8') ?>
                                         </span>
 
                                         <button
                                             type="button"
                                             class="btn btn-icon btn-sm btn-light-primary w-25px h-25px ms-2"
                                             data-action="copy-exam-id"
-                                            data-exam-id="<?= tableEscape($exam['exam_id']) ?>"
+                                            data-exam-id="<?= htmlspecialchars($exam['exam_id'], ENT_QUOTES, 'UTF-8') ?>"
                                             data-bs-toggle="tooltip"
                                             title="Copy exam ID">
 
@@ -321,16 +269,14 @@ function tableEscape($value)
                                                 <span class="path1"></span>
                                                 <span class="path2"></span>
                                             </i>
-
                                         </button>
 
                                     </div>
                                 </td>
 
                                 <td>
-
                                     <div class="text-gray-900 fw-bold fs-6 mb-2">
-                                        <?= tableEscape($exam['title']) ?>
+                                        <?= htmlspecialchars($exam['title'], ENT_QUOTES, 'UTF-8') ?>
                                     </div>
 
                                     <div class="d-flex flex-wrap gap-2">
@@ -338,72 +284,109 @@ function tableEscape($value)
                                         <?php foreach ($exam['modules'] as $module): ?>
 
                                             <span class="badge badge-light text-gray-600 fw-semibold fs-8">
-                                                <?= tableEscape($module) ?>
+                                                <?= htmlspecialchars($module, ENT_QUOTES, 'UTF-8') ?>
                                             </span>
 
                                         <?php endforeach; ?>
 
                                     </div>
-
                                 </td>
 
                                 <td>
-
                                     <div class="text-gray-700 fw-semibold fs-7">
                                         <?= (int) $exam['items'] ?> items
                                     </div>
 
                                     <div class="text-gray-500 fs-8">
-                                        <?= tableEscape($exam['created']) ?>
+                                        <?= htmlspecialchars($exam['created'], ENT_QUOTES, 'UTF-8') ?>
                                     </div>
-
                                 </td>
 
                                 <td>
-                                    <span class="badge <?= tableEscape($exam['status_class']) ?>">
-                                        <?= tableEscape($exam['status']) ?>
+                                    <?php
+                                    switch ($exam['status']) {
+                                        case 'Completed':
+                                            $statusClass = 'badge-light-success';
+                                            break;
+                                        case 'In Progress':
+                                            $statusClass = 'badge-light-primary';
+                                            break;
+                                        case 'Cancelled':
+                                            $statusClass = 'badge-light-danger';
+                                            break;
+                                        case 'Upcoming':
+                                        default:
+                                            $statusClass = 'badge-light-warning';
+                                            break;
+                                    }
+                                    ?>
+                                    <span class="badge <?= htmlspecialchars($statusClass, ENT_QUOTES, 'UTF-8') ?>">
+                                        <?= htmlspecialchars($exam['status'], ENT_QUOTES, 'UTF-8') ?>
                                     </span>
                                 </td>
 
                                 <td class="text-end">
+                                    <?php if ($exam['status'] !== 'Completed' && $exam['status'] !== 'Cancelled'): ?>
+                                        <div class="d-flex flex-column align-items-stretch gap-2">
+                                            <a
+                                                href="#edit-<?= urlencode($exam['exam_id']) ?>"
+                                                class="btn btn-sm btn-light-primary text-nowrap">
+                                                <i class="ki-duotone ki-pencil fs-5">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                                Edit
+                                            </a>
 
-                                    <a
-                                        href="/flashcards/pages/results.php?exam_id=<?= urlencode($exam['exam_id']) ?>"
-                                        class="btn btn-sm btn-light-primary text-nowrap"
-                                        onclick="KTApp.showPageLoading()">
+                                            <a
+                                                href="#delete-<?= urlencode($exam['exam_id']) ?>"
+                                                class="btn btn-sm btn-light-danger text-nowrap">
+                                                <i class="ki-duotone ki-trash fs-5">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                    <span class="path3"></span>
+                                                    <span class="path4"></span>
+                                                    <span class="path5"></span>
+                                                </i>
+                                                Delete
+                                            </a>
 
-                                        <i class="ki-duotone ki-eye fs-5">
-                                            <span class="path1"></span>
-                                            <span class="path2"></span>
-                                            <span class="path3"></span>
-                                        </i>
-
-                                        View Student Results
-
-                                    </a>
-
+                                            <a
+                                                href="#cancel-<?= urlencode($exam['exam_id']) ?>"
+                                                class="btn btn-sm btn-light-warning text-nowrap">
+                                                <i class="ki-duotone ki-cross-circle fs-5">
+                                                    <span class="path1"></span>
+                                                    <span class="path2"></span>
+                                                </i>
+                                                Cancel
+                                            </a>
+                                        </div>
+                                    <?php else: ?>
+                                        <a
+                                            href="/flashcards/pages/results.php?exam_id=<?= urlencode($exam['exam_id']) ?>"
+                                            class="btn btn-sm btn-light-primary text-nowrap"
+                                            onclick="KTApp.showPageLoading()">
+                                            <i class="ki-duotone ki-eye fs-5">
+                                                <span class="path1"></span>
+                                                <span class="path2"></span>
+                                                <span class="path3"></span>
+                                            </i>
+                                            View Results
+                                        </a>
+                                    <?php endif; ?>
                                 </td>
-
                             </tr>
 
                         <?php endforeach; ?>
 
                     </tbody>
-                    <!--end::Table body-->
-
                 </table>
-                <!--end::Table-->
-
             </div>
-            <!--end::Table responsive-->
 
         </div>
-        <!--end::Card body-->
 
     </div>
-    <!--end::Exam card-->
 
-    <!--begin::Temporary similar-card modal trigger-->
     <div class="d-flex justify-content-end mt-5">
 
         <a
@@ -417,12 +400,8 @@ function tableEscape($value)
             </i>
 
             Check Similar Cards
-
         </a>
 
     </div>
-    <!--end::Temporary similar-card modal trigger-->
-
     <script src="/flashcards/assets/js/flashcards.js"></script>
-
 </div>
