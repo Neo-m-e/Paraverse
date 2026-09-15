@@ -36,25 +36,11 @@ $(document).ready(function () {
         '[data-action="copy-exam-id"]',
         function () {
             var examId = String($(this).data("exam-id"));
-
-            if (!navigator.clipboard) {
-                toastr.error(
-                    "Copying is not supported by this browser."
-                );
-
-                return;
-            }
-
             navigator.clipboard
                 .writeText(examId)
                 .then(function () {
                     toastr.success("Exam ID copied.");
                 })
-                .catch(function () {
-                    toastr.error(
-                        "Unable to copy the Exam ID."
-                    );
-                });
         }
     );
 });
