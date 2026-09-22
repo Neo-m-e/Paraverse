@@ -1,14 +1,3 @@
-<?php
-$faqs = [
-  ['q' => 'What is GCO Connect?', 'a' => 'GCO Connect is the official online appointment system of the FEU Tech Guidance and Counseling Office (GCO). It allows students to easily book counseling, consultation, and other guidance services.'],
-  ['q' => 'Who is eligible to use GCO Connect?', 'a' => 'All currently enrolled students of FEU Tech, FEU Diliman, and FEU Alabang are eligible to use GCO Connect to access counseling and guidance services.'],
-  ['q' => 'What services are available for booking through GCO Connect?', 'a' => 'Available services include Counseling, Consultation, Interviews (Kumustahan), and Psychological Testing.'],
-  ['q' => 'How can I schedule an appointment using GCO Connect?', 'a' => 'Log in to the GCO Connect portal using your student credentials, select your desired service, choose an available time slot with your assigned counselor, and confirm your booking.'],
-  ['q' => 'How can I book a follow-up appointment in GCO Connect?', 'a' => 'After your initial session, you can book a follow-up appointment through the same portal by selecting the "Follow-up" option or coordinating with your counselor during your session.'],
-  ['q' => 'How can I view or obtain my appointment records?', 'a' => 'You can view your current and past appointments through the "My Appointments" or "History" section of the GCO Connect dashboard. For formal records, please contact the GCO office directly.'],
-  ['q' => 'Who should I contact if I experience technical issues or need assistance?', 'a' => 'If you experience any technical issues with GCO Connect, you may email the Guidance and Counseling Office at guidance@feutech.edu.ph or visit the GCO office in person.'],
-];
-?>
 <section class="py-20 overflow-hidden position-relative" style="z-index: 0;">
   <!-- Background Gradient Blobs -->
   <div class="position-absolute w-100 h-100 top-0 start-0 overflow-hidden" style="z-index: 0; pointer-events: none;">
@@ -38,22 +27,30 @@ $faqs = [
       <p class="text-gray-600 fs-5 mw-500px mx-auto">Find answers to common questions about our counseling services</p>
     </div>
 
-    <!--
-      Pure HTML5 accordion — no JavaScript required.
-      <details>/<summary> toggle natively in every modern browser.
-      gco-design.css wires the Bootstrap .accordion-button open/closed styles
-      to details[open] so the chevron and active colours apply correctly.
-    -->
     <div class="accordion accordion-icon-toggle mw-900px mx-auto" id="kt_accordion_faq">
       <?php foreach ($faqs as $i => $faq): ?>
-      <details class="accordion-item mb-5 bg-white border border-gray-200 rounded-2 shadow-none">
-        <summary class="accordion-button fs-5 fw-bold text-gray-600 p-6">
-          <?= htmlspecialchars($faq['q'])?>
-        </summary>
-        <div class="accordion-body text-gray-600 fs-6 px-6 pb-6 pt-0 lh-lg">
-          <?= htmlspecialchars($faq['a'])?>
+      <div class="accordion-item mb-5 bg-white border border-gray-200 rounded-2 shadow-none">
+        <h2 class="accordion-header" id="kt_accordion_faq_header_<?= $i ?>">
+          <button
+            class="accordion-button fs-5 fw-bold text-gray-600 p-6 <?= $i === 0 ? '' : 'collapsed' ?>"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#kt_accordion_faq_body_<?= $i ?>"
+            aria-expanded="<?= $i === 0 ? 'true' : 'false' ?>"
+            aria-controls="kt_accordion_faq_body_<?= $i ?>">
+            <?= htmlspecialchars($faq['q']) ?>
+          </button>
+        </h2>
+        <div
+          id="kt_accordion_faq_body_<?= $i ?>"
+          class="accordion-collapse collapse <?= $i === 0 ? 'show' : '' ?>"
+          aria-labelledby="kt_accordion_faq_header_<?= $i ?>"
+          data-bs-parent="#kt_accordion_faq">
+          <div class="accordion-body text-gray-600 fs-6 px-6 pb-6 pt-0 lh-lg">
+            <?= htmlspecialchars($faq['a']) ?>
+          </div>
         </div>
-      </details>
+      </div>
       <?php endforeach; ?>
     </div>
 

@@ -1,12 +1,3 @@
-<?php
-$assetsBase = isset($GCO_BASE) ? $GCO_BASE . 'assets' : 'assets';
-$services = [
-  ['title' => 'Counseling', 'desc' => 'Counseling provides students with a safe and supportive space to discuss concerns affecting their personal, academic, or social life. Counselors work collaboratively with students to help them adjust, grow, and overcome challenges.', 'icon' => 'ki-heart', 'paths' => 2],
-  ['title' => 'Consultation', 'desc' => 'Consultations allow counselors to support students, parents, and faculty in addressing specific concerns. Through guidance and collaboration, counselors help identify strengths, resources, and possible solutions.', 'icon' => 'ki-profile-circle', 'paths' => 3],
-  ['title' => 'Interview', 'desc' => 'Routine interviews, also known as "kumustahan sessions," serve as an early check-in to support students and identify those who may need additional guidance or assistance.', 'icon' => 'ki-messages', 'paths' => 5],
-  ['title' => 'Psychological Testing', 'desc' => 'Psychological testing helps students better understand their strengths, abilities, and areas for improvement through standardized assessments that support informed decisions and personal development.', 'icon' => 'ki-notepad-bookmark', 'paths' => 6],
-];
-?>
 <section id="services" class="pt-20 pb-20 position-relative overflow-hidden" style="z-index: 0;">
   <!-- Background Gradient Blobs -->
   <div class="position-absolute w-100 h-100 top-0 start-0" style="z-index: 0; pointer-events: none;">

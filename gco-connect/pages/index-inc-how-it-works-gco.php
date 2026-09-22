@@ -1,12 +1,3 @@
-<?php
-$steps = [
-  ['num' => '01', 'title' => 'Service Type', 'desc' => 'Select the service you want to avail', 'icon' => 'ki-category', 'paths' => 4],
-  ['num' => '02', 'title' => 'Basic Info', 'desc' => 'Verify and update your contact details', 'icon' => 'ki-profile-circle', 'paths' => 3],
-  ['num' => '03', 'title' => 'Schedule Booking', 'desc' => 'Choose your preferred date and time', 'icon' => 'ki-calendar-2', 'paths' => 5],
-  ['num' => '04', 'title' => 'Appointment Details', 'desc' => 'Provide your purpose with any additional notes', 'icon' => 'ki-notepad-bookmark', 'paths' => 6],
-  ['num' => '05', 'title' => 'Completed', 'desc' => 'Get ready for your session', 'icon' => 'ki-check-circle', 'paths' => 2],
-];
-?>
 <section id="how-it-works" class="bg-gco py-20">
   <div class="container-xxl">
 

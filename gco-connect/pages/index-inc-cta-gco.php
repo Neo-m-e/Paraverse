@@ -1,6 +1,3 @@
-<?php
-$bookingUrl = isset($GCO_BASE) ? $GCO_BASE . 'index.php' : 'index.php';
-?>
 <section class="bg-gco py-20 position-relative overflow-hidden">
 
   <!-- Decorative circles OUTSIDE the card (like reference image) -->

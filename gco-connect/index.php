@@ -9,6 +9,7 @@ if ($GCO_BASE === '/' || $GCO_BASE === '') {
 }
 
 include(__DIR__ . '/functions-new.php');
+require_once(__DIR__ . '/pages/index-data-gco.php');
 
 $META_TITLE = "GCO Connect – Student Counseling & Support";
 $META_DESC = "Professional counseling services for students. Connect with licensed therapists and the Guidance and Counseling Office.";

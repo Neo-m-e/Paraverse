@@ -1,6 +1,3 @@
-<?php
-$assetsBase = isset($GCO_BASE) ? $GCO_BASE . 'assets' : 'assets';
-?>
 <section class="bg-gco overflow-hidden position-relative" style="z-index: 0;">
 
   <!-- Background Gradient Blobs & Decorative Circles -->
