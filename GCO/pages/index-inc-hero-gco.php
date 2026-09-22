@@ -1,10 +1,7 @@
-<?php
-$assetsBase = isset($GCO_BASE) ? $GCO_BASE . 'assets' : 'assets';
-?>
-<section class="bg-gco overflow-hidden position-relative" style="z-index: 0;">
+<section class="bg-gco overflow-hidden position-relative z-index-0">
 
   <!-- Background Gradient Blobs & Decorative Circles -->
-  <div class="position-absolute w-100 h-100 top-0 start-0 overflow-hidden" style="z-index: 0; pointer-events: none;">
+  <div class="position-absolute w-100 h-100 top-0 start-0 overflow-hidden z-index-0 pe-none">
     <!-- Top right blob -->
     <div class="position-absolute bg-primary rounded-circle blur-3 justify-content-center align-items-center"
       style="width: 30vw; height: 30vw; top: -5vw; right: -15vw; opacity: 0.1; filter: blur(60px); mix-blend-mode: multiply;">
@@ -20,7 +17,7 @@ $assetsBase = isset($GCO_BASE) ? $GCO_BASE . 'assets' : 'assets';
     <span class="position-absolute rounded-circle d-none d-lg-block" style="width: 80px; height: 80px; top: 40%; right: 10%; background: rgba(255,255,255,0.05);"></span>
   </div>
 
-  <div class="container-xxl pt-20 pb-20 pb-lg-20 position-relative" style="z-index: 1;">
+  <div class="container-xxl pt-20 pb-20 pb-lg-20 position-relative z-index-1">
     <div class="row align-items-center gy-10">
 
       <!-- Text content -->
@@ -75,7 +72,7 @@ $assetsBase = isset($GCO_BASE) ? $GCO_BASE . 'assets' : 'assets';
       </div>
 
       <!-- Hero Animation -->
-      <div class="col-lg-6 position-relative d-flex justify-content-end align-items-end mt-10 mt-lg-0 overflow-visible align-self-stretch" style="min-height: 400px;">
+      <div class="col-lg-6 position-relative d-flex justify-content-end align-items-end mt-10 mt-lg-0 overflow-visible align-self-stretch min-h-400px">
         <style>
           .hero-lottie-asset {
             width: 900px;

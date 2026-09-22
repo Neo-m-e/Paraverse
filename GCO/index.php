@@ -9,17 +9,17 @@ if ($GCO_BASE === '/' || $GCO_BASE === '') {
 }
 
 include(__DIR__ . '/functions-new.php');
+$gcoData = require __DIR__ . '/pages/index-data-gco.php';
 
-$META_TITLE = "GCO Connect – Student Counseling & Support";
-$META_DESC = "Professional counseling services for students. Connect with licensed therapists and the Guidance and Counseling Office.";
+$META_TITLE = $gcoData['meta']['title'];
+$META_DESC = $gcoData['meta']['description'];
 ?>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <?php HEAD_ESSENTIALS(); ?>
-  <!-- Metronic local assets (fontawesome icons + brand overrides) -->
-  <link rel="stylesheet" href="<?php echo htmlspecialchars($GCO_BASE); ?>assets/css/fontawesome.css" type="text/css" />
+  <!-- Existing GCO brand styles -->
   <link rel="stylesheet"
     href="<?php echo htmlspecialchars($GCO_BASE); ?>assets/css/gco-design.css?v=<?php echo time(); ?>"
     type="text/css" />

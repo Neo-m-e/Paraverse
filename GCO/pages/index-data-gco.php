@@ -1,27 +1,39 @@
 <?php
 
-$assetsBase = $GCO_BASE . 'assets';
-$eventsBase = $assetsBase . '/img/events';
-$photoBase = $assetsBase . '/img/GCO Assets/gco faculties';
-$logoBase = $assetsBase . '/img/programs-logo';
-$bookingUrl = $GCO_BASE . 'index.php';
+return [
+    'meta' => [
+        'title' => 'GCO Connect – Student Counseling & Support',
+        'description' => 'Professional counseling services for students. Connect with licensed therapists and the Guidance and Counseling Office.',
+    ],
+    'paths' => [
+        'assets' => 'assets',
+        'events' => 'assets/img/events',
+        'team_photos' => 'assets/img/GCO Assets/gco faculties',
+        'program_logos' => 'assets/img/programs-logo',
+    ],
+    'booking_url' => 'index.php',
+    'cta_benefits' => [
+        'Free of charge',
+        'Confidential sessions',
+        'Licensed counselors',
+    ],
 
-$services = [
+    'services' => [
     ['title' => 'Counseling', 'desc' => 'Counseling provides students with a safe and supportive space to discuss concerns affecting their personal, academic, or social life. Counselors work collaboratively with students to help them adjust, grow, and overcome challenges.', 'icon' => 'ki-heart', 'paths' => 2],
     ['title' => 'Consultation', 'desc' => 'Consultations allow counselors to support students, parents, and faculty in addressing specific concerns. Through guidance and collaboration, counselors help identify strengths, resources, and possible solutions.', 'icon' => 'ki-profile-circle', 'paths' => 3],
     ['title' => 'Interview', 'desc' => 'Routine interviews, also known as "kumustahan sessions," serve as an early check-in to support students and identify those who may need additional guidance or assistance.', 'icon' => 'ki-messages', 'paths' => 5],
     ['title' => 'Psychological Testing', 'desc' => 'Psychological testing helps students better understand their strengths, abilities, and areas for improvement through standardized assessments that support informed decisions and personal development.', 'icon' => 'ki-notepad-bookmark', 'paths' => 6],
-];
+    ],
 
-$steps = [
+    'steps' => [
     ['num' => '01', 'title' => 'Service Type', 'desc' => 'Select the service you want to avail', 'icon' => 'ki-category', 'paths' => 4],
     ['num' => '02', 'title' => 'Basic Info', 'desc' => 'Verify and update your contact details', 'icon' => 'ki-profile-circle', 'paths' => 3],
     ['num' => '03', 'title' => 'Schedule Booking', 'desc' => 'Choose your preferred date and time', 'icon' => 'ki-calendar-2', 'paths' => 5],
     ['num' => '04', 'title' => 'Appointment Details', 'desc' => 'Provide your purpose with any additional notes', 'icon' => 'ki-notepad-bookmark', 'paths' => 6],
     ['num' => '05', 'title' => 'Completed', 'desc' => 'Get ready for your session', 'icon' => 'ki-check-circle', 'paths' => 2],
-];
+    ],
 
-$tests = [
+    'tests' => [
     ['name' => 'Emotional Quotient', 'desc' => "Measures the ability to recognize, understand, and manage one's own emotions and the emotions of others; focuses on emotional awareness, empathy, and self-regulation.", 'icon' => 'ki-heart', 'paths' => 2],
     ['name' => 'Intelligence', 'desc' => 'Evaluates cognitive abilities such as reasoning, memory, problem-solving, and analytical thinking to estimate overall intellectual functioning.', 'icon' => 'ki-abstract-29', 'paths' => 2],
     ['name' => 'Self-Concept', 'desc' => 'Examines how individuals view themselves—their abilities, identity, and self-worth—to understand factors influencing confidence and motivation.', 'icon' => 'ki-profile-circle', 'paths' => 3],
@@ -31,9 +43,9 @@ $tests = [
     ['name' => 'Study Attitude & Methods', 'desc' => 'Evaluates motivation, learning habits, study strategies, and overall attitudes toward school to identify academic strengths and improvement areas.', 'icon' => 'ki-notepad', 'paths' => 2],
     ['name' => 'Non-standardized Tests', 'desc' => 'Open-source or online-sourced tests that provide additional evidences for emerging student concerns, as necessary.', 'icon' => 'ki-flag', 'paths' => 2],
     ['name' => 'Career Tests', 'desc' => 'Examine interests, skills, and abilities related to career to guide career development and pathing.', 'icon' => 'ki-briefcase', 'paths' => 2],
-];
+    ],
 
-$categories = [
+    'categories' => [
     [
         'title' => 'Interview Purposes', 'tab' => 'Interview', 'count' => 4, 'color' => 'primary', 'icon' => 'ki-messages', 'paths' => 5,
         'items' => [
@@ -80,26 +92,26 @@ $categories = [
             ['title' => 'Counseling and Test Results Discussion', 'desc' => 'Support for relating and assistance in queries on the results of their psychological test'],
         ],
     ],
-];
+    ],
 
-$programs = [
+    'programs' => [
     ['title' => 'IQ and EQ Testing', 'category' => 'Event Ended', 'desc' => "GCO R.A.D.A.R.: IQ and EQ Testing for Term 2, AY '25-26", 'date' => 'Mon • January 19, 2026 • 08:00 AM', 'location' => 'Case room F1604', 'image' => 'IQ and EQ Testing.png'],
     ['title' => 'Kumustahan', 'category' => 'Event Ended', 'desc' => '"KUMUSTAHAN": Group Routine Interview for Students', 'date' => 'Thu • December 4, 2025 • 09:00 AM', 'location' => '1603 AVR', 'image' => 'kumustahan.png'],
     ['title' => 'Starting Your Career Path', 'category' => 'Event Ended', 'desc' => 'Career Development Activity: G.A.B.A.Y. Series – Psychological Testing & Career Discussion', 'date' => 'Mon • December 1, 2025 • 09:00 AM', 'location' => '1603 AVR', 'image' => 'career path.png'],
     ['title' => 'Mental Health Awareness Seminar', 'category' => 'Upcoming', 'desc' => 'GCO Wellness Talk: Understanding Stress, Anxiety & Resilience for FEU Tech Students', 'date' => 'Fri • March 21, 2026 • 10:00 AM', 'location' => '1603 AVR', 'image' => 'kumustahan.png'],
     ['title' => 'Peer Facilitators Training', 'category' => 'Upcoming', 'desc' => 'COPE Program: Peer Facilitators Training & Orientation for AY 2025–2026', 'date' => 'Wed • April 8, 2026 • 09:00 AM', 'location' => 'Case room F1604', 'image' => 'career path.png'],
-];
+    ],
 
-$all_team = [
+    'team' => [
     ['name' => 'Marietta M. Bengat', 'role' => 'DIRECTOR', 'email' => 'mmbengat@feutech.edu.ph', 'photo' => 'Bengat.png', 'contactText' => 'Contact Director'],
     ['name' => 'Rochile G. Borje', 'role' => 'GUIDANCE COUNSELOR', 'email' => 'rgborje@feutech.edu.ph', 'programs' => ['BSCE', 'BSCEM', 'BSCPE', 'BSECE'], 'photo' => 'borje.png', 'contactText' => 'Contact Counselor'],
     ['name' => 'Vilma R. Colinco', 'role' => 'GUIDANCE COUNSELOR', 'email' => 'vrcolinco@feutech.edu.ph', 'programs' => ['BSITSMBA', 'BSCYBER', 'BSMFGE', 'BSCE'], 'photo' => 'Colinco.png', 'contactText' => 'Contact Counselor'],
     ['name' => 'Charlene Marie A. Arabejo', 'role' => 'GUIDANCE COUNSELOR', 'email' => 'caarabejo@feutech.edu.ph', 'programs' => ['BSITSMBA', 'BSCYBER'], 'photo' => 'Arabejo.png', 'contactText' => 'Contact Counselor'],
     ['name' => 'Paula Trisha D. Balcera', 'role' => 'GUIDANCE COUNSELOR', 'email' => 'pdbalcera@feutech.edu.ph', 'programs' => ['BSITWMA', 'BSITAGD'], 'photo' => 'balcera.png', 'contactText' => 'Contact Counselor'],
     ['name' => 'Moira Ashley C. Roy', 'role' => 'PSYCHOMETRICIAN', 'email' => 'mcroy@feutech.edu.ph', 'programs' => ['BSMFGE', 'BSCE', 'BSITWMA', 'BSITAGD'], 'photo' => 'roy.png', 'contactText' => 'Contact Psychometrician'],
-];
+    ],
 
-$faqs = [
+    'faqs' => [
     ['q' => 'What is GCO Connect?', 'a' => 'GCO Connect is the official online appointment system of the FEU Tech Guidance and Counseling Office (GCO). It allows students to easily book counseling, consultation, and other guidance services.'],
     ['q' => 'Who is eligible to use GCO Connect?', 'a' => 'All currently enrolled students of FEU Tech, FEU Diliman, and FEU Alabang are eligible to use GCO Connect to access counseling and guidance services.'],
     ['q' => 'What services are available for booking through GCO Connect?', 'a' => 'Available services include Counseling, Consultation, Interviews (Kumustahan), and Psychological Testing.'],
@@ -107,4 +119,5 @@ $faqs = [
     ['q' => 'How can I book a follow-up appointment in GCO Connect?', 'a' => 'After your initial session, you can book a follow-up appointment through the same portal by selecting the "Follow-up" option or coordinating with your counselor during your session.'],
     ['q' => 'How can I view or obtain my appointment records?', 'a' => 'You can view your current and past appointments through the "My Appointments" or "History" section of the GCO Connect dashboard. For formal records, please contact the GCO office directly.'],
     ['q' => 'Who should I contact if I experience technical issues or need assistance?', 'a' => 'If you experience any technical issues with GCO Connect, you may email the Guidance and Counseling Office at guidance@feutech.edu.ph or visit the GCO office in person.'],
+    ],
 ];

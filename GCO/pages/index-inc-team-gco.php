@@ -1,64 +1,8 @@
-<?php
-$photoBase = isset($GCO_BASE)
-  ? $GCO_BASE . 'assets/img/GCO Assets/gco faculties'
-  : 'assets/img/GCO Assets/gco faculties';
-$logoBase = isset($GCO_BASE)
-  ? $GCO_BASE . 'assets/img/programs-logo'
-  : 'assets/img/programs-logo';
+<?php /** @var array $gcoData */ ?>
 
-$all_team = [
-  [
-    'name' => 'Marietta M. Bengat',
-    'role' => 'DIRECTOR',
-    'email' => 'mmbengat@feutech.edu.ph',
-    'photo' => 'Bengat.png',
-    'contactText' => 'Contact Director'
-  ],
-  [
-    'name' => 'Rochile G. Borje',
-    'role' => 'GUIDANCE COUNSELOR',
-    'email' => 'rgborje@feutech.edu.ph',
-    'programs' => ['BSCE', 'BSCEM', 'BSCPE', 'BSECE'],
-    'photo' => 'borje.png',
-    'contactText' => 'Contact Counselor'
-  ],
-  [
-    'name' => 'Vilma R. Colinco',
-    'role' => 'GUIDANCE COUNSELOR',
-    'email' => 'vrcolinco@feutech.edu.ph',
-    'programs' => ['BSITSMBA', 'BSCYBER', 'BSMFGE', 'BSCE'],
-    'photo' => 'Colinco.png',
-    'contactText' => 'Contact Counselor'
-  ],
-  [
-    'name' => 'Charlene Marie A. Arabejo',
-    'role' => 'GUIDANCE COUNSELOR',
-    'email' => 'caarabejo@feutech.edu.ph',
-    'programs' => ['BSITSMBA', 'BSCYBER'],
-    'photo' => 'Arabejo.png',
-    'contactText' => 'Contact Counselor'
-  ],
-  [
-    'name' => 'Paula Trisha D. Balcera',
-    'role' => 'GUIDANCE COUNSELOR',
-    'email' => 'pdbalcera@feutech.edu.ph',
-    'programs' => ['BSITWMA', 'BSITAGD'],
-    'photo' => 'balcera.png',
-    'contactText' => 'Contact Counselor'
-  ],
-  [
-    'name' => 'Moira Ashley C. Roy',
-    'role' => 'PSYCHOMETRICIAN',
-    'email' => 'mcroy@feutech.edu.ph',
-    'programs' => ['BSMFGE', 'BSCE', 'BSITWMA', 'BSITAGD'],
-    'photo' => 'roy.png',
-    'contactText' => 'Contact Psychometrician'
-  ]
-];
-?>
-<section class="py-20 overflow-hidden position-relative" style="z-index: 0;">
+<section class="py-20 overflow-hidden position-relative z-index-0">
   <!-- Background Gradient Blobs -->
-  <div class="position-absolute w-100 h-100 top-0 start-0 overflow-hidden" style="z-index: 0; pointer-events: none;">
+  <div class="position-absolute w-100 h-100 top-0 start-0 overflow-hidden z-index-0 pe-none">
     <!-- Top right blob -->
     <div class="position-absolute bg-primary rounded-circle"
       style="width: 40vw; height: 40vw; top: 5%; right: 5%; opacity: 0.06; filter: blur(70px);">
@@ -69,15 +13,15 @@ $all_team = [
     </div>
   </div>
   <!-- Uneven background design icons -->
-  <img src="<?php echo htmlspecialchars($assetsBase ?? 'assets'); ?>/img/bg-assets/human-brain.png"
+  <img src="<?php echo htmlspecialchars($gcoData['paths']['assets'] ?? 'assets'); ?>/img/bg-assets/human-brain.png"
     class="position-absolute d-none d-lg-block"
     style="top: 15%; right: 5%; opacity: 0.4; pointer-events: none; width: 260px; transform: rotate(10deg); z-index: 0;"
     alt="">
-  <img src="<?php echo htmlspecialchars($assetsBase ?? 'assets'); ?>/img/bg-assets/brain.png"
+  <img src="<?php echo htmlspecialchars($gcoData['paths']['assets'] ?? 'assets'); ?>/img/bg-assets/brain.png"
     class="position-absolute d-none d-lg-block"
     style="bottom: 10%; left: 5%; opacity: 0.4; pointer-events: none; width: 240px; transform: rotate(-15deg); z-index: 0;"
     alt="">
-  <div class="container-xxl position-relative" style="z-index: 1;">
+  <div class="container-xxl position-relative z-index-1">
 
     <div class="text-center mb-15">
       <span class="badge badge-light-primary fs-9 ls-2 text-uppercase fw-bold py-2 px-4 mb-4">MEET THE TEAM</span>
@@ -90,13 +34,12 @@ $all_team = [
     <div class="mb-20">
       <div class="swiper my-5 pb-10 px-5" id="allTeamSwiper">
         <div class="swiper-wrapper">
-          <?php foreach ($all_team as $m): ?>
+          <?php foreach ($gcoData['team'] as $m): ?>
           <div class="swiper-slide h-auto py-5">
             <div
-              class="card card-bordered overflow-hidden h-100 mx-auto transition-all duration-300 hover-elevate-up shadow-sm border-0 bg-white"
-              style="max-width: 300px; border-radius: 1rem;">
+              class="card card-bordered overflow-hidden h-100 mx-auto mw-300px hover-elevate-up shadow-sm border-0 bg-white rounded-4">
               <div class="ratio ratio-1x1 overflow-hidden bg-light position-relative">
-                <img src="<?= htmlspecialchars($photoBase . '/' . $m['photo'])?>"
+                <img src="<?= htmlspecialchars($gcoData['paths']['team_photos'] . '/' . $m['photo'])?>"
                   alt="<?= htmlspecialchars($m['name'])?>"
                   class="object-fit-cover w-100 h-100 position-absolute top-0 start-0 hover-scale"
                   onerror="this.src='../../team/team-blank.jpg'">
@@ -110,7 +53,7 @@ $all_team = [
                   <?= htmlspecialchars($m['name'])?>
                 </h3>
                 <a href="mailto:<?= htmlspecialchars($m['email'])?>"
-                  class="text-gray-500 fs-7 d-block mb-5 text-truncate hover-primary transition-all text-decoration-none">
+                  class="text-gray-500 text-hover-primary fs-7 d-block mb-5 text-truncate text-decoration-none">
                   <i class="ki-duotone ki-sms fs-6 me-1"><span class="path1"></span><span class="path2"></span></i>
                   <?= htmlspecialchars($m['email'])?>
                 </a>
@@ -122,7 +65,7 @@ $all_team = [
                   <?php foreach ($m['programs'] as $p): ?>
                   <span
                     class="badge badge-light bg-gray-100 text-gray-700 fs-8 fw-semibold d-flex align-items-center gap-2 px-3 py-2 rounded-pill shadow-sm border border-gray-200">
-                    <img src="<?= htmlspecialchars($logoBase . '/' . $p . '.png')?>" alt="<?= htmlspecialchars($p)?>"
+                    <img src="<?= htmlspecialchars($gcoData['paths']['program_logos'] . '/' . $p . '.png')?>" alt="<?= htmlspecialchars($p)?>"
                       class="w-15px h-15px">
                     <?= htmlspecialchars($p)?>
                   </span>
@@ -140,7 +83,7 @@ $all_team = [
 
                 <div class="mt-auto pt-4 border-top border-gray-200">
                   <a href="mailto:<?= htmlspecialchars($m['email'])?>"
-                    class="btn <?= $m['role'] === 'DIRECTOR' ? 'btn-primary' : 'btn-light-primary'?> btn-sm fw-bold w-100 rounded-pill hover-elevate-up transition-all py-3">
+                    class="btn <?= $m['role'] === 'DIRECTOR' ? 'btn-primary' : 'btn-light-primary'?> btn-sm fw-bold w-100 rounded-pill hover-elevate-up py-3">
                     <?php if ($m['role'] === 'DIRECTOR'): ?>
                     <i class="ki-duotone ki-messages fs-5 me-2"><span class="path1"></span><span
                         class="path2"></span><span class="path3"></span><span class="path4"></span><span
@@ -213,19 +156,6 @@ endforeach; ?>
         background-color: var(--bs-primary);
       }
 
-      .hover-primary:hover {
-        color: var(--bs-primary) !important;
-      }
-
-      .hover-elevate-up {
-        transition: transform 0.3s ease, box-shadow 0.3s ease;
-      }
-
-      .card.hover-elevate-up:hover {
-        transform: translateY(-8px);
-        box-shadow: 0 .5rem 1.5rem rgba(0, 0, 0, .08) !important;
-        z-index: 10;
-      }
     </style>
 
   </div>

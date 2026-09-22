@@ -1,6 +1,5 @@
-<?php
-$bookingUrl = isset($GCO_BASE) ? $GCO_BASE . 'index.php' : 'index.php';
-?>
+<?php /** @var array $gcoData */ ?>
+
 <section class="bg-gco py-20 position-relative overflow-hidden">
 
   <!-- Decorative circles OUTSIDE the card (like reference image) -->
@@ -37,7 +36,7 @@ $bookingUrl = isset($GCO_BASE) ? $GCO_BASE . 'index.php' : 'index.php';
     pointer-events: none; z-index: 0;
   "></span>
 
-  <div class="container-xxl position-relative" style="z-index: 1;">
+  <div class="container-xxl position-relative z-index-1">
     <div
       class="card bg-white bg-opacity-10 border border-white border-opacity-25 rounded-4 p-10 text-center mx-auto w-100">
 
@@ -55,7 +54,7 @@ $bookingUrl = isset($GCO_BASE) ? $GCO_BASE . 'index.php' : 'index.php';
       </p>
 
       <div class="d-flex flex-wrap gap-4 justify-content-center">
-        <a href="<?= htmlspecialchars($bookingUrl)?>"
+        <a href="<?= htmlspecialchars($gcoData['booking_url'])?>"
           class="btn btn-light fw-bold px-8 py-3 text-nowrap text-danger hover-elevate-up">
           <i class="ki-duotone ki-calendar-2 fs-4 me-2 text-danger"><span class="path1"></span><span
               class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></i>
@@ -70,21 +69,13 @@ $bookingUrl = isset($GCO_BASE) ? $GCO_BASE . 'index.php' : 'index.php';
       <div class="separator separator-dashed border-white border-opacity-25 my-8"></div>
 
       <div class="d-flex flex-wrap justify-content-center gap-8">
+        <?php foreach ($gcoData['cta_benefits'] as $benefit): ?>
         <div class="d-flex align-items-center gap-3 text-white opacity-75">
           <i class="ki-duotone ki-check-circle fs-3 text-white"><span class="path1"></span><span
               class="path2"></span></i>
-          <span class="fs-7 fw-semibold">Free of charge</span>
+          <span class="fs-7 fw-semibold"><?= htmlspecialchars($benefit) ?></span>
         </div>
-        <div class="d-flex align-items-center gap-3 text-white opacity-75">
-          <i class="ki-duotone ki-check-circle fs-3 text-white"><span class="path1"></span><span
-              class="path2"></span></i>
-          <span class="fs-7 fw-semibold">Confidential sessions</span>
-        </div>
-        <div class="d-flex align-items-center gap-3 text-white opacity-75">
-          <i class="ki-duotone ki-check-circle fs-3 text-white"><span class="path1"></span><span
-              class="path2"></span></i>
-          <span class="fs-7 fw-semibold">Licensed counselors</span>
-        </div>
+        <?php endforeach; ?>
       </div>
 
     </div>

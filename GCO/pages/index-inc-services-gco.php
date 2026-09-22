@@ -1,15 +1,8 @@
-<?php
-$assetsBase = isset($GCO_BASE) ? $GCO_BASE . 'assets' : 'assets';
-$services = [
-  ['title' => 'Counseling', 'desc' => 'Counseling provides students with a safe and supportive space to discuss concerns affecting their personal, academic, or social life. Counselors work collaboratively with students to help them adjust, grow, and overcome challenges.', 'icon' => 'ki-heart', 'paths' => 2],
-  ['title' => 'Consultation', 'desc' => 'Consultations allow counselors to support students, parents, and faculty in addressing specific concerns. Through guidance and collaboration, counselors help identify strengths, resources, and possible solutions.', 'icon' => 'ki-profile-circle', 'paths' => 3],
-  ['title' => 'Interview', 'desc' => 'Routine interviews, also known as "kumustahan sessions," serve as an early check-in to support students and identify those who may need additional guidance or assistance.', 'icon' => 'ki-messages', 'paths' => 5],
-  ['title' => 'Psychological Testing', 'desc' => 'Psychological testing helps students better understand their strengths, abilities, and areas for improvement through standardized assessments that support informed decisions and personal development.', 'icon' => 'ki-notepad-bookmark', 'paths' => 6],
-];
-?>
-<section id="services" class="pt-20 pb-20 position-relative overflow-hidden" style="z-index: 0;">
+<?php /** @var array $gcoData */ ?>
+
+<section id="services" class="pt-20 pb-20 position-relative overflow-hidden z-index-0">
   <!-- Background Gradient Blobs -->
-  <div class="position-absolute w-100 h-100 top-0 start-0" style="z-index: 0; pointer-events: none;">
+  <div class="position-absolute w-100 h-100 top-0 start-0 z-index-0 pe-none">
     <!-- Top Left Blob -->
     <div class="position-absolute bg-primary rounded-circle blur-3 justify-content-center align-items-center"
       style="width: 25vw; height: 25vw; top: -5vw; left: -10vw; opacity: 0.05; filter: blur(60px); mix-blend-mode: multiply;">
@@ -22,13 +15,13 @@ $services = [
 
   <!-- Decorative Background Icons -->
   <div class="floating-cta-1 d-none d-lg-block" style="top: 10%; left: 2%; width: 180px; z-index: 0; opacity: 0.12;">
-    <img src="<?php echo htmlspecialchars($assetsBase); ?>/img/bg-assets/flower.png" class="w-100" style="transform: rotate(-15deg);" alt="">
+    <img src="<?php echo htmlspecialchars($gcoData['paths']['assets']); ?>/img/bg-assets/flower.png" class="w-100" style="transform: rotate(-15deg);" alt="">
   </div>
   <div class="floating-cta-3 d-none d-lg-block" style="bottom: 10%; right: 2%; width: 200px; z-index: 0; opacity: 0.12;">
-    <img src="<?php echo htmlspecialchars($assetsBase); ?>/img/bg-assets/brain.png" class="w-100" style="transform: rotate(20deg);" alt="">
+    <img src="<?php echo htmlspecialchars($gcoData['paths']['assets']); ?>/img/bg-assets/brain.png" class="w-100" style="transform: rotate(20deg);" alt="">
   </div>
 
-  <div class="container-xxl position-relative" style="z-index: 1;">
+  <div class="container-xxl position-relative z-index-1">
 
     <!-- Header -->
     <div class="text-center mb-12">
@@ -47,7 +40,7 @@ $services = [
 
     <!-- Service cards grid — 2 rows of 3 -->
     <div class="row g-5 row-cols-1 row-cols-md-2 row-cols-xl-4">
-      <?php foreach ($services as $s): ?>
+      <?php foreach ($gcoData['services'] as $s): ?>
       <div class="col">
         <div class="card border-0 h-100 shadow-sm border-top border-4 border-danger">
           <div class="card-body p-7">

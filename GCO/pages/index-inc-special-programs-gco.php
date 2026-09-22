@@ -1,50 +1,5 @@
-<?php
-$eventsBase = isset($GCO_BASE) ? $GCO_BASE . 'assets/img/events' : 'assets/img/events';
-$programs = [
-  // ── Slide 1 (3 cards) ─────────────────────────────────────────
-  [
-    'title' => 'IQ and EQ Testing',
-    'category' => 'Event Ended',
-    'desc' => "GCO R.A.D.A.R.: IQ and EQ Testing for Term 2, AY '25-26",
-    'date' => 'Mon • January 19, 2026 • 08:00 AM',
-    'location' => 'Case room F1604',
-    'image' => 'IQ and EQ Testing.png',
-  ],
-  [
-    'title' => 'Kumustahan',
-    'category' => 'Event Ended',
-    'desc' => '"KUMUSTAHAN": Group Routine Interview for Students',
-    'date' => 'Thu • December 4, 2025 • 09:00 AM',
-    'location' => '1603 AVR',
-    'image' => 'kumustahan.png',
-  ],
-  [
-    'title' => 'Starting Your Career Path',
-    'category' => 'Event Ended',
-    'desc' => 'Career Development Activity: G.A.B.A.Y. Series – Psychological Testing &amp; Career Discussion',
-    'date' => 'Mon • December 1, 2025 • 09:00 AM',
-    'location' => '1603 AVR',
-    'image' => 'career path.png',
-  ],
-  // ── Slide 2 (2 cards) ─────────────────────────────────────────
-  [
-    'title' => 'Mental Health Awareness Seminar',
-    'category' => 'Upcoming',
-    'desc' => 'GCO Wellness Talk: Understanding Stress, Anxiety &amp; Resilience for FEU Tech Students',
-    'date' => 'Fri • March 21, 2026 • 10:00 AM',
-    'location' => '1603 AVR',
-    'image' => 'kumustahan.png',
-  ],
-  [
-    'title' => 'Peer Facilitators Training',
-    'category' => 'Upcoming',
-    'desc' => 'COPE Program: Peer Facilitators Training &amp; Orientation for AY 2025–2026',
-    'date' => 'Wed • April 8, 2026 • 09:00 AM',
-    'location' => 'Case room F1604',
-    'image' => 'career path.png',
-  ],
-];
-?>
+<?php /** @var array $gcoData */ ?>
+
 <section id="featured-events" class="bg-gco py-20">
   <div class="container-xxl">
 
@@ -61,13 +16,12 @@ $programs = [
     <!-- Swiper carousel -->
     <div class="swiper my-5 pb-10 px-5" id="eventsSwiper">
       <div class="swiper-wrapper">
-        <?php foreach ($programs as $p): ?>
+        <?php foreach ($gcoData['programs'] as $p): ?>
         <div class="swiper-slide h-auto">
-          <div class="card card-bordered overflow-hidden h-100 transition-all duration-300 hover-elevate-up shadow-sm border-0 bg-white"
-            style="border-radius: 1rem;">
+          <div class="card card-bordered overflow-hidden h-100 hover-elevate-up shadow-sm border-0 bg-white rounded-4">
             <?php if (!empty($p['image'])): ?>
             <div class="ratio ratio-16x9 overflow-hidden">
-              <img src="<?= htmlspecialchars($eventsBase . '/' . $p['image'])?>"
+              <img src="<?= htmlspecialchars($gcoData['paths']['events'] . '/' . $p['image'])?>"
                 alt="<?= htmlspecialchars($p['title'])?>" class="object-fit-cover w-100 h-100">
             </div>
             <?php endif; ?>
@@ -77,7 +31,7 @@ $programs = [
                 <?= htmlspecialchars($p['category'])?>
               </span>
               <h4 class="fw-bold fs-5 mb-4 text-gray-900">
-                <?= $p['desc']?>
+                <?= htmlspecialchars($p['desc'])?>
               </h4>
               <div class="mt-auto">
                 <div class="d-flex align-items-center gap-2 text-gray-500 fs-7 mb-2">
@@ -158,11 +112,6 @@ $programs = [
         width: 32px;
         border-radius: 8px;
         background-color: #fff;
-      }
-
-      .bg-gco {
-        background-color: #7a1d1d;
-        /* Match GCO Red if needed, or keep existing class */
       }
     </style>
 
