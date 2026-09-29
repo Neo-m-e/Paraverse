@@ -126,7 +126,7 @@
                                 <div class="card-header min-h-50px">
                                     <div class="card-title">
                                         <h3 class="card-label fw-bold fs-6">
-                                            JAVA
+                                            Art Appreciation
                                         </h3>
                                     </div>
 

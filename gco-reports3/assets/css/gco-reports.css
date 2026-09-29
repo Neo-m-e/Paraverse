@@ -1,0 +1,45 @@
+/* GCO brand color helpers used by Metronic components. */
+.bg-gco-orange {
+  background-color: #ff6b4a !important;
+}
+
+.bg-gco-pink {
+  background-color: #e04987 !important;
+}
+
+.bg-gco-green {
+  background-color: #78b89a !important;
+}
+
+.bg-gco-purple {
+  background-color: #7c3bea !important;
+}
+
+.border-gco-orange {
+  border-left-color: #ff6b4a !important;
+}
+
+.border-gco-dark {
+  border-left-color: #181c32 !important;
+}
+
+.border-gco-pink {
+  border-left-color: #e04987 !important;
+}
+
+.border-gco-purple {
+  border-left-color: #7c3bea !important;
+}
+
+.year-level-primary-0 { background-color: #ef765d !important; }
+.year-level-secondary-0 { background-color: #f6c8be !important; }
+.year-level-primary-1 { background-color: #d93b79 !important; }
+.year-level-secondary-1 { background-color: #efb6cd !important; }
+.year-level-primary-2 { background-color: #8146dd !important; }
+.year-level-secondary-2 { background-color: #cbb4ef !important; }
+.year-level-primary-3 { background-color: #22a4d6 !important; }
+.year-level-secondary-3 { background-color: #a9dcec !important; }
+
+.gco-chart-center {
+  z-index: 5;
+}

@@ -1,5 +1,18 @@
 <?php
 
+function safe($value)
+{
+    return htmlspecialchars((string) $value, ENT_QUOTES, 'UTF-8');
+}
+
+function jsonForHtml($data)
+{
+    return json_encode(
+        $data,
+        JSON_HEX_TAG | JSON_HEX_AMP | JSON_HEX_APOS | JSON_HEX_QUOT
+    );
+}
+
 $reportSummary = [
     'total' => 486,
     'face_to_face' => 298,
@@ -57,9 +70,9 @@ $programs = [
 
 $specialists = [
     ['name' => 'Marietta M. Bengat', 'role' => 'Director', 'total' => 76, 'face_to_face' => 45, 'online' => 31],
-    ['name' => 'Rochie G. Borje', 'role' => 'Guidance Counselor', 'total' => 92, 'face_to_face' => 58, 'online' => 34],
+    ['name' => 'Rochile G. Borje', 'role' => 'Guidance Counselor', 'total' => 92, 'face_to_face' => 58, 'online' => 34],
     ['name' => 'Vilma R. Colinco', 'role' => 'Guidance Counselor', 'total' => 84, 'face_to_face' => 52, 'online' => 32],
-    ['name' => 'Charlene Marie A. Arabajo', 'role' => 'Guidance Counselor', 'total' => 79, 'face_to_face' => 49, 'online' => 30],
+    ['name' => 'Charlene Marie A. Arabejo', 'role' => 'Guidance Counselor', 'total' => 79, 'face_to_face' => 49, 'online' => 30],
     ['name' => 'Paula Trisha D. Balcera', 'role' => 'Guidance Counselor', 'total' => 88, 'face_to_face' => 55, 'online' => 33],
     ['name' => 'Moira Ashley C. Roy', 'role' => 'Psychometrician', 'total' => 67, 'face_to_face' => 39, 'online' => 28],
 ];
