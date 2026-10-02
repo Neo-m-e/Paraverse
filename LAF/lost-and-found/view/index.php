@@ -5,8 +5,9 @@ if (!file_exists($functionsFile)) $functionsFile = dirname(__DIR__, 2) . '/funct
 include($functionsFile);
 require_once __DIR__ . '/../includes/data.php';
 
-$item = LAF_FIND_ITEM_BY_ID($lostItems, $_GET['id'] ?? 101);
-$META_TITLE = $item['name'] . ' · Lost Item';
+$isDetailView = isset($_GET['id']);
+$item = $isDetailView ? LAF_FIND_ITEM_BY_ID($lostItems, $_GET['id']) : null;
+$META_TITLE = $isDetailView ? $item['name'] . ' · Lost Item' : 'Lost Items Board';
 ?>
 <!DOCTYPE html>
 <html lang="en">

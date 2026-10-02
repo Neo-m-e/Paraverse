@@ -1,4 +1,43 @@
-<a href="../../" class="btn btn-sm btn-light mb-6"><i class="bi bi-arrow-left me-2"></i>Back to items</a>
+<?php if (!$isDetailView): ?>
+<div class="d-flex flex-wrap justify-content-between align-items-center gap-4 mb-7">
+  <div>
+    <a href="../../" class="btn btn-sm btn-light mb-4"><i class="bi bi-arrow-left me-2"></i>Back</a>
+    <h1 class="text-gray-900 fw-bold fs-2 mb-1">Recently Claimed Items</h1>
+    <span class="text-muted fs-7"><?= count($claimedItems) ?> successfully returned items</span>
+  </div>
+  <div class="position-relative w-300px">
+    <i class="ki-duotone ki-magnifier fs-3 position-absolute top-50 translate-middle-y ms-4"><span class="path1"></span><span class="path2"></span></i>
+    <input id="item-search" type="text" class="form-control form-control-solid ps-12" placeholder="Search items">
+  </div>
+</div>
+<div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-5">
+  <?php foreach ($claimedItems as $row): ?>
+  <div class="col item-row" data-search="<?= strtolower(htmlspecialchars($row['name'] . ' ' . $row['category'] . ' ' . $row['floor'])) ?>">
+    <a href="?id=<?= urlencode($row['id']) ?>" class="card card-bordered hover-elevate-up h-100 text-gray-800 text-hover-primary overflow-hidden">
+      <div class="h-175px position-relative">
+        <img src="<?= htmlspecialchars($row['image']) ?>" class="w-100 h-100 object-fit-cover" alt="<?= htmlspecialchars($row['name']) ?>">
+        <span class="badge badge-success position-absolute top-0 end-0 m-4">Claimed</span>
+      </div>
+      <div class="card-body p-5">
+        <div class="fw-bold fs-4 mb-2"><?= htmlspecialchars($row['name']) ?></div>
+        <div class="text-muted fs-7 mb-1"><i class="bi bi-tag me-2"></i><?= htmlspecialchars($row['category']) ?></div>
+        <div class="text-muted fs-7"><i class="bi bi-person-check me-2"></i><?= htmlspecialchars($row['claimed_by']) ?></div>
+      </div>
+    </a>
+  </div>
+  <?php endforeach; ?>
+</div>
+<script>
+document.getElementById('item-search').addEventListener('input', function () {
+  var search = this.value.toLowerCase();
+  document.querySelectorAll('.item-row').forEach(function (item) {
+    item.classList.toggle('d-none', !item.dataset.search.includes(search));
+  });
+});
+</script>
+<?php else: ?>
+
+<a href="./" class="btn btn-sm btn-light mb-6"><i class="bi bi-arrow-left me-2"></i>Back to Claimed Items</a>
 <div class="row g-7">
   <div class="col-lg-5">
     <div class="card card-bordered overflow-hidden">
@@ -13,7 +52,8 @@
     </div>
   </div>
   <div class="col-lg-7">
-    <h1 class="text-gray-900 fw-bold fs-2x mb-6"><?= htmlspecialchars($item['name']) ?></h1>
+    <h1 class="text-gray-900 fw-bold fs-2x mb-2"><?= htmlspecialchars($item['name']) ?></h1>
+    <div class="text-muted fs-7 fw-semibold mb-6">Item ID: <?= htmlspecialchars($item['id']) ?></div>
     <div class="card card-bordered">
       <div class="card-header"><h2 class="card-title fs-4">Claim Details</h2></div>
       <div class="card-body">
@@ -27,3 +67,4 @@
     </div>
   </div>
 </div>
+<?php endif; ?>

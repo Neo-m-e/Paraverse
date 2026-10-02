@@ -6,8 +6,9 @@ include($functionsFile);
 require_once __DIR__ . '/../../includes/data.php';
 
 $unclaimedItems = array_values(array_filter($surrenderedItems, function ($row) { return $row['status'] === 'Unclaimed'; }));
-$item = LAF_FIND_ITEM_BY_ID($unclaimedItems, $_GET['id'] ?? $unclaimedItems[0]['id']);
-$META_TITLE = $item['name'] . ' · Unclaimed Item';
+$isDetailView = isset($_GET['id']);
+$item = $isDetailView ? LAF_FIND_ITEM_BY_ID($unclaimedItems, $_GET['id']) : null;
+$META_TITLE = $isDetailView ? $item['name'] . ' · Unclaimed Item' : 'All Unclaimed Items';
 ?>
 <!DOCTYPE html>
 <html lang="en">

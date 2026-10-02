@@ -1,15 +1,40 @@
+<?php
+$categoryColors = [
+  'Accessories' => 'danger',
+  'Academic' => 'info',
+  'Bags' => 'warning',
+  'Electronics' => 'success',
+  'Personal Essentials' => 'primary'
+];
+?>
+
 <div class="row g-5 mb-8">
   <div class="col-lg-9">
-    <div class="card card-bordered h-100">
-      <div class="card-body d-flex flex-column justify-content-center py-10 px-7 px-lg-10">
+    <div class="card card-bordered h-100 position-relative overflow-hidden">
+      <div class="card-body d-flex flex-column justify-content-center py-10 px-7 px-lg-10 position-relative z-index-1">
         <span class="badge badge-light-primary align-self-start mb-4">FEU TECH · LOST AND FOUND SYSTEM</span>
-        <h1 class="text-gray-900 fw-bold fs-2x mb-3">Welcome back, Catalina!</h1>
+        <h1 class="text-primary fw-bold fs-2x mb-3">Welcome back, Catalina!</h1>
         <p class="text-gray-600 fs-6 mb-6">Recover your belongings, help a fellow Tamaraw, and keep the campus organized.</p>
         <div class="d-flex flex-wrap gap-3">
           <a href="<?= $LAF_BASE_URL ?>/manage/" class="btn btn-light-danger"><i class="bi bi-search me-2"></i>I Lost Something</a>
           <button type="button" class="btn btn-light-success" data-bs-toggle="modal" data-bs-target="#modalHowToSurrender"><i class="bi bi-check-circle me-2"></i>I Found Something</button>
         </div>
       </div>
+      <i class="ki-duotone ki-magnifier position-absolute top-0 start-50 mt-4 ms-10 fs-5x text-primary opacity-25 z-index-0 pe-none">
+        <span class="path1"></span><span class="path2"></span>
+      </i>
+      <i class="ki-duotone ki-phone position-absolute top-50 end-0 me-25 fs-4x text-success opacity-25 z-index-0 pe-none">
+        <span class="path1"></span><span class="path2"></span>
+      </i>
+      <i class="ki-duotone ki-key position-absolute bottom-0 end-0 mb-5 me-8 fs-5x text-danger opacity-25 z-index-0 pe-none">
+        <span class="path1"></span><span class="path2"></span>
+      </i>
+      <i class="ki-duotone ki-geolocation position-absolute top-50 start-50 mt-4 ms-20 fs-4x text-warning opacity-25 z-index-0 pe-none">
+        <span class="path1"></span><span class="path2"></span>
+      </i>
+      <i class="ki-duotone ki-notification-status position-absolute bottom-0 start-50 mb-4 ms-5 fs-3x text-info opacity-25 z-index-0 pe-none">
+        <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
+      </i>
     </div>
   </div>
   <div class="col-lg-3">
@@ -55,20 +80,24 @@
     </div>
 
     <div id="item-list" class="d-flex flex-column gap-4">
-      <?php foreach (array_slice($surrenderedItems, 0, 4) as $item): ?>
+      <?php foreach (array_slice($surrenderedItems, 0, 4) as $itemIndex => $item): ?>
+        <?php $itemColor = $categoryColors[$item['category']] ?? 'secondary'; ?>
         <div class="card card-bordered item-row" data-name="<?= strtolower(htmlspecialchars($item['name'])) ?>" data-category="<?= htmlspecialchars($item['category']) ?>">
           <div class="card-body p-0 d-flex flex-column flex-md-row overflow-hidden">
-            <img src="<?= htmlspecialchars($item['image']) ?>" class="w-150px h-175px object-fit-cover flex-shrink-0" alt="<?= htmlspecialchars($item['name']) ?>">
+            <div class="w-150px h-175px flex-shrink-0 position-relative overflow-hidden">
+              <img src="<?= htmlspecialchars($item['image']) ?>" class="w-100 h-100 object-fit-cover" alt="<?= htmlspecialchars($item['name']) ?>">
+              <div class="position-absolute top-0 start-0 w-100 h-100 bg-<?= $itemColor ?> bg-gradient opacity-25 z-index-1 pe-none"></div>
+            </div>
             <div class="p-5 flex-grow-1 d-flex flex-column">
               <div class="d-flex flex-wrap gap-2 mb-3">
-                <span class="badge badge-light-primary"><?= htmlspecialchars($item['category']) ?></span>
-                <span class="badge badge-light-warning"><?= htmlspecialchars($item['status']) ?></span>
+                <span class="badge badge-light-<?= $itemColor ?> rounded-pill"><?= htmlspecialchars($item['category']) ?></span>
+                <span class="badge badge-light-warning rounded-pill"><?= htmlspecialchars($item['status']) ?></span>
               </div>
-              <a href="<?= $LAF_BASE_URL ?>/view/unclaimed/?id=<?= (int) $item['id'] ?>" class="text-gray-900 text-hover-primary fw-bold fs-5 mb-3"><?= htmlspecialchars($item['name']) ?></a>
+              <a href="<?= $LAF_BASE_URL ?>/view/unclaimed/?id=<?= urlencode($item['id']) ?>" class="text-gray-900 text-hover-primary fw-bold fs-5 mb-3"><?= htmlspecialchars($item['name']) ?></a>
 
               <div class="text-muted fs-7 mb-2 d-flex align-items-center gap-2">
                 <i class="bi bi-geo-alt"></i>
-                <?php if ((int) $item['id'] === 1): ?>
+                <?php if ($itemIndex === 0): ?>
                   <span><?= htmlspecialchars($item['floor']) ?></span>
                 <?php else: ?>
                   <span class="d-inline-block w-100px h-10px bg-gray-300 rounded"></span>
@@ -76,7 +105,7 @@
               </div>
               <div class="text-muted fs-7 mb-2 d-flex align-items-center gap-2">
                 <i class="bi bi-clock"></i>
-                <?php if ((int) $item['id'] === 1): ?>
+                <?php if ($itemIndex === 0): ?>
                   <span><?= htmlspecialchars($item['time']) ?></span>
                 <?php else: ?>
                   <span class="d-inline-block w-75px h-10px bg-gray-300 rounded"></span>
@@ -84,7 +113,7 @@
               </div>
               <div class="text-muted fs-7 mb-4 d-flex align-items-center gap-2">
                 <i class="bi bi-person"></i>
-                <?php if ((int) $item['id'] === 1): ?>
+                <?php if ($itemIndex === 0): ?>
                   <span><?= htmlspecialchars($item['surrendered_by']) ?></span>
                 <?php else: ?>
                   <span class="d-inline-block w-125px h-10px bg-gray-300 rounded"></span>
@@ -135,12 +164,16 @@
   <div class="card-body pt-2">
     <div class="d-flex flex-column gap-4">
       <?php foreach ($lostItems as $item): ?>
+        <?php $itemColor = $categoryColors[$item['category']] ?? 'secondary'; ?>
         <div class="card card-bordered overflow-hidden">
           <div class="card-body p-0 d-flex flex-column flex-md-row">
-            <img src="<?= htmlspecialchars($item['image']) ?>" class="w-150px h-175px object-fit-cover flex-shrink-0" alt="<?= htmlspecialchars($item['name']) ?>">
+            <div class="w-150px h-175px flex-shrink-0 position-relative overflow-hidden">
+              <img src="<?= htmlspecialchars($item['image']) ?>" class="w-100 h-100 object-fit-cover" alt="<?= htmlspecialchars($item['name']) ?>">
+              <div class="position-absolute top-0 start-0 w-100 h-100 bg-<?= $itemColor ?> bg-gradient opacity-25 z-index-1 pe-none"></div>
+            </div>
             <div class="p-5 flex-grow-1 d-flex flex-column">
-              <span class="badge badge-light-success align-self-start mb-3"><?= htmlspecialchars($item['category']) ?></span>
-              <a href="<?= $LAF_BASE_URL ?>/view/?id=<?= (int) $item['id'] ?>" class="text-gray-900 text-hover-primary fw-bold fs-5 mb-2">
+              <span class="badge badge-light-<?= $itemColor ?> rounded-pill align-self-start mb-3"><?= htmlspecialchars($item['category']) ?></span>
+              <a href="<?= $LAF_BASE_URL ?>/view/?id=<?= urlencode($item['id']) ?>" class="text-gray-900 text-hover-primary fw-bold fs-5 mb-2">
                 <?= htmlspecialchars($item['name']) ?>
               </a>
               <div class="text-muted fs-7 mb-2"><i class="bi bi-geo-alt me-2"></i><?= htmlspecialchars($item['floor']) ?></div>
@@ -205,13 +238,17 @@ $claimedItems = array_values(array_filter($surrenderedItems, function ($item) { 
   <div class="card-body">
     <div class="row g-5">
       <?php foreach ($claimedItems as $item): ?>
+        <?php $itemColor = $categoryColors[$item['category']] ?? 'secondary'; ?>
         <div class="col-md-4">
-          <a href="<?= $LAF_BASE_URL ?>/view/claimed/?id=<?= (int) $item['id'] ?>" class="card card-bordered h-100 text-gray-800 text-hover-primary overflow-hidden">
+          <a href="<?= $LAF_BASE_URL ?>/view/claimed/?id=<?= urlencode($item['id']) ?>" class="card card-bordered h-100 text-gray-800 text-hover-primary overflow-hidden">
             <div class="card-body p-0 d-flex">
-              <img src="<?= htmlspecialchars($item['image']) ?>" class="w-100px h-125px object-fit-cover flex-shrink-0" alt="<?= htmlspecialchars($item['name']) ?>">
+              <div class="w-100px h-125px flex-shrink-0 position-relative overflow-hidden">
+                <img src="<?= htmlspecialchars($item['image']) ?>" class="w-100 h-100 object-fit-cover" alt="<?= htmlspecialchars($item['name']) ?>">
+                <div class="position-absolute top-0 start-0 w-100 h-100 bg-<?= $itemColor ?> bg-gradient opacity-25 z-index-1 pe-none"></div>
+              </div>
               <div class="p-4">
-                <span class="badge badge-light-success mb-2">Claimed</span>
-                <div class="fw-bold mb-2"><?= htmlspecialchars($item['name']) ?></div>
+                <span class="badge badge-light-success rounded-pill mb-2">Claimed</span>
+                <div class="fw-bold text-<?= $itemColor ?> mb-2"><?= htmlspecialchars($item['name']) ?></div>
                 <div class="text-muted fs-8 mb-1"><i class="bi bi-geo-alt me-1"></i><?= htmlspecialchars($item['floor']) ?></div>
                 <div class="text-muted fs-8"><i class="bi bi-person-check me-1"></i><?= htmlspecialchars($item['claimed_by']) ?></div>
               </div>

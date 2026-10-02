@@ -6,8 +6,9 @@ include($functionsFile);
 require_once __DIR__ . '/../../includes/data.php';
 
 $claimedItems = array_values(array_filter($surrenderedItems, function ($row) { return $row['status'] === 'Claimed'; }));
-$item = LAF_FIND_ITEM_BY_ID($claimedItems, $_GET['id'] ?? $claimedItems[0]['id']);
-$META_TITLE = $item['name'] . ' · Claimed Item';
+$isDetailView = isset($_GET['id']);
+$item = $isDetailView ? LAF_FIND_ITEM_BY_ID($claimedItems, $_GET['id']) : null;
+$META_TITLE = $isDetailView ? $item['name'] . ' · Claimed Item' : 'Recently Claimed Items';
 ?>
 <!DOCTYPE html>
 <html lang="en">

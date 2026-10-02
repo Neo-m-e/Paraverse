@@ -3,7 +3,7 @@ $adminRows = [];
 
 foreach ($surrenderedItems as $item) {
   $adminRows[] = [
-    'id' => 'LAF-' . str_pad($item['id'], 4, '0', STR_PAD_LEFT),
+    'id' => $item['id'],
     'name' => $item['name'],
     'category' => $item['category'],
     'location' => $item['floor'],
@@ -13,7 +13,7 @@ foreach ($surrenderedItems as $item) {
   ];
 }
 
-$adminRows[] = ['id' => 'LAF-0012', 'name' => 'Scientific Calculator', 'category' => 'Academic', 'location' => '6th Floor, Room 605', 'surrendered_by' => 'Carlo Reyes', 'claimed_by' => '', 'status' => 'For Donation'];
+$adminRows[] = ['id' => 'EDITH-2601-3016-4729-68BF', 'name' => 'Scientific Calculator', 'category' => 'Academic', 'location' => '6th Floor, Room 605', 'surrendered_by' => 'Carlo Reyes', 'claimed_by' => '', 'status' => 'For Donation'];
 ?>
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-4 mb-8">
