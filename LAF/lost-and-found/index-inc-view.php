@@ -20,7 +20,7 @@ $categoryColors = [
           <button type="button" class="btn btn-light-success" data-bs-toggle="modal" data-bs-target="#modalHowToSurrender"><i class="bi bi-check-circle me-2"></i>I Found Something</button>
         </div>
       </div>
-      <i class="ki-duotone ki-magnifier position-absolute top-0 start-50 mt-4 ms-10 fs-5x text-primary opacity-25 z-index-0 pe-none">
+      <!-- <i class="ki-duotone ki-magnifier position-absolute top-0 start-50 mt-4 ms-10 fs-5x text-primary opacity-25 z-index-0 pe-none">
         <span class="path1"></span><span class="path2"></span>
       </i>
       <i class="ki-duotone ki-phone position-absolute top-50 end-0 me-25 fs-4x text-success opacity-25 z-index-0 pe-none">
@@ -34,7 +34,7 @@ $categoryColors = [
       </i>
       <i class="ki-duotone ki-notification-status position-absolute bottom-0 start-50 mb-4 ms-5 fs-3x text-info opacity-25 z-index-0 pe-none">
         <span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span>
-      </i>
+      </i>  -->
     </div>
   </div>
   <div class="col-lg-3">

@@ -1,13 +1,44 @@
-<footer class="border-top bg-white mt-10">
-  <div class="app-container container-xxl py-8">
-    <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-5">
-      <div>
-        <img src="<?= $LAF_BASE_URL ?>/assets/images/LAF-logo.svg" class="h-30px mb-3" alt="Lost and Found">
-        <div class="text-gray-600 fs-7">Just tap to track—you may find it in the app.</div>
+<footer>
+      <div class="app-container container-xxl">
+        <div class="row d-flex align-items-start justify-content-between pt-10">
+          <div class="col-lg-5 my-5">
+            <a href="/discover/" class="d-flex align-items-center mb-5" onclick="KTApp.showPageLoading()">
+              <img src="/LAF/lost-and-found/assets/images/LAF-logo.svg" class="h-35px me-2">
+            </a>
+            <p class='text-gray-700 fs-2 '>Start your journey towards wellbeing</p>
+            <p class='text-gray-600 fs-4 mb-0'>
+              The GCO Connect is a supportive space to empower you towards your wellbeing journey. The GCO associates are committed to creating emphatic atmosphere where everyone is respected and feels heard.
+            </p>
+          </div>
+          <div class="col-lg-4 my-5">
+            <div class="d-flex mb-5">
+              <a href="https://feualabang.edu.ph/" target="_blank" class="me-1"><img class="h-50px lozad"
+                  data-src="/assets/img/logo/feu-alabang.webp"></a>
+              <a href="https://feudiliman.edu.ph/" target="_blank" class="me-1"><img class="h-50px lozad"
+                  data-src="/assets/img/logo/feu-diliman.webp"></a>
+              <a href="https://feutech.edu.ph/" target="_blank"><img class="h-50px lozad"
+                  data-src="/assets/img/logo/feu-tech.webp"></a>
+            </div>
+            <div class="d-flex">
+              <a href="/" onclick="KTApp.showPageLoading()"><img data-src="/assets/img/logo.png"
+                  class="h-35px lozad me-4"></a>
+              <p class='fs-lg mb-0'>
+                <span class="d-block text-gray-600">Proudly made with <span class="text-danger">❤️</span> by the</span>
+                <a href="/" class="fw-bold text-dark text-active-primary">Educational Innovation and Technology
+                  Hub</span></a>
+              </p>
+            </div>
+            <a href="https://www.facebook.com/edith.feutech" target="_blank" class="btn btn-sm btn-facebook mt-5"><i
+                class="fab fa-facebook-f fs-4"></i> Like us on Facebook</a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <p class="text-gray-600 mt-8 pt-8 border-top">© <?php echo date("Y"); ?> <strong>Educational Innovation and
+                Technology Hub</strong>. All Rights Reserved. All Rights Reserved. Trademarks and brands are the property of their respective owners. The use of company logos alongside accomplishments is for identification purposes and does not imply endorsement or affiliation with the mentioned companies.</p>
+          </div>
+        </div>
       </div>
-      <div class="text-gray-500 fs-8">© <?= date('Y') ?> Educational Innovation and Technology Hub. All rights reserved.</div>
-    </div>
-  </div>
 </footer>
 
 <script src="/assets/plugins/global/plugins.bundle.js"></script>

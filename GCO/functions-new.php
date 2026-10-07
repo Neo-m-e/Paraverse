@@ -72,9 +72,6 @@ function HEAD_ESSENTIALS()
 <link rel="stylesheet" href="' . $base . 'assets/plugins/global/plugins.bundle.css">
 <link rel="stylesheet" href="' . $base . 'assets/css/style.keenicons.css">
 <link rel="stylesheet" href="' . $base . 'assets/css/style.bundle.v2.full.css?version=1.1028">
-<link rel="stylesheet" href="' . $base . 'assets/css/fonts/style.css">
-<link rel="stylesheet" href="' . $base . 'assets/css/fontawesome.css">
-
 <script src="' . $base . 'assets/js/jquery.js"></script>
 
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-SR6Q4GLJJH"></script>
