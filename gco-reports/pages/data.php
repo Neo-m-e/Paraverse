@@ -72,13 +72,139 @@ $programs = [
 ];
 
 $specialists = [
-    ['name' => 'Marietta M. Bengat', 'role' => 'Director', 'total' => 76, 'face_to_face' => 45, 'online' => 31],
-    ['name' => 'Rochile G. Borje', 'role' => 'Guidance Counselor', 'total' => 92, 'face_to_face' => 58, 'online' => 34],
-    ['name' => 'Vilma R. Colinco', 'role' => 'Guidance Counselor', 'total' => 84, 'face_to_face' => 52, 'online' => 32],
-    ['name' => 'Charlene Marie A. Arabejo', 'role' => 'Guidance Counselor', 'total' => 79, 'face_to_face' => 49, 'online' => 30],
-    ['name' => 'Paula Trisha D. Balcera', 'role' => 'Guidance Counselor', 'total' => 88, 'face_to_face' => 55, 'online' => 33],
-    ['name' => 'Moira Ashley C. Roy', 'role' => 'Psychometrician', 'total' => 67, 'face_to_face' => 39, 'online' => 28],
+    ['name' => 'Marietta M. Bengat', 'role' => 'Director', 'total' => 76, 'face_to_face' => 45, 'online' => 31, 'rating' => 4.8],
+    ['name' => 'Rochile G. Borje', 'role' => 'Guidance Counselor', 'total' => 92, 'face_to_face' => 58, 'online' => 34, 'rating' => 4.7],
+    ['name' => 'Vilma R. Colinco', 'role' => 'Guidance Counselor', 'total' => 84, 'face_to_face' => 52, 'online' => 32, 'rating' => 4.6],
+    ['name' => 'Charlene Marie A. Arabejo', 'role' => 'Guidance Counselor', 'total' => 79, 'face_to_face' => 49, 'online' => 30, 'rating' => 4.8],
+    ['name' => 'Paula Trisha D. Balcera', 'role' => 'Guidance Counselor', 'total' => 88, 'face_to_face' => 55, 'online' => 33, 'rating' => 4.7],
+    ['name' => 'Moira Ashley C. Roy', 'role' => 'Psychometrician', 'total' => 67, 'face_to_face' => 39, 'online' => 28, 'rating' => 4.5],
 ];
+
+$overallEvaluation = ['rating' => 4.7];
+
+$students = [
+    ['sn' => '202610001', 'name' => 'Gideon V. Morales', 'program' => 'BSITDA', 'college' => 'CCSMA', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610002', 'name' => 'Jem Chaela Beatrix J. Gonzaga', 'program' => 'BSITAGD', 'college' => 'CCSMA', 'classification' => 'Special Case'],
+    ['sn' => '202610003', 'name' => 'Marielle Jyla M. Francisco', 'program' => 'BSITSMBA', 'college' => 'CCSMA', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610004', 'name' => 'Samantha Rose A. Villablanca', 'program' => 'BSITBA', 'college' => 'CCSMA', 'classification' => 'Special Case'],
+    ['sn' => '202610005', 'name' => 'Leinna Sophia B. Malay', 'program' => 'BSCSSE', 'college' => 'CCSMA', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610006', 'name' => 'Avril Jewel T. Alejo', 'program' => 'BSCpE', 'college' => 'COE', 'classification' => 'Special Case'],
+    ['sn' => '202610007', 'name' => 'Vedaant Vig', 'program' => 'BSME', 'college' => 'COE', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610008', 'name' => 'Celina Mae R. Espinola', 'program' => 'BSEE', 'college' => 'COE', 'classification' => 'Special Case'],
+    ['sn' => '202610009', 'name' => 'Casey Gabrielle D. Aquino', 'program' => 'BSCE', 'college' => 'COE', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610010', 'name' => 'Jose Ynno Raphael P. Geronimo', 'program' => 'BSECE', 'college' => 'COE', 'classification' => 'Special Case'],
+    ['sn' => '202610011', 'name' => 'Charles Joaquin S. Ordoñez', 'program' => 'BSITDA', 'college' => 'CCSMA', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610012', 'name' => 'Nathaniel M. Umali', 'program' => 'BSITDA', 'college' => 'CCSMA', 'classification' => 'Special Case'],
+    ['sn' => '202610013', 'name' => 'Miguel I. Ishikawa', 'program' => 'BSITAGD', 'college' => 'CCSMA', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610014', 'name' => 'Hanny Grace A. Araña', 'program' => 'BSITAGD', 'college' => 'CCSMA', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610015', 'name' => 'Akhyxia Shanne Z. Juanillo', 'program' => 'BSITSMBA', 'college' => 'CCSMA', 'classification' => 'Special Case'],
+    ['sn' => '202610016', 'name' => 'Venice Mae V. Payna', 'program' => 'BSITSMBA', 'college' => 'CCSMA', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610017', 'name' => 'Joshua Miguel T. Gadon', 'program' => 'BSITBA', 'college' => 'CCSMA', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610018', 'name' => 'Jherome Eiymher E. Padilla', 'program' => 'BSITBA', 'college' => 'CCSMA', 'classification' => 'Special Case'],
+    ['sn' => '202610019', 'name' => 'Reese Lauren C. Chan', 'program' => 'BSCSSE', 'college' => 'CCSMA', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610020', 'name' => 'Justin Emmanuel J. Janda', 'program' => 'BSCSSE', 'college' => 'CCSMA', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610021', 'name' => 'Gabriel Felix Victor B. Burgos', 'program' => 'BSCpE', 'college' => 'COE', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610022', 'name' => 'Mikhael Nicolai D. Competente', 'program' => 'BSCpE', 'college' => 'COE', 'classification' => 'Special Case'],
+    ['sn' => '202610023', 'name' => 'Chis C. Adea', 'program' => 'BSME', 'college' => 'COE', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610024', 'name' => 'Jury S. Cabornay', 'program' => 'BSME', 'college' => 'COE', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610025', 'name' => 'Oracle M. Subaan', 'program' => 'BSEE', 'college' => 'COE', 'classification' => 'Special Case'],
+    ['sn' => '202610026', 'name' => 'Felicity Mae T. Molina', 'program' => 'BSEE', 'college' => 'COE', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610027', 'name' => 'Denisse Yanna V. Gonzales', 'program' => 'BSCE', 'college' => 'COE', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610028', 'name' => 'Lance Gerard R. Lopez', 'program' => 'BSCE', 'college' => 'COE', 'classification' => 'Candidate for Special Case'],
+    ['sn' => '202610029', 'name' => 'Joshua Angelo A. Centro', 'program' => 'BSECE', 'college' => 'COE', 'classification' => 'Special Case'],
+    ['sn' => '202610030', 'name' => 'Aaron Dale C. Verceles', 'program' => 'BSECE', 'college' => 'COE', 'classification' => 'Candidate for Special Case'],
+];
+
+$studentPrograms = array_values(array_unique(array_column($students, 'program')));
+sort($studentPrograms);
+
+$specialCaseSummary = [];
+foreach ($students as $student) {
+    $program = $student['program'];
+    if (!isset($specialCaseSummary[$program])) {
+        $specialCaseSummary[$program] = ['name' => $program, 'candidate' => 0, 'special_case' => 0];
+    }
+    $key = $student['classification'] === 'Special Case' ? 'special_case' : 'candidate';
+    $specialCaseSummary[$program][$key]++;
+}
+$specialCaseSummary = array_values($specialCaseSummary);
+
+$programAttendance = [
+    ['college' => 'CCSMA', 'program' => 'BSITDA', 'attendees' => 126],
+    ['college' => 'CCSMA', 'program' => 'BSITAGD', 'attendees' => 108],
+    ['college' => 'CCSMA', 'program' => 'BSITSMBA', 'attendees' => 119],
+    ['college' => 'CCSMA', 'program' => 'BSITBA', 'attendees' => 97],
+    ['college' => 'CCSMA', 'program' => 'BSITWMA', 'attendees' => 112],
+    ['college' => 'CCSMA', 'program' => 'BSCSSE', 'attendees' => 131],
+    ['college' => 'CCSMA', 'program' => 'BSCSDS', 'attendees' => 121],
+    ['college' => 'CCSMA', 'program' => 'BMA', 'attendees' => 86],
+    ['college' => 'CCSMA', 'program' => 'BSEMCDA', 'attendees' => 103],
+    ['college' => 'COE', 'program' => 'BSCpE', 'attendees' => 105],
+    ['college' => 'COE', 'program' => 'BSME', 'attendees' => 92],
+    ['college' => 'COE', 'program' => 'BSEE', 'attendees' => 88],
+    ['college' => 'COE', 'program' => 'BSCE', 'attendees' => 117],
+    ['college' => 'COE', 'program' => 'BSECE', 'attendees' => 94],
+];
+
+$eventNames = [
+    'Understanding Your Leadership Strengths: A Student Leadership Practices Survey',
+    'Mental Health and Well-being Program: Mental Health Celebration',
+    'FEU TECH - CTRL + ALT + Relax: Pause, Breathe, Reboot',
+    'TALK. LISTEN. CONNECT. A Tamaraw Suicide Prevention Awareness Campaign',
+    'Keep Moving Forward with GCO',
+    'Career Development Activity: G.A.B.A.Y. Series Level 1: Charting Your Career Path',
+    'The Core of our Core Values',
+    'GCO Faculty Orientation',
+    'Act III: The Supporting Cast - A Pride Month Talk About Being an Ally',
+    'Act I: Pride on Screen - A Film Showing Activity for Pride Month',
+    'Act II: Colors of Pride - A Pride-themed Art for Wellness Activity',
+    'MENTally Strong, MENTally Fit Tamaraws!',
+    'KUMUSTAHAN: Group and Student Routine Interview',
+    'GCO R.A.D.A.R.: College Adjustment Testing',
+    'GCO R.A.D.A.R.: IQ and EQ Testing',
+    'GCO R.A.D.A.R.: Study Attitudes and Methods Testing',
+    'iTamaraws: CTRL + ALT + RELAX',
+    'C.O.P.E. 2.0 Activity: Charting Oneself towards Personal Enthusiasm',
+    "Strong Her, Stronger Minds: Women's Month Celebration 2026",
+    'ValenTAMS: Self-Love Corner',
+    'Mental Health Month Celebration: Turning Awareness into Action for Mental Health',
+    'Mental Health Month Celebration: Kumustahan',
+    'Mental Health Month Celebration: Art for Wellness!',
+    'Be the Calm: The Role of Psychological First Aid in Crisis Response',
+    'Mental Health Month Celebration: Busking for Wellness!',
+    'Respect, Power, and Love: Understanding Gender and Identity',
+    'Psychological Testing Activity for Freshman Students',
+    'Psychological Testing Activity for Returning Students',
+    'Psychological Testing Activity: Workplace Skills Survey',
+    'Career Navigation Group Discussion',
+    'Career Navigation with Kumustahan Session',
+    'C.O.P.E. Activity: Charting Oneself towards Personal Empowerment',
+    'Psychological Testing Activity for Transferee Students',
+    'Unlocking Potential: The Art of Self-management (Scholars Edition)',
+    'ALL R.I.S.E: Recognizing Individual Self Efficacy',
+    'The CORE of our Core Values: A Recollection Activity',
+    'Nurturing Mental Health and Well-Being',
+    'Day 5 of Lusog Isip Serve 2024: PAKIKILAHOK - Laying Down the Bricks for Tomorrow’s Tamaraws',
+    'Day 4 of Lusog Isip Serve 2024: PAGTATAGUYOD - A Mental Health Panel Discussion',
+    'Day 3 of Lusog Isip Serve 2024: PAKIKILALA - Where Do I Fit in a Workplace?',
+    'Day 2 of Lusog Isip Serve 2024: Muni-muni - A Mental Health Podcast',
+    'Day 1 of Lusog Isip Serve 2024: PAGKAUNAWA - The Basics of Mental Health',
+    'Kumustahan Session with iTamaraws',
+    'Freshmen Psychological Testing Program',
+    'Unlocking Potential: The Art of Self-management (Elite Scholars Edition)',
+];
+
+$eventAttendance = [];
+foreach ($programAttendance as $index => $attendance) {
+    foreach ($eventNames as $eventIndex => $eventName) {
+        $eventAttendance[] = [
+            'event' => $eventName,
+            'college' => $attendance['college'],
+            'program' => $attendance['program'],
+            'attendees' => max(20, (int) round($attendance['attendees'] * (0.24 + (($eventIndex + $index) % 5) * 0.03))),
+        ];
+    }
+}
 
 $currentSchoolYear = 'SY 2026-2027';
 $totalTermAppointments = array_sum(array_column($terms, 'total'));

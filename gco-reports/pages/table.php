@@ -4,7 +4,7 @@ $reportPage = 'tabular';
 ?>
 
 <link href="/assets/plugins/custom/datatables/datatables.bundle.css" rel="stylesheet" type="text/css">
-<link href="/gco-reports/assets/css/gco-reports.css?v=7" rel="stylesheet" type="text/css">
+<link href="/gco-reports/assets/css/gco-reports.css?v=8" rel="stylesheet" type="text/css">
 
 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-5 mb-10">
   <div>
@@ -217,14 +217,84 @@ $summaryCards = [
       <div class="card-body p-0">
         <div class="table-responsive">
           <table id="gco_specialist_table" class="table table-row-bordered gy-5 gs-7 w-100 mb-0">
-            <thead><tr class="fw-semibold fs-6 text-gray-500 bg-light"><th>Specialist</th><th>Role</th><th>Total</th><th>Face to Face</th><th>Online</th></tr></thead>
+            <thead><tr class="fw-semibold fs-6 text-gray-500 bg-light"><th>Specialist</th><th>Number of Appointments</th><th>Rating</th></tr></thead>
             <tbody>
               <?php foreach ($specialists as $specialist): ?>
-                <tr><td><?= safe($specialist['name']) ?></td><td><?= safe($specialist['role']) ?></td><td class="fw-bold"><?= safe($specialist['total']) ?></td><td class="fw-bold"><?= safe($specialist['face_to_face']) ?></td><td class="fw-bold"><?= safe($specialist['online']) ?></td></tr>
+                <tr><td><?= safe($specialist['name']) ?></td><td class="fw-bold"><?= safe($specialist['total']) ?></td><td><span class="d-inline-flex align-items-center gap-2 fw-bold text-nowrap"><span class="text-warning">★</span><?= safe(number_format($specialist['rating'], 1)) ?>/5</span></td></tr>
               <?php endforeach; ?>
+              <tr class="fw-bold bg-light"><td>Overall GCO</td><td><?= safe(array_sum(array_column($specialists, 'total'))) ?></td><td><span class="d-inline-flex align-items-center gap-2 text-nowrap"><span class="text-warning">★</span><?= safe(number_format($overallEvaluation['rating'], 1)) ?>/5</span></td></tr>
             </tbody>
-            <tfoot class="d-none"><tr><th>Specialist</th><th>Role</th><th>Total</th><th>Face to Face</th><th>Online</th></tr></tfoot>
+            <tfoot class="d-none"><tr><th>Specialist</th><th>Number of Appointments</th><th>Rating</th></tr></tfoot>
           </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="card card-bordered">
+      <div class="card-header">
+        <h3 class="card-title">Student Evaluation</h3>
+        <div class="card-toolbar gap-3">
+          <select id="gco_student_program_filter" class="form-select form-select-sm" data-control="select2" data-placeholder="All Programs">
+            <option value="">All Programs</option>
+            <?php foreach ($studentPrograms as $program): ?><option value="<?= safe($program) ?>"><?= safe($program) ?></option><?php endforeach; ?>
+          </select>
+          <button type="button" class="btn btn-sm btn-light-danger gco-table-export" data-table="gco_student_table">Export</button>
+          <div id="gco_student_table_buttons" class="d-none"></div>
+        </div>
+      </div>
+      <div class="card-body p-7"><div class="table-responsive">
+        <table id="gco_student_table" class="table table-row-bordered gy-5 gs-7 w-100 mb-0">
+          <thead><tr class="fw-semibold fs-6 text-gray-500 bg-light"><th>Student Number</th><th>Student</th><th>Program</th><th>Classification</th></tr></thead>
+          <tbody><?php foreach ($students as $student): ?><tr><td><?= safe($student['sn']) ?></td><td><?= safe($student['name']) ?></td><td><?= safe($student['program']) ?></td><td><span class="badge <?= $student['classification'] === 'Special Case' ? 'badge-light-danger' : 'badge-light-warning' ?>"><?= safe($student['classification']) ?></span></td></tr><?php endforeach; ?></tbody>
+          <tfoot class="d-none"><tr><th>Student Number</th><th>Student</th><th>Program</th><th>Classification</th></tr></tfoot>
+        </table>
+      </div></div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="card card-bordered">
+      <div class="card-header"><h3 class="card-title">Student Classification per Program</h3><div class="card-toolbar gap-3"><button type="button" class="btn btn-sm btn-light-danger gco-table-export" data-table="gco_classification_table">Export</button><div id="gco_classification_table_buttons" class="d-none"></div></div></div>
+      <div class="card-body p-0"><div class="table-responsive"><table id="gco_classification_table" class="table table-row-bordered gy-5 gs-7 w-100 mb-0">
+        <thead><tr class="fw-semibold fs-6 text-gray-500 bg-light"><th>Program</th><th><span class="bullet bullet-dot bg-gco-orange me-2"></span>Candidates</th><th><span class="bullet bullet-dot bg-gco-pink me-2"></span>Special Cases</th></tr></thead>
+        <tbody><?php foreach ($specialCaseSummary as $row): ?><tr><td><?= safe($row['name']) ?></td><td class="fw-bold"><?= safe($row['candidate']) ?></td><td class="fw-bold"><?= safe($row['special_case']) ?></td></tr><?php endforeach; ?></tbody>
+        <tfoot class="d-none"><tr><th>Program</th><th>Candidates</th><th>Special Cases</th></tr></tfoot>
+      </table></div></div>
+    </div>
+  </div>
+
+  <div class="col-12">
+    <div class="card card-bordered">
+      <div class="card-header"><div class="card-title flex-column align-items-start"><h3 class="fw-bold mb-2">Event Attendance</h3><span id="gco_attendance_selected_event" class="badge badge-light-primary text-start text-wrap lh-base"><?= safe($eventNames[0]) ?></span></div><div class="card-toolbar d-flex justify-content-end">
+        <select id="gco_attendance_event_filter" class="form-select form-select-sm w-350px" data-control="select2" aria-label="Select event"><?php foreach ($eventNames as $eventName): ?><option value="<?= safe($eventName) ?>"><?= safe($eventName) ?></option><?php endforeach; ?></select>
+      </div></div>
+      <div class="card-body">
+        <div class="row g-8">
+          <?php foreach (['CCSMA', 'COE'] as $college): ?>
+            <?php $tableId = 'gco_attendance_' . strtolower($college) . '_table'; ?>
+            <div class="col-lg-6">
+              <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="fw-bold text-gray-900 mb-0"><?= safe($college) ?></h4>
+                <button type="button" class="btn btn-sm btn-light-danger gco-table-export" data-table="<?= safe($tableId) ?>">Export</button>
+                <div id="<?= safe($tableId) ?>_buttons" class="d-none"></div>
+              </div>
+              <div class="table-responsive">
+                <table id="<?= safe($tableId) ?>" class="table table-row-bordered gy-5 gs-7 w-100 mb-0">
+                  <thead><tr class="fw-semibold fs-6 text-gray-500 bg-light"><th class="d-none">Event</th><th>Program</th><th>Attendees</th></tr></thead>
+                  <tbody>
+                    <?php foreach ($eventAttendance as $row): ?>
+                      <?php if ($row['college'] === $college): ?>
+                        <tr><td class="d-none"><?= safe($row['event']) ?></td><td><?= safe($row['program']) ?></td><td class="fw-bold"><?= safe($row['attendees']) ?></td></tr>
+                      <?php endif; ?>
+                    <?php endforeach; ?>
+                  </tbody>
+                  <tfoot class="d-none"><tr><th>Event</th><th>Program</th><th>Attendees</th></tr></tfoot>
+                </table>
+              </div>
+            </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
@@ -232,5 +302,5 @@ $summaryCards = [
 </div>
 
 <script src="/assets/plugins/custom/datatables/datatables.bundle.js" defer></script>
-<script src="/gco-reports/assets/js/gco-tabular.js?v=7" defer></script>
+<script src="/gco-reports/assets/js/gco-tabular.js?v=11" defer></script>
 <script src="/gco-reports/assets/js/gco-report-actions.js?v=7" defer></script>

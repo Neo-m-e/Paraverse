@@ -33,7 +33,7 @@
           if (file_exists($dropdown_partial)) {
             include($dropdown_partial);
           } else {
-            echo '<img src="/LAF/assets/images/catalina.webp" class="rounded-circle" style="width:40px;height:40px;" alt="user">';
+            echo '<img src="/gco-reports/assets/images/catalina.webp" class="rounded-circle" style="width:40px;height:40px;" alt="user">';
           }
           ?>
         </div>

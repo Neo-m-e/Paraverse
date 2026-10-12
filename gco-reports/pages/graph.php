@@ -3,7 +3,7 @@ require_once __DIR__ . '/data.php';
 $reportPage = 'graphs';
 ?>
 
-<link href="/gco-reports/assets/css/gco-reports.css?v=7" rel="stylesheet" type="text/css">
+<link href="/gco-reports/assets/css/gco-reports.css?v=8" rel="stylesheet" type="text/css">
 
 <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-end gap-5 mb-10">
   <div>
@@ -59,6 +59,9 @@ $chartData = [
   'schoolYears' => $schoolYears,
   'programs' => $programs,
   'totalTermAppointments' => $totalTermAppointments,
+  'specialCaseSummary' => $specialCaseSummary,
+  'eventAttendance' => $eventAttendance,
+  'overallEvaluation' => $overallEvaluation,
 ];
 ?>
 
@@ -162,14 +165,25 @@ $chartData = [
   <div class="col-xl-6">
     <div class="card card-bordered h-100">
       <div class="card-header"><h3 class="card-title">Appointments per Program</h3></div>
-      <div class="card-body"><div id="gco_program_chart" class="h-800px"></div></div>
+      <div class="card-body"><div id="gco_program_chart" class="h-650px"></div></div>
     </div>
   </div>
+
+  <div class="col-xl-6">
+    <div class="card card-bordered h-100">
+      <div class="card-header"><h3 class="card-title">Student Evaluation per Program</h3></div>
+      <div class="card-body"><div id="gco_student_evaluation_chart" class="h-450px"></div></div>
+    </div>
+  </div>
+
+  <div class="col-xl-6"><div class="card card-bordered"><div class="card-header"><h3 class="card-title">Customer Evaluation per Specialist</h3></div><div class="card-body"><div class="row bg-light py-3 px-4 mb-4 fw-semibold text-muted fs-7"><div class="col-4">Specialist</div><div class="col-5">Appointments</div><div class="col-3 text-end">Rating</div></div><div id="gco_evaluation_chart" class="h-350px"></div></div></div></div>
+
+  <div class="col-12"><div class="card card-bordered"><div class="card-header"><div class="card-title flex-column align-items-start"><h3 class="fw-bold mb-2">Event Attendance</h3><span id="gco_graph_selected_event" class="badge badge-light-primary text-start text-wrap lh-base"><?= safe($eventNames[0]) ?></span></div><div class="card-toolbar d-flex justify-content-end"><select id="gco_graph_event_filter" class="form-select form-select-sm w-350px" data-control="select2" aria-label="Select event"><?php foreach ($eventNames as $eventName): ?><option value="<?= safe($eventName) ?>"><?= safe($eventName) ?></option><?php endforeach; ?></select></div></div><div class="card-body"><div id="gco_attendance_chart" class="h-500px"></div></div></div></div>
 </div>
 
 <script src="https://cdn.amcharts.com/lib/5/index.js" defer></script>
 <script src="https://cdn.amcharts.com/lib/5/xy.js" defer></script>
 <script src="https://cdn.amcharts.com/lib/5/percent.js" defer></script>
 <script src="https://cdn.amcharts.com/lib/5/themes/Animated.js" defer></script>
-<script src="/gco-reports/assets/js/gco-graphs.js?v=8" defer></script>
+<script src="/gco-reports/assets/js/gco-graphs.js?v=14" defer></script>
 <script src="/gco-reports/assets/js/gco-report-actions.js?v=7" defer></script>
