@@ -36,6 +36,23 @@ $(function () {
     studentTable.column(2).search(this.value).draw();
   });
 
+  const purposeDataElement = document.getElementById('gco_appointment_purpose_data');
+  if (purposeDataElement) {
+    const purposeData = JSON.parse(purposeDataElement.textContent);
+    const serviceTypeTable = $('#gco_service_type_table').DataTable();
+
+    $('#gco_service_type_filter').on('change', function () {
+      const serviceType = this.value;
+      const rows = serviceType === 'all'
+        ? purposeData.serviceTypes
+        : purposeData.purposes[serviceType];
+
+      serviceTypeTable.clear().rows.add(rows.map(function (row) {
+        return [row.name, row.face_to_face, row.online, row.total];
+      })).draw();
+    });
+  }
+
   const attendanceTables = [
     $('#gco_attendance_ccsma_table').DataTable(),
     $('#gco_attendance_coe_table').DataTable()
@@ -47,6 +64,35 @@ $(function () {
       table.column(0).search(eventName).draw();
     });
   }).trigger('change');
+
+  const termTable = $('#gco_term_table').DataTable();
+  const schoolYearTable = $('#gco_school_year_table').DataTable();
+
+  function replaceReportRows(table, rows) {
+    table.clear();
+    table.rows.add(rows.map(function (row) {
+      return [row.name, row.face_to_face, row.online, row.total];
+    }));
+    table.draw();
+
+    const totals = rows.reduce(function (result, row) {
+      result.total += row.total;
+      result.faceToFace += row.face_to_face;
+      result.online += row.online;
+      return result;
+    }, { total: 0, faceToFace: 0, online: 0 });
+    $(table.table().footer()).find('th').eq(1).text(totals.faceToFace);
+    $(table.table().footer()).find('th').eq(2).text(totals.online);
+    $(table.table().footer()).find('th').eq(3).text(totals.total);
+  }
+
+  document.addEventListener('gco:termChanged', function (event) {
+    replaceReportRows(termTable, event.detail.rows);
+  });
+
+  document.addEventListener('gco:schoolYearChanged', function (event) {
+    replaceReportRows(schoolYearTable, event.detail.rows);
+  });
 
   document.querySelectorAll('.gco-table-export').forEach(function (button) {
     button.addEventListener('click', function () {

@@ -19,8 +19,14 @@ am5.ready(function () {
     ,red: am5.color(0xf1416c)
   };
 
+  const chartRoots = {};
+
   function createRoot(id) {
+    if (chartRoots[id]) {
+      chartRoots[id].dispose();
+    }
     const root = am5.Root.new(id);
+    chartRoots[id] = root;
 
     root.setThemes([
       am5themes_Animated.new(root)
@@ -164,6 +170,72 @@ am5.ready(function () {
     chart.appear(600, 100);
   }
 
+  function createServiceTypeChart(id, data) {
+    const root = createRoot(id);
+    const chart = root.container.children.push(am5xy.XYChart.new(root, {
+      panX: false,
+      panY: false,
+      wheelX: "none",
+      wheelY: "none",
+      layout: root.verticalLayout
+    }));
+
+    const yRenderer = am5xy.AxisRendererY.new(root, { inversed: true, minGridDistance: 30 });
+    yRenderer.grid.template.set("visible", false);
+    yRenderer.labels.template.setAll({
+      fontSize: 10,
+      fill: colors.dark,
+      width: 180,
+      paddingRight: 15,
+      textAlign: "left",
+      oversizedBehavior: "wrap"
+    });
+    const yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+      categoryField: "name",
+      renderer: yRenderer
+    }));
+    yAxis.data.setAll(data);
+
+    const xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 30 });
+    xRenderer.labels.template.setAll({ fontSize: 10, fill: colors.muted });
+    xRenderer.grid.template.setAll({ stroke: colors.grid, strokeOpacity: 0.7 });
+    const xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, { min: 0, renderer: xRenderer }));
+
+    function addSeries(name, field, color) {
+      const series = chart.series.push(am5xy.ColumnSeries.new(root, {
+        name: name,
+        xAxis: xAxis,
+        yAxis: yAxis,
+        valueXField: field,
+        categoryYField: "name",
+        tooltip: am5.Tooltip.new(root, { labelText: "{name}: {valueX}" })
+      }));
+      series.columns.template.setAll({ fill: color, stroke: color, height: am5.percent(65) });
+      series.bullets.push(function () {
+        return am5.Bullet.new(root, {
+          locationX: 1,
+          sprite: am5.Label.new(root, {
+            text: "{valueX}",
+            populateText: true,
+            centerY: am5.p50,
+            dx: 8,
+            fontSize: 10,
+            fontWeight: "600",
+            fill: colors.dark
+          })
+        });
+      });
+      series.data.setAll(data);
+      series.appear(600);
+      return series;
+    }
+
+    const f2f = addSeries("Face to Face", "face_to_face", colors.orange);
+    const online = addSeries("Online", "online", colors.purple);
+    addLegend(root, chart, [f2f, online]);
+    chart.appear(600, 100);
+  }
+
   // Donut charts
   function createDonut(id, data, palette, holeRadius) {
     const root = createRoot(id);
@@ -209,49 +281,52 @@ am5.ready(function () {
     return root;
   }
 
-  // School Year solid pie chart
-  function createSchoolYearPie(id, data) {
+  // School Year monthly column chart
+  function createSchoolYearChart(id, data) {
     const root = createRoot(id);
-
     const chart = root.container.children.push(
-      am5percent.PieChart.new(root, {
+      am5xy.XYChart.new(root, {
+        panX: false,
+        panY: false,
+        wheelX: "none",
+        wheelY: "none",
         layout: root.verticalLayout
       })
     );
-
-    const series = chart.series.push(
-      am5percent.PieSeries.new(root, {
-        alignLabels: false,
-        calculateAggregates: true,
-        valueField: "value",
-        categoryField: "category"
-      })
-    );
-
-    series.labels.template.set("visible", false);
-    series.ticks.template.set("visible", false);
-
-    series.slices.template.setAll({
-      strokeWidth: 0,
-      strokeOpacity: 0,
-      tooltipText: "{category}: {value}"
-    });
-
-    series.get("colors").set("colors", [
-      colors.orange,
-      colors.pink,
-      colors.purple
-    ]);
-
-    const schoolYearData = data.map(function (item) {
+    const xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 25 });
+    xRenderer.grid.template.set("visible", false);
+    xRenderer.labels.template.setAll({ fontSize: 10, fill: colors.muted });
+    const xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(root, { categoryField: "name", renderer: xRenderer }));
+    const termColors = [colors.orange, colors.pink, colors.purple];
+    const chartData = data.map(function (item, index) {
+      const columnColor = termColors[Math.floor(index / 4)];
       return {
-        value: item.total,
-        category: item.name
+        name: item.name.substring(0, 3),
+        fullName: item.name,
+        total: item.total,
+        columnSettings: { fill: columnColor, stroke: columnColor }
       };
     });
-
-    series.data.setAll(schoolYearData);
-    series.appear(1000, 100);
+    xAxis.data.setAll(chartData);
+    const yRenderer = am5xy.AxisRendererY.new(root, {});
+    yRenderer.labels.template.setAll({ fontSize: 10, fill: colors.muted });
+    yRenderer.grid.template.setAll({ stroke: colors.grid, strokeOpacity: 0.7 });
+    const yAxis = chart.yAxes.push(am5xy.ValueAxis.new(root, { min: 0, renderer: yRenderer }));
+    const series = chart.series.push(am5xy.ColumnSeries.new(root, {
+      name: "Appointments",
+      xAxis: xAxis,
+      yAxis: yAxis,
+      valueYField: "total",
+      categoryXField: "name",
+      tooltip: am5.Tooltip.new(root, { labelText: "{fullName}: {valueY}" })
+    }));
+    series.columns.template.setAll({ templateField: "columnSettings", cornerRadiusTL: 4, cornerRadiusTR: 4 });
+    series.bullets.push(function () {
+      return am5.Bullet.new(root, { locationY: 1, sprite: am5.Label.new(root, { text: "{valueY}", populateText: true, centerX: am5.p50, centerY: am5.p100, dy: -5, fontSize: 10, fontWeight: "600", fill: colors.dark }) });
+    });
+    series.data.setAll(chartData);
+    series.appear(600);
+    chart.appear(600, 100);
   }
 
   // Appointments per Program
@@ -536,12 +611,16 @@ am5.ready(function () {
     chart.appear(600, 100);
   }
 
-  // Create Service Type chart
-  createColumnChart(
-    "gco_service_type_chart",
-    reportData.serviceTypes,
-    false
-  );
+  function drawServiceTypes() {
+    const serviceType = document.getElementById("gco_graph_service_type_filter").value;
+    const rows = serviceType === "all"
+      ? reportData.serviceTypes
+      : reportData.appointmentPurposes[serviceType];
+    createServiceTypeChart("gco_service_type_chart", rows);
+  }
+
+  $("#gco_graph_service_type_filter").on("change", drawServiceTypes);
+  drawServiceTypes();
 
   // Create Specialist chart
   createColumnChart(
@@ -589,29 +668,38 @@ am5.ready(function () {
   });
 
   // Create Term chart
-  const termData = reportData.terms.map(function (item) {
-    return {
-      name: item.name,
-      value: item.total
-    };
-  });
+  function renderTermChart(data) {
+    createDonut(
+      "gco_term_chart",
+      data.map(function (item) { return { name: item.name, value: item.total }; }),
+      [colors.orange, colors.pink, colors.purple, am5.color(0x41b5e8)],
+      65
+    );
+    const total = data.reduce(function (sum, item) { return sum + item.total; }, 0);
+    $('#gco_term_total').text(total.toLocaleString());
+    data.forEach(function (item, index) {
+      $('#gco_term_name_' + index).text(item.name);
+      $('#gco_term_value_' + index).text(item.total.toLocaleString());
+    });
+  }
 
-  createDonut(
-    "gco_term_chart",
-    termData,
-    [
-      colors.orange,
-      colors.pink,
-      colors.purple
-    ],
-    65
-  );
+  renderTermChart(reportData.terms);
 
   // Create School Year chart
-  createSchoolYearPie(
+  createSchoolYearChart(
     "gco_school_year_chart",
     reportData.schoolYears
   );
+
+  document.addEventListener('gco:termChanged', function (event) {
+    renderTermChart(event.detail.rows);
+  });
+
+  document.addEventListener('gco:schoolYearChanged', function (event) {
+    createSchoolYearChart('gco_school_year_chart', event.detail.rows);
+    const total = event.detail.rows.reduce(function (sum, item) { return sum + item.total; }, 0);
+    $('#gco_school_year_total').text(total.toLocaleString());
+  });
 
   // Create Program chart
   createProgramChart(
@@ -625,39 +713,56 @@ am5.ready(function () {
   createSpecialistSummaryChart("gco_evaluation_chart", evaluationData);
   createStudentEvaluationChart("gco_student_evaluation_chart", reportData.specialCaseSummary);
 
-  let attendanceRoot;
   function drawAttendance() {
-    if (attendanceRoot) {
-      attendanceRoot.dispose();
-    }
     const eventName = document.getElementById("gco_graph_event_filter").value;
     document.getElementById("gco_graph_selected_event").textContent = eventName;
     const filtered = reportData.eventAttendance.filter(function (item) {
       return !eventName || item.event === eventName;
     });
-    const grouped = [];
-    filtered.forEach(function (item) {
-      let row = grouped.find(function (entry) { return entry.program === item.program; });
-      if (!row) {
-        row = { program: item.program, college: item.college, ccsma: 0, coe: 0 };
-        grouped.push(row);
-      }
-      row[item.college.toLowerCase()] += item.attendees;
-    });
-    attendanceRoot = createRoot("gco_attendance_chart");
-    const chart = attendanceRoot.container.children.push(am5xy.XYChart.new(attendanceRoot, { panX: false, panY: false, wheelX: "none", wheelY: "none", layout: attendanceRoot.verticalLayout }));
-    const xAxis = chart.xAxes.push(am5xy.CategoryAxis.new(attendanceRoot, { categoryField: "program", renderer: am5xy.AxisRendererX.new(attendanceRoot, { minGridDistance: 30 }) }));
-    xAxis.data.setAll(grouped);
-    const yAxis = chart.yAxes.push(am5xy.ValueAxis.new(attendanceRoot, { min: 0, renderer: am5xy.AxisRendererY.new(attendanceRoot, {}) }));
-    function addAttendanceSeries(name, field, color) {
-      const series = chart.series.push(am5xy.ColumnSeries.new(attendanceRoot, { name: name, xAxis: xAxis, yAxis: yAxis, valueYField: field, categoryXField: "program", tooltip: am5.Tooltip.new(attendanceRoot, { labelText: "{name} - {categoryX}: {valueY}" }) }));
-      series.columns.template.setAll({ fill: color, stroke: color, cornerRadiusTL: 4, cornerRadiusTR: 4 });
-      series.data.setAll(grouped);
-      return series;
+
+    function createProgramPie(id, college, palette) {
+      const root = createRoot(id);
+      const chart = root.container.children.push(am5percent.PieChart.new(root, { innerRadius: 0 }));
+      const series = chart.series.push(am5percent.PieSeries.new(root, {
+        valueField: "value",
+        categoryField: "name"
+      }));
+      series.slices.template.setAll({
+        templateField: "sliceSettings",
+        stroke: colors.white,
+        strokeWidth: 2,
+        tooltipText: "{category}: {value} attendees ({valuePercentTotal.formatNumber('0.0')}%)"
+      });
+      series.labels.template.setAll({
+        text: "{category}: {value}",
+        fontSize: 10,
+        fill: colors.dark,
+        maxWidth: 130,
+        oversizedBehavior: "truncate"
+      });
+      const chartData = filtered.filter(function (item) {
+        return item.college === college;
+      }).map(function (item, index) {
+        return {
+          name: item.program,
+          value: item.attendees,
+          sliceSettings: { fill: palette[index % palette.length], stroke: colors.white }
+        };
+      });
+      series.data.setAll(chartData);
+      series.appear(600, 100);
     }
-    const ccsma = addAttendanceSeries("CCSMA", "ccsma", colors.green);
-    const coe = addAttendanceSeries("COE", "coe", colors.purple);
-    addLegend(attendanceRoot, chart, [ccsma, coe]);
+
+    const programPalette = [
+      colors.orange,
+      colors.pink,
+      colors.green,
+      colors.purple,
+      am5.color(0x41b5e8)
+    ];
+
+    createProgramPie("gco_attendance_ccsma_chart", "CCSMA", programPalette);
+    createProgramPie("gco_attendance_coe_chart", "COE", programPalette);
   }
   $("#gco_graph_event_filter").on("change", drawAttendance);
   drawAttendance();

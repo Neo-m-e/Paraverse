@@ -20,8 +20,42 @@ $reportSummary = [
     'total' => 486,
     'face_to_face' => 298,
     'online' => 188,
-    'upcoming' => 12,
+    'pending' => 12,
     'change' => '12.4%',
+];
+
+$schoolYearOptions = ['2024-2025', '2025-2026', '2026-2027'];
+$selectedSchoolYear = $_GET['sy'] ?? '2026-2027';
+if (!in_array($selectedSchoolYear, $schoolYearOptions, true)) {
+    $selectedSchoolYear = '2026-2027';
+}
+
+$termOptions = [
+    '2024-2025' => ['1TSY2425', '2TSY2425', '3TSY2425'],
+    '2025-2026' => ['1TSY2526', '2TSY2526', '3TSY2526'],
+    '2026-2027' => ['1TSY2627', '2TSY2627', '3TSY2627'],
+];
+$selectedTerm = $_GET['term'] ?? $termOptions[$selectedSchoolYear][0];
+if (!in_array($selectedTerm, $termOptions[$selectedSchoolYear], true)) {
+    $selectedTerm = $termOptions[$selectedSchoolYear][0];
+}
+
+$termData = [
+    '1TSY2425' => [['September', 88], ['October', 104], ['November', 101], ['December', 98]],
+    '2TSY2425' => [['January', 96], ['February', 102], ['March', 119], ['April', 111]],
+    '3TSY2425' => [['May', 69], ['June', 74], ['July', 81], ['August', 78]],
+    '1TSY2526' => [['September', 101], ['October', 113], ['November', 122], ['December', 111]],
+    '2TSY2526' => [['January', 108], ['February', 110], ['March', 126], ['April', 119]],
+    '3TSY2526' => [['May', 77], ['June', 82], ['July', 91], ['August', 85]],
+    '1TSY2627' => [['September', 110], ['October', 125], ['November', 132], ['December', 119]],
+    '2TSY2627' => [['January', 118], ['February', 121], ['March', 139], ['April', 134]],
+    '3TSY2627' => [['May', 83], ['June', 89], ['July', 96], ['August', 90]],
+];
+
+$schoolYearData = [
+    '2024-2025' => [88, 104, 101, 98, 96, 102, 119, 111, 69, 74, 81, 78],
+    '2025-2026' => [101, 113, 122, 111, 108, 110, 126, 119, 77, 82, 91, 85],
+    '2026-2027' => [110, 125, 132, 119, 118, 121, 139, 134, 83, 89, 96, 90],
 ];
 
 $serviceTypes = [
@@ -31,6 +65,47 @@ $serviceTypes = [
     ['name' => 'Counseling', 'total' => 150, 'face_to_face' => 83, 'online' => 67],
 ];
 
+$appointmentPurposes = [
+    'Interview' => [
+        ['name' => 'Student Leader Interview', 'count' => 28],
+        ['name' => 'Request for Recommendation', 'count' => 22],
+        ['name' => 'Kumustahan Session or Student Routine Interview', 'count' => 31],
+        ['name' => 'Student Routine Interview and Test Results Discussion', 'count' => 24],
+        ['name' => 'Others', 'count' => 10],
+    ],
+    'Psychological Test Administration' => [
+        ['name' => 'Referred by Counselor', 'count' => 38],
+        ['name' => 'Invitation from GCO Activity', 'count' => 41],
+        ['name' => 'Others', 'count' => 13],
+    ],
+    'Consultation' => [
+        ['name' => 'Mental Health Support', 'count' => 24],
+        ['name' => 'Social Adjustment', 'count' => 13],
+        ['name' => 'Peer Relationships', 'count' => 12],
+        ['name' => 'Family Dynamics', 'count' => 14],
+        ['name' => 'Relationship Development', 'count' => 11],
+        ['name' => 'Academic Support', 'count' => 18],
+        ['name' => 'Bereavement', 'count' => 7],
+        ['name' => 'Occupational Problems', 'count' => 8],
+        ['name' => 'Legal Problems', 'count' => 4],
+        ['name' => 'Consultation and Test Results Discussion', 'count' => 13],
+        ['name' => 'Others', 'count' => 5],
+    ],
+    'Counseling' => [
+        ['name' => 'Mental Health Support', 'count' => 31],
+        ['name' => 'Social Adjustment', 'count' => 15],
+        ['name' => 'Peer Relationships', 'count' => 14],
+        ['name' => 'Family Dynamics', 'count' => 17],
+        ['name' => 'Relationship Development', 'count' => 13],
+        ['name' => 'Academic Support', 'count' => 20],
+        ['name' => 'Bereavement', 'count' => 8],
+        ['name' => 'Occupational Problems', 'count' => 9],
+        ['name' => 'Legal Problems', 'count' => 5],
+        ['name' => 'Counseling and Test Results Discussion', 'count' => 12],
+        ['name' => 'Others', 'count' => 6],
+    ],
+];
+
 $yearLevels = [
     ['name' => '1st Year', 'total' => 120, 'face_to_face' => 78, 'online' => 42],
     ['name' => '2nd Year', 'total' => 138, 'face_to_face' => 82, 'online' => 56],
@@ -38,17 +113,18 @@ $yearLevels = [
     ['name' => '4th Year', 'total' => 107, 'face_to_face' => 65, 'online' => 42],
 ];
 
-$terms = [
-    ['name' => 'First Term', 'total' => 486, 'face_to_face' => 298, 'online' => 188],
-    ['name' => 'Second Term', 'total' => 315, 'face_to_face' => 195, 'online' => 120],
-    ['name' => 'Third Term', 'total' => 216, 'face_to_face' => 134, 'online' => 82],
-];
+$terms = [];
+foreach ($termData[$selectedTerm] as [$month, $total]) {
+    $faceToFace = (int) round($total * 0.62);
+    $terms[] = ['name' => $month, 'total' => $total, 'face_to_face' => $faceToFace, 'online' => $total - $faceToFace];
+}
 
-$schoolYears = [
-    ['name' => '2024-2025', 'total' => 341, 'face_to_face' => 212, 'online' => 129],
-    ['name' => '2025-2026', 'total' => 410, 'face_to_face' => 251, 'online' => 159],
-    ['name' => '2026-2027', 'total' => 436, 'face_to_face' => 268, 'online' => 168],
-];
+$schoolYears = [];
+$schoolYearMonths = ['September', 'October', 'November', 'December', 'January', 'February', 'March', 'April', 'May', 'June', 'July', 'August'];
+foreach ($schoolYearData[$selectedSchoolYear] as $index => $total) {
+    $faceToFace = (int) round($total * 0.62);
+    $schoolYears[] = ['name' => $schoolYearMonths[$index], 'total' => $total, 'face_to_face' => $faceToFace, 'online' => $total - $faceToFace];
+}
 
 $programs = [
     ['name' => 'BSITDA', 'face_to_face' => 26, 'online' => 16, 'not_booked' => 126, 'students' => 168],
@@ -206,5 +282,55 @@ foreach ($programAttendance as $index => $attendance) {
     }
 }
 
-$currentSchoolYear = 'SY 2026-2027';
+$schoolYearFactor = ['2024-2025' => 0.82, '2025-2026' => 0.91, '2026-2027' => 1.0][$selectedSchoolYear];
+$reportSummary['total'] = array_sum(array_column($terms, 'total'));
+$reportSummary['face_to_face'] = array_sum(array_column($terms, 'face_to_face'));
+$reportSummary['online'] = array_sum(array_column($terms, 'online'));
+$reportSummary['pending'] = max(1, (int) round(12 * $schoolYearFactor));
+$reportSummary['change'] = ['2024-2025' => '8.1%', '2025-2026' => '10.3%', '2026-2027' => '12.4%'][$selectedSchoolYear];
+
+$reportCollections = [&$serviceTypes, &$yearLevels];
+foreach ($reportCollections as &$reportRows) {
+    foreach ($reportRows as &$reportRow) {
+        foreach (['total', 'face_to_face', 'online'] as $field) {
+            $reportRow[$field] = (int) round($reportRow[$field] * $schoolYearFactor);
+        }
+    }
+}
+unset($reportCollections, $reportRows, $reportRow);
+
+foreach ($specialists as &$specialist) {
+    foreach (['total', 'face_to_face', 'online'] as $field) {
+        $specialist[$field] = (int) round($specialist[$field] * $schoolYearFactor);
+    }
+}
+unset($specialist);
+
+foreach ($appointmentPurposes as &$purposeRows) {
+    foreach ($purposeRows as &$purposeRow) {
+        $purposeRow['total'] = (int) round($purposeRow['count'] * $schoolYearFactor);
+        $purposeRow['face_to_face'] = (int) round($purposeRow['total'] * 0.62);
+        $purposeRow['online'] = $purposeRow['total'] - $purposeRow['face_to_face'];
+        unset($purposeRow['count']);
+    }
+}
+unset($purposeRows, $purposeRow);
+
+foreach ($programs as &$program) {
+    foreach (['face_to_face', 'online', 'not_booked', 'students'] as $field) {
+        $program[$field] = (int) round($program[$field] * $schoolYearFactor);
+    }
+}
+unset($program);
+
+$currentSchoolYear = 'SY ' . $selectedSchoolYear;
+$currentTerm = $selectedTerm;
 $totalTermAppointments = array_sum(array_column($terms, 'total'));
+$totalSchoolYearAppointments = array_sum(array_column($schoolYears, 'total'));
+
+$filterData = [
+    'termOptions' => $termOptions,
+    'termData' => $termData,
+    'schoolYearData' => $schoolYearData,
+    'schoolYearMonths' => $schoolYearMonths,
+];
