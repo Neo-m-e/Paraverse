@@ -611,16 +611,62 @@ am5.ready(function () {
     chart.appear(600, 100);
   }
 
-  function drawServiceTypes() {
-    const serviceType = document.getElementById("gco_graph_service_type_filter").value;
-    const rows = serviceType === "all"
-      ? reportData.serviceTypes
-      : reportData.appointmentPurposes[serviceType];
-    createServiceTypeChart("gco_service_type_chart", rows);
+  // Overall service type comparison: stacked horizontal bars, distinct from grouped purpose charts.
+  function createOverallServiceChart(id, data) {
+    const root = createRoot(id);
+    const chart = root.container.children.push(am5xy.XYChart.new(root, {
+      panX: false, panY: false, wheelX: "none", wheelY: "none",
+      layout: root.verticalLayout, paddingRight: 40
+    }));
+    const yRenderer = am5xy.AxisRendererY.new(root, { inversed: true, minGridDistance: 35 });
+    yRenderer.grid.template.set("visible", false);
+    yRenderer.labels.template.setAll({ fontSize: 12, fill: colors.dark, width: 225,
+      oversizedBehavior: "wrap", textAlign: "left", paddingRight: 12 });
+    const yAxis = chart.yAxes.push(am5xy.CategoryAxis.new(root, {
+      categoryField: "name", renderer: yRenderer
+    }));
+    yAxis.data.setAll(data);
+    const xRenderer = am5xy.AxisRendererX.new(root, { minGridDistance: 35 });
+    xRenderer.labels.template.setAll({ fontSize: 11, fill: colors.muted });
+    xRenderer.grid.template.setAll({ stroke: colors.grid, strokeOpacity: 0.5 });
+    const xAxis = chart.xAxes.push(am5xy.ValueAxis.new(root, {
+      min: 0, extraMax: 0.12, renderer: xRenderer
+    }));
+    function segment(name, field, color, showTotal) {
+      const series = chart.series.push(am5xy.ColumnSeries.new(root, {
+        name: name, xAxis: xAxis, yAxis: yAxis, stacked: true,
+        valueXField: field, categoryYField: "name",
+        tooltip: am5.Tooltip.new(root, { labelText: "{categoryY} · {name}: {valueX}" })
+      }));
+      series.columns.template.setAll({ fill: color, stroke: color, height: am5.percent(55) });
+      series.bullets.push(function () {
+        return am5.Bullet.new(root, { locationX: 0.5, sprite: am5.Label.new(root, {
+          text: "{valueX}", populateText: true, centerX: am5.p50, centerY: am5.p50,
+          fill: colors.white, fontSize: 11, fontWeight: "600"
+        }) });
+      });
+      if (showTotal) {
+        series.bullets.push(function () {
+          return am5.Bullet.new(root, { locationX: 1, sprite: am5.Label.new(root, {
+            text: "{total}", populateText: true, dx: 10, centerY: am5.p50,
+            fill: colors.dark, fontSize: 12, fontWeight: "600"
+          }) });
+        });
+      }
+      series.data.setAll(data);
+      series.appear(500);
+    }
+    segment("Face-to-Face", "face_to_face", colors.orange, false);
+    segment("Online", "online", colors.purple, true);
+    chart.appear(500, 100);
   }
 
-  $("#gco_graph_service_type_filter").on("change", drawServiceTypes);
-  drawServiceTypes();
+  createOverallServiceChart("gco_service_overall_chart", reportData.serviceTypes);
+
+  // Four dedicated purpose charts; retain the existing amCharts grouped-bar renderer.
+  Object.keys(reportData.appointmentPurposes).forEach(function (serviceType, index) {
+    createServiceTypeChart("gco_service_purpose_" + index, reportData.appointmentPurposes[serviceType]);
+  });
 
   // Create Specialist chart
   createColumnChart(

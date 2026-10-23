@@ -75,27 +75,40 @@ $chartData = [
 <script type="application/json" id="gco_filter_data"><?= jsonForHtml($filterData) ?></script>
 
 <div class="row g-5 g-xl-8">
-  <div class="col-xl-6">
+  <div class="col-12 col-xl-6">
     <div class="card card-bordered h-100">
-      <div class="card-header">
-        <h3 class="card-title">Appointment Service Type</h3>
-        <div class="card-toolbar ms-auto">
-          <select id="gco_graph_service_type_filter" class="form-select form-select-sm w-250px" data-control="select2" aria-label="Filter service type or appointment purpose">
-            <option value="all">All</option>
-            <?php foreach (array_keys($appointmentPurposes) as $serviceType): ?>
-              <option value="<?= htmlspecialchars($serviceType, ENT_QUOTES, 'UTF-8') ?>"><?= htmlspecialchars($serviceType, ENT_QUOTES, 'UTF-8') ?></option>
-            <?php endforeach; ?>
-          </select>
-        </div>
+      <div class="card-header"><h3 class="card-title">Appointment Service Type</h3></div>
+      <div class="card-body d-flex flex-column">
+        <h4 class="fw-bold text-gray-900 mb-1">Overall Service Type Comparison</h4>
+        <div class="text-muted fs-7 mb-3">Face-to-Face and Online appointments across all service types</div>
+        <div class="d-flex flex-wrap gap-4 fs-7 fw-semibold text-gray-600 mb-3"><span><span class="bullet me-2" style="background:#ff4621"></span>Face-to-Face</span><span><span class="bullet me-2" style="background:#7c3bea"></span>Online</span></div>
+        <div id="gco_service_overall_chart" class="flex-grow-1" style="height:360px;min-height:360px" role="img" aria-label="Stacked horizontal chart comparing face-to-face and online appointments by service type"></div>
       </div>
-      <div class="card-body"><div id="gco_service_type_chart" class="h-350px"></div></div>
     </div>
   </div>
-
-  <div class="col-xl-6">
+  <div class="col-12 col-xl-6">
     <div class="card card-bordered h-100">
       <div class="card-header"><h3 class="card-title">Appointments per Specialist</h3></div>
-      <div class="card-body"><div id="gco_specialist_chart" class="h-350px"></div></div>
+      <div class="card-body"><div id="gco_specialist_chart" class="h-450px"></div></div>
+    </div>
+  </div>
+  <div class="col-12">
+    <div class="card card-bordered">
+      <div class="card-header"><h3 class="card-title">Appointment Purposes by Service Type</h3></div>
+      <div class="card-body">
+        <div class="row g-5">
+          <?php foreach ($appointmentPurposes as $serviceType => $purposeRows): ?>
+            <?php $chartId = 'gco_service_purpose_' . array_search($serviceType, array_keys($appointmentPurposes), true); ?>
+            <div class="col-12 col-xl-6">
+              <div class="border border-gray-300 border-dashed rounded p-4 h-100">
+                <h4 class="fs-5 fw-semibold text-gray-800 mb-1"><?= htmlspecialchars($serviceType, ENT_QUOTES, 'UTF-8') ?></h4>
+                <div class="text-muted fs-7 mb-3">Purpose breakdown · Face-to-Face vs Online</div>
+                <div id="<?= htmlspecialchars($chartId, ENT_QUOTES, 'UTF-8') ?>" style="height: <?= max(260, count($purposeRows) * 56 + 95) ?>px;"></div>
+              </div>
+            </div>
+          <?php endforeach; ?>
+        </div>
+      </div>
     </div>
   </div>
 
