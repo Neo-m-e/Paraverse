@@ -140,28 +140,158 @@ $META_DESC = $gcoData['meta']['description'];
 
 <head>
   <?php HEAD_ESSENTIALS(); ?>
-  <!-- Existing GCO brand styles -->
   <link rel="stylesheet"
     href="<?php echo htmlspecialchars($GCO_BASE); ?>assets/css/gco-design.css?v=<?php echo time(); ?>"
     type="text/css" />
 
-  <!-- Swiper CSS (no local bundle — CDN only) -->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
-  <script src="https://unpkg.com/@lottiefiles/dotlottie-wc@0.9.3/dist/dotlottie-wc.js" type="module"></script>
 
   <style>
-    .hero-lottie-asset {
-      width: 950px;
-      height: 660px;
-      position: absolute;
-      right: -190px;
-      bottom: -125px;
-      pointer-events: none;
-      z-index: 0;
+    .hero-visual {
+      z-index: 1;
     }
 
-    /* Keep the hero typography compact so it fits beside the animation.
-       Scoped only to this section to avoid changing the other landing sections. */
+    .hero-art {
+      width: 760px;
+      height: 610px;
+      position: absolute;
+      right: -95px;
+      bottom: -100px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .hero-head {
+      position: absolute;
+      width: 610px;
+      height: auto;
+      right: 65px;
+      bottom: 15px;
+      z-index: 2;
+      display: block;
+    }
+
+    .hero-floating-icon,
+    .hero-gear {
+      position: absolute;
+      display: grid;
+      place-items: center;
+      line-height: 1;
+      z-index: 3;
+    }
+
+    .hero-floating-icon {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      background: #fff;
+      color: #ed695f;
+      font-size: 2.5rem;
+      text-align: center;
+      box-shadow: 0 12px 30px rgba(116, 27, 63, .12);
+    }
+
+    .hero-floating-icon img {
+      width: 58px;
+      height: 58px;
+      display: block;
+    }
+
+    .hero-heart-icon {
+      left: 80px;
+      top: 280px;
+      width: 102px;
+      height: 102px;
+      font-size: 2.9rem;
+      z-index: 4;
+      animation: hero-float 4s ease-in-out infinite;
+    }
+
+    .hero-plus-icon {
+      right: 100px;
+      top: 420px;
+      width: 102px;
+      height: 102px;
+      font-size: 3rem;
+      z-index: 4;
+      animation: hero-float 4.5s ease-in-out .5s infinite reverse;
+    }
+
+    .hero-gear {
+      color: #8f1747;
+      width: 200px;
+      height: 200px;
+      opacity: .95;
+      animation: hero-rotate 12s linear infinite;
+      z-index: 1;
+    }
+
+    .hero-gear-left {
+      left: 90px;
+      top: 50px;
+    }
+
+    .hero-gear-right {
+      right: 12px;
+      top: 159px;
+      width: 200px;
+      height: 200px;
+      animation-direction: reverse;
+    }
+
+    .hero-leaves {
+      position: absolute;
+      width: 400px;
+      height: 459px;
+      z-index: 2;
+      transform-origin: 50% 100%;
+      animation: hero-leaf-rotate 8s ease-in-out infinite;
+    }
+
+    .hero-leaves-left {
+      left: -15px;
+      top: 200px;
+    }
+
+    .hero-leaves-right {
+      right: -80px;
+      bottom: -50px;
+      animation-delay: -3s;
+    }
+
+    .hero-leaf-light {
+      position: absolute;
+      width: 400px;
+      height: 500px;
+      left: 10px;
+      top: 100px;
+      z-index: 1;
+      transform: rotate(-22deg);
+      transform-origin: 50% 100%;
+      animation: hero-leaf-rotate 8s ease-in-out -2s infinite;
+    }
+
+    .hero-leaf-light-right {
+      left: auto;
+      right: -30px;
+      transform: scaleX(-1) rotate(-22deg);
+      animation-delay: -4s;
+    }
+
+    @keyframes hero-float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-12px); }
+    }
+
+    @keyframes hero-rotate {
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes hero-leaf-rotate {
+      0%, 100% { transform: rotate(-4deg); }
+      50% { transform: rotate(4deg); }
+    }
+
     .hero-copy h1,
     .hero-copy h1[class*="fs-"] {
       font-size: clamp(2rem, 2.7vw, 2.5rem) !important;
@@ -218,46 +348,37 @@ $META_DESC = $gcoData['meta']['description'];
       background-color: var(--bs-primary);
     }
 
-    @media (max-width: 1400px) {
-      .hero-lottie-asset {
-        width: 760px;
-        height: 530px;
-        right: -130px;
-        bottom: -115px;
-      }
-    }
-
-    @media (max-width: 1200px) {
-      .hero-lottie-asset {
-        width: 680px;
-        height: 475px;
-        right: -60px;
-        bottom: -110px;
-      }
-    }
-
     @media (max-width: 991px) {
-      .hero-lottie-asset {
+      .hero-art {
         position: relative;
-        width: 100%;
-        max-width: 450px;
-        height: auto;
+        width: 620px;
+        max-width: 120vw;
+        height: 500px;
         right: 0;
         bottom: 0;
         margin: 30px auto -120px;
         display: block;
       }
 
+      .hero-head {
+        width: 500px;
+        right: 55px;
+      }
+
+      .hero-floating-icon {
+        transform: scale(.8);
+      }
+
       .min-h-600px {
         min-height: auto !important;
       }
+      
     }
   </style>
 </head>
 
 <body id="kt_app_body" data-kt-app-layout="light-header" data-kt-app-page-loading-enabled="true"
   data-kt-app-page-loading="on" class="app-default">
-  <!-- Page Loader -->
   <?php include(__DIR__ . "/partials/_page-loader.php"); ?>
 
   <div class="d-flex flex-column flex-root app-root" id="kt_app_root">
@@ -294,10 +415,8 @@ include(__DIR__ . "/partials/_footer.php");
     </div>
   </div>
   <?php include(__DIR__ . "/partials/_scrolltop.php"); ?>
-  <!-- Metronic Core JS -->
   <script src="<?php echo htmlspecialchars($GCO_BASE); ?>assets/plugins/global/plugins.bundle.js"></script>
   <script src="<?php echo htmlspecialchars($GCO_BASE); ?>assets/js/scripts.bundle.v2.01.js"></script>
-  <!-- Swiper JS -->
   <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
   <script src="<?php echo htmlspecialchars($GCO_BASE); ?>assets/js/gco-landing.js"></script>
 </body>

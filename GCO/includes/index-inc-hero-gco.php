@@ -1,17 +1,13 @@
 <section class="bg-gco overflow-hidden position-relative z-index-0">
 
-  <!-- Background Gradient Blobs & Decorative Circles -->
   <div class="position-absolute w-100 h-100 top-0 start-0 overflow-hidden z-index-0 pe-none">
-    <!-- Top right blob -->
     <div class="position-absolute bg-primary rounded-circle blur-3 justify-content-center align-items-center"
       style="width: 30vw; height: 30vw; top: -5vw; right: -15vw; opacity: 0.1; filter: blur(60px); mix-blend-mode: multiply;">
     </div>
-    <!-- Bottom left blob -->
     <div class="position-absolute bg-danger rounded-circle blur-3"
       style="width: 25vw; height: 25vw; bottom: 0; left: -10vw; opacity: 0.1; filter: blur(60px); mix-blend-mode: multiply;">
     </div>
 
-    <!-- Decorative translucent circles -->
     <span class="position-absolute rounded-circle" style="width: 150px; height: 150px; top: 10%; left: -2%; background: rgba(255,255,255,0.08);"></span>
     <span class="position-absolute rounded-circle" style="width: 200px; height: 200px; bottom: 5%; right: -5%; background: rgba(255,255,255,0.08);"></span>
     <span class="position-absolute rounded-circle d-none d-lg-block" style="width: 80px; height: 80px; top: 40%; right: 10%; background: rgba(255,255,255,0.05);"></span>
@@ -20,7 +16,6 @@
   <div class="container-xxl pt-12 pb-20 pb-lg-20 position-relative z-index-1">
     <div class="row align-items-center gy-10">
 
-      <!-- Text content -->
       <div class="col-lg-6 pe-lg-10 hero-copy">
         <span
           class="badge bg-white bg-opacity-20 text-white border border-white border-opacity-25 fs-9 ls-2 text-uppercase fw-bolder py-2 px-4 mb-4 rounded-1">
@@ -35,7 +30,7 @@
           through innovative programs and services. It provides a safe and confidential space where students can openly
           discuss personal, academic, or career concerns.
         </p>
-        <div class="d-flex flex-wrap gap-4 mb-10">
+        <div class="d-flex flex-wrap gap-4 mb-10 position-relative z-index-2">
           <a href="#services" class="btn bg-white gco-btn-primary d-inline-flex align-items-center gap-2
                     rounded-1 px-6 py-3 fw-bolder fs-7
                     text-decoration-none shadow-sm btn-hover-scale">
@@ -85,11 +80,24 @@
         </div>
       </div>
 
-      <!-- Hero Animation -->
-      <div class="col-lg-6 position-relative d-flex justify-content-end align-items-end mt-10 mt-lg-0 overflow-visible align-self-stretch min-h-400px">
-        <dotlottie-wc src="assets/animations/mental-health-hero.lottie"
-          class="hero-lottie-asset" 
-          autoplay loop></dotlottie-wc>
+      <div class="col-lg-6 position-relative d-flex justify-content-end align-items-end mt-10 mt-lg-0 overflow-visible align-self-stretch min-h-400px hero-visual">
+        <div class="hero-art" aria-hidden="true">
+          <img class="hero-leaves hero-leaves-left" src="assets/svg/leaf-left.svg" alt="">
+          <img class="hero-leaf-light" src="assets/svg/leaf-light.svg" alt="">
+          <img class="hero-leaf-light hero-leaf-light-right" src="assets/svg/leaf-light.svg" alt="">
+          <img class="hero-leaves hero-leaves-right" src="assets/svg/leaf-right.svg" alt="">
+
+          <img src="assets/images/mental-health-head.png" class="hero-head" alt="Mental health illustration with a brain and medical symbols">
+
+          <span class="hero-floating-icon hero-heart-icon" aria-hidden="true">
+            <img src="assets/svg/heart.svg" alt="">
+          </span>
+          <span class="hero-floating-icon hero-plus-icon" aria-hidden="true">
+            <img src="assets/svg/plus.svg" alt="">
+          </span>
+          <img class="hero-gear hero-gear-left" src="assets/svg/gear.svg" alt="">
+          <img class="hero-gear hero-gear-right" src="assets/svg/gear.svg" alt="">
+        </div>
       </div>
 
     </div>
