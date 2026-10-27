@@ -17,27 +17,27 @@
     <span class="position-absolute rounded-circle d-none d-lg-block" style="width: 80px; height: 80px; top: 40%; right: 10%; background: rgba(255,255,255,0.05);"></span>
   </div>
 
-  <div class="container-xxl pt-20 pb-20 pb-lg-20 position-relative z-index-1">
+  <div class="container-xxl pt-12 pb-20 pb-lg-20 position-relative z-index-1">
     <div class="row align-items-center gy-10">
 
       <!-- Text content -->
-      <div class="col-lg-6 pe-lg-10">
+      <div class="col-lg-6 pe-lg-10 hero-copy">
         <span
-          class="badge bg-white bg-opacity-20 text-white border border-white border-opacity-25 fs-8 ls-2 text-uppercase fw-bolder py-3 px-5 mb-6 rounded-1">
+          class="badge bg-white bg-opacity-20 text-white border border-white border-opacity-25 fs-9 ls-2 text-uppercase fw-bolder py-2 px-4 mb-4 rounded-1">
           Student Counseling &amp; Support
         </span>
-        <h1 class="fw-bolder fs-3x fs-lg-4x lh-sm mb-6">
+        <h1 class="fw-bolder fs-1x fs-lg-2x lh-sm mb-4">
           <span class="opacity-75">Your Mental Health</span><br>
           <span>Matters</span>
         </h1>
-        <p class="opacity-75 fs-4 mb-10 mw-500px">
+        <p class="opacity-75 fs-6 mb-6 mw-400px">
           The Guidance and Counseling Office (GCO) supports students’ emotional, social, and psychological well-being
           through innovative programs and services. It provides a safe and confidential space where students can openly
           discuss personal, academic, or career concerns.
         </p>
         <div class="d-flex flex-wrap gap-4 mb-10">
           <a href="#services" class="btn bg-white gco-btn-primary d-inline-flex align-items-center gap-2
-                    rounded-1 px-8 py-4 fw-bolder fs-6
+                    rounded-1 px-6 py-3 fw-bolder fs-7
                     text-decoration-none shadow-sm btn-hover-scale">
             <i class="ki-duotone ki-calendar-2 fs-4 text-white">
               <span class="path1"></span><span class="path2"></span>
@@ -45,8 +45,8 @@
             </i>
             Schedule a Session
           </a>
-          <a href="#how-it-works" class="btn btn-outline-light d-inline-flex align-items-center gap-2 rounded-1 px-8 py-4
-                    fw-bolder fs-6 text-decoration-none btn-hover-scale">
+          <a href="#how-it-works" class="btn btn-outline-light d-inline-flex align-items-center gap-2 rounded-1 px-6 py-3
+                    fw-bolder fs-7 text-decoration-none btn-hover-scale">
             Learn More
           </a>
         </div>
@@ -65,8 +65,8 @@
               </div>
             </div>
             <div>
-              <div class="fw-bolder fs-6 lh-1 mb-1">Join 1000+ students</div>
-              <div class="opacity-75 fw-semibold fs-8">taking care of their mental health</div>
+              <div class="fw-bolder fs-7 lh-1 mb-1">Join 1000+ students</div>
+              <div class="opacity-75 fw-semibold fs-9">taking care of their mental health</div>
             </div>
           </div>
 
@@ -78,8 +78,8 @@
               </span>
             </div>
             <div>
-              <div class="fw-bolder fs-6 lh-1 mb-1">Follow GCO Connect</div>
-              <div class="opacity-75 fw-semibold fs-8">Updates and student support</div>
+              <div class="fw-bolder fs-7 lh-1 mb-1">Follow GCO Connect</div>
+              <div class="opacity-75 fw-semibold fs-9">Updates and student support</div>
             </div>
           </a>
         </div>
@@ -87,7 +87,7 @@
 
       <!-- Hero Animation -->
       <div class="col-lg-6 position-relative d-flex justify-content-end align-items-end mt-10 mt-lg-0 overflow-visible align-self-stretch min-h-400px">
-        <dotlottie-wc src="https://lottie.host/84aa7bc7-fe43-496a-ad74-34609f4dbaca/cJSnR5USDS.lottie"
+        <dotlottie-wc src="assets/animations/mental-health-hero.lottie"
           class="hero-lottie-asset" 
           autoplay loop></dotlottie-wc>
       </div>

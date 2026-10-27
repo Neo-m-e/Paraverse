@@ -151,13 +151,26 @@ $META_DESC = $gcoData['meta']['description'];
 
   <style>
     .hero-lottie-asset {
-      width: 900px;
-      height: 900px;
+      width: 950px;
+      height: 660px;
       position: absolute;
-      right: -210px;
-      bottom: -263px;
+      right: -190px;
+      bottom: -125px;
       pointer-events: none;
       z-index: 0;
+    }
+
+    /* Keep the hero typography compact so it fits beside the animation.
+       Scoped only to this section to avoid changing the other landing sections. */
+    .hero-copy h1,
+    .hero-copy h1[class*="fs-"] {
+      font-size: clamp(2rem, 2.7vw, 2.5rem) !important;
+    }
+
+    .hero-copy p,
+    .hero-copy p[class*="fs-"] {
+      font-size: 0.9rem !important;
+      line-height: 1.45;
     }
 
     .hover-scale {
@@ -207,19 +220,19 @@ $META_DESC = $gcoData['meta']['description'];
 
     @media (max-width: 1400px) {
       .hero-lottie-asset {
-        width: 800px;
-        height: 800px;
-        right: -180px;
-        bottom: -230px;
+        width: 760px;
+        height: 530px;
+        right: -130px;
+        bottom: -115px;
       }
     }
 
     @media (max-width: 1200px) {
       .hero-lottie-asset {
-        width: 700px;
-        height: 700px;
-        right: -150px;
-        bottom: -200px;
+        width: 680px;
+        height: 475px;
+        right: -60px;
+        bottom: -110px;
       }
     }
 
