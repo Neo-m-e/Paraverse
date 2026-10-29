@@ -18,7 +18,7 @@ $adminRows[] = ['id' => 'EDITH-2601-3016-4729-68BF', 'name' => 'Scientific Calcu
 
 <div class="d-flex flex-wrap justify-content-between align-items-center gap-4 mb-8">
   <div>
-    <a href="<?= $LAF_BASE_URL ?>/" class="btn btn-sm btn-light mb-4"><i class="bi bi-arrow-left me-2"></i>Public Site</a>
+    <a href="<?= $LAF_BASE_URL ?>/discover.php" class="btn btn-sm btn-light mb-4"><i class="bi bi-arrow-left me-2"></i>Public Site</a>
     <h1 class="text-gray-900 fw-bold fs-2 mb-1">Lost and Found Items</h1>
     <span class="text-muted fs-7">Manage surrendered items and their current status.</span>
   </div>
