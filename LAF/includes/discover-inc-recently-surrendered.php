@@ -23,17 +23,16 @@ $recentItems = array_slice($surrenderedItems, 0, 6);
         <?php $itemFolder = $item['status'] === 'Claimed' ? 'all-claimed' : 'all-unclaimed'; ?>
         <div class="col">
           <a href="<?= $LAF_BASE_URL ?>/<?= $itemFolder ?>/?id=<?= urlencode($item['id']) ?>" class="card card-bordered card-flush hover-elevate-up h-100 overflow-hidden text-gray-800 text-hover-primary">
-            <div class="h-125px bg-light-<?= $color ?> d-flex align-items-center justify-content-center p-4">
-              <div class="symbol symbol-100px">
-                <img src="<?= htmlspecialchars($item['image']) ?>" class="object-fit-contain" alt="<?= htmlspecialchars($item['name']) ?>">
-              </div>
+            <div class="position-relative h-125px overflow-hidden">
+              <img src="<?= htmlspecialchars($item['image']) ?>" class="w-100 h-100 object-fit-cover" alt="<?= htmlspecialchars($item['name']) ?>">
+              <div class="position-absolute top-0 start-0 w-100 h-100 bg-<?= $color ?> opacity-25"></div>
             </div>
             <div class="card-body p-4">
               <span class="badge badge-light-<?= $color ?> mb-3"><?= htmlspecialchars($item['category']) ?></span>
               <div class="fw-bold text-gray-900 fs-7 mb-2"><?= htmlspecialchars($item['name']) ?></div>
               <div class="d-flex align-items-center gap-2">
-                <span class="d-inline-block w-75px h-10px bg-gray-300 rounded"></span>
-                <span class="d-inline-block w-50px h-10px bg-gray-300 rounded"></span>
+                <span class="discover-protected-field" data-item-id="<?= htmlspecialchars($item['id']) ?>" data-field="date" data-value="<?= htmlspecialchars($item['date']) ?>"></span>
+                <span class="discover-protected-field" data-item-id="<?= htmlspecialchars($item['id']) ?>" data-field="time" data-value="<?= htmlspecialchars($item['time']) ?>"></span>
               </div>
             </div>
           </a>
@@ -42,3 +41,18 @@ $recentItems = array_slice($surrenderedItems, 0, 6);
     </div>
   </div>
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  document.querySelectorAll('.discover-protected-field').forEach(function (field) {
+    var key = 'laf-visibility-' + field.dataset.itemId + '-' + field.dataset.field;
+    if (localStorage.getItem(key) === 'visible') {
+      field.textContent = field.dataset.value;
+      field.className = 'discover-protected-field text-muted fs-9';
+    } else {
+      var width = field.dataset.field === 'date' ? 'w-75px' : 'w-50px';
+      field.textContent = '';
+      field.className = 'discover-protected-field d-inline-block ' + width + ' h-10px bg-gray-300 rounded';
+    }
+  });
+});
+</script>

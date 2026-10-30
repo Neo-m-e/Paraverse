@@ -10,26 +10,28 @@
       </a>
     </div>
 
-    <div class="d-flex align-items-stretch justify-content-end flex-lg-grow-1" id="kt_app_header_wrapper">
-      <div class="app-header-menu app-header-mobile-drawer align-items-stretch"
-        data-kt-drawer="true" data-kt-drawer-name="app-header-menu"
-        data-kt-drawer-activate="{default: true, lg: false}" data-kt-drawer-overlay="true"
-        data-kt-drawer-width="250px" data-kt-drawer-direction="end"
-        data-kt-drawer-toggle="#kt_app_header_menu_toggle" data-kt-swapper="true"
-        data-kt-swapper-mode="{default: 'append', lg: 'prepend'}"
-        data-kt-swapper-parent="{default: '#kt_app_body', lg: '#kt_app_header_wrapper'}">
-        <div class="menu menu-rounded menu-column menu-lg-row my-5 my-lg-0 align-items-stretch fw-semibold px-2 px-lg-0"
-          id="kt_app_header_menu" data-kt-menu="true">
-          <div class="menu-item me-0 me-lg-2"><a href="<?= $LAF_BASE_URL ?>/#laf-hero" class="menu-link"><span class="menu-title">Home</span></a></div>
-          <div class="menu-item me-0 me-lg-2"><a href="<?= $LAF_BASE_URL ?>/#laf-getting-started" class="menu-link"><span class="menu-title">How It Works</span></a></div>
-          <div class="menu-item me-0 me-lg-2"><a href="<?= $LAF_BASE_URL ?>/#laf-built" class="menu-link"><span class="menu-title">Features</span></a></div>
-          <div class="menu-item me-0 me-lg-2"><a href="<?= $LAF_BASE_URL ?>/#laf-recently-surrendered" class="menu-link"><span class="menu-title">Surrendered Items</span></a></div>
-        </div>
-      </div>
-
+    <div class="d-flex align-items-stretch justify-content-end" id="kt_app_header_wrapper">
       <div class="app-navbar flex-shrink-0 align-items-center">
         <div class="app-navbar-item ms-1 ms-md-3">
-          <a href="<?= $LAF_BASE_URL ?>/discover.php" class="btn btn-sm btn-primary">Open Lost &amp; Found</a>
+          <a href="<?= $LAF_BASE_URL ?>/discover.php" class="btn btn-sm btn-light-primary">Lost &amp; Found</a>
+        </div>
+        <div class="app-navbar-item ms-1 ms-md-3">
+          <a href="<?= $LAF_ADMIN_URL ?>/" class="btn btn-sm btn-primary">Admin</a>
+        </div>
+        <div class="app-navbar-item ms-1 ms-md-3">
+          <div class="btn btn-icon btn-custom btn-icon-muted btn-active-light btn-active-color-primary w-30px h-30px w-md-40px h-md-40px">
+            <i class="bi bi-bell-fill fs-5"></i>
+          </div>
+        </div>
+        <div class="app-navbar-item ms-1 ms-md-3 position-relative">
+          <?php
+          $dropdownPartial = __DIR__ . '/_profile-dropdown.php';
+          if (file_exists($dropdownPartial)) {
+            include($dropdownPartial);
+          } else {
+            echo '<img src="' . $LAF_BASE_URL . '/assets/images/catalina.webp" class="rounded-circle w-40px h-40px" alt="user">';
+          }
+          ?>
         </div>
         <div class="d-none">
           <?php

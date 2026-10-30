@@ -1,4 +1,4 @@
-<section id="laf-cta" class="py-15 py-lg-20">
+<section id="laf-cta" class="bg-light-primary bgi-no-repeat bgi-position-center bgi-size-cover py-15 py-lg-20" style="background-image: url('/assets/media/patterns/header-bg.png')">
   <div class="app-container container-xxl">
     <div class="card bg-gray-900 overflow-hidden">
       <div class="card-body text-center p-10 p-lg-15">

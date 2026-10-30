@@ -1,4 +1,4 @@
-<section id="laf-how-to-turn-in" class="py-15 py-lg-20">
+<section id="laf-how-to-turn-in" class="bg-white bgi-no-repeat bgi-position-center bgi-size-cover py-15 py-lg-20" style="background-image: url('/assets/media/patterns/header-bg.png')">
   <div class="app-container container-xxl">
     <div class="row align-items-center g-10">
       <div class="col-lg-5 order-2 order-lg-1 text-center">

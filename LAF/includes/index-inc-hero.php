@@ -1,4 +1,4 @@
-<section id="laf-hero" class="bg-light-primary py-15 py-lg-20 overflow-hidden">
+<section id="laf-hero" class="bg-light-primary bgi-no-repeat bgi-position-center bgi-size-cover py-15 py-lg-20 overflow-hidden" style="background-image: url('/assets/media/patterns/header-bg.png')">
   <div class="app-container container-xxl">
     <div class="row align-items-center g-10">
       <div class="col-lg-6">
@@ -24,7 +24,7 @@
           <div class="symbol symbol-125px symbol-circle position-absolute top-50 start-50 translate-middle opacity-25">
             <span class="symbol-label bg-primary"></span>
           </div>
-          <img src="<?= $LAF_BASE_URL ?>/assets/images/3d2.png" class="position-relative mw-100 h-400px object-fit-contain" alt="Lost and Found 3D illustration">
+          <img id="laf-hero-image" src="<?= $LAF_BASE_URL ?>/assets/images/3d2.png" class="position-relative mw-100 h-400px object-fit-contain" alt="Lost and Found 3D illustration">
 
           <div class="card card-bordered position-absolute top-0 end-0 d-none d-md-block">
             <div class="card-body d-flex align-items-center p-4">
@@ -44,3 +44,13 @@
     </div>
   </div>
 </section>
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  var image = document.getElementById('laf-hero-image');
+  if (!image) return;
+  image.animate(
+    [{ transform: 'translateY(-10px)' }, { transform: 'translateY(10px)' }],
+    { duration: 2400, iterations: Infinity, direction: 'alternate', easing: 'ease-in-out' }
+  );
+});
+</script>

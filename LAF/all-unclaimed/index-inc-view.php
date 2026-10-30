@@ -12,7 +12,7 @@
 </div>
 <div class="row row-cols-1 row-cols-lg-2 g-5">
   <?php foreach ($unclaimedItems as $row): ?>
-  <div class="col item-row" data-search="<?= strtolower(htmlspecialchars($row['name'] . ' ' . $row['category'])) ?>">
+  <div class="col item-row" data-search="<?= strtolower(htmlspecialchars($row['name'] . ' ' . $row['category'] . ' ' . $row['floor'])) ?>">
     <a href="?id=<?= urlencode($row['id']) ?>" class="card card-bordered hover-elevate-up h-100 text-gray-800 text-hover-primary">
       <div class="card-body d-flex align-items-center gap-5 p-5">
         <div class="symbol symbol-100px flex-shrink-0"><img src="<?= htmlspecialchars($row['image']) ?>" class="object-fit-cover" alt="<?= htmlspecialchars($row['name']) ?>"></div>
@@ -20,10 +20,7 @@
           <span class="badge badge-light-warning mb-3">Unclaimed</span>
           <div class="fw-bold fs-4 mb-2"><?= htmlspecialchars($row['name']) ?></div>
           <div class="text-muted fs-7 mb-1"><i class="bi bi-tag me-2"></i><?= htmlspecialchars($row['category']) ?></div>
-          <div class="d-flex align-items-center gap-2">
-            <i class="bi bi-geo-alt text-muted"></i>
-            <span class="d-inline-block w-125px h-10px bg-gray-300 rounded"></span>
-          </div>
+          <div class="text-muted fs-7"><i class="bi bi-geo-alt me-2"></i><?= htmlspecialchars($row['floor']) ?></div>
         </div>
         <i class="ki-duotone ki-right fs-2 text-gray-500"><span class="path1"></span><span class="path2"></span></i>
       </div>
@@ -99,20 +96,33 @@ document.getElementById('item-search').addEventListener('input', function () {
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
+  var itemId = <?= json_encode($item['id']) ?>;
+
   document.querySelectorAll('.reveal-value').forEach(function (button) {
+    var value = document.getElementById(button.dataset.target);
+    var fieldName = button.dataset.target.replace('protected-', '');
+    var storageKey = 'laf-visibility-' + itemId + '-' + fieldName;
+
+    if (localStorage.getItem(storageKey) === 'visible') {
+      value.textContent = value.dataset.value;
+      value.className = 'protected-value text-gray-800 fw-semibold';
+      button.innerHTML = '<i class="bi bi-eye-slash"></i>';
+    }
+
     button.addEventListener('click', function () {
-      var value = document.getElementById(button.dataset.target);
       var hidden = value.classList.contains('bg-gray-300');
 
       if (hidden) {
         value.textContent = value.dataset.value;
         value.className = 'protected-value text-gray-800 fw-semibold';
         button.innerHTML = '<i class="bi bi-eye-slash"></i>';
+        localStorage.setItem(storageKey, 'visible');
       } else {
         var widthClass = value.dataset.placeholderClass;
         value.textContent = '';
         value.className = 'protected-value d-inline-block ' + widthClass + ' h-15px bg-gray-300 rounded';
         button.innerHTML = '<i class="bi bi-eye"></i>';
+        localStorage.setItem(storageKey, 'hidden');
       }
     });
   });

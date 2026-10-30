@@ -14,7 +14,7 @@ $landingItems = [
 ];
 ?>
 
-<section id="laf-recently-surrendered" class="bg-light py-15 py-lg-20">
+<section id="laf-recently-surrendered" class="bg-light-primary bgi-no-repeat bgi-position-center bgi-size-cover py-15 py-lg-20" style="background-image: url('/assets/media/patterns/header-bg.png')">
   <div class="app-container container-xxl">
     <div class="text-center mb-10">
       <span class="badge badge-light-primary mb-3">JUST DROPPED OFF</span>
